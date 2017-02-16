@@ -16,7 +16,7 @@ module.exports = {
     devServer:{inline:true},
     module: {
         loaders: [
-            { test: /\.js$/, exclude: /node_modules/, loader: ['babel-loader'] }
+            {test: /\.js$/, loaders: [ "babel-loader", "eslint-loader" ], exclude: /node_modules/},
         ],
         rules: [{
             test: /\.scss$/,
@@ -50,10 +50,10 @@ module.exports = {
                 }
             }
         })
-    ],
-    eslint: {
-        formatter: require('eslint-friendly-formatter'),
-        failOnWarning: false,
-        failOnError: true
-    },
+    ]
+    // eslint: {
+    //     formatter: require('eslint-friendly-formatter'),
+    //     failOnWarning: false,
+    //     failOnError: true
+    // },
 };

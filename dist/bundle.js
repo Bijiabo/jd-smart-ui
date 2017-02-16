@@ -63,82 +63,20 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
-
-module.exports = window.$;
-
-/***/ }),
-/* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return test; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return Point; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return switchCell; });
-/**
- * Created by huchunbo on 2017/2/10.
- */
-var $ = __webpack_require__(0);
-var test = {name: 'test'};
-
-test.appendElement = function() {
-    console.log('xxxxxx');
-    $('body').append('<h1>Hello, test!!!09</h1>');
-    console.error('noxxxx!!! xnxxoxxxxx xxx');
-    test.name = 'xxxxxx001x';
-};
-
-class Point {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y
-    }
-
-    toString() {
-        return '(' + this.x + ', ' + this.y + ')';
-    }
-}
-
-class UI {
-    constructor(domId) {
-        this.domId = domId;
-    }
-
-    toString() {
-        return this.domId;
-    }
-}
-
-class switchCell extends UI {
-    constructor(domId) {
-        super(domId);
-
-        this.dom = $('#' + domId);
-        this.tagName = this.dom.prop('tagName');
-        this.dom.html('<h2>switch cell</h2><p>'+this.tagName+'</p>');
-
-    }
-}
-
-// module.exports = test;
-
-
-/***/ }),
-/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(4);
+var content = __webpack_require__(3);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(6)(content, {});
+var update = __webpack_require__(5)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -155,7 +93,7 @@ if(false) {
 }
 
 /***/ }),
-/* 3 */
+/* 1 */
 /***/ (function(module, exports) {
 
 var g;
@@ -182,10 +120,16 @@ module.exports = g;
 
 
 /***/ }),
-/* 4 */
+/* 2 */
+/***/ (function(module, exports) {
+
+module.exports = window.$;
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(5)();
+exports = module.exports = __webpack_require__(4)();
 // imports
 
 
@@ -196,7 +140,7 @@ exports.push([module.i, "@charset \"UTF-8\";\nhtml {\n  box-sizing: border-box; 
 
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports) {
 
 /*
@@ -252,7 +196,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports) {
 
 /*
@@ -504,13 +448,13 @@ function updateLink(linkElement, obj) {
 
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_test__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__style_basic_scss__ = __webpack_require__(2);
+throw new Error("Cannot find module \"./../components/test\"");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__style_basic_scss__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__style_basic_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__style_basic_scss__);
 /**
  * Created by huchunbo on 2017/2/10.
@@ -518,25 +462,25 @@ function updateLink(linkElement, obj) {
 
 
 
-var $ = __webpack_require__(0);
+var $ = __webpack_require__(2);
 
 $(function(){
     console.log($('body'));
-    console.log(__WEBPACK_IMPORTED_MODULE_0__components_test__["a" /* test */]);
-    __WEBPACK_IMPORTED_MODULE_0__components_test__["a" /* test */].appendElement();
-    console.log(__WEBPACK_IMPORTED_MODULE_0__components_test__["a" /* test */]);
+    console.log(__WEBPACK_IMPORTED_MODULE_0__components_test__["test"]);
+    __WEBPACK_IMPORTED_MODULE_0__components_test__["test"].appendElement();
+    console.log(__WEBPACK_IMPORTED_MODULE_0__components_test__["test"]);
 
-    let point = new __WEBPACK_IMPORTED_MODULE_0__components_test__["b" /* Point */](1, 1);
+    let point = new __WEBPACK_IMPORTED_MODULE_0__components_test__["Point"](1, 1);
     console.log(point.toString());
 
-    global.Point = __WEBPACK_IMPORTED_MODULE_0__components_test__["b" /* Point */];
-    global.UI = { switchCell: __WEBPACK_IMPORTED_MODULE_0__components_test__["c" /* switchCell */], };
+    global.Point = __WEBPACK_IMPORTED_MODULE_0__components_test__["Point"];
+    global.UI = { switchCell: __WEBPACK_IMPORTED_MODULE_0__components_test__["switchCell"], };
 
     let powerCell = new UI.switchCell('power', {
         title: 'power'
     });
 });
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ })
 /******/ ]);

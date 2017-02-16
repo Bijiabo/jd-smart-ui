@@ -1,24 +1,29 @@
 /**
  * Created by huchunbo on 2017/2/10.
  */
-import {test, Point, switchCell} from './../components/test';
-import '../style/basic.scss';
+// import {test, Point, switchCell} from './../components/test';
+// import '../style/basic.scss';
 
-var $ = require('jquery');
+import x from './sec.js';
 
-$(function(){
-    console.log($('body'));
-    console.log(test);
-    test.appendElement();
-    console.log(test);
+document.write(x);
 
-    let point = new Point(1, 1);
-    console.log(point.toString());
+// document.write("hello world");
+// var $ = require('jquery');
 
-    global.Point = Point;
-    global.UI = { switchCell, };
+// $(function(){
+//     console.log($('body'));
+//     console.log(test);
+//     test.appendElement();
+//     console.log(test);
 
-    let powerCell = new UI.switchCell('power', {
-        title: 'power'
-    });
-});
+//     let point = new Point(1, 1);
+//     console.log(point.toString());
+
+//     global.Point = Point;
+//     global.UI = { switchCell, };
+
+//     let powerCell = new UI.switchCell('power', {
+//         title: 'power'
+//     });
+// });
