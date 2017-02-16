@@ -6,7 +6,7 @@ import '../style/basic.scss';
 import UI from '../component/core';
 
 const power = new UI.Switch('sw',{
-    title:"1"
+    title : "1"
 })
 
 power.say();
