@@ -13,6 +13,9 @@ module.exports = {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist')
     },
+    resolve: {
+        extensions: ['.js', '.jsx', '.css', '.scss']
+    },
     devServer:{inline:true},
     module: {
         loaders: [
