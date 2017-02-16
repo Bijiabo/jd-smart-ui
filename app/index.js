@@ -4,7 +4,7 @@
 // import {test, Point, switchCell} from './../components/test';
 // import '../style/basic.scss';
 
-import x from './sec.js';
+import x from './sec';
 
 document.write(x);
 
