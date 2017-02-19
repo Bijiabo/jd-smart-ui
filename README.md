@@ -15,3 +15,25 @@ npm install
 ```bash
 npm run dev
 ```
+
+## 通用方法：
+
+```JavaScript
+var listItem = new FISH.UI.ListItem({...});
+
+listItem.show();
+listItem.hide();
+listItem.visibility;
+
+listItem.enable();
+listItem.disable();
+listItem.isEnabled;
+listItem.isDisabled;
+
+listItem.dom;
+
+listItem.value = '2';
+listItem.value; // '2'
+listItem.updateValue('2');
+
+```
