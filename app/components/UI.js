@@ -11,13 +11,13 @@ export default class UI {
         $(this.options.hook).hide();
     };
     enable() {
-
+        $(this.options.hook).find(".meng").hide();
     };
     disabled() {
-
+        $(this.options.hook).find(".meng").show();
     };
     get isEnabled() {
-
+        
     };
     get isDisabled() {
 
