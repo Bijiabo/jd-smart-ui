@@ -5,7 +5,7 @@ var path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-    entry: './app/index.js',
+    entry: './app/main.js',
     externals: {
         jquery: 'window.$'
     },
@@ -35,28 +35,16 @@ module.exports = {
                     includePaths: ["node_modules"]
                 }
             }]
+        },{
+                enforce: 'pre',
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: [{
+                    loader: 'eslint-loader', 
+                    query: {
+                        configFile: './.eslintrc'
+                    },
+                }],
         }]
-    },
-    // eslint: {
-    //     failOnWarning: false,
-    //     failOnError: true
-    // },
-    plugins: [
-        new webpack.LoaderOptionsPlugin({
-            test: /\.js$/,
-            enforce: 'pre',
-            exclude: /node_modules/,
-            options: {
-                eslint: {
-                    /* your eslint loader config */
-                    configFile: './.eslintrc'
-                }
-            }
-        })
-    ]
-    // eslint: {
-    //     formatter: require('eslint-friendly-formatter'),
-    //     failOnWarning: false,
-    //     failOnError: true
-    // },
+    }
 };
