@@ -16,22 +16,17 @@ var $ = require("jquery");
 class ListItem extends UI{
     constructor(options){
         super(options);
-        this.create();
     }
 
     create(){
-
         super.create();
-
         const hook = this.options.hook;
-
         const gridNum = this.options.gridNum;
         let _map = this.options.map;
         const remainder = _map.length % gridNum;
         if (remainder !== 0) {
             const additionalArrayForMap = new Array(gridNum - remainder).fill(false);
             _map = _map.concat(additionalArrayForMap);
-            console.log(_map);
         }
 
         let html = '';
@@ -78,17 +73,15 @@ class ListItem extends UI{
 
         }
         $(hook).append(html);
-        //bindEvent(hook,this.options.change);
     }
 
     _initInteraction() {
         super._initInteraction();
-
         $(document).on(
             'click',
             this._itemSelector,
-            (event, childSelector, data, func, map) =>
-            {
+            (event) =>
+            {   
                 const $this = $(event.currentTarget);
                 const mapIndex = $this.data('map-index');
                 const currentItemData = this.options.map[mapIndex];
@@ -130,13 +123,5 @@ class ListItem extends UI{
     }
 };
 
-function bindEvent(dom,change){
-    let child = $(dom).children("div");
-    for(var i in child){
-        $(".wm"+i).bind("click",function(e){
-            change($(this).attr("cmd"));
-        });
-    }
-}
 
 export default ListItem;

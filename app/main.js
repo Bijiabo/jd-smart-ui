@@ -55,7 +55,6 @@ const listitem = new FISH.UI.ListItem({
             },
         ],
     onClick: (item, index, context) => {
-        console.log(item);
         console.log(`index: ${index}`);
         context.value = item.value;
     }
@@ -66,4 +65,5 @@ listitem.value = '2';
 console.log(listitem.value);
 
 global.listitem = listitem; // debug
+
 
