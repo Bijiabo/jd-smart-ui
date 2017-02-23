@@ -1,4 +1,4 @@
-import UI from './UI';
+import UI from './../core/UI';
 var $ = require('jquery');
 
 /**
@@ -87,5 +87,7 @@ class ListItem extends UI {
     }
 
 }
+
+UI.registerComponent('ListItem', ListItem);
 
 export default ListItem;

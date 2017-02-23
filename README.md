@@ -16,6 +16,47 @@ npm install
 npm run dev
 ```
 
+## 结构
+
+- main.js       入口文件
+- core/UI.js    核心类
+
+## 添加组件
+
+在`app/compinents/`中新建组件文件
+```JavaScript
+import UI from './../core/UI';
+const $ = require("jquery");
+
+class YourComponentClassName extends UI {
+    // ...
+}
+
+// 注册组件，不要漏
+UI.registerComponent('YourComponentName', YourComponentClassName);
+
+export default YourComponentClassName;
+
+```
+
+新建后，运行
+```bash
+npm run build
+```
+
+用户调用你的新组件新建实例：
+```JavaScript
+new JDUI.instance.YourComponentName(selector, options);
+```
+
+## 新建组件实例
+
+```JavaScript
+var selector = '.work-modes';
+var workModeComponentInstance = new JDUI.instance.GridItem(selector, options);
+```
+
+
 ## 通用方法：
 
 ```JavaScript
