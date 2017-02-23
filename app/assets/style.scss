@@ -6,7 +6,7 @@
 }
 
 .ui_wrap div[class~="unit-1-4"],.ui_wrap div[class~="unit-1-3"]{
-    height: 5.5rem;
+    height: 6rem;
     border: 1px solid #eee;
 }
 
@@ -38,6 +38,39 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.list-item-subitem.active {
-  background-color: #FFEA88;
+.wrap{
+    background: #fff;
+}
+
+div[class~="unit-0"]{
+    padding: 8px 10px;
+    border-bottom: 1px solid #eee;
+}
+div[class~="unit-0"] .title{
+    width: 65%;
+    line-height: 30px;
+    padding-left: 10px;
+}
+div[class~="unit-0"] .title .maint{
+    font-size: 16px;
+    line-height: 30px;
+    display: block
+}
+div[class~="unit-0"] .title .maint_nosub{
+    display: block;
+    line-height: 40px;
+}
+div[class~="unit-0"] .title .sub{
+    font-size: 12px;
+    line-height: 12px;
+    display: block;
+}
+
+div[class~="unit-0"] .rightPart{
+    width:25%;
+    font-size: 16px;
+    line-height: 40px;
+}
+div[class~="unit-0"] .rightPart .rightarrow{
+    font-size: 16px;
 }

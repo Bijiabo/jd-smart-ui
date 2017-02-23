@@ -68,12 +68,26 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__switch__ = __webpack_require__(4);
+
+
+var UI = {
+    Switch : __WEBPACK_IMPORTED_MODULE_0__switch__["a" /* default */]
+}
+
+/* unused harmony default export */ var _unused_webpack_default_export = UI;
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(3);
+var content = __webpack_require__(2);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(5)(content, {});
@@ -93,43 +107,10 @@ if(false) {
 }
 
 /***/ }),
-/* 1 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
 /* 2 */
-/***/ (function(module, exports) {
-
-module.exports = window.$;
-
-/***/ }),
-/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(4)();
+exports = module.exports = __webpack_require__(3)();
 // imports
 
 
@@ -140,7 +121,7 @@ exports.push([module.i, "@charset \"UTF-8\";\nhtml {\n  box-sizing: border-box; 
 
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports) {
 
 /*
@@ -194,6 +175,20 @@ module.exports = function() {
 	return list;
 };
 
+
+/***/ }),
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+class Switch{
+    constructor(name,options){
+        this.name = name;
+        this.options = options
+    }
+}
+
+/* harmony default export */ __webpack_exports__["a"] = Switch;
 
 /***/ }),
 /* 5 */
@@ -452,35 +447,18 @@ function updateLink(linkElement, obj) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(global) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-throw new Error("Cannot find module \"./../components/test\"");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__style_basic_scss__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__style_basic_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__style_basic_scss__);
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_basic_scss__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style_basic_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__style_basic_scss__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__component_core__ = __webpack_require__(0);
 /**
  * Created by huchunbo on 2017/2/10.
  */
+// import {test, Point, switchCell} from './../components/test';
 
 
 
-var $ = __webpack_require__(2);
 
-$(function(){
-    console.log($('body'));
-    console.log(__WEBPACK_IMPORTED_MODULE_0__components_test__["test"]);
-    __WEBPACK_IMPORTED_MODULE_0__components_test__["test"].appendElement();
-    console.log(__WEBPACK_IMPORTED_MODULE_0__components_test__["test"]);
-
-    let point = new __WEBPACK_IMPORTED_MODULE_0__components_test__["Point"](1, 1);
-    console.log(point.toString());
-
-    global.Point = __WEBPACK_IMPORTED_MODULE_0__components_test__["Point"];
-    global.UI = { switchCell: __WEBPACK_IMPORTED_MODULE_0__components_test__["switchCell"], };
-
-    let powerCell = new UI.switchCell('power', {
-        title: 'power'
-    });
-});
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
 
 /***/ })
 /******/ ]);

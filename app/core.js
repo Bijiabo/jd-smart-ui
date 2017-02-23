@@ -1,11 +1,12 @@
 import ListItem from './components/ListItem';
-
+import GridItem from './components/GridItem';
 /**
  * 
  */
 const FISH = {
     UI:{
-        ListItem : ListItem
+        ListItem : ListItem,
+        GridItem : GridItem
     },
     TOOLS:{
 

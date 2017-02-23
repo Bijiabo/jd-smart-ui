@@ -8,16 +8,16 @@ export default class UI {
         this._enabled = true;
 
         this.create();
-        this._initInteraction();
+        this.initEventFn();
     }
 
     // 初始化方法
     create() {
-        this._initInteraction();
+        
     }
 
     // 监听交互方法
-    _initInteraction() {
+    initEventFn() {
 
     }
 
@@ -29,6 +29,7 @@ export default class UI {
         $(this.options.hook).hide();
         this._visibility = false;
     };
+
     get visibility() {
         return this._visibility;
     }
@@ -41,6 +42,7 @@ export default class UI {
     };
     get isEnabled() {
         return this._enabled;
+
     };
     get isDisabled() {
         return !this._enabled;
