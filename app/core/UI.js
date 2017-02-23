@@ -59,15 +59,12 @@ class UI {
         this.value = x;
     }
 
-    get value() {
-        return this._value;
+    get value(){
+        return true;
     }
 
-    set value(x) {
-        if (this.beforeSetValue(x)) {
-            this._value = x;
-            this.afterSetValue();
-        }
+    set value(val) {
+        
     }
 
     beforeSetValue(targetValue) {

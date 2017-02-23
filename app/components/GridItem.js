@@ -27,7 +27,7 @@ class GridItem extends UI{
         let _hook = this.options.hook;
         
         if(this.options.value){
-            this.value = this.options.value;
+            this._value = this.options.value;
         }
         
         if(this.options.title){
@@ -35,7 +35,7 @@ class GridItem extends UI{
         }
         html += `<div class="ui_wrap flex-left">`;
         for(let i in _map){
-            if(_map[i].value === this.value){
+            if(_map[i].value === this._value){
                 html += 
                 `<div class="unit-1-${_gridNum} site-box text-center list-item on" 
                                                     data-mode-index = "${_map[i].value}"
@@ -96,7 +96,11 @@ class GridItem extends UI{
         }
     }
     
-    set setValue(val){
+    get value(){
+        return this._value;
+    }
+
+    set value(val){
         this.setValueFn(val);
     }
 
@@ -106,7 +110,7 @@ class GridItem extends UI{
         if(check){
             for(let i in _map){
                 if(_map[i].value === val){
-                    this.value = val;
+                    this._value = val;
                     this.selected(i);
                 }
             }

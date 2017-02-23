@@ -1,6 +1,7 @@
 /**
  * Created by huchunbo on 2017/2/23.
  */
+
 var gridItem = new JDUI.instance.GridItem({
     title: "模式选择",
     hook: ".grid-item-wrap",
