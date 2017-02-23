@@ -1,6 +1,7 @@
 var $ = require("jquery");
 import './assets/style';
 import FISH from './core';
+import JDUI from './JDUI-Core';
 
 const gridItem = new FISH.UI.GridItem({
     title: "模式选择",
@@ -84,7 +85,7 @@ const listitem = new FISH.UI.ListItem({
         console.log(item,context);
     },
     afterTap:()=>{
-        
+
     }
 });
 
