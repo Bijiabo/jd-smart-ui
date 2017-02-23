@@ -8,16 +8,16 @@ export default class UI {
         this._enabled = true;
 
         this.create();
-        this._initInteraction();
+        this.initEventFn();
     }
 
     // 初始化方法
     create() {
-        this._initInteraction();
+        
     }
 
     // 监听交互方法
-    _initInteraction() {
+    initEventFn() {
 
     }
 
