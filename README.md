@@ -64,7 +64,7 @@ var workModeComponentInstance = new JDUI.instance.GridItem(selector, options);
 ## 通用方法：
 
 ```JavaScript
-var listItem = new FISH.UI.ListItem({...});
+var listItem = new JDUI.instance.(selector, {...});
 
 listItem.show();
 listItem.hide();
