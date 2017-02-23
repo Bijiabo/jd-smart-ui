@@ -21,6 +21,10 @@ npm run dev
 - main.js       入口文件
 - core/UI.js    核心类
 
+目前结构草图：
+
+![结构草图](http://okw4n9e5h.bkt.clouddn.com/082712.jpg)
+
 ## 添加组件
 
 在`app/compinents/`中新建组件文件
