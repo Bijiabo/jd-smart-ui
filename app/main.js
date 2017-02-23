@@ -77,14 +77,14 @@ const listitem = new FISH.UI.ListItem({
             rightTitle:""
         }
     ],
-    beforeTap:function(){
+    beforeTap:()=>{
 
     },
-    onTap:function(item,context){
+    onTap:(item,context)=>{
         console.log(item,context);
     },
-    afterTap:function(){
-
+    afterTap:()=>{
+        
     }
 });
 
