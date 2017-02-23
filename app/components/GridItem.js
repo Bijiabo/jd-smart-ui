@@ -103,7 +103,6 @@ class GridItem extends UI{
     setValueFn(val){
         let _map = this.options.map;
         let check = this.checkVal(val,_map);
-        
         if(check){
             for(let i in _map){
                 if(_map[i].value === val){
@@ -115,7 +114,6 @@ class GridItem extends UI{
             throw "error";
         }
     }
-
     checkVal(val,_map){
         let a = false;
         for(let i of _map){
@@ -126,7 +124,9 @@ class GridItem extends UI{
         }
         return a;
     }
-
+    setItemDisabled(map){
+        
+    }
 };
 
 
