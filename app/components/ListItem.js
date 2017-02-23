@@ -91,6 +91,10 @@ class ListItem extends UI{
                 if (this.options.onClick) {
                     this.options.onClick(currentItemData, mapIndex, this);
                 }
+
+                if (this.options.afterClick) {
+                    this.options.afterClick(currentItemData, mapIndex, this);
+                }
             }
         );
     }

@@ -1,4 +1,5 @@
 import ListItem from './components/ListItem';
+// import Grid from './components/Grid';
 
 /**
  * 
@@ -11,5 +12,16 @@ const FISH = {
 
     }
 }
+
+// if (!global.JDUICache) {
+//     global.JDUICache = {};
+// }
+// global.JDUICache.components = [];
+//
+// global.JDUICache.components.push({
+//     name: 'list-item',
+//     class: ListItem
+// });
+
 
 export default FISH;

@@ -1,7 +1,11 @@
 var $ = require("jquery");
 import './assets/style';
 import FISH from './core';
+import JDUI from './JDUI-Core';
 
+global.JDUI = JDUI;
+
+/*
 const listitem = new FISH.UI.ListItem({
     title: "this is title",
     hook: ".ui_wrap_itemlist",
@@ -53,7 +57,7 @@ const listitem = new FISH.UI.ListItem({
                 value: '9',
             },
         ],
-    onClick: (item, index, context) => {
+    onClick(item, index, context) {
         console.log(item);
         console.log(`index: ${index}`);
         context.value = item.value;
@@ -65,3 +69,16 @@ listitem.value = '2';
 console.log(listitem.value);
 
 global.listitem = listitem; // debug
+*/
+
+// test grid
+// const Grid = FISH.UI(
+//     {
+//         id: 'work-mode',
+//         title: 'grid title',
+//         map: [],
+//         onTap(item, index, context) {
+//             // do something...
+//         }
+//     }
+// );
