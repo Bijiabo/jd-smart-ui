@@ -1,6 +1,6 @@
 var $ = require('jquery');
 
-export default class UI {
+class UI {
     constructor(options) {
         this.options = options;
 
@@ -77,4 +77,43 @@ export default class UI {
     afterSetValue() {
 
     }
+
+    // 检测是否有对应的组件
+    static hasComponent(name) {
+        if (global.__JDUICache === undefined || global.__JDUICache.components === undefined) {
+            return false;
+        }
+
+        let hasTargetComponent = !!global.__JDUICache.components[name];
+
+        return hasTargetComponent;
+    }
+
+    // 注册组件方法
+    static registerComponent(componentName, componentClass) {
+        let result = {
+            success: false,
+            error: 'unknow'
+        };
+
+        if (this.hasComponent(componentName)) {
+            result.success = false;
+            result.error = `the component '${componentName}' has been registerted before`;
+            return result;
+        }
+
+        if (global.JDUI) {
+            global.JDUI.instance[componentName] = componentClass;
+        }
+    }
 }
+
+const JDUI = {
+    findComponent: UI.findComponent,
+    hasComponent: UI.hasComponent,
+    registerComponent: UI.registerComponent,
+    instance: {} // new JDUI.instance.componentName
+};
+global.JDUI = JDUI;
+
+export default UI;

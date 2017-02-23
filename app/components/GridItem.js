@@ -1,5 +1,5 @@
-import UI from './UI';
-var $ = require("jquery");
+import UI from './../core/UI';
+const $ = require("jquery");
 
 /**
  *  options中的参数
@@ -130,6 +130,6 @@ class GridItem extends UI{
 };
 
 
-
+UI.registerComponent('GridItem', GridItem);
 
 export default GridItem;
