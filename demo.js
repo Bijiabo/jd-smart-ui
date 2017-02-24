@@ -48,8 +48,16 @@ var gridItem = new JDUI.instance.GridItem({
         text: "模式8",
         value: "9"
     }],
+
+    beforeTap: function(){
+        console.log("before");
+    },
     onTap: function(item, index, content) {
         console.log('下发的值: ' + index);
+    },
+    afterTap: function() {
+        console.log("after");
+
     }
 });
 
@@ -104,3 +112,4 @@ var listitem = new JDUI.instance.ListItem({
 // gridItem.setItemDisabled({
 //     index : ['1','3','5']
 // });
+

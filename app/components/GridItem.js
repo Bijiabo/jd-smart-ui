@@ -155,6 +155,7 @@ class GridItem extends UI {
     }
 };
 
+
 UI.registerComponent('GridItem', GridItem);
 
 export default GridItem;
