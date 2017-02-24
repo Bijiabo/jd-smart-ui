@@ -6,7 +6,7 @@ class UI {
 
         this._visibility = true;
         this._enabled = true;
-
+        this._unclickMap = [];
         this.create();
         this.initEventFn();
     }
@@ -20,61 +20,53 @@ class UI {
     initEventFn() {
 
     }
-
+    //显示
     show() {
         $(this.options.hook).show();
         this._visibility = true;
     };
+    //隐藏
     hide() {
         $(this.options.hook).hide();
         this._visibility = false;
     };
-
+    //可见性
     get visibility() {
         return this._visibility;
     }
-
+    //设置可用
     enable() {
         this._enabled = true;
     };
+    //设置不可用
     disabled() {
         this._enabled = false;
     };
+    //是否可用
     get isEnabled() {
         return this._enabled;
 
     };
+    //是否不可用
     get isDisabled() {
         return !this._enabled;
     };
-
+    
     get dom(){
         return $(this.options.hook);
     };
     get getself(){
         return this;
     };
-
-    updateValue(x) {
-        this.value = x;
-    }
-
     get value(){
         return true;
-    }
-
+    };
     set value(val) {
         
-    }
-
-    beforeSetValue(targetValue) {
-        return true;
-    }
-
-    afterSetValue() {
-
-    }
-
+    };
+    setItemDisabled(map) {
+        this._unclickMap = map.index;
+    };
     // 检测是否有对应的组件
     static hasComponent(name) {
         if (global.__JDUICache === undefined || global.__JDUICache.components === undefined) {
@@ -85,7 +77,6 @@ class UI {
 
         return hasTargetComponent;
     }
-
     // 注册组件方法
     static registerComponent(componentName, componentClass) {
         let result = {

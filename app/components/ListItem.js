@@ -39,24 +39,6 @@ class ListItem extends UI {
                     </div>`;
         }
         $(_hook).append(html);
-
-        $(document).on(
-            'click',
-            this._itemSelector,
-            (event, childSelector, data, func, map) =>
-            {
-                const $this = $(event.currentTarget);
-                const mapIndex = $this.data('map-index');
-                const currentItemData = this.options.map[mapIndex];
-                if (this.options.onClick) {
-                    this.options.onClick(currentItemData, mapIndex, this);
-                }
-
-                if (this.options.afterClick) {
-                    this.options.afterClick(currentItemData, mapIndex, this);
-                }
-            }
-        );
     }
 
     initEventFn() {
