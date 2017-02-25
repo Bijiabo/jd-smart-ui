@@ -25,7 +25,6 @@ class GridItem extends UI {
         let _map = this.options.map;
         let _gridNum = this.options.gridNum;
         let _hook = this.options.hook;
-        let _mapdis = this._unclickMap;
 
 
         if (this.options.value) {
@@ -39,9 +38,8 @@ class GridItem extends UI {
         html += `<div class="ui_wrap flex-left">`;
         for (let i in _map) {
             html +=
-                `<div class="unit-1-${_gridNum} site-box text-center list-item 
-                                    ${ _map[i].value === this._value ? 'on' : '' }
-                                    ${ _mapdis.indexOf(_map[i]) === -1 ? '' : 'disabled'}            
+            `<div class="unit-1-${_gridNum} site-box text-center list-item 
+                                    ${ _map[i].value === this._value ? 'on' : '' }            
                             " 
                                                 data-mode-index = "${_map[i].value}"
                                                 value = "${_map[i].value}"
@@ -132,10 +130,15 @@ class GridItem extends UI {
         return a;
     }
 
-    //has Bug
     setItemDisabled(map) {
-        super.setItemDisabled(map);
-        //this._unclickMap = map.index;
+        let _map = map.index;
+        this._unclickMap = _map;
+        let selector = this.selectorDom();
+        
+        for(let i of _map){
+            let _item = `${selector}[value=${i}]`;
+            $(_item).addClass("disabled");
+        }
     }
 
     disabled(){

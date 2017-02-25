@@ -84,3 +84,149 @@ listItem.value; // '2'
 listItem.updateValue('2');
 
 ```
+
+## 现有组件方法
+
+###GridItem
+
+```JavaScript
+var  GridItem = new JDUI.instance.GridItem(options);
+
+//options 配置
+{
+    title: "模式选择",
+    hook: ".grid-item-wrap",
+    gridNum: '4',
+    value: '0',
+    map: [{
+        icon: "&#xe681;",
+        text: "模式1",
+        value: "0"
+    }, {
+        icon: "&#xe67a;",
+        text: "模式2",
+        value: "1"
+    }, {
+        icon: "&#xe65f;",
+        text: "模式3",
+        value: "2"
+    }, {
+        icon: "&#xe665;",
+        text: "模式4",
+        value: "3"
+    }, {
+        icon: "&#xe67a;",
+        text: "模式5",
+        value: "4"
+    }],
+    beforeTap: function(){
+        console.log("before");
+    },
+    onTap: function(item, index, content) {
+        console.log('下发的值: ' + index);
+    },
+    afterTap: function() {
+        console.log("after");
+
+    }
+}
+
+//可使用的方法
+
+// 设定值
+gridItem.value = '7';
+
+// 设定不可用
+gridItem.disabled();
+
+// 设置可用 
+gridItem.enable();
+
+// 是否可用 boolean
+console.log(gridItem.isEnabled);
+
+// 是否不可用 boolean
+console.log(gridItem.isDisabled);
+
+// 设置可显示 
+gridItem.show();
+
+// 设置不可显示
+gridItem.show();
+
+// 设置某个item不可用
+// 这里的数组为下发的value值
+gridItem.setItemDisabled({
+     index : ['1','3']
+});
+
+```
+### ListItem
+
+```JavaScript
+
+var listitem = new JDUI.instance.ListItem(options);
+
+// options配置
+{
+    title: "列表",
+    hook: ".list-item-wrap",
+    map: [{
+        icon: "&#xe685;",
+        title: "Hello World",
+        subTitle: '',
+        rightTitle: ""
+    }, {
+        icon: "&#xe685;",
+        title: "Hello World2",
+        subTitle: '',
+        rightTitle: ""
+    }],
+    beforeTap: function() {
+
+    },
+    onTap: function(item, context) {
+        console.log(item, context);
+    },
+    afterTap: function() {
+
+    }
+}
+
+//可使用的方法
+
+//设置不可用
+listitem.setItemDisabled({
+   index:['0'] 
+});
+
+//更新item
+listitem.updateItem({
+    index : '1',				//item下标 1表示第二个
+    map:{
+        icon: "&#xe685;",
+        title: "This is Update",
+        subTitle: '',
+        rightTitle: ""
+    }
+});
+
+// 设定不可用
+listitem.disabled();
+
+// 设置可用 
+listitem.enable();
+
+// 是否可用 boolean
+console.log(listitem.isEnabled);
+
+// 是否不可用 boolean
+console.log(listitem.isDisabled);
+
+// 设置可显示 
+listitem.show();
+
+// 设置不可显示
+listitem.show();
+
+```

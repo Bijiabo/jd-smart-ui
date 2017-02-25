@@ -26,7 +26,7 @@ class ListItem extends UI {
 
         for (let i in _map) {
 
-            html += `<div class="unit-0 site-box flex-left list_item" data-index = ${i}>
+            html += `<div class="unit-0 site-box flex-left list_item" data-index = ${i} value = ${i}>
                         <span class="iconfont">${_map[i].icon}</span>
                         <div class="title">
                             <span class="${_map[i].subTitle ? `maint` : `maint_nosub`}">${_map[i].title}</span>
@@ -43,11 +43,17 @@ class ListItem extends UI {
 
     initEventFn() {
         let item = this.selector();
-
         $(document).on('click', item, (e) => {
-            let $this = $(e.currentTarget);
-            let index = $this.data('index');
-            let selected = this.options.map[index];
+            this.fn(e);
+        });
+    }
+
+    fn(e) {
+        let $this = $(e.currentTarget);
+        let index = $this.data('index');
+        let selected = this.options.map[index];
+        let _map = this._unclickMap;
+        if ( _map.indexOf(index.toString()) === -1) {
             if (this.options.beforeTap) {
                 this.options.beforeTap();
             }
@@ -57,17 +63,72 @@ class ListItem extends UI {
             if (this.options.afterTap) {
                 this.options.afterTap();
             }
-        });
+        }
+
     }
 
     selector() {
         return this.options.hook + ' .list_item';
     }
 
-    setItemDisabled(arr){
-        
+    setItemDisabled(arr) {
+        this._unclickMap = arr.index;
+        let _map = arr.index;
+        let _selector = this.selector();
+        for(let i of _map){
+            let _item = `${_selector}[value=${i}]`;
+            $(_item).addClass("disabled");
+        }
+
     }
 
+    updateItem(updateOption){
+        let _index = Number(updateOption.index);
+        let _upMap = updateOption.map;
+        let _curMap = this.options.map;
+        //判断是否含有这个item
+        let has = this.check(_index);
+        if(has){
+            _curMap[_index].icon = _upMap.icon;
+            _curMap[_index].title = _upMap.title;
+            _curMap[_index].subTitle = _upMap.subTitle;
+            _curMap[_index].rightTitle = _upMap.rightTitle;
+            this.refresh();
+        }else{
+            throw `do not has this item ${_index}`;
+        }
+    }
+
+    check(index){
+        let length = this.options.map.length;
+        if(index + 1 > length){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    refresh(){
+        let _hook = this.options.hook;
+        $(_hook).empty();
+        this.create();
+    }
+
+    disabled(){
+        super.disabled();
+        let selector = this.selector();
+        $(selector).addClass("disabled");
+        $(document).off("click",selector);
+    }
+
+    enable(){
+        super.enable();
+        let selector = this.selector();
+        $(selector).removeClass("disabled");
+        $(document).on("click",selector,(e)=>{
+            this.fn(e);
+        });
+    }
 }
 
 UI.registerComponent('ListItem', ListItem);

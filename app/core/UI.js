@@ -3,10 +3,9 @@ var $ = require('jquery');
 class UI {
     constructor(options) {
         this.options = options;
-
+        this._unclickMap = [];
         this._visibility = true;
         this._enabled = true;
-        this._unclickMap = [];
         this.create();
         this.initEventFn();
     }
@@ -64,9 +63,7 @@ class UI {
     set value(val) {
         
     };
-    setItemDisabled(map) {
-        this._unclickMap = map.index;
-    };
+   
     // 检测是否有对应的组件
     static hasComponent(name) {
         if (global.__JDUICache === undefined || global.__JDUICache.components === undefined) {

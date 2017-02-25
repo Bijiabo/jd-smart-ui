@@ -109,7 +109,27 @@ var listitem = new JDUI.instance.ListItem({
 //gridItem.show();
 
 // 设置某个item不可用
+// 这里的数组为下发的value值
 // gridItem.setItemDisabled({
-//     index : ['1','3','5']
+//     index : ['1','3']
 // });
+
+ 
+//设置不可用
+// listitem.setItemDisabled({
+//     index:['0'] 
+// });
+
+listitem.updateItem({
+    index : '1',
+    map:{
+        icon: "&#xe685;",
+        title: "This is Update",
+        subTitle: '',
+        rightTitle: ""
+    }
+});
+
+listitem.disabled();
+
 

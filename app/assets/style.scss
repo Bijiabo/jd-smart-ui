@@ -50,6 +50,9 @@ div[class~="unit-0"]{
     padding: 8px 10px;
     border-bottom: 1px solid #eee;
 }
+div[class~="unit-0"].disabled{
+    opacity: 0.5;
+}
 div[class~="unit-0"] .title{
     width: 65%;
     line-height: 30px;
