@@ -236,3 +236,9 @@ listitem.show();
 页面中的大部分组件均添加面板类(`.panel`)，以模式选择控件举例：
 
 ![](http://okw4n9e5h.bkt.clouddn.com/124512.jpg)
+
+针对不同的项目，可能需要设定不同的主题色，可直接通过`JDUI.style`接口来实现。具体组件中的样式书写可参考`Griditem.js`，需要高亮显示的块或文字添加类`active-block / active-text`即可。
+
+```JavaScript
+JDUI.style.themeColor = '#3E5266';
+```

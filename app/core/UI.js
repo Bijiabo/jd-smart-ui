@@ -1,4 +1,5 @@
 var $ = require('jquery');
+import styleManager from './StyleManager';
 
 class UI {
     constructor(options) {
@@ -97,7 +98,9 @@ const JDUI = {
     findComponent: UI.findComponent,
     hasComponent: UI.hasComponent,
     registerComponent: UI.registerComponent,
-    instance: {} // new JDUI.instance.componentName
+    instance: {}, // new JDUI.instance.componentName
+    _themeColor: '#FF8650',
+    style: styleManager,
 };
 global.JDUI = JDUI;
 

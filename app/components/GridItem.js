@@ -14,6 +14,9 @@ const $ = require("jquery");
  *          }
  *     
  */
+
+const activeClass = 'active-block';
+
 class GridItem extends UI {
 
     constructor(options) {
@@ -39,7 +42,7 @@ class GridItem extends UI {
         for (let i in _map) {
             html +=
             `<div class="unit-1-${_gridNum} site-box text-center list-item 
-                                    ${ _map[i].value === this._value ? 'on' : '' }            
+                                    ${ _map[i].value === this._value ? activeClass : '' }            
                             " 
                                                 data-mode-index = "${_map[i].value}"
                                                 value = "${_map[i].value}"
@@ -90,12 +93,12 @@ class GridItem extends UI {
 
     selected(index, dom) {
         let selector = this.selectorDom();
-        $(selector).removeClass("on");
+        $(selector).removeClass(activeClass);
         if (dom) {
-            $(dom).addClass("on");
+            $(dom).addClass(activeClass);
         } else {
             let selectedItem = `${this.selectorDom()}[value=${index}]`;
-            $(selectedItem).addClass("on");
+            $(selectedItem).addClass(activeClass);
         }
     }
 

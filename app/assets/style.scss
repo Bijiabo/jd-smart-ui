@@ -1,14 +1,31 @@
 @import 'mobi.css/src/mobi';
 
+/* public */
+
 body {
     background-color: #F0F0F0;
 }
+
+.active-block {
+    color: #ffffff;
+}
+
+/* panel */
 
 .panel {
     background-color: #ffffff;
     margin: 8px;
     border-radius: 4px;
     box-shadow: 0 1px 1px 0 rgba(0,0,0,0.08);
+}
+
+.panel-title {
+    height: 60px;
+    padding-left: 12px;
+    padding-right: 12px;
+    line-height: 60px;
+    font-size: 16px;
+    color: #464646;
 }
 
 .ui_wrap{
@@ -30,8 +47,8 @@ body {
 }
 
 .ui_wrap div[class~="unit-1-4"].on{
-    background: #eee;
-    opacity: 0.5;
+    //background: #eee;
+    //opacity: 0.5;
 }
 
 @font-face {

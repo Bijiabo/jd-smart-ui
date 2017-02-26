@@ -133,3 +133,4 @@ listitem.updateItem({
 listitem.disabled();
 
 
+JDUI.style.themeColor = '#3E5266';
