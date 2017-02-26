@@ -32,10 +32,10 @@ class GridItem extends UI {
         }
 
         if (this.options.title) {
-            html += `<div class="wrap_title">` + this.options.title + `</div>`;
+            html += `<div class="panel-title">` + this.options.title + `</div>`;
         }
 
-        html += `<div class="ui_wrap flex-left">`;
+        html += `<div class="panel-body ui_wrap flex-left">`;
         for (let i in _map) {
             html +=
             `<div class="unit-1-${_gridNum} site-box text-center list-item 
@@ -50,6 +50,8 @@ class GridItem extends UI {
             
 
         }
+
+        html = `<div class="panel">${html}</div>`;
         $(_hook).append(html);
     }
 
