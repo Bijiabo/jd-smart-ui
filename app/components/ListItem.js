@@ -18,11 +18,11 @@ class ListItem extends UI {
         let _hook = this.options.hook;
 
         if (this.options.title) {
-            html += `<div class="wrap_title">` + this.options.title + `</div>`;
+            html += `<div class="panel-title">` + this.options.title + `</div>`;
         }
 
         //first line
-        html += `<div class="flex-vertical site-box wrap">`;
+        html += `<div class="panel-body flex-vertical site-box wrap">`;
 
         for (let i in _map) {
 
@@ -38,6 +38,9 @@ class ListItem extends UI {
                         </div>
                     </div>`;
         }
+
+        html = `<div class="panel">${html}</div>`;
+
         $(_hook).append(html);
     }
 
