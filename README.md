@@ -8,16 +8,16 @@
 
 目录：
 
-- [本地开发](#install)
-- [结构](#structure)
-- [添加组件](#add-component)
-- [新建组件实例](#new-instance)
-- [通用方法](#common-functions)
-- [现有组件](#components)
-- [样式开发](#style)
+- [本地开发](#本地开发)
+- [结构](#结构)
+- [添加组件](#添加组件)
+- [新建组件实例](#新建组件实例)
+- [通用方法](#通用方法)
+- [现有组件](#现有组件)
+- [样式开发](#样式开发)
 
 
-## <span id="install">本地开发</span>
+## 本地开发
 
 安装依赖：
 
@@ -31,7 +31,7 @@ npm install
 npm run dev
 ```
 
-## <span id="structure">结构</span>
+## 结构
 
 - main.js       入口文件
 - core/UI.js    核心类
@@ -40,7 +40,7 @@ npm run dev
 
 ![结构草图](http://okw4n9e5h.bkt.clouddn.com/082712.jpg)
 
-## <span id="add-component">添加组件</span>
+## 添加组件
 
 在`app/compinents/`中新建组件文件
 ```JavaScript
@@ -68,7 +68,7 @@ npm run build
 new JDUI.instance.YourComponentName(selector, options);
 ```
 
-## <span id="new-instance">新建组件实例</span>
+## 新建组件实例
 
 ```JavaScript
 var selector = '.work-modes';
@@ -76,7 +76,7 @@ var workModeComponentInstance = new JDUI.instance.GridItem(selector, options);
 ```
 
 
-## <span id="common-functions">通用方法</span>
+## 通用方法
 
 ```JavaScript
 var listItem = new JDUI.instance.(selector, {...});
@@ -98,7 +98,7 @@ listItem.updateValue('2');
 
 ```
 
-## <span id="components">现有组件</span>
+## 现有组件
 
 ###GridItem
 
@@ -244,7 +244,7 @@ listitem.show();
 
 ```
 
-## <span id="style">样式开发</span>
+## 样式开发
 
 页面中的大部分组件均添加面板类(`.panel`)，以模式选择控件举例：
 
