@@ -6,7 +6,20 @@
 
 思路：基于 jQuery 开发简单、易用并符合平台规范的组件。
 
-安装组件：
+目录：
+
+- [本地开发](#install)
+- [结构](#structure)
+- [添加组件](#add-component)
+- [新建组件实例](#new-instance)
+- [通用方法](#common-functions)
+- [现有组件](#components)
+- [样式开发](#style)
+
+
+## <span id="install">本地开发</span>
+
+安装依赖：
 
 ```bash
 npm install
@@ -18,7 +31,7 @@ npm install
 npm run dev
 ```
 
-## 结构
+## <span id="structure">结构</span>
 
 - main.js       入口文件
 - core/UI.js    核心类
@@ -27,7 +40,7 @@ npm run dev
 
 ![结构草图](http://okw4n9e5h.bkt.clouddn.com/082712.jpg)
 
-## 添加组件
+## <span id="add-component">添加组件</span>
 
 在`app/compinents/`中新建组件文件
 ```JavaScript
@@ -55,7 +68,7 @@ npm run build
 new JDUI.instance.YourComponentName(selector, options);
 ```
 
-## 新建组件实例
+## <span id="new-instance">新建组件实例</span>
 
 ```JavaScript
 var selector = '.work-modes';
@@ -63,7 +76,7 @@ var workModeComponentInstance = new JDUI.instance.GridItem(selector, options);
 ```
 
 
-## 通用方法：
+## <span id="common-functions">通用方法</span>
 
 ```JavaScript
 var listItem = new JDUI.instance.(selector, {...});
@@ -85,7 +98,7 @@ listItem.updateValue('2');
 
 ```
 
-## 现有组件方法
+## <span id="components">现有组件</span>
 
 ###GridItem
 
@@ -231,7 +244,7 @@ listitem.show();
 
 ```
 
-## CSS 部分
+## <span id="style">样式开发</span>
 
 页面中的大部分组件均添加面板类(`.panel`)，以模式选择控件举例：
 
