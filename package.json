@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "node tool/includeComponents.js & webpack",
-    "dev": "node_modules/.bin/webpack-dev-server --colors --inline --hot",
+    "dev": "node_modules/.bin/webpack-dev-server --colors --inline --hot --host 0.0.0.0",
     "start": "webpack-dev-server"
   },
   "keywords": [],
@@ -15,6 +15,7 @@
   "dependencies": {
     "css-loader": "^0.26.1",
     "jquery": "^3.1.1",
+    "jquery.finger": "^0.1.6",
     "lodash": "^4.17.4",
     "mobi.css": "^1.1.0",
     "style-loader": "^0.13.1",

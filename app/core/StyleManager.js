@@ -4,8 +4,8 @@
 const rules = {
     themeColor(value) {
         return [
-            `.active-block { background-color: ${value}`,
-            `.active-text { color: ${value}`,
+            `.active-block { background-color: ${value}}`,
+            `.active-text { color: ${value}}`,
         ];
     }
 };
@@ -19,6 +19,7 @@ let ruleCount = 0;
 
 // 更新样式方法
 function updateStyle() {
+    // alert('update style!');
     // 检测是否已创建 stylesheets，若没有，则创建
     const id = 'jd-ui-style';
     var styleElement = $(`#${id}`);
@@ -33,9 +34,9 @@ function updateStyle() {
         styleSheet.removeRule(0);
     }
 
-
     // 添加 rules 到 stylesheets
     ruleCount = 0;
+
     for (let key in rules) {
         if (styleValue[key]) {
             const result = rules[key](styleValue[key]);
@@ -46,7 +47,6 @@ function updateStyle() {
             }
         }
     }
-    console.log(styleSheet);
 };
 
 // 对外开放接口，用于更新样式

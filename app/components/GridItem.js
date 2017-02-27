@@ -60,7 +60,7 @@ class GridItem extends UI {
 
     initEventFn() {
         let selector = this.selectorDom();
-        $(document).on("click", selector, (e) => {
+        $(document).on('tap', selector, (e) => {
             this.fn(e);
         });
     }

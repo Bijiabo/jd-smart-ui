@@ -1,4 +1,5 @@
-var $ = require('jquery');
+const $ = require('jquery');
+const jqueryFinger = require('jquery.finger');
 import styleManager from './StyleManager';
 
 class UI {

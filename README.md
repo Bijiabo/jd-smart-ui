@@ -31,6 +31,8 @@ npm install
 npm run dev
 ```
 
+触摸事件基于 `jquery.finger` https://github.com/ngryman/jquery.finger
+
 ## 结构
 
 - main.js       入口文件

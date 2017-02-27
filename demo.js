@@ -134,3 +134,4 @@ listitem.disabled();
 
 
 JDUI.style.themeColor = '#3E5266';
+JDUI.style.themeColor = '#ff6600';
