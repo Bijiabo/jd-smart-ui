@@ -6,7 +6,22 @@
 
 思路：基于 jQuery 开发简单、易用并符合平台规范的组件。
 
-安装组件：
+目录：
+
+- [本地开发](#本地开发)
+- [结构](#结构)
+- [添加组件](#添加组件)
+    - [项目中添加](#项目中添加)
+    - [新建可单独引入的组件文件](#新建可单独引入的组件文件)
+- [新建组件实例](#新建组件实例)
+- [通用方法](#通用方法)
+- [现有组件](#现有组件)
+- [样式开发](#样式开发)
+
+
+## 本地开发
+
+安装依赖：
 
 ```bash
 npm install
@@ -18,6 +33,8 @@ npm install
 npm run dev
 ```
 
+触摸事件基于 `jquery.finger` https://github.com/ngryman/jquery.finger
+
 ## 结构
 
 - main.js       入口文件
@@ -28,6 +45,8 @@ npm run dev
 ![结构草图](http://okw4n9e5h.bkt.clouddn.com/082712.jpg)
 
 ## 添加组件
+
+### 项目中添加
 
 在`app/compinents/`中新建组件文件
 ```JavaScript
@@ -55,6 +74,10 @@ npm run build
 new JDUI.instance.YourComponentName(selector, options);
 ```
 
+### 新建可单独引入的组件文件
+
+具体编写可参照 `demo/Footer.js`，在 HTML 中直接添加 `<script src="demo/Footer.js"></script>` 引入即可。
+
 ## 新建组件实例
 
 ```JavaScript
@@ -63,7 +86,7 @@ var workModeComponentInstance = new JDUI.instance.GridItem(selector, options);
 ```
 
 
-## 通用方法：
+## 通用方法
 
 ```JavaScript
 var listItem = new JDUI.instance.(selector, {...});
@@ -85,7 +108,7 @@ listItem.updateValue('2');
 
 ```
 
-## 现有组件方法
+## 现有组件
 
 ###GridItem
 
@@ -231,8 +254,25 @@ listitem.show();
 
 ```
 
+<<<<<<< HEAD
 ## CSS 部分
 
 页面中的大部分组件均添加面板类(`.panel`)，以模式选择控件举例：
 
 ![](http://okw4n9e5h.bkt.clouddn.com/124512.jpg)
+=======
+## 样式开发
+
+页面中的大部分组件均添加面板类(`.panel`)，以模式选择控件举例：
+
+![](http://okw4n9e5h.bkt.clouddn.com/124512.jpg)
+
+针对不同的项目，可能需要设定不同的主题色，可直接通过`JDUI.style`接口来实现。具体组件中的样式书写可参考`Griditem.js`，需要高亮显示的块或文字添加类`active-block / active-text`即可。
+
+```JavaScript
+JDUI.style.themeColor = '#3E5266';
+```
+
+### 组件 css 类命名规范
+
+>>>>>>> upstream/master

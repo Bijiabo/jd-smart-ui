@@ -5,7 +5,7 @@
     <title></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
 </head>
 
 <body>
@@ -17,12 +17,19 @@
 
     <grid id="work-mode"></grid>
 
+    <footer id="footer"></footer>
+
     <!--for build path-->
     <!--<script type="text/javascript" src="./dist/bundle.js" charset="utf-8"></script>-->
     <!--for dev path-->
     <script type="text/javascript" src="bundle.js" charset="utf-8"></script>
 
+    <!--single component file-->
+    <link rel="stylesheet" href="demo/Footer.css">
+    <script src="demo/Footer.js"></script>
+
     <!--test script-->
     <script src="demo.js"></script>
+
 </body>
 </html>

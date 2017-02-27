@@ -7,3 +7,7 @@ import JDUICache from './core/JDUICache';
 global.JDUICache = JDUICache;
 
 import components from './componentList';
+
+$(function () {
+    JDUI.style.update();
+});

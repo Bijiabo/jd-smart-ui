@@ -1,4 +1,6 @@
-var $ = require('jquery');
+const $ = require('jquery');
+const jqueryFinger = require('jquery.finger');
+import styleManager from './StyleManager';
 
 class UI {
     constructor(options) {
@@ -97,7 +99,10 @@ const JDUI = {
     findComponent: UI.findComponent,
     hasComponent: UI.hasComponent,
     registerComponent: UI.registerComponent,
-    instance: {} // new JDUI.instance.componentName
+    instance: {}, // new JDUI.instance.componentName
+    _themeColor: '#FF8650',
+    style: styleManager,
+    class: UI,
 };
 global.JDUI = JDUI;
 

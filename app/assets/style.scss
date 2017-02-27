@@ -1,14 +1,53 @@
 @import 'mobi.css/src/mobi';
 
+
+/* public */
+
+$splitLineColor : #E5E5E5;
+$hoverColor : rgba(0,0,0,0.1);
+$transparentColor : rgba(0,0,0,0);
+
 body {
     background-color: #F0F0F0;
 }
+
+
+.active-block {
+    color: #ffffff;
+}
+
+.animation-quick {
+    transition: all 0.3s ease;
+}
+
+.animation {
+    transition: all 0.3s ease;
+}
+
+.animation-slow {
+    transition: all 0.8s ease;
+}
+
+/* panel */
+
 
 .panel {
     background-color: #ffffff;
     margin: 8px;
     border-radius: 4px;
     box-shadow: 0 1px 1px 0 rgba(0,0,0,0.08);
+
+    overflow: hidden;
+}
+
+.panel-title {
+    height: 48px;
+    padding-left: 12px;
+    padding-right: 12px;
+    line-height: 48px;
+    font-size: 16px;
+    color: #464646;
+
 }
 
 .ui_wrap{
@@ -16,8 +55,8 @@ body {
 }
 
 .ui_wrap div[class~="unit-1-4"],.ui_wrap div[class~="unit-1-3"]{
-    height: 6rem;
-    border: 1px solid #eee;
+    //height: 6rem;
+    //border: 1px solid #eee;
 }
 
 .ui_wrap div[class~="unit-1-4"].disabled ,.ui_wrap div[class~="unit-1-3"].disabled{
@@ -30,8 +69,8 @@ body {
 }
 
 .ui_wrap div[class~="unit-1-4"].on{
-    background: #eee;
-    opacity: 0.5;
+    //background: #eee;
+    //opacity: 0.5;
 }
 
 @font-face {
@@ -57,8 +96,8 @@ body {
 }
 
 div[class~="unit-0"]{
-    padding: 8px 10px;
-    border-bottom: 1px solid #eee;
+    //padding: 8px 10px;
+    //border-bottom: 1px solid #eee;
 }
 div[class~="unit-0"].disabled{
     opacity: 0.5;
@@ -90,4 +129,53 @@ div[class~="unit-0"] .rightPart{
 }
 div[class~="unit-0"] .rightPart .rightarrow{
     font-size: 16px;
+}
+
+/* Grid Item */
+.grid-item {
+    @extend .animation-quick;
+    position: relative;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-color: $splitLineColor;
+    border-width: 1px;
+    border-style: solid;
+}
+.grid-item:before {
+    @extend .animation;
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $transparentColor;
+}
+.grid-item.grid-item-hover:before {
+    background-color: $hoverColor;
+}
+
+/* List Item */
+.list-item {
+    position: relative;
+    padding: 8px 10px;
+}
+.list-item:before {
+    @extend .animation;
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $transparentColor;
+}
+.list-item.list-item-hover:before {
+    background-color: $hoverColor;
+}
+
+.list-item-split-line {
+    width: 100%;
+    height: 1px;
+    background-color: $splitLineColor;
 }
