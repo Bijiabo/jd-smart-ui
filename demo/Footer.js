@@ -14,7 +14,7 @@
     };
 
     Footer.prototype.create = function(options) {
-        this.instance.dom.html('Hello, I am footer component!');
+        this.instance.dom.html('<div class="footer">Hello, I am footer component!</div>');
     };
 
     Footer.prototype.show = function() {
