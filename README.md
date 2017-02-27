@@ -254,13 +254,6 @@ listitem.show();
 
 ```
 
-<<<<<<< HEAD
-## CSS 部分
-
-页面中的大部分组件均添加面板类(`.panel`)，以模式选择控件举例：
-
-![](http://okw4n9e5h.bkt.clouddn.com/124512.jpg)
-=======
 ## 样式开发
 
 页面中的大部分组件均添加面板类(`.panel`)，以模式选择控件举例：
@@ -275,4 +268,4 @@ JDUI.style.themeColor = '#3E5266';
 
 ### 组件 css 类命名规范
 
->>>>>>> upstream/master
+

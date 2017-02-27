@@ -20,11 +20,9 @@ class ListItem extends UI {
         const splitLineHTML = '<div class="list-item-split-line"></div>';
 
         if (this.options.title) {
-<<<<<<< HEAD
-            html += `<div class="panel-title">` + this.options.title + `</div>`;
-=======
+
             html += `<div class="panel-title">${this.options.title}</div>${splitLineHTML}`;
->>>>>>> upstream/master
+
         }
 
         //first line
