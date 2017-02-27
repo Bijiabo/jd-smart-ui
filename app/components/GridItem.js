@@ -29,24 +29,30 @@ class GridItem extends UI {
         let _gridNum = this.options.gridNum;
         let _hook = this.options.hook;
 
+        const splitLineHTML = '<div class="list-item-split-line"></div>';
 
         if (this.options.value) {
             this._value = this.options.value;
         }
 
         if (this.options.title) {
-            html += `<div class="panel-title">` + this.options.title + `</div>`;
+            html += `<div class="panel-title">${this.options.title}</div>${splitLineHTML}`;
         }
 
         html += `<div class="panel-body ui_wrap flex-left">`;
         for (let i in _map) {
             html +=
-            `<div class="unit-1-${_gridNum} site-box text-center grid-item 
-                                    ${ _map[i].value === this._value ? activeClass : '' }            
-                            " 
-                                                data-mode-index = "${_map[i].value}"
-                                                value = "${_map[i].value}"
-                                                >
+            `<div
+             class="
+             unit-1-${_gridNum} 
+             site-box text-center grid-item 
+             ${ _map[i].value === this._value ? activeClass : '' }
+             ${ i%_gridNum===(_gridNum-1) ? 'no-right-border' : '' }
+             ${ _map.length - i <= _map.length%_gridNum ? 'no-bottom-border' : '' }
+             " 
+             data-mode-index = "${_map[i].value}"
+             value = "${_map[i].value}"
+             >
                 <span class="iconfont">${_map[i].icon}</span>
                 <span class="mode_name">${_map[i].text}</span>
             </div>`;
