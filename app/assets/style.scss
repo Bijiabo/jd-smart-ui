@@ -12,6 +12,18 @@ body {
     color: #ffffff;
 }
 
+.animation-quick {
+    transition: all 0.3s ease;
+}
+
+.animation {
+    transition: all 0.3s ease;
+}
+
+.animation-slow {
+    transition: all 0.8s ease;
+}
+
 /* panel */
 
 .panel {
@@ -114,11 +126,26 @@ div[class~="unit-0"] .rightPart .rightarrow{
 
 /* Grid Item */
 .grid-item {
+    @extend .animation-quick;
+    position: relative;
     padding-top: 20px;
     padding-bottom: 20px;
     border-color: $splitLineColor;
     border-width: 1px;
     border-style: solid;
+}
+.grid-item:before {
+    @extend .animation;
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0);
+}
+.grid-item.grid-item-hover:before {
+    background-color: rgba(0,0,0,0.1);
 }
 
 /* List Item */

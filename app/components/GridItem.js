@@ -60,8 +60,19 @@ class GridItem extends UI {
 
     initEventFn() {
         let selector = this.selectorDom();
+        // 绑定点击事件
         $(document).on('tap', selector, (e) => {
             this.fn(e);
+        });
+        // 绑定触摸事件
+        const hoverClass = 'grid-item-hover';
+        $(document).on('touchstart', selector, (e) => {
+            const $this = $(e.currentTarget);
+            $this.addClass(hoverClass);
+        });
+        $(document).on('touchend', selector, (e) => {
+            const $this = $(e.currentTarget);
+            $this.removeClass(hoverClass);
         });
     }
 
