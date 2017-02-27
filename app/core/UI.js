@@ -102,6 +102,7 @@ const JDUI = {
     instance: {}, // new JDUI.instance.componentName
     _themeColor: '#FF8650',
     style: styleManager,
+    class: UI,
 };
 global.JDUI = JDUI;
 

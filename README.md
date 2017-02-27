@@ -11,6 +11,8 @@
 - [本地开发](#本地开发)
 - [结构](#结构)
 - [添加组件](#添加组件)
+    - [项目中添加](#项目中添加)
+    - [新建可单独引入的组件文件](#新建可单独引入的组件文件)
 - [新建组件实例](#新建组件实例)
 - [通用方法](#通用方法)
 - [现有组件](#现有组件)
@@ -44,6 +46,8 @@ npm run dev
 
 ## 添加组件
 
+### 项目中添加
+
 在`app/compinents/`中新建组件文件
 ```JavaScript
 import UI from './../core/UI';
@@ -69,6 +73,10 @@ npm run build
 ```JavaScript
 new JDUI.instance.YourComponentName(selector, options);
 ```
+
+### 新建可单独引入的组件文件
+
+具体编写可参照 `demo/Footer.js`，在 HTML 中直接添加 `<script src="demo/Footer.js"></script>` 引入即可。
 
 ## 新建组件实例
 
