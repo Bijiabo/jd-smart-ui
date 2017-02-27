@@ -6,6 +6,7 @@ const rules = {
         return [
             `.active-block { background-color: ${value}}`,
             `.active-text { color: ${value}}`,
+            `.active-border { border-color: ${value}}`,
         ];
     }
 };

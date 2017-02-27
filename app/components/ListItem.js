@@ -17,8 +17,10 @@ class ListItem extends UI {
         let _map = this.options.map;
         let _hook = this.options.hook;
 
+        const splitLineHTML = '<div class="list-item-split-line"></div>';
+
         if (this.options.title) {
-            html += `<div class="panel-title">` + this.options.title + `</div>`;
+            html += `<div class="panel-title">${this.options.title}</div>${splitLineHTML}`;
         }
 
         //first line
@@ -26,7 +28,7 @@ class ListItem extends UI {
 
         for (let i in _map) {
 
-            html += `<div class="unit-0 site-box flex-left list_item" data-index = ${i} value = ${i}>
+            html += `<div class="unit-0 site-box flex-left list-item" data-index = ${i} value = ${i}>
                         <span class="iconfont">${_map[i].icon}</span>
                         <div class="title">
                             <span class="${_map[i].subTitle ? `maint` : `maint_nosub`}">${_map[i].title}</span>
@@ -37,6 +39,10 @@ class ListItem extends UI {
                             <span class="iconfont rightarrow">&#xe655;</span>
                         </div>
                     </div>`;
+
+            if (i + 1 < this.options.map.length) {
+                html += splitLineHTML;
+            }
         }
 
         html = `<div class="panel">${html}</div>`;
@@ -71,7 +77,7 @@ class ListItem extends UI {
     }
 
     selector() {
-        return this.options.hook + ' .list_item';
+        return this.options.hook + ' .list-item';
     }
 
     setItemDisabled(arr) {

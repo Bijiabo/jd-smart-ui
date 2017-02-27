@@ -257,3 +257,6 @@ listitem.show();
 ```JavaScript
 JDUI.style.themeColor = '#3E5266';
 ```
+
+### 组件 css 类命名规范
+

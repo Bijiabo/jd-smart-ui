@@ -15,7 +15,7 @@ const $ = require("jquery");
  *     
  */
 
-const activeClass = 'active-block';
+const activeClass = 'active-block active-border';
 
 class GridItem extends UI {
 
@@ -41,7 +41,7 @@ class GridItem extends UI {
         html += `<div class="panel-body ui_wrap flex-left">`;
         for (let i in _map) {
             html +=
-            `<div class="unit-1-${_gridNum} site-box text-center list-item 
+            `<div class="unit-1-${_gridNum} site-box text-center grid-item 
                                     ${ _map[i].value === this._value ? activeClass : '' }            
                             " 
                                                 data-mode-index = "${_map[i].value}"
@@ -88,7 +88,7 @@ class GridItem extends UI {
         }
     }
     selectorDom() {
-        return this.options.hook + " .list-item";
+        return this.options.hook + " .grid-item";
     }
 
     selected(index, dom) {
