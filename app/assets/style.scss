@@ -3,6 +3,8 @@
 /* public */
 
 $splitLineColor : #E5E5E5;
+$hoverColor : rgba(0,0,0,0.1);
+$transparentColor : rgba(0,0,0,0);
 
 body {
     background-color: #F0F0F0;
@@ -142,15 +144,29 @@ div[class~="unit-0"] .rightPart .rightarrow{
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0);
+    background-color: $transparentColor;
 }
 .grid-item.grid-item-hover:before {
-    background-color: rgba(0,0,0,0.1);
+    background-color: $hoverColor;
 }
 
 /* List Item */
 .list-item {
+    position: relative;
     padding: 8px 10px;
+}
+.list-item:before {
+    @extend .animation;
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $transparentColor;
+}
+.list-item.list-item-hover:before {
+    background-color: $hoverColor;
 }
 
 .list-item-split-line {

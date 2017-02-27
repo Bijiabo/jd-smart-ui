@@ -55,6 +55,16 @@ class ListItem extends UI {
         $(document).on('click', item, (e) => {
             this.fn(e);
         });
+        // 绑定触摸事件
+        const hoverClass = 'list-item-hover';
+        $(document).on('touchstart', item, (e) => {
+            const $this = $(e.currentTarget);
+            $this.addClass(hoverClass);
+        });
+        $(document).on('touchend', item, (e) => {
+            const $this = $(e.currentTarget);
+            $this.removeClass(hoverClass);
+        });
     }
 
     fn(e) {
@@ -73,7 +83,6 @@ class ListItem extends UI {
                 this.options.afterTap();
             }
         }
-
     }
 
     selector() {
