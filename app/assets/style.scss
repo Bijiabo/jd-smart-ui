@@ -133,8 +133,16 @@ div[class~="unit-0"] .rightPart .rightarrow{
     padding-top: 20px;
     padding-bottom: 20px;
     border-color: $splitLineColor;
-    border-width: 1px;
+    border-width: 0;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
     border-style: solid;
+}
+.grid-item.no-right-border {
+    border-right-width: 0;
+}
+.grid-item.no-bottom-border {
+    border-bottom-width: 0;
 }
 .grid-item:before {
     @extend .animation;
