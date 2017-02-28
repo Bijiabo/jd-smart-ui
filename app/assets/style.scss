@@ -200,6 +200,7 @@ div[class~="unit-0"] .rightPart .rightarrow{
 }
 
 .swiper-control .swiper-track{
+    position: relative;
     width: 100%;
     height: 5px;
     background: #f00;
@@ -217,7 +218,7 @@ div[class~="unit-0"] .rightPart .rightarrow{
     cursor: pointer;
 }
 .swiper-control .swiper-thumb::before{
-    content: "10";
+    content: "";  //here
     font-size: 12px;
     left: 5px;
     top: -20px;

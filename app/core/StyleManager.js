@@ -32,6 +32,8 @@ function updateStyle() {
     // 清除已有 stylesheets 内容
     for (let i=0; i<ruleCount; i++) {
         console.log(`i=${i} ruleCount=${ruleCount}`);
+
+        //这里firefox报错
         styleSheet.removeRule(0);
     }
 

@@ -134,7 +134,21 @@ listitem.disabled();
 
 
 const swiper = new JDUI.instance.SwiperSlide({
-    
+    title:'滑动组件',
+    hook:'.swiper-wrap-normal',
+    type:'1',                   // 1、不带bar；2、带bar
+    map:{
+        min:20,
+        max:60,
+        value:'20',
+        step:1
+    },
+    onSilde:function(index,content){
+
+    },
+    change:function(index,content){
+
+    }
 });
 
 
