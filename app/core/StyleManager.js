@@ -31,10 +31,13 @@ function updateStyle() {
 
     // 清除已有 stylesheets 内容
     for (let i=0; i<ruleCount; i++) {
-        console.log(`i=${i} ruleCount=${ruleCount}`);
+        
+        if (styleSheet.removeRule) {
+            styleSheet.removeRule(0);
+        } else if (styleSheet.deleteRule) {
+            styleSheet.deleteRule(0);
+        }
 
-        //这里firefox报错
-        styleSheet.removeRule(0);
     }
 
     // 添加 rules 到 stylesheets

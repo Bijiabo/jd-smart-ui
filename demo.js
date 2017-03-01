@@ -132,7 +132,6 @@ listitem.updateItem({
 
 listitem.disabled();
 
-
 const swiper = new JDUI.instance.SwiperSlide({
     title: '滑动组件',
     hook: '.swiper-wrap-normal',
@@ -173,7 +172,6 @@ const swiper2 = new JDUI.instance.SwiperSlide({
 });
 
 console.log(swiper2.value)
-
 
 
 // set theme color

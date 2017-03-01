@@ -104,7 +104,6 @@ const JDUI = {
     style: styleManager,
     class: UI,
 };
-
 global.JDUI = JDUI;
 
 export default UI;
