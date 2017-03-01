@@ -182,3 +182,63 @@ div[class~="unit-0"] .rightPart .rightarrow{
     height: 1px;
     background-color: $splitLineColor;
 }
+
+/* Swiper Slide */
+$defineBorderRaduis : 5px;
+.swiper-wrap-normal , .swiper-wrap-controlpanel{
+    position: relative;
+}
+
+.swiper-control{
+    width: 96%;
+    margin: 25px 2%;
+    position: relative;
+}
+
+.swiper-control .swiper-track{
+    position: relative;
+    width: 100%;
+    height: 5px;
+    background: #f00;
+    border-radius: $defineBorderRaduis;
+}
+
+.swiper-control .swiper-thumb{
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #f1f1f1;
+    top:-9px;
+    z-index: 2;
+    cursor: pointer;
+}
+.swiper-control .swiper-thumb::before{
+    content: "";  //here
+    font-size: 12px;
+    left: 5px;
+    top: -20px;
+    position: absolute;
+}
+.swiper-control .swiper-num{
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    color:#464646;
+}
+
+.contorlPanel{
+    width: 120px;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+}
+
+.contorlPanel span{
+    width: 50px;
+    padding: 2px 15px;
+    border: 1px solid $splitLineColor;
+    border-radius: 10px;
+    margin: 0 5px;
+    text-align: center;
+}

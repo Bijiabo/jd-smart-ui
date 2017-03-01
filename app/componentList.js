@@ -2,5 +2,6 @@
 
 import GridItem from './components/GridItem';
 import ListItem from './components/ListItem';
+import SwiperSlide from './components/SwiperSlide';
 
-export default {GridItem, ListItem};
+export default {GridItem, ListItem, SwiperSlide};

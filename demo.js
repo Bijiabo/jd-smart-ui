@@ -132,6 +132,24 @@ listitem.updateItem({
 
 listitem.disabled();
 
+const swiper = new JDUI.instance.SwiperSlide({
+    title:'滑动组件',
+    hook:'.swiper-wrap-normal',
+    type:'1',                   // 1、不带bar；2、带bar
+    map:{
+        min:30,
+        max:60,
+        value:'',
+        step:1
+    },
+    onSilde:function(index){
+        
+    },
+    onChange:function(index){
+        console.log(index);
+    }
+});
+
 // set theme color
 JDUI.style.themeColor = '#3E5266';
 JDUI.style.themeColor = '#ff6600';
