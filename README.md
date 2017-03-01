@@ -268,3 +268,4 @@ JDUI.style.themeColor = '#3E5266';
 
 ### 组件 css 类命名规范
 
+为避免不同组件之间的命名冲突，css 类命名均采用 `.组件名-组件元素` 的命名方式，如我们现在建立一个开关组件，命名为`switch-cell`，那么它的触摸开关圆点可以命名为`.switch-cell-handle`。
