@@ -138,16 +138,16 @@ const swiper = new JDUI.instance.SwiperSlide({
     hook:'.swiper-wrap-normal',
     type:'1',                   // 1、不带bar；2、带bar
     map:{
-        min:20,
+        min:30,
         max:60,
-        value:'20',
+        value:'',
         step:1
     },
-    onSilde:function(index,content){
-
+    onSilde:function(index){
+        
     },
-    change:function(index,content){
-
+    onChange:function(index){
+        console.log(index);
     }
 });
 
