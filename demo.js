@@ -142,8 +142,8 @@ const swiper = new JDUI.instance.SwiperSlide({
         value:'',
         step:1
     },
-    onSilde:function(index){
-        
+    onSilde:function(index,trigger){
+        $(trigger).attr('data-content',index);
     },
     onChange:function(index){
         console.log(index);
