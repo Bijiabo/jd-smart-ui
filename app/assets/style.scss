@@ -218,7 +218,7 @@ div[class~="unit-0"] .rightPart .rightarrow{
     cursor: pointer;
 }
 .swiper-control .swiper-thumb::before{
-    content: "";  //here
+    content: attr(data-content);  //here
     font-size: 12px;
     left: 5px;
     top: -20px;
