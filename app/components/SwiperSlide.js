@@ -209,9 +209,8 @@ class SwiperSlide extends UI {
         let tapper = this.hookDom() + ' .contorlPanel span';
         let _map = this.options.map;
         let trigger = this.hookDom() + ' .swiper-thumb';
-
+        let type = Number(this.options.type);
         $(document).on('tap',tapper,(e)=>{
-            console.log(e);
             let $this = $(e.currentTarget);
             let name = $this.data('value');
             switch (name) {
@@ -219,11 +218,21 @@ class SwiperSlide extends UI {
                     this._value = this._value + 1;
                     this.setThumbPosition(this.TRACK_LENGTH_AVG * (this._value - _map.min));
                     $(trigger).attr('data-content', this._value);
+                    if(this.options.onPlus && type === 2){
+                        this.options.onPlus(this._value);
+                    }else{
+                        throw "we don't support this function"
+                    }
                     break;
                 case 'minusBtn':
                     this._value = this._value - 1;
                     this.setThumbPosition(this.TRACK_LENGTH_AVG * (this._value - _map.min));
                     $(trigger).attr('data-content', this._value);
+                    if(this.options.onMinus && type === 2){
+                        this.options.onMinus(this._value);
+                    }else{
+                        throw "we don't support this function"
+                    }
                     break;
             }
         });

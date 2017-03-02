@@ -163,11 +163,18 @@ const swiper2 = new JDUI.instance.SwiperSlide({
         max: 100,
         value: 20
     },
-    onSilde: function (index, trigger) {
+    onSilde: (index, trigger) => {
         //console.log("我是滑动的～@@",index);
     },
-    onChange: function (index) {
+    onChange: function(index){
         console.log(index);
+    },
+    //onPlus and onMinus function only support at type 2;
+    onPlus:function(value){
+        console.log(value);
+    },
+    onMinus:function(value){
+        console.log(value);
     }
 });
 
