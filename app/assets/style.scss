@@ -210,21 +210,30 @@ $defineBorderRaduis: 5px;
     position: relative;
 }
 
-.swiper-control {
-    width: 96%;
-    margin: 25px 2%;
-    position: relative;
+.swiper-wrap-normal.disabled,
+.swiper-wrap-controlpanel.disabled,
+.swiper-wrap-hasbar.disabled{
+    opacity: 0.5;
 }
 
-.swiper-control .swiper-track {
+.swiper-control {
+    padding: 25px 20px;
     position: relative;
-    width: 100%;
+}
+.swiper-control .inner{
+    position: relative;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+}
+.swiper-control .inner .swiper-track {
+    position: relative;
     height: 5px;
     background: #f00;
     border-radius: $defineBorderRaduis;
 }
 
-.swiper-control .swiper-thumb {
+.swiper-control .inner .swiper-thumb {
     position: absolute;
     width: 24px;
     height: 24px;
@@ -235,7 +244,7 @@ $defineBorderRaduis: 5px;
     cursor: pointer;
 }
 
-.swiper-control .swiper-thumb::before {
+.swiper-control .inner .swiper-thumb::before {
     content: attr(data-content); //here
     font-size: 12px;
     left: 5px;
@@ -243,7 +252,7 @@ $defineBorderRaduis: 5px;
     position: absolute;
 }
 
-.swiper-control .swiper-num {
+.swiper-control .inner .swiper-num {
     margin-top: 15px;
     display: flex;
     justify-content: space-between;
