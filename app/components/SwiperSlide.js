@@ -1,7 +1,12 @@
 import UI from '../core/UI';
 var $ = require('jquery');
 
-
+/**
+ * 
+ * 逻辑要整体修改
+ * @class SwiperSlide
+ * @extends {UI}
+ */
 /*<div class="swiper-wrap-normal">
     <div class="panel">
         <div class="panel-title">滑动组件</div>
@@ -109,7 +114,7 @@ class SwiperSlide extends UI {
         let trigger = _hook + ' .swiper-thumb';
         let track = _hook + ' .swiper-track';
         let type = Number(this.options.type);
-
+        
         //这里这些属性变成私有属性，方便私有方法计算
         this.ScreenWidth = $(window).width(); //获取屏幕宽度
         this.SlideWidth = $(track).width(); //获取轨道宽度
@@ -119,13 +124,6 @@ class SwiperSlide extends UI {
         this.INIT_END = this.GAP + this.SlideWidth - this.ThumbWidth / 2; //再拧一下，酸爽的得到滑块初试结束位置（这里为了精确，减去了滑块的一半宽度)
         this.TRACK_LENGTH_AVG = (this.SlideWidth - this.ThumbWidth) / (_map.max - _map.min); //轨道可用宽度
 
-        console.log("screen:" + this.ScreenWidth,
-            "\nSlideWidth:" + this.SlideWidth,
-            "\nThumbWidth:" + this.ThumbWidth,
-            "\nGAP:" + this.GAP,
-            "\nINIT_START:" + this.INIT_START,
-            "\nINIT_END:" + this.INIT_END,
-            "\nAVG:" + this.TRACK_LENGTH_AVG);
 
         //判断是否有初始值
         if (_map.value) {
@@ -192,6 +190,7 @@ class SwiperSlide extends UI {
             }
             $(track).attr('data-now', END_X);
             let val = Math.round((END_X - this.INIT_START) / this.TRACK_LENGTH_AVG) + _map.min;
+            this._value = val;
             //@@@数学太差，为了解决数学计算的误差，这里强制设置大于最大值为最大值
             if (val > _map.max) {
                 val = _map.max;
@@ -210,7 +209,7 @@ class SwiperSlide extends UI {
         let _map = this.options.map;
         let trigger = this.hookDom() + ' .swiper-thumb';
         let type = Number(this.options.type);
-        $(document).on('tap',tapper,(e)=>{
+        $(document).on('tap', tapper, (e) => {
             let $this = $(e.currentTarget);
             let name = $this.data('value');
             switch (name) {
@@ -218,9 +217,9 @@ class SwiperSlide extends UI {
                     this._value = this._value + 1;
                     this.setThumbPosition(this.TRACK_LENGTH_AVG * (this._value - _map.min));
                     $(trigger).attr('data-content', this._value);
-                    if(this.options.onPlus && type === 2){
+                    if (this.options.onPlus && type === 2) {
                         this.options.onPlus(this._value);
-                    }else{
+                    } else {
                         throw "we don't support this function"
                     }
                     break;
@@ -228,9 +227,9 @@ class SwiperSlide extends UI {
                     this._value = this._value - 1;
                     this.setThumbPosition(this.TRACK_LENGTH_AVG * (this._value - _map.min));
                     $(trigger).attr('data-content', this._value);
-                    if(this.options.onMinus && type === 2){
+                    if (this.options.onMinus && type === 2) {
                         this.options.onMinus(this._value);
-                    }else{
+                    } else {
                         throw "we don't support this function"
                     }
                     break;
@@ -253,13 +252,17 @@ class SwiperSlide extends UI {
     get value() {
         return this._value;
     }
-    
+
     set value(x) {
         this._value = x;
         let _map = this.options.map;
         let trigger = this.hookDom() + ' .swiper-thumb';
         this.setThumbPosition(this.TRACK_LENGTH_AVG * (this._value - _map.min));
         $(trigger).attr('data-content', this._value);
+    }
+    disabled(){
+        super.disabled();
+        
     }
 }
 

@@ -178,7 +178,23 @@ const swiper2 = new JDUI.instance.SwiperSlide({
     }
 });
 
-console.log(swiper2.value)
+const swiper3 = new JDUI.instance.SwiperSlideE({
+    title: '滑动组件',
+    hook: '.swiper-wrap-normal_E',
+    type: '1', // 1、不带bar；2、带bar; 3、带刻度的
+    showTip: true,
+    map: {
+        min: 0,
+        max: 100,
+        value: 10
+    },
+    onSilde: function (index, trigger) {
+        //console.log("妮儿，看这儿",index);
+    },
+    onChange: function (index) {
+        console.log(index);
+    }
+});
 
 
 // set theme color

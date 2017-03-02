@@ -3,5 +3,6 @@
 import GridItem from './components/GridItem';
 import ListItem from './components/ListItem';
 import SwiperSlide from './components/SwiperSlide';
+import SwiperSlideE from './components/SwiperSlideE';
 
-export default {GridItem, ListItem, SwiperSlide};
+export default {GridItem, ListItem, SwiperSlide, SwiperSlideE};
