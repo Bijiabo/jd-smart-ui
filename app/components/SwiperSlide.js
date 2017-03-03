@@ -132,10 +132,10 @@ class SwiperSlide extends UI {
 
         this.GAP = (this.ScreenWidth - this.SlideWidth) / 2;
 
-        //拧一下，酸爽的得到滑块初试起始位置（这里为了精确，减去了滑块的一半宽度）
+        //滑块初试起始位置（这里为了精确，减去了滑块的一半宽度）
         this.INIT_START = this.GAP + (this.ThumbWidth / 2);
 
-        //再拧一下，酸爽的得到滑块初试结束位置（这里为了精确，减去了滑块的一半宽度)
+        //滑块初试结束位置（这里为了精确，减去了滑块的一半宽度)
         this.INIT_END = this.GAP + this.SlideWidth - this.ThumbWidth / 2;
 
         //轨道可用宽度
