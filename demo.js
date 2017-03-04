@@ -149,8 +149,9 @@ const swiper = new JDUI.instance.SwiperSlide({
         console.log(index);
     }
 });
-console.log(swiper.value)
 
+swiper.disabled();
+swiper.enable();
 
 
 const swiper2 = new JDUI.instance.SwiperSlide({
@@ -178,7 +179,7 @@ const swiper2 = new JDUI.instance.SwiperSlide({
     }
 });
 
-console.log(swiper2.value)
+
 
 
 // set theme color
