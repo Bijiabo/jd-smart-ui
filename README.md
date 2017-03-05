@@ -1,6 +1,6 @@
 ![](http://okw4n9e5h.bkt.clouddn.com/logo.jpg)
 
-# jd-samrt-ui
+# jd-smart-ui
 
 目标：建立京东微联基础前端 UI 组件库，提升开发效率和项目品质。
 
