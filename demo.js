@@ -139,7 +139,7 @@ const swiper = new JDUI.instance.SwiperSlide({
     showTip: true,
     map: {
         min: 0,
-        max: 100,
+        max: 39,
         value: 10
     },
     onSilde: function (index, trigger) {
@@ -150,8 +150,8 @@ const swiper = new JDUI.instance.SwiperSlide({
     }
 });
 
-swiper.disabled();
-swiper.enable();
+//swiper.disabled();
+//swiper.enable();
 
 
 const swiper2 = new JDUI.instance.SwiperSlide({
@@ -167,18 +167,35 @@ const swiper2 = new JDUI.instance.SwiperSlide({
     onSilde: (index, trigger) => {
         //console.log("我是滑动的～@@",index);
     },
-    onChange: function(index){
+    onChange: function (index) {
         console.log(index);
     },
     //onPlus and onMinus function only support at type 2;
-    onPlus:function(value){
+    onPlus: function (value) {
         console.log(value);
     },
-    onMinus:function(value){
+    onMinus: function (value) {
         console.log(value);
     }
 });
 
+const swiperStep = new JDUI.instance.SwiperStep({
+    title: '带刻度的滑动条',
+    hook: '.swiper-step',
+    showTip: false,
+    val: '20',
+    map: {
+        valMap: ['10', '20', '40', '50', '70', '80', '90'],
+        nameMap: ['模式1', '模式2', '模式3', '模式4', '模式5', '模式6', '模式7']
+    },
+    onChange: function (value, index) {
+        console.log(value, index);
+    }
+});
+
+//swiperStep.value = "40";
+// swiperStep.disabled();
+// swiperStep.enable();
 
 
 
