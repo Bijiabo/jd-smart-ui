@@ -1,6 +1,6 @@
 ![](http://okw4n9e5h.bkt.clouddn.com/logo.jpg)
 
-# jd-samrt-ui
+# jd-smart-ui
 
 目标：建立京东微联基础前端 UI 组件库，提升开发效率和项目品质。
 
@@ -17,7 +17,6 @@
 - [通用方法](#通用方法)
 - [现有组件](#现有组件)
 - [样式开发](#样式开发)
-
 
 ## 本地开发
 
@@ -252,6 +251,94 @@ listitem.show();
 // 设置不可显示
 listitem.show();
 
+```
+###SwiperSlide
+
+```JavaScript
+
+//这是一个无可断的SwiperSlide组件，hook为swiper-wrap-normal
+const swiper = new JDUI.instance.SwiperSlide({
+    title: '滑动组件',
+    hook: '.swiper-wrap-normal',
+    type: '1', // 1、不带bar；2、带bar; 3、带刻度的
+    showTip: true,
+    map: {
+        min: 0,
+        max: 39,
+        value: 10
+    },
+    onSilde: function (index, trigger) {
+        //console.log("妮儿，看这儿",index);
+    },
+    onChange: function (index) {
+        console.log(index);
+    }
+});
+
+//swiper.disabled();
+
+//swiper.enable();
+
+//swiper.value = "40";
+
+//console.log(swiper.value);
+
+//这是一个带“+”和“-”的无刻度SwiperSlide组件，hook为swiper-wrap-hasbar
+const swiper2 = new JDUI.instance.SwiperSlide({
+    title: '滑动组件',
+    hook: '.swiper-wrap-hasbar',
+    type: '2', // 1、不带bar；2、带bar; 3、带刻度的
+    showTip: true,
+    map: {
+        min: 0,
+        max: 100,
+        value: 20
+    },
+    onSilde: (index, trigger) => {
+        //console.log("我是滑动的～@@",index);
+    },
+    onChange: function (index) {
+        console.log(index);
+    },
+    //onPlus and onMinus function only support at type 2;
+    onPlus: function (value) {
+        console.log(value);
+    },
+    onMinus: function (value) {
+        console.log(value);
+    }
+});
+
+```
+
+### SwiperStep
+
+```JavaScript
+
+const swiperStep = new JDUI.instance.SwiperStep({
+    title: '带刻度的滑动条',
+    hook: '.swiper-step',
+    showTip: false,
+    val: '20',
+    map: {
+        valMap: ['10', '20', '40', '50', '70', '80', '90'],
+        nameMap: ['模式1', '模式2', '模式3', '模式4', '模式5', '模式6', '模式7']
+    },
+    onChange: function (value, index) {
+        console.log(value, index);
+    }
+});
+
+//swiperStep.value = "40";
+
+// swiperStep.disabled();
+
+// swiperStep.enable();
+```
+
+### 特别声明
+```
+SwiperSlide 和 SwiperStep 两个组件所包含的基本方法相同，可以借鉴使用。
 ```
 
 ## 样式开发
