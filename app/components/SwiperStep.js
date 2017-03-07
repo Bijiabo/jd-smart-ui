@@ -143,12 +143,8 @@ class SwiperStep extends UI {
         let length = e.length - 1;
         //计算可用的长度
         let fatherWidth = $(c).width();
-        let childWidth = $(b).width();
+        let childWidth = fatherWidth * (1 - 0.178);
         let screenWidth = $(window).width();
-        //这里强制转换下jquery获取宽度时错误  =================样式变化这里也要改=======================
-        if (childWidth === fatherWidth) {
-            childWidth = fatherWidth - 50;
-        }
 
         //计算初始位置
         this.gap = (screenWidth - childWidth) / 2;
