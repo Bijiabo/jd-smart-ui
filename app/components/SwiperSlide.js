@@ -19,7 +19,7 @@ class SwiperSlide extends UI {
         this._title = this.options.title;
         this._type = this.options.type;
         this._showTip = this.options.showTip;
-
+        
         let bar = Number(this._type);
         switch (bar) {
             case 1:
@@ -242,12 +242,9 @@ class SwiperSlide extends UI {
     computeFn(a, b, c, d, e) {
         //计算可用的长度
         let fatherWidth = $(c).width();
-        let childWidth = $(b).width();
+        let childWidth = fatherWidth * (1 - 0.178);
         let screenWidth = $(window).width();
-        //这里强制转换下jquery获取宽度时错误  =================样式变化这里也要改=======================
-        if (childWidth === fatherWidth) {
-            childWidth = fatherWidth - 54;
-        }
+
 
         //计算初始位置
         this.gap = (screenWidth - childWidth) / 2;
