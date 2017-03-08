@@ -17,7 +17,7 @@ ul,li,dl,dt,dd{
 }
 
 .animation-quick {
-    transition: all 0.3s ease;
+    transition: all 0.1s ease;
 }
 
 .animation {
@@ -268,6 +268,7 @@ $defineBorderRaduis: 5px;
 }
 
 .swiper-control .inner .swiper-thumb {
+    //@extend .animation-quick;
     position: absolute;
     width: 24px;
     height: 24px;
@@ -322,13 +323,26 @@ $defineBorderRaduis: 5px;
     top: 10px;
 }
 
-.contorlPanel span {
-    width: 50px;
-    padding: 2px 15px;
-    border: 1px solid $splitLineColor;
-    border-radius: 10px;
-    margin: 0 5px;
-    text-align: center;
+.contorlPanel {
+    span {
+        width: 50px;
+        padding: 2px 15px;
+        border: 1px solid $splitLineColor;
+        border-radius: 10px;
+        text-align: center;
+        border-radius: 33px;
+    }
+
+    .plus-button {
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    .minus-button {
+        border-left: none;
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+    }
 }
 
 /* Switch Cell */

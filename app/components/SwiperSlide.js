@@ -10,29 +10,21 @@ var $ = require('jquery');
 
 class SwiperSlide extends UI {
     constructor(options) {
+        // TODO: 添加配置检测方法
+        // TODO: 预处理配置数据
         super(options);
     }
 
     create() {
-        this._map = this.options.map;
         this._hook = this.options.hook;
         this._title = this.options.title;
         this._type = this.options.type;
         this._showTip = this.options.showTip;
         
         let bar = Number(this._type);
-        switch (bar) {
-            case 1:
-                this.sliderCommon();
-                break;
-            case 2:
-                this.sliderCommon();
-                break;
-            default:
-                this.sliderCommon();
-                break;
-        }
+        this.sliderCommon();
 
+        this.setDefaultValue();
     }
     sliderCommon() {
         let html = '';
@@ -40,45 +32,30 @@ class SwiperSlide extends UI {
 
 
         html += `<div class="panel">`;
-        if (this._title) {
-            html += `<div class="panel-title">${this._title}</div>`;
+        if (this.options.title) {
+            html += `<div class="panel-title">${this.options.title}</div>`;
         }
 
-        if (type === 1) {
-            html += `<div class="swiper-control">
+        html += `<div class="swiper-control">
                     <div class="inner">
                         <!-- 轨道 -->
                         <div class="swiper-track theme-block" id = "track-inner" 
-                            min="${this._map.min}" max="${this._map.max}" data-now = ''></div>
+                            min="${this.options.map.min}" max="${this.options.map.max}" data-now = ''></div>
                         <!-- 拇指 -->
                         <div class="swiper-thumb theme-border" data-content =''></div>
                         <!-- 数值 -->
                         <div class="swiper-num flex-left">
-                            <span>${this._map.min}</span> 
-                            <span>${this._map.max}</span>
+                            <span>${this.options.map.min}</span> 
+                            <span>${this.options.map.max}</span>
                         </div>
                     </div>
                 </div>`;
 
-        } else if (type === 2) {
-            html += `<div class="swiper-control">
-                    <div class="inner">
-                        <!-- 轨道 -->
-                        <div class="swiper-track theme-block" id = "track-inner" 
-                            min="${this._map.min}" max="${this._map.max}" data-now = ''></div>
-                        <!-- 拇指 -->
-                        <div class="swiper-thumb theme-border" data-content = ''></div>
-                        <!-- 数值 -->
-                        <div class="swiper-num flex-left">
-                            <span>${this._map.min}</span> 
-                            <span>${this._map.max}</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- 控制 -->
-                <div class="contorlPanel flex-left">
-                    <span data-value ="plusBtn">+</span>
-                    <span data-value ="minusBtn">-</span>
+        if (type === 2) {
+            html += `<!-- 控制 -->
+                <div class="contorlPanel flex-right">
+                    <span class="plus-button" data-value ="plusBtn">+</span>
+                    <span class="minus-button" data-value ="minusBtn">-</span>
                 </div>`;
         }
 
@@ -86,197 +63,106 @@ class SwiperSlide extends UI {
     }
 
     initEventFn() {
-        let type = Number(this._type);
-        switch (type) {
-            case 1:
-                this.fnCommon();
-                break;
-            case 2:
-                this.fnCommon();
-                break;
-            case 3:
-                break;
-            default:
-                break;
-        }
+        this.bindEvent_touchStart();
+        this.bindEvent_touchMove();
+        this.bindEvent_touchEnd();
+        this.bindEvent_tapPlusButton();
+        this.bindEvent_tapMinusButton();
     }
 
-    //不带bar和带把的
-    fnCommon() {
-        //一堆初始化参数
-        let trigger = this._hook + ' .swiper-thumb';
-        let track = this._hook + ' .swiper-track';
-        let type = Number(this._type);
-        let panel = this._hook + ' .panel';
-
-        /**
-         * 设置了初始位置、结束位置、gap宽度、平均宽度
-         */
-        this.computeFn(this._hook, this._hook + ` .inner`, this._hook + ` .panel`,
-            `#track-inner`, this._hook + ` .swiper-thumb`);
-
-        //判断是否有初始值
-        if (this._map.value) {
-            this.setThumbPosition(this.stepWidth * (this._map.value - this._map.min));
-            $(track).attr('data-now', this.stepWidth * (this._map.value - this._map.min));
-            this._value = this._map.value;
-        } else {
-            this.setThumbPosition('0');
-            $(track).attr('data-now', '0');
-            this._value = 0;
+    setDefaultValue() {
+        if (this.options.map.defaultValue) {
+            this.value = this.options.map.defaultValue;
         }
-
-        //判断是否有topTip
-        if (this._showTip) {
-            if (this._map.value) {
-                $(trigger).attr('data-content', this._map.value);
-            } else {
-                $(trigger).attr('data-content', this._map.min);
-            }
-        }
-
-        if (type === 2) {
-            this.hasBar();
-        }
-
-        //touch
-        $(document).on('touchstart', trigger, (e) => {
-            this.fn1(e);
-        }).on('touchmove', trigger, (e) => {
-            this.fn2(e);
-        }).on('touchend', trigger, (e) => {
-            this.fn3(e);
-        });
-
-    }
-
-    //touchstart
-    fn1(e) {
-        return false;
-    }
-
-    //touchmove
-    fn2(e) {
-        let trigger = this._hook + ' .swiper-thumb';
-        let movex = e.originalEvent.changedTouches[0].clientX;
-        if (movex > this.initEnd) {
-            movex = this.initEnd;
-        } else if (movex < this.initStart) {
-            movex = this.initStart;
-        }
-        movex = movex - this.initStart;
-
-        //为onsilde设置当前值
-        let CUR_VAL = Math.round(movex / this.stepWidth) + this._map.min;
-        if (CUR_VAL > this._map.max) {
-            CUR_VAL = this._map.max;
-        }
-        if (this.options.onSilde) {
-            this.options.onSilde(CUR_VAL, trigger);
-        }
-        if (this._showTip) {
-            $(trigger).attr('data-content', CUR_VAL);
-        }
-        this._value = CUR_VAL;
-        this.setThumbPosition(movex);
-    }
-
-    //touchend
-    fn3(e) {
-        let track = this._hook + ' .swiper-track';
-        let endx = e.originalEvent.changedTouches[0].clientX;
-        if (endx > this.initEnd) {
-            endx = this.initEnd;
-        } else if (endx < this.initStart) {
-            endx = this.initStart;
-        }
-        $(track).attr('data-now', endx);
-        let val = Math.round((endx - this.initStart) / this.stepWidth) + this._map.min;
-        this._value = val;
-
-        if (val > this._map.max) {
-            val = this._map.max;
-        }
-        if (this.options.onChange) {
-            this.options.onChange(val);
-        }
-    }
-    //带把儿的增加、减少按钮事件
-    hasBar() {
-        let tapper = this._hook + ' .contorlPanel span';
-        let trigger = this._hook + ' .swiper-thumb';
-        let type = Number(this._type);
-        $(document).on('tap', tapper, (e) => {
-            let $this = $(e.currentTarget);
-            let name = $this.data('value');
-            switch (name) {
-                case 'plusBtn':
-                    if (this._value < this._map.max) {
-                        this._value = this._value + 1;
-                    }
-                    this.setThumbPosition(this.stepWidth * (this._value - this._map.min));
-                    $(trigger).attr('data-content', this._value);
-                    if (this.options.onPlus && type === 2) {
-                        this.options.onPlus(this._value);
-                    } else {
-                        throw "we don't support this function"
-                    }
-                    break;
-                case 'minusBtn':
-                    if (this._value > this._map.min) {
-                        this._value = this._value - 1;
-                    }
-                    this.setThumbPosition(this.stepWidth * (this._value - this._map.min));
-                    $(trigger).attr('data-content', this._value);
-                    if (this.options.onMinus && type === 2) {
-                        this.options.onMinus(this._value);
-                    } else {
-                        throw "we don't support this function"
-                    }
-                    break;
-            }
-        });
-    }
-
-    //计算相关的方法
-    computeFn(a, b, c, d, e) {
-        //计算可用的长度
-        let fatherWidth = $(c).width();
-        let childWidth = fatherWidth * (1 - 0.178);
-        let screenWidth = $(window).width();
-
-
-        //计算初始位置
-        this.gap = (screenWidth - childWidth) / 2;
-        this.initStart = this.gap;
-        this.initEnd = screenWidth - this.gap;
-
-        this.stepWidth = childWidth / (this._map.max - this._map.min);
-
-        //let avgWidth = Math.round((childWidth / length) / childWidth * 100);
-        // //设置宽度
-        // $(d + ' li').css({
-        //     width: avgWidth + `%`
-        // });
-    }
-
-    setThumbPosition(a) {
-        let trigger = this._hook + ' .swiper-thumb';
-        $(trigger).css({
-            left: a
-        });
     }
 
     get value() {
-        return this._value;
+        return super.value;
     }
 
-    set value(x) {
-        this._value = x;
-        let trigger = this._hook + ' .swiper-thumb';
-        this.setThumbPosition(this.stepWidth * (this._value - this._map.min));
-        $(trigger).attr('data-content', this._value);
+    set value(targetValue) {
+        const min = this.options.map.min;
+        const max = this.options.map.max;
+        if (targetValue < min || targetValue > max) { return; }
+        if (targetValue == this.value) { return; }
+        const handleElementLeftPercentage = (targetValue - min) / (max - min) * 100;
+        this.handlePoint.element
+            .css('left', `${handleElementLeftPercentage}%`)
+            .attr('data-content', targetValue);
+
+        super.value = targetValue;
     }
+
+    get handlePoint() {
+        // 用户给用户滑动操控的圆点
+        return {
+            element: $(this._hook + ' .swiper-thumb'),
+            selector: this._hook + ' .swiper-thumb',
+        };
+    }
+
+    get onSliding() {
+        return this._onSliding || false;
+    }
+    set onSliding(v) {
+        console.log(v);
+        this._onSliding = !!v;
+    }
+
+    bindEvent_touchStart() {
+        $(document).on('touchstart', this.handlePoint.selector, () => {
+            this.onSliding = true;
+        });
+    }
+
+    bindEvent_touchMove() {
+        const self = this;
+        $(document).on('touchmove', this.handlePoint.selector, function(event) {
+            if (!self.onSliding) {return;}
+            if (event.cancelable) {
+                if (!event.defaultPrevented) {
+                    event.preventDefault();
+                }
+            }
+            // TODO: 判断手指与控件的垂直距离，若太远，则设定 self.onSliding = false;
+            console.log(`[${new Date()}] touchmoving...`);
+            const handleElementPersentage = self.percentageForHandlePoint(event.touches[0].pageX);
+            const targetValue = Math.round( handleElementPersentage * self.options.map.max );
+            self.value = targetValue;
+        });
+    }
+
+    bindEvent_touchEnd() {
+        $(document).on('touchend', this.handlePoint.selector, () => {
+            this.onSliding = false;
+        });
+    }
+
+    get handleButton() {
+        return {
+            plus: {selector: this._hook + ' .plus-button'},
+            minus: {selector: this._hook + ' .minus-button'},
+        }
+    }
+
+    bindEvent_tapPlusButton() {
+        $(document).on('tap', this.handleButton.plus.selector, () => {
+            this.value += 1;
+        });
+    }
+
+    bindEvent_tapMinusButton() {
+        $(document).on('tap', this.handleButton.minus.selector, () => {
+            this.value -= 1;
+        });
+    }
+
+    percentageForHandlePoint(currentX) {
+        // 根据传入的手指触摸点的 X 坐标，返回对应的控制点百分比
+        const slideElement = $(this._hook + ' .inner');
+        return (currentX-slideElement.offset().left) / slideElement.width();
+    }
+
     disabled() {
         super.disabled();
         $(this._hook).addClass('disabled');

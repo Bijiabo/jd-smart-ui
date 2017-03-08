@@ -140,7 +140,7 @@ const swiper = new JDUI.instance.SwiperSlide({
     map: {
         min: 0,
         max: 39,
-        value: 10
+        defaultValue: 30
     },
     onSilde: function (index, trigger) {
         //console.log("妮儿，看这儿",index);
@@ -162,7 +162,7 @@ const swiper2 = new JDUI.instance.SwiperSlide({
     map: {
         min: 0,
         max: 100,
-        value: 20
+        defaultValue: 20
     },
     onSilde: (index, trigger) => {
         //console.log("我是滑动的～@@",index);
@@ -186,7 +186,8 @@ const swiperStep = new JDUI.instance.SwiperStep({
     val: '20',
     map: {
         valMap: ['10', '20', '40', '50', '70', '80', '90'],
-        nameMap: ['模式1', '模式2', '模式3', '模式4', '模式5', '模式6', '模式7']
+        nameMap: ['模式1', '模式2', '模式3', '模式4', '模式5', '模式6', '模式7'],
+        defaultValue: '10'
     },
     onChange: function (value, index) {
         console.log(value, index);

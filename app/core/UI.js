@@ -60,11 +60,14 @@ class UI {
         return this;
     };
     get value(){
-        return true;
+        return this._value;
     };
     set value(val) {
-        
+        this._value = val;
     };
+    get el() {
+        return $(this.options.hook);
+    }
    
     // 检测是否有对应的组件
     static hasComponent(name) {
