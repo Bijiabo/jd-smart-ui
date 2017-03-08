@@ -4,5 +4,6 @@ import GridItem from './components/GridItem';
 import ListItem from './components/ListItem';
 import SwiperSlide from './components/SwiperSlide';
 import SwiperStep from './components/SwiperStep';
+import SwitchCell from './components/SwitchCell';
 
-export default {GridItem, ListItem, SwiperSlide, SwiperStep};
+export default {GridItem, ListItem, SwiperSlide, SwiperStep, SwitchCell};

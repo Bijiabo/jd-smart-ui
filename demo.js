@@ -194,10 +194,34 @@ const swiperStep = new JDUI.instance.SwiperStep({
 });
 
 //swiperStep.value = "40";
-// swiperStep.disabled();
-// swiperStep.enable();
+//swiperStep.disabled();
+//swiperStep.enable();
 
+const swithCell = new JDUI.instance.SwitchCell({
+    title:'开关',
+    type:'1',               //1、jd标准样式、 2、阿里标准样式
+    icon:'',
+    val:'0',                //和正常一样，开1，关2
+    hook:'.switch-cell',
+    map:{
+        on:'1',
+        off:'0'
+    },
+    onTapBefore:function(){
+        //console.log('before');
+    },
+    onTap:function(index){
+        console.log('click',index);
+    },
+    onTapAfter:function(){
+        //console.log('after');
+    }
+});
 
+// swithCell.value = '1';
+// swithCell.disabled();
+// console.log(swithCell.isDisabled);
+// swithCell.enable();
 
 // set theme color
 JDUI.style.themeColor = '#3E5266';
