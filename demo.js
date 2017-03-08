@@ -150,6 +150,7 @@ const swiper = new JDUI.instance.SwiperSlide({
     }
 });
 
+swiper.value = '30';
 //swiper.disabled();
 //swiper.enable();
 

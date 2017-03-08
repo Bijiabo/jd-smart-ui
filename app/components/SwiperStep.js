@@ -83,7 +83,7 @@ class SwiperStep extends UI {
 
         let step = Math.round((movex) / this.stepWidth);
 
-        this.setThumbPosition(step * this.stepWidth);
+        this.setThumbPosition(step * this.avgWidth);
     }
 
     moveEnd(e) {
@@ -133,8 +133,9 @@ class SwiperStep extends UI {
 
     setThumbPosition(val) {
         let trigger = this._hook + ` .swiper-thumb`;
+        
         $(trigger).css({
-            left: val + `px`
+            left: val + `%`
         });
     }
 
@@ -143,19 +144,19 @@ class SwiperStep extends UI {
         let length = e.length - 1;
         //计算可用的长度
         let fatherWidth = $(c).width();
-        let childWidth = fatherWidth * (1 - 0.178);
+        this.childWidth = fatherWidth - 40;
         let screenWidth = $(window).width();
 
         //计算初始位置
-        this.gap = (screenWidth - childWidth) / 2;
+        this.gap = (screenWidth - this.childWidth) / 2;
         this.initStart = this.gap;
         this.initEnd = screenWidth - this.gap;
 
-        this.stepWidth = Math.round(childWidth / length);
-        let avgWidth = Math.round((childWidth / length) / childWidth * 100);
+        this.stepWidth = Math.round(this.childWidth / length);
+        this.avgWidth = (this.childWidth / length) / this.childWidth * 100;
         //设置宽度
         $(d + ' li').css({
-            width: avgWidth + `%`
+            width: this.avgWidth + `%`
         });
     }
 
@@ -167,7 +168,7 @@ class SwiperStep extends UI {
         //判断是否存在
         if (this._valMap.indexOf(x) !== -1) {
             this._value = x;
-            this.setThumbPosition(this._valMap.indexOf(x) * this.stepWidth);
+            this.setThumbPosition(this._valMap.indexOf(x) * this.avgWidth);
         } else {
             throw "check this value again";
         }

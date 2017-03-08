@@ -19,7 +19,7 @@ class SwiperSlide extends UI {
         this._title = this.options.title;
         this._type = this.options.type;
         this._showTip = this.options.showTip;
-        
+
         let bar = Number(this._type);
         switch (bar) {
             case 1:
@@ -161,7 +161,9 @@ class SwiperSlide extends UI {
         let movex = e.originalEvent.changedTouches[0].clientX;
         if (movex > this.initEnd) {
             movex = this.initEnd;
-        } else if (movex < this.initStart) {
+        }
+
+        if (movex < this.initStart) {
             movex = this.initStart;
         }
         movex = movex - this.initStart;
@@ -177,7 +179,9 @@ class SwiperSlide extends UI {
         if (this._showTip) {
             $(trigger).attr('data-content', CUR_VAL);
         }
+
         this._value = CUR_VAL;
+
         this.setThumbPosition(movex);
     }
 
@@ -242,17 +246,18 @@ class SwiperSlide extends UI {
     computeFn(a, b, c, d, e) {
         //计算可用的长度
         let fatherWidth = $(c).width();
-        let childWidth = fatherWidth * (1 - 0.178);
+        this.childWidth = fatherWidth - 40;
         let screenWidth = $(window).width();
 
-
         //计算初始位置
-        this.gap = (screenWidth - childWidth) / 2;
+        this.gap = (screenWidth - this.childWidth) / 2;
         this.initStart = this.gap;
         this.initEnd = screenWidth - this.gap;
 
-        this.stepWidth = childWidth / (this._map.max - this._map.min);
+        this.stepWidth = this.childWidth / (this._map.max - this._map.min);
+        this.stepPercent = this.stepWidth / this.childWidth;
 
+        // console.log(this.stepPercent,this.childWidth,this.initStart,this.initEnd);
         //let avgWidth = Math.round((childWidth / length) / childWidth * 100);
         // //设置宽度
         // $(d + ' li').css({
@@ -262,8 +267,11 @@ class SwiperSlide extends UI {
 
     setThumbPosition(a) {
         let trigger = this._hook + ' .swiper-thumb';
+
+        let per = (a / this.childWidth) * 100;
+
         $(trigger).css({
-            left: a
+            left: per + '%'
         });
     }
 
@@ -274,9 +282,23 @@ class SwiperSlide extends UI {
     set value(x) {
         this._value = x;
         let trigger = this._hook + ' .swiper-thumb';
-        this.setThumbPosition(this.stepWidth * (this._value - this._map.min));
-        $(trigger).attr('data-content', this._value);
+        let checkVal = this.checkFn(x);
+        if(checkVal){
+            this.setThumbPosition(this.stepWidth * (this._value - this._map.min));
+            $(trigger).attr('data-content', this._value);
+        }else{
+            throw "overflow";
+        }   
+        
     }
+
+    checkFn(x){
+        if(x > this._map.min && x < this._map.max){
+            return true;
+        }
+        return false
+    }
+
     disabled() {
         super.disabled();
         $(this._hook).addClass('disabled');
