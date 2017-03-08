@@ -223,14 +223,14 @@ $defineBorderRaduis: 5px;
 }
 
 .swiper-control {
-    margin: 25px 5%;
+    margin: 25px 20px;
     position: relative;
 }
 .swiper-control .inner{
     -webkit-box-flex: 1;
     -webkit-flex: 1;
     flex: 1;
-    margin: 0 3.9%;
+    
 }
 .swiper-control .inner .swiper-track , .swiper-control .inner .swiper-step-track {
     position: relative;
@@ -271,6 +271,7 @@ $defineBorderRaduis: 5px;
     z-index: 2;
     cursor: pointer;
     left: 0;
+    margin-left: -12px;
 }
 
 .swiper-control .inner .swiper-thumb::before {
