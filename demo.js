@@ -135,15 +135,12 @@ listitem.disabled();
 const swiper = new JDUI.instance.SwiperSlide({
     title: '滑动组件',
     hook: '.swiper-wrap-normal',
-    type: '1', // 1、不带bar；2、带bar; 3、带刻度的
-    showTip: true,
+    type: '1', // 1、正常的 2、带+-的 3、刻度的
+    showTip: false,
     map: {
         min: 0,
         max: 39,
         defaultValue: 30
-    },
-    onSilde: function (index, trigger) {
-        //console.log("妮儿，看这儿",index);
     },
     onChange: function (index) {
         console.log(index);
@@ -158,15 +155,12 @@ swiper.value = '30';
 const swiper2 = new JDUI.instance.SwiperSlide({
     title: '滑动组件',
     hook: '.swiper-wrap-hasbar',
-    type: '2', // 1、不带bar；2、带bar; 3、带刻度的
+    type: '2',
     showTip: true,
     map: {
         min: 0,
         max: 100,
         defaultValue: 20
-    },
-    onSilde: (index, trigger) => {
-        //console.log("我是滑动的～@@",index);
     },
     onChange: function (index) {
         console.log(index);
@@ -180,42 +174,48 @@ const swiper2 = new JDUI.instance.SwiperSlide({
     }
 });
 
-const swiperStep = new JDUI.instance.SwiperStep({
+// swiper2.disabled();
+// swiper2.enable();
+
+
+const swiperStep = new JDUI.instance.SwiperSlide({
     title: '带刻度的滑动条',
     hook: '.swiper-step',
     showTip: false,
     val: '20',
+    type: '3',
     map: {
+        min: 0,
+        max: 6,
         valMap: ['10', '20', '40', '50', '70', '80', '90'],
         nameMap: ['模式1', '模式2', '模式3', '模式4', '模式5', '模式6', '模式7'],
         defaultValue: '10'
     },
-    onChange: function (value, index) {
-        console.log(value, index);
+    onChange: function (value, targetIndex, targetName) {
+        console.log(value, targetIndex, targetName);
     }
 });
+// swiperStep.disabled();
+// swiperStep.enable();
 
-//swiperStep.value = "40";
-//swiperStep.disabled();
-//swiperStep.enable();
 
 const swithCell = new JDUI.instance.SwitchCell({
-    title:'开关',
-    type:'1',               //1、jd标准样式、 2、阿里标准样式
-    icon:'',
-    val:'0',                //和正常一样，开1，关2
-    hook:'.switch-cell',
-    map:{
-        on:'1',
-        off:'0'
+    title: '开关',
+    type: '1', //1、jd标准样式、 2、阿里标准样式
+    icon: '',
+    val: '0', //和正常一样，开1，关0
+    hook: '.switch-cell',
+    map: {
+        on: '1',
+        off: '0'
     },
-    onTapBefore:function(){
+    onTapBefore: function () {
         //console.log('before');
     },
-    onTap:function(index){
-        console.log('click',index);
+    onTap: function (index) {
+        console.log('click', index);
     },
-    onTapAfter:function(){
+    onTapAfter: function () {
         //console.log('after');
     }
 });
