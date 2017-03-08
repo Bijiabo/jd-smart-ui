@@ -135,7 +135,7 @@ listitem.disabled();
 const swiper = new JDUI.instance.SwiperSlide({
     title: '滑动组件',
     hook: '.swiper-wrap-normal',
-    type: '1', // 1、正常的 2、带+-的 3、刻度的
+    type: 'common', // 1、正常的 2、带+-的 3、刻度的
     showTip: false,
     map: {
         min: 0,
@@ -155,7 +155,7 @@ swiper.value = '30';
 const swiper2 = new JDUI.instance.SwiperSlide({
     title: '滑动组件',
     hook: '.swiper-wrap-hasbar',
-    type: '2',
+    type: 'widthBtn',
     showTip: true,
     map: {
         min: 0,
@@ -183,7 +183,7 @@ const swiperStep = new JDUI.instance.SwiperSlide({
     hook: '.swiper-step',
     showTip: false,
     val: '20',
-    type: '3',
+    type: 'withPoints',
     map: {
         min: 0,
         max: 6,
