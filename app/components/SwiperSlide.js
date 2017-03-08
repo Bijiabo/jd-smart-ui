@@ -48,10 +48,10 @@ class SwiperSlide extends UI {
             html += `<div class="swiper-control">
                     <div class="inner">
                         <!-- 轨道 -->
-                        <div class="swiper-track" id = "track-inner" 
+                        <div class="swiper-track theme-block" id = "track-inner" 
                             min="${this._map.min}" max="${this._map.max}" data-now = ''></div>
                         <!-- 拇指 -->
-                        <div class="swiper-thumb" data-content =''></div>
+                        <div class="swiper-thumb theme-border" data-content =''></div>
                         <!-- 数值 -->
                         <div class="swiper-num flex-left">
                             <span>${this._map.min}</span> 
@@ -64,10 +64,10 @@ class SwiperSlide extends UI {
             html += `<div class="swiper-control">
                     <div class="inner">
                         <!-- 轨道 -->
-                        <div class="swiper-track" id = "track-inner" 
+                        <div class="swiper-track theme-block" id = "track-inner" 
                             min="${this._map.min}" max="${this._map.max}" data-now = ''></div>
                         <!-- 拇指 -->
-                        <div class="swiper-thumb" data-content = ''></div>
+                        <div class="swiper-thumb theme-border" data-content = ''></div>
                         <!-- 数值 -->
                         <div class="swiper-num flex-left">
                             <span>${this._map.min}</span> 

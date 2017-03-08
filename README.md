@@ -347,7 +347,16 @@ SwiperSlide 和 SwiperStep 两个组件所包含的基本方法相同，可以�
 
 ![](http://okw4n9e5h.bkt.clouddn.com/124512.jpg)
 
-针对不同的项目，可能需要设定不同的主题色，可直接通过`JDUI.style`接口来实现。具体组件中的样式书写可参考`Griditem.js`，需要高亮显示的块或文字添加类`active-block / active-text`即可。
+针对不同的项目，可能需要设定不同的主题色，可直接通过`JDUI.style`接口来实现。具体组件中的样式书写可参考`Griditem.js`，需要高亮显示的块或文字添加类`active-block / active-text ／...`即可。
+
+目前主题色相关类：
+
+- active-block
+- active-text
+- active-border
+- theme-block
+- theme-text
+- theme-border
 
 ```JavaScript
 JDUI.style.themeColor = '#3E5266';
