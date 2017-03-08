@@ -148,6 +148,11 @@ div[class~="unit-0"] .rightPart .rightarrow {
     border-right-width: 1px;
     border-bottom-width: 1px;
     border-style: solid;
+    color: #A6A6A6;
+}
+
+.grid-item.active-block {
+    color: #ffffff;
 }
 
 .grid-item.no-right-border {
