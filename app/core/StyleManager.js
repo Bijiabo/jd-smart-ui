@@ -7,6 +7,9 @@ const rules = {
             `.active-block { background-color: ${value}}`,
             `.active-text { color: ${value}}`,
             `.active-border { border-color: ${value}}`,
+            `.theme-block { background-color: ${value}}`,
+            `.theme-text { color: ${value}}`,
+            `.theme-border { border-color: ${value}}`,
         ];
     }
 };
