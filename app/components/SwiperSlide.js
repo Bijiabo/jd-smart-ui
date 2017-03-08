@@ -18,7 +18,7 @@ class SwiperSlide extends UI {
     create() {
         this._hook = this.options.hook;
         this._title = this.options.title;
-        this._type = this.options.type;
+        this._type = this.getIndexOfType(this.options.type);
         this._showTip = this.options.showTip;
 
         this.setDefaultValue();
@@ -29,6 +29,19 @@ class SwiperSlide extends UI {
             this.value = this.options.map.defaultValue;
         }
     }
+
+    getIndexOfType(type){
+        const TypeArr = ['common','widthBtn','withPoints'];
+        let index  = TypeArr.indexOf(type);
+        console.log(index + 1);
+        if(index !== -1){
+            return index + 1;
+        }else{
+            throw 'check the type param again';
+        }
+
+    }
+
     sliderCommon() {
         let html = '';
         let type = Number(this._type);
@@ -91,7 +104,7 @@ class SwiperSlide extends UI {
     
     createInner() {
         let html = "";
-        if (this._type === '3' && this._valMap !== undefined) {
+        if (this._type === 3 && this._valMap !== undefined) {
             for(let index = 0 ; index < this.options.map.max ; index++){
                 html += `<li></li>`;
             }
@@ -101,7 +114,7 @@ class SwiperSlide extends UI {
 
     createBtm() {
         let html = "";
-        if (this._type === '3' && this._nameMap !== undefined) {
+        if (this._type === 3 && this._nameMap !== undefined) {
             let arr = this._nameMap;
             for(let index = 0 ; index < this.options.map.max + 1 ;  index++){
                  html += `<span style = "width:${110 / arr.length}%">${arr[index]}</span>`;
@@ -204,7 +217,7 @@ class SwiperSlide extends UI {
         $(document).on('touchend', this.handlePoint.selector, () => {
             this.onSliding = false;
             if(this.options.onChange){
-                if(this._type === '3'){
+                if(this._type === 3){
                     let targetIndex = this.options.map.valMap[this.value];
                     let targetName = this.options.map.nameMap[this.value];
                     this.options.onChange(this.value,targetIndex,targetName);
