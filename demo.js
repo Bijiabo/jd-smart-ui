@@ -201,10 +201,24 @@ const swiperStep = new JDUI.instance.SwiperSlide({
 
 const swithCell = new JDUI.instance.SwitchCell({
     title: '开关',
-    type: '1', //1、jd标准样式、 2、阿里标准样式
-    icon: '',
-    val: '0', //和正常一样，开1，关0
+    type: 'JD', //JD、jd标准样式、 Ali、阿里标准样式
+    value: '0', //和正常一样，开1，关0
     hook: '.switch-cell',
+    map: {
+        on: '1',
+        off: '0'
+    },
+    
+    onTap: function (index) {
+        console.log('click jd', index);
+    },
+});
+
+const swithCell2 = new JDUI.instance.SwitchCell({
+    title: '开关',
+    type: 'Ali', //JD、jd标准样式、 Ali、阿里标准样式
+    value: '0', //和正常一样，开1，关0
+    hook: '.switch-cell2',
     map: {
         on: '1',
         off: '0'
@@ -213,17 +227,18 @@ const swithCell = new JDUI.instance.SwitchCell({
         //console.log('before');
     },
     onTap: function (index) {
-        console.log('click', index);
+        console.log('click ali', index);
     },
     onTapAfter: function () {
         //console.log('after');
     }
 });
 
-// swithCell.value = '1';
-// swithCell.disabled();
+swithCell.value = "1";
+
+swithCell2.disabled();
 // console.log(swithCell.isDisabled);
-// swithCell.enable();
+
 
 // set theme color
 JDUI.style.themeColor = '#3E5266';

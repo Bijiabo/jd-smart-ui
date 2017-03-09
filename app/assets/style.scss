@@ -27,7 +27,9 @@ ul,li,dl,dt,dd{
 .animation-slow {
     transition: all 0.8s ease;
 }
-
+.animation-switch{
+    transition: all 0.4s ease;
+}
 
 /* panel */
 
@@ -227,6 +229,10 @@ $defineBorderRaduis: 5px;
     opacity: 0.5;
 }
 
+.disabled{
+    opacity: 0.5;
+}
+
 .swiper-control {
     margin: 25px 20px;
     position: relative;
@@ -267,7 +273,7 @@ $defineBorderRaduis: 5px;
 }
 
 .swiper-control .inner .swiper-thumb {
-    //@extend .animation-quick;
+    @extend .animation-quick;
     position: absolute;
     width: 24px;
     height: 24px;
@@ -351,7 +357,7 @@ $defineBorderRaduis: 5px;
 
 }
 .switch-title{
-    line-height: 45px;
+    line-height: 52px;
     width: 86%;
 }
 .switch-btn{
@@ -365,4 +371,62 @@ $defineBorderRaduis: 5px;
 .switch-btn.on{
     background: rgb(255, 102, 0);
     color:#fff;
+}
+
+.switch-btn-main{
+   position: relative
+}
+
+input[type='checkbox']{
+    display: none;
+}
+
+label[for="switch-cell-jd"]{
+    width: 45px;
+    height: 45px;
+    display: inline-block;
+    border-radius: 50%;
+    border:1px solid #ccc;
+    position: relative;
+    top:4px;
+    text-align: center;
+    line-height: 45px;
+    @extend .animation;
+}
+input[type='checkbox']:checked+label[for="switch-cell-jd"]{
+    background:rgb(255, 102, 0);
+    color: #fff;
+}
+
+
+
+label[for="switch-cell-ali"]{
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+    border:1px solid #ccc;
+    border-radius: 30px;
+    position: relative;
+    top: 11px;
+    background: #f0f0f0;
+    @extend .animation-switch;
+}
+label[for="switch-cell-ali"]::after{
+    display: block;
+    position: relative;
+    content:'';
+    width: 50%;
+    height: 100%;
+    background: #fff;
+    border-radius: 50%;
+    left: 0;
+    @extend .animation-switch;
+    box-shadow: 0 0 2px #eee;
+}
+
+input[type='checkbox']:checked + label[for='switch-cell-ali']{
+    background:#9FD6AE
+}
+input[type='checkbox']:checked + label[for='switch-cell-ali']::after{
+    left:50%;
 }
