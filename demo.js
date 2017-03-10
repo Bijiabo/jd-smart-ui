@@ -87,39 +87,6 @@ var listitem = new JDUI.instance.ListItem({
     }
 });
 
-// 设定值
-//gridItem.value = '7';
-
-// 设定不可用
-//gridItem.disabled();
-
-// 设置可用 
-//gridItem.enable();
-
-// 是否可用 boolean
-//console.log(gridItem.isEnabled);
-
-// 是否不可用 boolean
-//console.log(gridItem.isDisabled);
-
-// 设置可显示 
-//gridItem.show();
-
-// 设置不可显示
-//gridItem.show();
-
-// 设置某个item不可用
-// 这里的数组为下发的value值
-// gridItem.setItemDisabled({
-//     index : ['1','3']
-// });
-
-
-//设置不可用
-// listitem.setItemDisabled({
-//     index:['0'] 
-// });
-
 listitem.updateItem({
     index: '1',
     map: {
@@ -130,7 +97,7 @@ listitem.updateItem({
     }
 });
 
-listitem.disabled();
+
 
 const swiper = new JDUI.instance.SwiperSlide({
     title: '滑动组件',
@@ -146,11 +113,6 @@ const swiper = new JDUI.instance.SwiperSlide({
         console.log(index);
     }
 });
-
-swiper.value = '30';
-//swiper.disabled();
-//swiper.enable();
-
 
 const swiper2 = new JDUI.instance.SwiperSlide({
     title: '滑动组件',
@@ -174,37 +136,43 @@ const swiper2 = new JDUI.instance.SwiperSlide({
     }
 });
 
-// swiper2.disabled();
-// swiper2.enable();
-
-
 const swiperStep = new JDUI.instance.SwiperSlide({
     title: '带刻度的滑动条',
     hook: '.swiper-step',
     showTip: false,
-    val: '20',
     type: 'withPoints',
     map: {
         min: 0,
         max: 6,
         valMap: ['10', '20', '40', '50', '70', '80', '90'],
         nameMap: ['模式1', '模式2', '模式3', '模式4', '模式5', '模式6', '模式7'],
-        defaultValue: '10'
+        defaultValue: '40'
     },
     onChange: function (value, targetIndex, targetName) {
         console.log(value, targetIndex, targetName);
     }
 });
-// swiperStep.disabled();
-// swiperStep.enable();
-
 
 const swithCell = new JDUI.instance.SwitchCell({
     title: '开关',
-    type: '1', //1、jd标准样式、 2、阿里标准样式
-    icon: '',
-    val: '0', //和正常一样，开1，关0
+    type: 'JD', //JD、jd标准样式、 Ali、阿里标准样式
+    value: '0', //和正常一样，开1，关0
     hook: '.switch-cell',
+    map: {
+        on: '1',
+        off: '0'
+    },
+    
+    onTap: function (index) {
+        console.log('click jd', index);
+    },
+});
+
+const swithCell2 = new JDUI.instance.SwitchCell({
+    title: '开关',
+    type: 'Ali', //JD、jd标准样式、 Ali、阿里标准样式
+    value: '0', //和正常一样，开1，关0
+    hook: '.switch-cell2',
     map: {
         on: '1',
         off: '0'
@@ -213,17 +181,13 @@ const swithCell = new JDUI.instance.SwitchCell({
         //console.log('before');
     },
     onTap: function (index) {
-        console.log('click', index);
+        console.log('click ali', index);
     },
     onTapAfter: function () {
         //console.log('after');
     }
 });
 
-// swithCell.value = '1';
-// swithCell.disabled();
-// console.log(swithCell.isDisabled);
-// swithCell.enable();
 
 // set theme color
 JDUI.style.themeColor = '#3E5266';

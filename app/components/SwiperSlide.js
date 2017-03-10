@@ -19,21 +19,22 @@ class SwiperSlide extends UI {
         this._hook = this.options.hook;
         this._title = this.options.title;
         this._type = this.getIndexOfType(this.options.type);
-        this._showTip = this.options.showTip;
+        this._showTip = this.options.showTip || false;
 
         this.setDefaultValue();
         this.sliderCommon();
 
         // 这里dom渲染后设置值
-        if (this.options.map.defaultValue) {
+        if (this.options.map.defaultValue && this._type !== 3) {
             this.value = this.options.map.defaultValue;
+        }else if(this.options.map.defaultValue && this._type === 3){
+            this.value = this.getIndexFromPointsTypeValueMap(this.options.map.defaultValue);
         }
     }
 
     getIndexOfType(type){
         const TypeArr = ['common','widthBtn','withPoints'];
         let index  = TypeArr.indexOf(type);
-        console.log(index + 1);
         if(index !== -1){
             return index + 1;
         }else{
@@ -151,24 +152,33 @@ class SwiperSlide extends UI {
     set value(targetValue) {
         const min = this.options.map.min;
         const max = this.options.map.max;
+
         if (targetValue < min || targetValue > max) {
             return;
         }
         if (targetValue == this.value) {
             return;
         }
-        const handleElementLeftPercentage = (targetValue - min) / (max - min) * 100;
-
-        if(this.options.type === '3' || !this._showTip){
+        
+        if(this._type === 3 || !this._showTip){
+            const handleElementLeftPercentage = (targetValue - min) / (max - min) * 100;
             this.handlePoint.element
             .css('left', `${handleElementLeftPercentage}%`);
         }else{
+            const handleElementLeftPercentage = (targetValue - min) / (max - min) * 100;
             this.handlePoint.element
             .css('left', `${handleElementLeftPercentage}%`)
             .attr('data-content', targetValue);
         }
-        
         super.value = targetValue;
+    }
+
+    getIndexFromPointsTypeValueMap(value){
+        if(this._type === 3 && this._valMap.indexOf(value) !== -1){
+            return this._valMap.indexOf(value);
+        }else{
+            throw "please check your input value in valMap of options map";
+        }
     }
 
     get handlePoint() {

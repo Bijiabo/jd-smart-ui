@@ -233,69 +233,34 @@ listitem.updateItem({
     }
 });
 
-// 设定不可用
-listitem.disabled();
-
-// 设置可用 
-listitem.enable();
-
-// 是否可用 boolean
-console.log(listitem.isEnabled);
-
-// 是否不可用 boolean
-console.log(listitem.isDisabled);
-
-// 设置可显示 
-listitem.show();
-
-// 设置不可显示
-listitem.show();
-
 ```
 ###SwiperSlide
 
 ```JavaScript
-
-//这是一个无可断的SwiperSlide组件，hook为swiper-wrap-normal
 const swiper = new JDUI.instance.SwiperSlide({
     title: '滑动组件',
     hook: '.swiper-wrap-normal',
-    type: '1', // 1、不带bar；2、带bar; 3、带刻度的
-    showTip: true,
+    type: 'common', // 1、正常的 2、带+-的 3、刻度的
+    showTip: false,
     map: {
         min: 0,
         max: 39,
-        value: 10
-    },
-    onSilde: function (index, trigger) {
-        //console.log("妮儿，看这儿",index);
+        defaultValue: 30
     },
     onChange: function (index) {
         console.log(index);
     }
 });
 
-//swiper.disabled();
-
-//swiper.enable();
-
-//swiper.value = "40";
-
-//console.log(swiper.value);
-
-//这是一个带“+”和“-”的无刻度SwiperSlide组件，hook为swiper-wrap-hasbar
 const swiper2 = new JDUI.instance.SwiperSlide({
     title: '滑动组件',
     hook: '.swiper-wrap-hasbar',
-    type: '2', // 1、不带bar；2、带bar; 3、带刻度的
+    type: 'widthBtn',
     showTip: true,
     map: {
         min: 0,
         max: 100,
-        value: 20
-    },
-    onSilde: (index, trigger) => {
-        //console.log("我是滑动的～@@",index);
+        defaultValue: 20
     },
     onChange: function (index) {
         console.log(index);
@@ -309,37 +274,84 @@ const swiper2 = new JDUI.instance.SwiperSlide({
     }
 });
 
-```
-
-### SwiperStep
-
-```JavaScript
-
-const swiperStep = new JDUI.instance.SwiperStep({
+const swiperStep = new JDUI.instance.SwiperSlide({
     title: '带刻度的滑动条',
     hook: '.swiper-step',
     showTip: false,
     val: '20',
+    type: 'withPoints',
     map: {
+        min: 0,
+        max: 6,
         valMap: ['10', '20', '40', '50', '70', '80', '90'],
-        nameMap: ['模式1', '模式2', '模式3', '模式4', '模式5', '模式6', '模式7']
+        nameMap: ['模式1', '模式2', '模式3', '模式4', '模式5', '模式6', '模式7'],
+        defaultValue: '10'
     },
-    onChange: function (value, index) {
-        console.log(value, index);
+    onChange: function (value, targetIndex, targetName) {
+        console.log(value, targetIndex, targetName);
     }
 });
 
-//swiperStep.value = "40";
-
-// swiperStep.disabled();
-
-// swiperStep.enable();
 ```
 
-### 特别声明
-```
-SwiperSlide 和 SwiperStep 两个组件所包含的基本方法相同，可以借鉴使用。
-```
+#### 参考说明
+
+#####SwiperSlide
+
+<table>
+	<tr>
+		<th>参数</th>
+		<th>说明</th>
+		<th>必填</th>
+		<th>介绍</th>
+	</tr>
+	<tr>
+		<td>title</td>
+		<td>dom的标题</td>
+		<td>否</td>
+		<td>如：工作模式</td>
+	</tr>
+	<tr>
+		<td> hook </td>
+		<td>挂载dom的钩子</td>
+		<td>是</td>
+		<td>如：.swiper-wrap-normal</td>
+	</tr>
+	<tr>
+		<td> showTip </td>
+		<td>是否显示滑块上的动态数值</td>
+		<td>否</td>
+		<td>默认false</td>
+	</tr>
+	<tr>
+		<td> type </td>
+		<td> 滑动组件类型 </td>
+		<td>是</td>
+		<td>默认类型：common;
+			 带+和-按钮类型:widthBtn;
+			 带刻度的类型:withPoints
+			 (类型名称必须写对)
+		</td>
+	</tr>
+	<tr>
+		<td rowspan = "5"> map </td>
+		<td rowspan = "5"> 组件配置对象 </td>
+		<td rowspan = "5">是</td>
+		<td>min:最小值</td>
+	</tr>
+	<tr>
+		<td>max:最大值</td>
+	</tr>
+	<tr>
+		<td>defaultValue:默认值</td>
+	</tr>
+	<tr>
+		<td>valMap:值的数组</td>
+	</tr>
+	<tr>
+		<td>nameMap:下标名称数组</td>
+	</tr>
+</table>
 
 ## 样式开发
 

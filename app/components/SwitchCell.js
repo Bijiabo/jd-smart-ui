@@ -5,110 +5,106 @@ class SwitchCell extends UI {
 
     constructor(options) {
         super(options);
-        this._value = '0';
     }
 
     create() {
         this._hook = this.options.hook;
         this._title = this.options.title || '电源开关';
-        this._icon = this.options.icon || '&#xe6c5;';
-        this._type = this.options.type;
+        this._type = this.getTypeIndexFn(this.options.type);
 
         this._map = this.options.map;
         let html = '';
-        if (this._type === '1') {
-            html = `<div class="panel">
+        
+        html = `<div class="panel">
                     <div class="switch-control flex-left">
                         <div class="switch-title">${this._title}</div>
-                        <div class="switch-btn ${this._value === '1' ? 'on' : ''}" data-cell-value = "${this._value}">
-                            <i class="iconfont">${this._icon}</i>
+                        <div class="switch-btn-main">
+                            <input type="checkbox" id = "switch-cell-${this._type === 1 ? 'jd' : 'ali'}">
+                            <label for="switch-cell-${this._type === 1 ? 'jd' : 'ali'}" 
+                                class="tapbtn iconfont">${this._type === 1 ? '&#xe6c5;':''}</label>
                         </div>
+                        
                     </div>
                 </div>`;
-        }
+        
         $(this._hook).append(html);
     }
 
-    initEventFn() {
-        if (this._type === '1') {
-            this.JDRuleFn();
+    getTypeIndexFn(type) {
+        let typeArr = ['JD', 'Ali'];
+        if (typeArr.indexOf(type) !== -1) {
+            return typeArr.indexOf(type) + 1;
         } else {
-            this.AliRuleFn();
+            throw 'please check the type param again!';
         }
     }
 
-    JDRuleFn() {
-        let trigger = this.selectDom();
+    getCheckBox(){
+        if(this._type === 1){
+            return '#switch-cell-jd';
+        }else{
+            return '#switch-cell-ali'
+        }
+    }
+
+    getTapDom() {
+        return this._hook + ` .tapbtn`;
+    }
+
+    bindSwitch_tap(){
+        let trigger = this.getTapDom();
+        let that = this;
         $(document).on('tap', trigger, (e) => {
-            let $this = $(e.currentTarget);
-            let value = $this.data('cell-value').toString();
-            this.selectFn(value, $this);
-            if (this.options.onTapBefore) {
-                this.options.onTapBefore();
+            if (that.isChecked) {
+                this._value = "1";
+            } else {
+                this._value = "0";
             }
-            this.options.onTap(this._value);
-            if (this.options.onTapAfter) {
-                this.options.onTapAfter();
+
+            if (this.options.onTap) {
+                this.options.onTap(this.value);
             }
-        });
+
+        })
     }
 
-    AliRuleFn() {
-        console.log('coming soon~~@@@');
+    unbindSwitch_tap(){
+        let trigger = this.getTapDom();
+        $(document).off('tap',trigger);
     }
 
-    selectFn(value, $this) {
-        if (value === "1") {
-            this._value = '0';
-            $this.data('cell-value', this._value);
-            $this.removeClass('on');
-        } else {
-            this._value = '1';
-            $this.data('cell-value', this._value);
-            $this.addClass('on');
-        }
+    initEventFn() {
+        this.bindSwitch_tap();
     }
 
-    selectDom() {
-        return this._hook + ' .switch-btn';
+    get isChecked() {
+        return !$(this.getCheckBox()).is(':checked');
     }
 
-    set value(val) {
-        let checkBool = this.checkFn(val);
-        if (checkBool) {
-            this._value = val;
-            console.log(this._value);
-            $(this._hook).empty();
-            this.create();
-        }
-    }
-    value() {
+    get value() {
         return this._value;
     }
 
-    disabled() {
+    set value(nowValue) {  
+        if(nowValue === "1"){
+            $(this.getCheckBox()).attr('checked','checked');
+        }
+        this._value = nowValue;
+    }
+
+    disabled(){
         super.disabled();
         $(this._hook).addClass('disabled');
-        let trigger = this.selectDom();
-        $(document).off('tap', trigger);
+        this.unbindSwitch_tap();
+        $(this.getCheckBox()).attr('disabled','disabled');
     }
 
-    enable() {
+    enable(){
         super.enable();
         $(this._hook).removeClass('disabled');
-        if (this._type === '1') {
-            this.JDRuleFn();
-        }
+        this.bindSwitch_tap();
+        $(this.getCheckBox()).removeAttr('disabled');
     }
-    checkFn(val) {
-        for (let i in this._map) {
-            if (this._map[i] === val) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 }
 
 UI.registerComponent('SwitchCell', SwitchCell);
