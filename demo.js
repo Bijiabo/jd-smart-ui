@@ -234,7 +234,7 @@ const swithCell2 = new JDUI.instance.SwitchCell({
     }
 });
 
-swithCell.value = "1";
+swithCell2.value = "1";
 
 swithCell2.disabled();
 // console.log(swithCell.isDisabled);

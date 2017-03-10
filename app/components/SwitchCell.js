@@ -89,7 +89,7 @@ class SwitchCell extends UI {
         if(nowValue === "1"){
             $(this.getCheckBox()).attr('checked','checked');
         }
-        return this._value;
+        this._value = nowValue;
     }
 
     disabled(){
