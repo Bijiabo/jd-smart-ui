@@ -146,7 +146,7 @@ const swiperStep = new JDUI.instance.SwiperSlide({
         max: 6,
         valMap: ['10', '20', '40', '50', '70', '80', '90'],
         nameMap: ['模式1', '模式2', '模式3', '模式4', '模式5', '模式6', '模式7'],
-        defaultValue: '10'
+        defaultValue: '40'
     },
     onChange: function (value, targetIndex, targetName) {
         console.log(value, targetIndex, targetName);
