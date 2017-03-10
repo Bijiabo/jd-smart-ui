@@ -87,39 +87,6 @@ var listitem = new JDUI.instance.ListItem({
     }
 });
 
-// 设定值
-//gridItem.value = '7';
-
-// 设定不可用
-//gridItem.disabled();
-
-// 设置可用 
-//gridItem.enable();
-
-// 是否可用 boolean
-//console.log(gridItem.isEnabled);
-
-// 是否不可用 boolean
-//console.log(gridItem.isDisabled);
-
-// 设置可显示 
-//gridItem.show();
-
-// 设置不可显示
-//gridItem.show();
-
-// 设置某个item不可用
-// 这里的数组为下发的value值
-// gridItem.setItemDisabled({
-//     index : ['1','3']
-// });
-
-
-//设置不可用
-// listitem.setItemDisabled({
-//     index:['0'] 
-// });
-
 listitem.updateItem({
     index: '1',
     map: {
@@ -130,7 +97,7 @@ listitem.updateItem({
     }
 });
 
-listitem.disabled();
+
 
 const swiper = new JDUI.instance.SwiperSlide({
     title: '滑动组件',
@@ -146,11 +113,6 @@ const swiper = new JDUI.instance.SwiperSlide({
         console.log(index);
     }
 });
-
-swiper.value = '30';
-//swiper.disabled();
-//swiper.enable();
-
 
 const swiper2 = new JDUI.instance.SwiperSlide({
     title: '滑动组件',
@@ -174,15 +136,10 @@ const swiper2 = new JDUI.instance.SwiperSlide({
     }
 });
 
-// swiper2.disabled();
-// swiper2.enable();
-
-
 const swiperStep = new JDUI.instance.SwiperSlide({
     title: '带刻度的滑动条',
     hook: '.swiper-step',
     showTip: false,
-    val: '20',
     type: 'withPoints',
     map: {
         min: 0,
@@ -195,9 +152,6 @@ const swiperStep = new JDUI.instance.SwiperSlide({
         console.log(value, targetIndex, targetName);
     }
 });
-// swiperStep.disabled();
-// swiperStep.enable();
-
 
 const swithCell = new JDUI.instance.SwitchCell({
     title: '开关',
@@ -233,11 +187,6 @@ const swithCell2 = new JDUI.instance.SwitchCell({
         //console.log('after');
     }
 });
-
-swithCell2.value = "1";
-
-swithCell2.disabled();
-// console.log(swithCell.isDisabled);
 
 
 // set theme color

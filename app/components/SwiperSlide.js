@@ -19,7 +19,7 @@ class SwiperSlide extends UI {
         this._hook = this.options.hook;
         this._title = this.options.title;
         this._type = this.getIndexOfType(this.options.type);
-        this._showTip = this.options.showTip;
+        this._showTip = this.options.showTip || false;
 
         this.setDefaultValue();
         this.sliderCommon();
