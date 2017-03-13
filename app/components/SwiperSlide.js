@@ -2,7 +2,7 @@ import UI from '../core/UI';
 var $ = require('jquery');
 
 /**
- * 
+ *
  * @class SwiperSlide
  * @extends {UI}
  */
@@ -27,17 +27,17 @@ class SwiperSlide extends UI {
         // 这里dom渲染后设置值
         if (this.options.map.defaultValue && this._type !== 3) {
             this.value = this.options.map.defaultValue;
-        }else if(this.options.map.defaultValue && this._type === 3){
+        } else if (this.options.map.defaultValue && this._type === 3) {
             this.value = this.getIndexFromPointsTypeValueMap(this.options.map.defaultValue);
         }
     }
 
-    getIndexOfType(type){
-        const TypeArr = ['common','widthBtn','withPoints'];
-        let index  = TypeArr.indexOf(type);
-        if(index !== -1){
+    getIndexOfType(type) {
+        const TypeArr = ['common', 'widthBtn', 'withPoints'];
+        let index = TypeArr.indexOf(type);
+        if (index !== -1) {
             return index + 1;
-        }else{
+        } else {
             throw 'check the type param again';
         }
 
@@ -55,15 +55,16 @@ class SwiperSlide extends UI {
             html += `<div class="panel-title">${this.options.title}</div>`;
         }
 
-        html += `<div class="swiper-control">
+        html +=
+            `<div class="swiper-control">
                     <div class="inner">
                         <!-- 轨道 -->
-                        <div class="${type === 3 ? 'swiper-step-track flex-left': 'swiper-track theme-block'}" 
-                            id = "track-inner" 
-                            min="${this.options.map.min}" 
-                            max="${this.options.map.max}" 
+                        <div class="${type === 3 ? 'swiper-step-track flex-left': 'swiper-track theme-block'}"
+                            id = "track-inner"
+                            min="${this.options.map.min}"
+                            max="${this.options.map.max}"
                             data-now = ''>
-                            ${ type === 3 ? innerNode : ""}    
+                            ${ type === 3 ? innerNode : ""}
                         </div>
                         <!-- 拇指 -->
                         <div class="swiper-thumb theme-border" data-content =''></div>
@@ -75,7 +76,8 @@ class SwiperSlide extends UI {
                 </div>`;
 
         if (type === 2) {
-            html += `
+            html +=
+                `
                     <!-- 控制 -->
                     <div class="contorlPanel flex-right">
                         <span class="plus-button" data-value ="plusBtn">+</span>
@@ -92,21 +94,21 @@ class SwiperSlide extends UI {
         this.bindEvent_tapEvent_Group();
     }
 
-    bindEvent_touchEvent_Group(){
+    bindEvent_touchEvent_Group() {
         this.bindEvent_touchStart();
         this.bindEvent_touchMove();
         this.bindEvent_touchEnd();
     }
 
-    bindEvent_tapEvent_Group(){
+    bindEvent_tapEvent_Group() {
         this.bindEvent_tapPlusButton();
         this.bindEvent_tapMinusButton();
     }
-    
+
     createInner() {
         let html = "";
         if (this._type === 3 && this._valMap !== undefined) {
-            for(let index = 0 ; index < this.options.map.max ; index++){
+            for (let index = 0; index < this.options.map.max; index++) {
                 html += `<li></li>`;
             }
         }
@@ -117,12 +119,14 @@ class SwiperSlide extends UI {
         let html = "";
         if (this._type === 3 && this._nameMap !== undefined) {
             let arr = this._nameMap;
-            for(let index = 0 ; index < this.options.map.max + 1 ;  index++){
-                 html += `<span style = "width:${110 / arr.length}%">${arr[index]}</span>`;
+            for (let index = 0; index < this.options.map.max + 1; index++) {
+                html +=
+                    `<span style = "width:${110 / arr.length}%">${arr[index]}</span>`;
             }
         } else {
-            html += `
-                <span>${this.options.map.min}</span> 
+            html +=
+                `
+                <span>${this.options.map.min}</span>
                 <span>${this.options.map.max}</span>
             `;
         }
@@ -159,24 +163,26 @@ class SwiperSlide extends UI {
         if (targetValue == this.value) {
             return;
         }
-        
-        if(this._type === 3 || !this._showTip){
-            const handleElementLeftPercentage = (targetValue - min) / (max - min) * 100;
+
+        if (this._type === 3 || !this._showTip) {
+            const handleElementLeftPercentage = (targetValue - min) / (max -
+                min) * 100;
             this.handlePoint.element
-            .css('left', `${handleElementLeftPercentage}%`);
-        }else{
-            const handleElementLeftPercentage = (targetValue - min) / (max - min) * 100;
+                .css('left', `${handleElementLeftPercentage}%`);
+        } else {
+            const handleElementLeftPercentage = (targetValue - min) / (max -
+                min) * 100;
             this.handlePoint.element
-            .css('left', `${handleElementLeftPercentage}%`)
-            .attr('data-content', targetValue);
+                .css('left', `${handleElementLeftPercentage}%`)
+                .attr('data-content', targetValue);
         }
         super.value = targetValue;
     }
 
-    getIndexFromPointsTypeValueMap(value){
-        if(this._type === 3 && this._valMap.indexOf(value) !== -1){
+    getIndexFromPointsTypeValueMap(value) {
+        if (this._type === 3 && this._valMap.indexOf(value) !== -1) {
             return this._valMap.indexOf(value);
-        }else{
+        } else {
             throw "please check your input value in valMap of options map";
         }
     }
@@ -206,7 +212,8 @@ class SwiperSlide extends UI {
 
     bindEvent_touchMove() {
         const self = this;
-        $(document).on('touchmove', this.handlePoint.selector, function (event) {
+        $(document).on('touchmove', this.handlePoint.selector, function(
+            event) {
             if (!self.onSliding) {
                 return;
             }
@@ -217,8 +224,10 @@ class SwiperSlide extends UI {
             }
             // TODO: 判断手指与控件的垂直距离，若太远，则设定 self.onSliding = false;
             console.log(`[${new Date()}] touchmoving...`);
-            const handleElementPersentage = self.percentageForHandlePoint(event.touches[0].pageX);
-            const targetValue = Math.round(handleElementPersentage * self.options.map.max);
+            const handleElementPersentage = self.percentageForHandlePoint(
+                event.touches[0].pageX);
+            const targetValue = Math.round(handleElementPersentage *
+                self.options.map.max);
             self.value = targetValue;
         });
     }
@@ -226,15 +235,16 @@ class SwiperSlide extends UI {
     bindEvent_touchEnd() {
         $(document).on('touchend', this.handlePoint.selector, () => {
             this.onSliding = false;
-            if(this.options.onChange){
-                if(this._type === 3){
+            if (this.options.onChange) {
+                if (this._type === 3) {
                     let targetIndex = this.options.map.valMap[this.value];
                     let targetName = this.options.map.nameMap[this.value];
-                    this.options.onChange(this.value,targetIndex,targetName);
-                }else{
+                    this.options.onChange(this.value, targetIndex,
+                        targetName);
+                } else {
                     this.options.onChange(this.value);
                 }
-                
+
             }
         });
     }
@@ -253,7 +263,7 @@ class SwiperSlide extends UI {
     bindEvent_tapPlusButton() {
         $(document).on('tap', this.handleButton.plus.selector, () => {
             this.value += 1;
-            if(this.options.onPlus){
+            if (this.options.onPlus) {
                 this.options.onPlus(this.value);
             }
         });
@@ -262,7 +272,7 @@ class SwiperSlide extends UI {
     bindEvent_tapMinusButton() {
         $(document).on('tap', this.handleButton.minus.selector, () => {
             this.value -= 1;
-            if(this.options.onMinus){
+            if (this.options.onMinus) {
                 this.options.onMinus(this.value);
             }
         });
@@ -275,16 +285,16 @@ class SwiperSlide extends UI {
         return (currentX - slideElement.offset().left) / slideElement.width();
     }
 
-    unbindEvent_touchFunction(){
+    unbindEvent_touchFunction() {
         let trigger = this.handlePoint.selector;
-        $(document).off('touchstart touchmove touchend',trigger);
+        $(document).off('touchstart touchmove touchend', trigger);
     }
-    
-    unbindEvent_tapFunction(){
+
+    unbindEvent_tapFunction() {
         let trigger1 = this.handleButton.plus.selector;
         let trigger2 = this.handleButton.minus.selector;
-        $(document).off('tap',trigger1);
-        $(document).off('tap',trigger2);
+        $(document).off('tap', trigger1);
+        $(document).off('tap', trigger2);
     }
 
 
@@ -298,7 +308,7 @@ class SwiperSlide extends UI {
     enable() {
         super.enable();
         $(this._hook).removeClass('disabled');
-        this.bindEvent_touchEvent_Group();    
+        this.bindEvent_touchEvent_Group();
         this.bindEvent_tapEvent_Group();
     }
 }

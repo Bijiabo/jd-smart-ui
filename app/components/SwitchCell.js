@@ -14,19 +14,19 @@ class SwitchCell extends UI {
 
         this._map = this.options.map;
         let html = '';
-        
+
         html = `<div class="panel">
                     <div class="switch-control flex-left">
                         <div class="switch-title">${this._title}</div>
                         <div class="switch-btn-main">
                             <input type="checkbox" id = "switch-cell-${this._type === 1 ? 'jd' : 'ali'}">
-                            <label for="switch-cell-${this._type === 1 ? 'jd' : 'ali'}" 
+                            <label for="switch-cell-${this._type === 1 ? 'jd' : 'ali'}"
                                 class="tapbtn iconfont">${this._type === 1 ? '&#xe6c5;':''}</label>
                         </div>
-                        
+
                     </div>
                 </div>`;
-        
+
         $(this._hook).append(html);
     }
 
@@ -85,7 +85,7 @@ class SwitchCell extends UI {
         return this._value;
     }
 
-    set value(nowValue) {  
+    set value(nowValue) {
         if(nowValue === "1"){
             $(this.getCheckBox()).attr('checked','checked');
         }

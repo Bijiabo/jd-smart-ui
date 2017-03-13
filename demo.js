@@ -102,7 +102,7 @@ listitem.updateItem({
 const swiper = new JDUI.instance.SwiperSlide({
     title: '滑动组件',
     hook: '.swiper-wrap-normal',
-    type: 'common', // 1、正常的 2、带+-的 3、刻度的
+    type: 'common',
     showTip: false,
     map: {
         min: 0,
@@ -162,7 +162,7 @@ const swithCell = new JDUI.instance.SwitchCell({
         on: '1',
         off: '0'
     },
-    
+
     onTap: function (index) {
         console.log('click jd', index);
     },
