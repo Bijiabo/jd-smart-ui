@@ -49,13 +49,13 @@ var gridItem = new JDUI.instance.GridItem({
         value: "9"
     }],
 
-    beforeTap: function () {
+    beforeTap: function() {
         console.log("before");
     },
-    onTap: function (item, index, content) {
+    onTap: function(item, index, content) {
         console.log('下发的值: ' + index);
     },
-    afterTap: function () {
+    afterTap: function() {
         console.log("after");
 
     }
@@ -76,13 +76,13 @@ var listitem = new JDUI.instance.ListItem({
         subTitle: '',
         rightTitle: ""
     }],
-    beforeTap: function () {
+    beforeTap: function() {
 
     },
-    onTap: function (item, context) {
+    onTap: function(item, context) {
         console.log(item, context);
     },
-    afterTap: function () {
+    afterTap: function() {
 
     }
 });
@@ -109,7 +109,7 @@ const swiper = new JDUI.instance.SwiperSlide({
         max: 39,
         defaultValue: 30
     },
-    onChange: function (index) {
+    onChange: function(index) {
         console.log(index);
     }
 });
@@ -124,14 +124,14 @@ const swiper2 = new JDUI.instance.SwiperSlide({
         max: 100,
         defaultValue: 20
     },
-    onChange: function (index) {
+    onChange: function(index) {
         console.log(index);
     },
     //onPlus and onMinus function only support at type 2;
-    onPlus: function (value) {
+    onPlus: function(value) {
         console.log(value);
     },
-    onMinus: function (value) {
+    onMinus: function(value) {
         console.log(value);
     }
 });
@@ -148,7 +148,7 @@ const swiperStep = new JDUI.instance.SwiperSlide({
         nameMap: ['模式1', '模式2', '模式3', '模式4', '模式5', '模式6', '模式7'],
         defaultValue: '40'
     },
-    onChange: function (value, targetIndex, targetName) {
+    onChange: function(value, targetIndex, targetName) {
         console.log(value, targetIndex, targetName);
     }
 });
@@ -163,7 +163,7 @@ const swithCell = new JDUI.instance.SwitchCell({
         off: '0'
     },
 
-    onTap: function (index) {
+    onTap: function(index) {
         console.log('click jd', index);
     },
 });
@@ -177,15 +177,19 @@ const swithCell2 = new JDUI.instance.SwitchCell({
         on: '1',
         off: '0'
     },
-    onTapBefore: function () {
+    onTapBefore: function() {
         //console.log('before');
     },
-    onTap: function (index) {
+    onTap: function(index) {
         console.log('click ali', index);
     },
-    onTapAfter: function () {
+    onTapAfter: function() {
         //console.log('after');
     }
+});
+
+const timeScroll = new JDUI.instance.TimeScroll({
+    hook: '.time-scroll'
 });
 
 

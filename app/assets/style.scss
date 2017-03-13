@@ -8,7 +8,12 @@ $transparentColor: rgba(0, 0, 0, 0);
 body {
     background-color: #F0F0F0;
 }
-ul,li,dl,dt,dd{
+
+ul,
+li,
+dl,
+dt,
+dd {
     list-style: none;
 }
 
@@ -27,9 +32,11 @@ ul,li,dl,dt,dd{
 .animation-slow {
     transition: all 0.8s ease;
 }
-.animation-switch{
+
+.animation-switch {
     transition: all 0.4s ease;
 }
+
 
 /* panel */
 
@@ -77,9 +84,10 @@ ul,li,dl,dt,dd{
 }
 
 @font-face {
-  font-family: 'iconfont';  /* project id 87760 */
-  src: url('https://at.alicdn.com/t/font_svndvyyea8fo5hfr.eot');
-  src: url('https://at.alicdn.com/t/font_svndvyyea8fo5hfr.eot?#iefix') format('embedded-opentype'),url('https://at.alicdn.com/t/font_svndvyyea8fo5hfr.woff') format('woff'),url('https://at.alicdn.com/t/font_svndvyyea8fo5hfr.ttf') format('truetype'),url('https://at.alicdn.com/t/font_svndvyyea8fo5hfr.svg#iconfont') format('svg');
+    font-family: 'iconfont';
+    /* project id 87760 */
+    src: url('https://at.alicdn.com/t/font_svndvyyea8fo5hfr.eot');
+    src: url('https://at.alicdn.com/t/font_svndvyyea8fo5hfr.eot?#iefix') format('embedded-opentype'), url('https://at.alicdn.com/t/font_svndvyyea8fo5hfr.woff') format('woff'), url('https://at.alicdn.com/t/font_svndvyyea8fo5hfr.ttf') format('truetype'), url('https://at.alicdn.com/t/font_svndvyyea8fo5hfr.svg#iconfont') format('svg');
 }
 
 .iconfont {
@@ -225,11 +233,11 @@ $defineBorderRaduis: 5px;
 .swiper-wrap-controlpanel.disabled,
 .swiper-wrap-hasbar.disabled,
 .swiper-step.disabled,
-.switch-cell.disabled{
+.switch-cell.disabled {
     opacity: 0.5;
 }
 
-.disabled{
+.disabled {
     opacity: 0.5;
 }
 
@@ -237,39 +245,44 @@ $defineBorderRaduis: 5px;
     margin: 25px 20px;
     position: relative;
 }
-.swiper-control .inner{
+
+.swiper-control .inner {
     -webkit-box-flex: 1;
     -webkit-flex: 1;
     flex: 1;
 }
-.swiper-control .inner .swiper-track , .swiper-control .inner .swiper-step-track {
+
+.swiper-control .inner .swiper-track,
+.swiper-control .inner .swiper-step-track {
     position: relative;
     top: 2px;
     height: 1px;
     //background: #f00;
     border-radius: $defineBorderRaduis;
 }
-.swiper-control .inner .swiper-step-track{
+
+.swiper-control .inner .swiper-step-track {
     background: #ccc;
 }
-.swiper-control .inner .swiper-step-track li{
+
+.swiper-control .inner .swiper-step-track li {
     width: 20%;
 }
 
-.swiper-control .inner .swiper-step-track li:first-child::before{
+.swiper-control .inner .swiper-step-track li:first-child::before {
     content: '';
     float: left;
     width: 5px;
     height: 5px;
-    background:green;
+    background: green;
 }
 
-.swiper-control .inner .swiper-step-track li::after{
+.swiper-control .inner .swiper-step-track li::after {
     content: '';
     float: right;
     width: 5px;
     height: 5px;
-    background:green;
+    background: green;
 }
 
 .swiper-control .inner .swiper-thumb {
@@ -311,7 +324,7 @@ $defineBorderRaduis: 5px;
     line-height: 20px;
 }
 
-.swiper-control .inner .swiper-num2{
+.swiper-control .inner .swiper-num2 {
     margin-top: 15px;
     color: #464646;
     font-size: 12px;
@@ -336,12 +349,10 @@ $defineBorderRaduis: 5px;
         text-align: center;
         border-radius: 33px;
     }
-
     .plus-button {
         border-bottom-right-radius: 0;
         border-top-right-radius: 0;
     }
-
     .minus-button {
         border-left: none;
         border-bottom-left-radius: 0;
@@ -349,18 +360,21 @@ $defineBorderRaduis: 5px;
     }
 }
 
+
 /* Switch Cell */
-.switch-control{
+
+.switch-control {
     padding-left: 12px;
     padding-right: 12px;
     margin: 10px 0;
-
 }
-.switch-title{
+
+.switch-title {
     line-height: 52px;
     width: 86%;
 }
-.switch-btn{
+
+.switch-btn {
     width: 45px;
     height: 45px;
     border-radius: 50%;
@@ -368,53 +382,54 @@ $defineBorderRaduis: 5px;
     text-align: center;
     line-height: 45px;
 }
-.switch-btn.on{
+
+.switch-btn.on {
     background: rgb(255, 102, 0);
-    color:#fff;
+    color: #fff;
 }
 
-.switch-btn-main{
-   position: relative
+.switch-btn-main {
+    position: relative
 }
 
-input[type='checkbox']{
+input[type='checkbox'] {
     display: none;
 }
 
-label[for="switch-cell-jd"]{
+label[for="switch-cell-jd"] {
     width: 45px;
     height: 45px;
     display: inline-block;
     border-radius: 50%;
-    border:1px solid #ccc;
+    border: 1px solid #ccc;
     position: relative;
-    top:4px;
+    top: 4px;
     text-align: center;
     line-height: 45px;
     @extend .animation;
 }
-input[type='checkbox']:checked+label[for="switch-cell-jd"]{
-    background:rgb(255, 102, 0);
+
+input[type='checkbox']:checked+label[for="switch-cell-jd"] {
+    background: rgb(255, 102, 0);
     color: #fff;
 }
 
-
-
-label[for="switch-cell-ali"]{
+label[for="switch-cell-ali"] {
     display: inline-block;
     width: 60px;
     height: 30px;
-    border:1px solid #ccc;
+    border: 1px solid #ccc;
     border-radius: 30px;
     position: relative;
     top: 11px;
     background: #f0f0f0;
     @extend .animation-switch;
 }
-label[for="switch-cell-ali"]::after{
+
+label[for="switch-cell-ali"]::after {
     display: block;
     position: relative;
-    content:'';
+    content: '';
     width: 50%;
     height: 100%;
     background: #fff;
@@ -424,9 +439,61 @@ label[for="switch-cell-ali"]::after{
     box-shadow: 0 0 2px #eee;
 }
 
-input[type='checkbox']:checked + label[for='switch-cell-ali']{
-    background:#9FD6AE
+input[type='checkbox']:checked+label[for='switch-cell-ali'] {
+    background: #9FD6AE
 }
-input[type='checkbox']:checked + label[for='switch-cell-ali']::after{
-    left:50%;
+
+input[type='checkbox']:checked+label[for='switch-cell-ali']::after {
+    left: 50%;
+}
+
+
+/*time scroll*/
+
+.scrollLine {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    height: 250px;
+}
+
+.scrollLine ul {
+    padding: 0;
+    width: 100%;
+    margin-top: 0;
+    overflow: hidden;
+    height: 200px;
+}
+
+.scrollLine li {
+    padding: 0;
+    text-align: center;
+    line-height: 28px;
+    font-size: 20px;
+}
+
+.scrollLine li.active {
+    font-size: 24px;
+}
+
+.scrollLine .topMask {
+    width: 100%;
+    height: 110px;
+    position: absolute;
+    top: 0;
+    background: -moz-linear-gradient( top, #f1f1f1, #fff);
+    background: -webkit-linear-gradient(top, #f1f1f1, #fff);
+    opacity: 0.9;
+    border-bottom: 1px solid #ccc;
+}
+
+.scrollLine .bottomMask {
+    width: 100%;
+    height: 110px;
+    position: absolute;
+    bottom: 0;
+    background: -moz-linear-gradient( bottom, #f1f1f1, #fff);
+    background: -webkit-linear-gradient(bottom, #f1f1f1, #fff);
+    opacity: 0.9;
+    border-top: 1px solid #ccc;
 }
