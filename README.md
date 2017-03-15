@@ -33,6 +33,7 @@ npm run dev
 ```
 
 触摸事件基于 `jquery.finger` https://github.com/ngryman/jquery.finger
+
 时间选择器基于   `MultiPicker` https://github.com/AppianZ/multi-picker
 
 
