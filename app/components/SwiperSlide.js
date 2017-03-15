@@ -30,6 +30,7 @@ class SwiperSlide extends UI {
         } else if (this.options.map.defaultValue && this._type === 3) {
             this.value = this.getIndexFromPointsTypeValueMap(this.options.map.defaultValue);
         }
+
     }
 
     getIndexOfType(type) {
@@ -57,7 +58,7 @@ class SwiperSlide extends UI {
 
         html +=
             `<div class="swiper-control">
-                    <div class="inner">
+                    <div class="inner" id = "innerTrack">
                         <!-- 轨道 -->
                         <div class="${type === 3 ? 'swiper-step-track flex-left': 'swiper-track theme-block'}"
                             id = "track-inner"
@@ -90,6 +91,7 @@ class SwiperSlide extends UI {
     }
 
     initEventFn() {
+
         this.bindEvent_touchEvent_Group();
         this.bindEvent_tapEvent_Group();
     }
@@ -157,6 +159,8 @@ class SwiperSlide extends UI {
         const min = this.options.map.min;
         const max = this.options.map.max;
         const slideElement = $(this._hook + ' .inner');
+        const innerTrack = document.getElementById('innerTrack').clientLeft;
+
         if (targetValue < min || targetValue > max) {
             return;
         }
@@ -166,22 +170,25 @@ class SwiperSlide extends UI {
 
         if (this._type === 3 || !this._showTip) {
             const handleElementLeftPercentage = (targetValue - min) / (max -
-                min) * slideElement.width();
-            // this.handlePoint.element
-            //     .css('left', `${handleElementLeftPercentage}%`);
+                min) * 100;
+
             this.handlePoint.element
-                .css({
-                    'transform': `translate3d(${handleElementLeftPercentage}px,0,0)`,
-                    '-webkit-transform': `translate3d(${handleElementLeftPercentage}px,0,0)`
-                });
+                .css('left', `${handleElementLeftPercentage}%`);
+            // this.handlePoint.element
+            //     .css({
+            //         'transform': `translate3d(${handleElementLeftPercentage}px,0,0)`,
+            //         '-webkit-transform': `translate3d(${handleElementLeftPercentage}px,0,0)`
+            //     });
         } else {
             const handleElementLeftPercentage = (targetValue - min) / (max -
-                min) * slideElement.width();
+                min) * 100;
+            // this.handlePoint.element
+            //     .css({
+            //         'transform': `translate3d(${handleElementLeftPercentage}px,0,0)`,
+            //         '-webkit-transform': `translate3d(${handleElementLeftPercentage}px,0,0)`
+            //     })
             this.handlePoint.element
-                .css({
-                    'transform': `translate3d(${handleElementLeftPercentage}px,0,0)`,
-                    '-webkit-transform': `translate3d(${handleElementLeftPercentage}px,0,0)`
-                })
+                .css('left', `${handleElementLeftPercentage}%`)
                 .attr('data-content', targetValue);
         }
         super.value = targetValue;
@@ -290,6 +297,7 @@ class SwiperSlide extends UI {
     percentageForHandlePoint(currentX) {
         // 根据传入的手指触摸点的 X 坐标，返回对应的控制点百分比
         const slideElement = $(this._hook + ' .inner');
+        console.log(slideElement.width(), slideElement.offset().left);
         return (currentX - slideElement.offset().left) / slideElement.width();
     }
 
