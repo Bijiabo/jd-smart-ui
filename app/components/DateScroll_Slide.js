@@ -19,7 +19,7 @@ var $ = require('jquery');
 //         }
 //     })
 // }
-class DataSelector_Slide {
+class DateSelector_Slide {
     constructor(config) {
         this.input = config.input;
         this.container = config.container;
@@ -195,7 +195,7 @@ class DataSelector_Slide {
         this.checkParam();
         if (!this.checkTime()) return;
         var html = '';
-        html += '<div class="date-selector-bg2 date-selector-bg-up" id="date-selector-bg-' + _this.container + '">' +
+        html += '<div class="date-selector-bg2 date-selector-bg-up2" id="date-selector-bg-' + _this.container + '">' +
             '<div  class="date-selector-container2" id="date-selector-container-' + _this.container + '">';
 
         // if (this.type == 1) {
@@ -542,5 +542,5 @@ class DataSelector_Slide {
     }
 }
 
-UI.registerComponent('DataSelector_Slide', DataSelector_Slide);
-export default DataSelector_Slide;
+UI.registerComponent('DateSelector_Slide', DateSelector_Slide);
+export default DateSelector_Slide;

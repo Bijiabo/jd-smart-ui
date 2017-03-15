@@ -19,7 +19,7 @@ var $ = require('jquery');
 //         }
 //     })
 // }
-class DataSelector {
+class DateSelector {
     constructor(config) {
         this.input = config.input;
         this.container = config.container;
@@ -290,13 +290,13 @@ class DataSelector {
                     _this.initCommonArr(tempDomUl, tempArray, min, max, '分', i);
                     break;
             }
-            tempDomUl.addEventListener('touchstart', function() {
+            tempDomUl.addEventListener('touchstart', function(event) {
                 _this.touch(event, _this, tempDomUl, _this['array' + _this.idxArr[i]], i);
             }, false);
-            tempDomUl.addEventListener('touchmove', function() {
+            tempDomUl.addEventListener('touchmove', function(event) {
                 _this.touch(event, _this, tempDomUl, _this['array' + _this.idxArr[i]], i);
             }, false);
-            tempDomUl.addEventListener('touchend', function() {
+            tempDomUl.addEventListener('touchend', function(event) {
                 _this.touch(event, _this, tempDomUl, _this['array' + _this.idxArr[i]], i);
             }, true);
         });
@@ -544,5 +544,5 @@ class DataSelector {
     }
 }
 
-UI.registerComponent('DataSelector', DataSelector);
-export default DataSelector;
+UI.registerComponent('DateSelector', DateSelector);
+export default DateSelector;

@@ -189,13 +189,13 @@ const swithCell2 = new JDUI.instance.SwitchCell({
 });
 
 
-new JDUI.instance.DataSelector_Slide({
+new JDUI.instance.DateSelector_Slide({
     input: 'date-selector-input', //点击触发插件的input框的id
     container: 'targetContainer', //插件插入的容器id
     type: 0,
     //0：不需要tab切换，自定义滑动内容，建议小于三个；
     //1：需要tab切换，【年月日】【时分】完全展示，固定死，可设置开始年份和结束年份
-    param: [1, 1, 1, 0, 0],
+    param: [0, 0, 0, 1, 1],
     //设置['year','month','day','hour','minute'],1为需要，0为不需要,需要连续的1
     beginTime: [], //如空数组默认设置成1970年1月1日0时0分开始，如需要设置开始时间点，数组的值对应param参数的对应值。
     endTime: [], //如空数组默认设置成次年12月31日23时59分结束，如需要设置结束时间点，数组的值对应param参数的对应值。
@@ -206,6 +206,33 @@ new JDUI.instance.DataSelector_Slide({
         } //回调
 });
 
+new JDUI.instance.DateSelector({
+    input: 'date-selector-input', //点击触发插件的input框的id
+    container: 'targetContainer2', //插件插入的容器id
+    type: 0,
+    //0：不需要tab切换，自定义滑动内容，建议小于三个；
+    //1：需要tab切换，【年月日】【时分】完全展示，固定死，可设置开始年份和结束年份
+    param: [0, 0, 0, 1, 1],
+    //设置['year','month','day','hour','minute'],1为需要，0为不需要,需要连续的1
+    beginTime: [], //如空数组默认设置成1970年1月1日0时0分开始，如需要设置开始时间点，数组的值对应param参数的对应值。
+    endTime: [], //如空数组默认设置成次年12月31日23时59分结束，如需要设置结束时间点，数组的值对应param参数的对应值。
+    recentTime: [], //如不需要设置当前时间，被为空数组，如需要设置的开始的时间点，数组的值对应param参数的对应值。
+    success: function(arr) {
+
+            console.log(arr);
+        } //回调
+});
+
+//自定义的scroll
+// new JDUI.instance.MultiPicker({
+//     input: 'multiPickerInput2', //点击触发插件的input框的id
+//     container: 'targetContainer2', //插件插入的容器id
+//     jsonData: $city,
+//     success: function(arr) {
+//             alert('页面会显示最终结果');
+//             document.getElementById('showBlock2').innerHTML = JSON.stringify(arr);
+//         } //回调
+// });
 // set theme color
 JDUI.style.themeColor = '#3E5266';
 JDUI.style.themeColor = '#ff6600';
