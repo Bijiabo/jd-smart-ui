@@ -189,7 +189,7 @@ const swithCell2 = new JDUI.instance.SwitchCell({
 });
 
 
-new JDUI.instance.DataSelector({
+new JDUI.instance.DataSelector_Slide({
     input: 'date-selector-input', //点击触发插件的input框的id
     container: 'targetContainer', //插件插入的容器id
     type: 0,
@@ -201,7 +201,7 @@ new JDUI.instance.DataSelector({
     endTime: [], //如空数组默认设置成次年12月31日23时59分结束，如需要设置结束时间点，数组的值对应param参数的对应值。
     recentTime: [], //如不需要设置当前时间，被为空数组，如需要设置的开始的时间点，数组的值对应param参数的对应值。
     success: function(arr) {
-            alert(arr);
+
             console.log(arr);
         } //回调
 });

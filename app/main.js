@@ -1,7 +1,7 @@
 // style
 import './assets/style';
 import './assets/DateSelector';
-
+import './assets/DateSelector_ext';
 
 import UI from './core/UI';
 
