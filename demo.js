@@ -103,7 +103,7 @@ const swiper = new JDUI.instance.SwiperSlide({
     title: '滑动组件',
     hook: '.swiper-wrap-normal',
     type: 'common',
-    showTip: false,
+    showTip: true,
     map: {
         min: 0,
         max: 39,
