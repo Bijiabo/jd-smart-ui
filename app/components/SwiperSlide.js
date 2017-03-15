@@ -168,7 +168,7 @@ class SwiperSlide extends UI {
             return;
         }
 
-        if (this._type === 3 || !this._showTip) {
+        if (this._type === 3) {
             const handleElementLeftPercentage = (targetValue - min) / (max -
                 min) * 100;
 
@@ -179,16 +179,22 @@ class SwiperSlide extends UI {
             //         'transform': `translate3d(${handleElementLeftPercentage}px,0,0)`,
             //         '-webkit-transform': `translate3d(${handleElementLeftPercentage}px,0,0)`
             //     });
+        } else if (!this._showTip) {
+            const handleElementLeftPercentage = (targetValue - min) / (max -
+                min) * slideElement.width();
+            this.handlePoint.element
+                .css({
+                    'transform': `translate3d(${handleElementLeftPercentage}px,0,0)`,
+                    '-webkit-transform': `translate3d(${handleElementLeftPercentage}px,0,0)`
+                });
         } else {
             const handleElementLeftPercentage = (targetValue - min) / (max -
-                min) * 100;
-            // this.handlePoint.element
-            //     .css({
-            //         'transform': `translate3d(${handleElementLeftPercentage}px,0,0)`,
-            //         '-webkit-transform': `translate3d(${handleElementLeftPercentage}px,0,0)`
-            //     })
+                min) * slideElement.width();
             this.handlePoint.element
-                .css('left', `${handleElementLeftPercentage}%`)
+                .css({
+                    'transform': `translate3d(${handleElementLeftPercentage}px,0,0)`,
+                    '-webkit-transform': `translate3d(${handleElementLeftPercentage}px,0,0)`
+                })
                 .attr('data-content', targetValue);
         }
         super.value = targetValue;
