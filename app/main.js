@@ -1,5 +1,6 @@
 // style
 import './assets/style';
+import './assets/DateSelector';
 
 import UI from './core/UI';
 
@@ -8,6 +9,6 @@ global.JDUICache = JDUICache;
 
 import components from './componentList';
 
-$(function () {
+$(function() {
     JDUI.style.update();
 });

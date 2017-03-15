@@ -34,6 +34,9 @@ npm run dev
 
 触摸事件基于 `jquery.finger` https://github.com/ngryman/jquery.finger
 
+时间选择器基于   `MultiPicker` https://github.com/AppianZ/multi-picker
+
+
 ## 结构
 
 - main.js       入口文件
@@ -161,7 +164,7 @@ gridItem.value = '7';
 // 设定不可用
 gridItem.disabled();
 
-// 设置可用 
+// 设置可用
 gridItem.enable();
 
 // 是否可用 boolean
@@ -170,7 +173,7 @@ console.log(gridItem.isEnabled);
 // 是否不可用 boolean
 console.log(gridItem.isDisabled);
 
-// 设置可显示 
+// 设置可显示
 gridItem.show();
 
 // 设置不可显示
@@ -219,7 +222,7 @@ var listitem = new JDUI.instance.ListItem(options);
 
 //设置不可用
 listitem.setItemDisabled({
-   index:['0'] 
+   index:['0']
 });
 
 //更新item
@@ -315,41 +318,41 @@ const swiperStep = new JDUI.instance.SwiperSlide({
 		<td> hook </td>
 		<td>挂载dom的钩子</td>
 		<td>是</td>
-		<td>如：.swiper-wrap-normal</td>
+		<td>如：`.swiper-wrap-normal`</td>
 	</tr>
 	<tr>
 		<td> showTip </td>
 		<td>是否显示滑块上的动态数值</td>
 		<td>否</td>
-		<td>默认false</td>
+		<td>默认`false`</td>
 	</tr>
 	<tr>
 		<td> type </td>
 		<td> 滑动组件类型 </td>
 		<td>是</td>
-		<td>默认类型：common;
-			 带+和-按钮类型:widthBtn;
-			 带刻度的类型:withPoints
-			 (类型名称必须写对)
+		<td>默认类型：`common`;
+			 带+和-按钮类型:`widthBtn`;
+			 带刻度的类型:`withPoints`
+			 (*类型名称必须写对*)
 		</td>
 	</tr>
 	<tr>
 		<td rowspan = "5"> map </td>
 		<td rowspan = "5"> 组件配置对象 </td>
 		<td rowspan = "5">是</td>
-		<td>min:最小值</td>
+		<td>`min`:最小值</td>
 	</tr>
 	<tr>
-		<td>max:最大值</td>
+		<td>`max`:最大值</td>
 	</tr>
 	<tr>
-		<td>defaultValue:默认值</td>
+		<td>`defaultValue`:默认值</td>
 	</tr>
 	<tr>
-		<td>valMap:值的数组</td>
+		<td>`valMap`:值的数组</td>
 	</tr>
 	<tr>
-		<td>nameMap:下标名称数组</td>
+		<td>`nameMap`:下标名称数组</td>
 	</tr>
 </table>
 
