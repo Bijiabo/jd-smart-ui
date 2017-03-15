@@ -156,7 +156,7 @@ class SwiperSlide extends UI {
     set value(targetValue) {
         const min = this.options.map.min;
         const max = this.options.map.max;
-
+        const slideElement = $(this._hook + ' .inner');
         if (targetValue < min || targetValue > max) {
             return;
         }
@@ -166,14 +166,22 @@ class SwiperSlide extends UI {
 
         if (this._type === 3 || !this._showTip) {
             const handleElementLeftPercentage = (targetValue - min) / (max -
-                min) * 100;
+                min) * slideElement.width();
+            // this.handlePoint.element
+            //     .css('left', `${handleElementLeftPercentage}%`);
             this.handlePoint.element
-                .css('left', `${handleElementLeftPercentage}%`);
+                .css({
+                    'transform': `translate3d(${handleElementLeftPercentage}px,0,0)`,
+                    '-webkit-transform': `translate3d(${handleElementLeftPercentage}px,0,0)`
+                });
         } else {
             const handleElementLeftPercentage = (targetValue - min) / (max -
-                min) * 100;
+                min) * slideElement.width();
             this.handlePoint.element
-                .css('left', `${handleElementLeftPercentage}%`)
+                .css({
+                    'transform': `translate3d(${handleElementLeftPercentage}px,0,0)`,
+                    '-webkit-transform': `translate3d(${handleElementLeftPercentage}px,0,0)`
+                })
                 .attr('data-content', targetValue);
         }
         super.value = targetValue;

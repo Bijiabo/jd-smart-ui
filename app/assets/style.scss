@@ -299,6 +299,10 @@ $defineBorderRaduis: 5px;
     cursor: pointer;
     left: 0;
     margin-left: -12px;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    transition: transform 0.1s linear;
+    -webkit-transition: transform 0.1s linear;
     background-image: linear-gradient(-180deg, #FEFFFF 0%, #F6F1F1 100%);
 }
 
