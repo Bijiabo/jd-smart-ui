@@ -39,10 +39,10 @@ class SwitchCell extends UI {
         }
     }
 
-    getCheckBox(){
-        if(this._type === 1){
+    getCheckBox() {
+        if (this._type === 1) {
             return '#switch-cell-jd';
-        }else{
+        } else {
             return '#switch-cell-ali'
         }
     }
@@ -51,7 +51,7 @@ class SwitchCell extends UI {
         return this._hook + ` .tapbtn`;
     }
 
-    bindSwitch_tap(){
+    bindSwitch_tap() {
         let trigger = this.getTapDom();
         let that = this;
         $(document).on('tap', trigger, (e) => {
@@ -68,9 +68,9 @@ class SwitchCell extends UI {
         })
     }
 
-    unbindSwitch_tap(){
+    unbindSwitch_tap() {
         let trigger = this.getTapDom();
-        $(document).off('tap',trigger);
+        $(document).off('tap', trigger);
     }
 
     initEventFn() {
@@ -86,20 +86,20 @@ class SwitchCell extends UI {
     }
 
     set value(nowValue) {
-        if(nowValue === "1"){
-            $(this.getCheckBox()).attr('checked','checked');
+        if (nowValue === "1") {
+            $(this.getCheckBox()).attr('checked', 'checked');
         }
         this._value = nowValue;
     }
 
-    disabled(){
+    disabled() {
         super.disabled();
         $(this._hook).addClass('disabled');
         this.unbindSwitch_tap();
-        $(this.getCheckBox()).attr('disabled','disabled');
+        $(this.getCheckBox()).attr('disabled', 'disabled');
     }
 
-    enable(){
+    enable() {
         super.enable();
         $(this._hook).removeClass('disabled');
         this.bindSwitch_tap();

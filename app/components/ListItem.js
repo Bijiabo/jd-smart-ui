@@ -13,22 +13,22 @@ class ListItem extends UI {
     }
 
     create() {
-        let html = "";
-        let _map = this.options.map;
-        let _hook = this.options.hook;
+            let html = "";
+            let _map = this.options.map;
+            let _hook = this.options.hook;
 
-        const splitLineHTML = '<div class="list-item-split-line"></div>';
+            const splitLineHTML = '<div class="list-item-split-line"></div>';
 
-        if (this.options.title) {
-            html += `<div class="panel-title">${this.options.title}</div>${splitLineHTML}`;
-        }
+            if (this.options.title) {
+                html += `<div class="panel-title">${this.options.title}</div>${splitLineHTML}`;
+            }
 
-        //first line
-        html += `<div class="panel-body flex-vertical site-box wrap">`;
+            //first line
+            html += `<div class="panel-body flex-vertical site-box wrap">`;
 
-        for (let i in _map) {
+            for (let i in _map) {
 
-            html += `<div class="unit-0 site-box flex-left list-item" data-index = ${i} value = ${i}>
+                html += `<div class="unit-0 site-box flex-left list-item" data-index = ${i} value = ${i}>
                         <span class="iconfont">${_map[i].icon}</span>
                         <div class="title">
                             <span class="${_map[i].subTitle ? `maint` : `maint_nosub`}">${_map[i].title}</span>
