@@ -223,16 +223,7 @@ new JDUI.instance.DateSelector({
         } //回调
 });
 
-//自定义的scroll
-// new JDUI.instance.MultiPicker({
-//     input: 'multiPickerInput2', //点击触发插件的input框的id
-//     container: 'targetContainer2', //插件插入的容器id
-//     jsonData: $city,
-//     success: function(arr) {
-//             alert('页面会显示最终结果');
-//             document.getElementById('showBlock2').innerHTML = JSON.stringify(arr);
-//         } //回调
-// });
+
 // set theme color
 JDUI.style.themeColor = '#3E5266';
 JDUI.style.themeColor = '#ff6600';
@@ -241,3 +232,48 @@ JDUI.style.themeColor = '#ff6600';
 var footer = new JDUI.instance.Footer({
     hook: '#footer'
 });
+
+
+/**
+ * 两个按钮的Toast
+ */
+var confirm1 = new JDUI.instance.Toast({
+    hook: '.confirm-twobtn-wrap',
+    type: 'two',
+    teplMap: {
+        title: '温馨提示',
+        content: 'Hello JimmyJimmy, My Name Is Mr.Prince.Hello JimmyJimmy, My Name Is Mr.Prince.'
+    },
+    letBtnFn: function(e) {
+        confirm1.closeConfirm();
+    },
+    rightBtnFn: function(e) {
+        confirm1.closeConfirm();
+    }
+});
+
+/**
+ * 一个按钮的Toast
+ */
+var confirm2 = new JDUI.instance.Toast({
+    hook: '.confirm-onebtn-wrap',
+    type: 'one',
+    teplMap: {
+        title: '温馨提示',
+        content: 'Hello JimmyJimmy, My Name Is Mr.Prince.Hello JimmyJimmy, My Name Is Mr.Prince.'
+    },
+    confirmBtn: function() {
+        confirm2.closeConfirm();
+    }
+});
+
+
+let com_btn = document.getElementById('openCFM');
+com_btn.addEventListener('click', (e) => {
+    confirm1.openConfirm();
+}, false);
+
+let com_btn2 = document.getElementById('oneCFM');
+com_btn2.addEventListener('click', (e) => {
+    confirm2.openConfirm();
+}, false);

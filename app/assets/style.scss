@@ -37,6 +37,18 @@ dd {
     transition: all 0.4s ease;
 }
 
+.bg_hover {
+    height: 100% !important;
+    overflow: hidden !important;
+}
+
+.testSpan {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin: 0 5px;
+}
+
 
 /* panel */
 
@@ -500,4 +512,63 @@ input[type='checkbox']:checked+label[for='switch-cell-ali']::after {
     background: -webkit-linear-gradient(bottom, #f1f1f1, #fff);
     opacity: 0.9;
     border-top: 1px solid #ccc;
+}
+
+
+/*confirm toast*/
+
+.confirmHover {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(75, 75, 75, 0.65) !important;
+    z-index: 998;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.confirmWrap {
+    width: 250px;
+    position: absolute;
+    top: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    left: 50%;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 2px #ccc;
+    z-index: 999;
+}
+
+.confirmWrap {
+    .cfm_main {
+        padding: 10px;
+    }
+    .cfm_title {
+        text-align: center;
+    }
+    .cfm_content {
+        padding: 10px 0;
+        font-size: 14px;
+    }
+    .cfm_btnWrap {
+        position: relative;
+    }
+    .cfm_btnWrap span {
+        width: 100%;
+        text-align: center;
+        line-height: 40px;
+        border-top: 1px solid #eee;
+    }
+    .cfm_btnWrap span:first-child {
+        border-bottom-left-radius: 10px;
+    }
+    .cfm_btnWrap span:last-child {
+        border-bottom-right-radius: 10px;
+        border-left: 1px solid #eee;
+    }
+}
+
+.hovers {
+    background: #eee;
 }

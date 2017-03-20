@@ -7,5 +7,6 @@ import ListItem from './components/ListItem';
 import MultiScroll from './components/MultiScroll';
 import SwiperSlide from './components/SwiperSlide';
 import SwitchCell from './components/SwitchCell';
+import Toast from './components/Toast';
 
-export default {DateScroll, DateScroll_Slide, GridItem, ListItem, MultiScroll, SwiperSlide, SwitchCell};
+export default {DateScroll, DateScroll_Slide, GridItem, ListItem, MultiScroll, SwiperSlide, SwitchCell, Toast};
