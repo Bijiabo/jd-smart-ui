@@ -105,7 +105,7 @@ const swiper = new JDUI.instance.SwiperSlide({
     type: 'common',
     showTip: true,
     map: {
-        min: 0,
+        min: 10,
         max: 39,
         defaultValue: 30
     },

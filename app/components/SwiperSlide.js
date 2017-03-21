@@ -241,8 +241,7 @@ class SwiperSlide extends UI {
             console.log(`[${new Date()}] touchmoving...`);
             const handleElementPersentage = self.percentageForHandlePoint(
                 event.touches[0].pageX);
-            const targetValue = Math.round(handleElementPersentage *
-                self.options.map.max);
+            const targetValue = Math.round(handleElementPersentage * (self.options.map.max - self.options.map.min) + self.options.map.min);
             self.value = targetValue;
         });
     }
