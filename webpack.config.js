@@ -10,7 +10,7 @@ module.exports = {
         jquery: 'window.$'
     },
     output: {
-        filename: 'bundle.js',
+        filename: 'jdsmart.ui.js',
         path: path.resolve(__dirname, 'dist')
     },
     resolve: {
