@@ -99,7 +99,7 @@ listitem.updateItem({
 
 
 
-const swiper = new JDUI.instance.SwiperSlide({
+var swiper = new JDUI.instance.SwiperSlide({
     title: '滑动组件',
     hook: '.swiper-wrap-normal',
     type: 'common',
@@ -114,7 +114,7 @@ const swiper = new JDUI.instance.SwiperSlide({
     }
 });
 
-const swiper2 = new JDUI.instance.SwiperSlide({
+var swiper2 = new JDUI.instance.SwiperSlide({
     title: '滑动组件',
     hook: '.swiper-wrap-hasbar',
     type: 'widthBtn',
@@ -136,7 +136,7 @@ const swiper2 = new JDUI.instance.SwiperSlide({
     }
 });
 
-const swiperStep = new JDUI.instance.SwiperSlide({
+var swiperStep = new JDUI.instance.SwiperSlide({
     title: '带刻度的滑动条',
     hook: '.swiper-step',
     showTip: false,
@@ -153,7 +153,7 @@ const swiperStep = new JDUI.instance.SwiperSlide({
     }
 });
 
-const swithCell = new JDUI.instance.SwitchCell({
+var swithCell = new JDUI.instance.SwitchCell({
     title: '开关',
     type: 'JD', //JD、jd标准样式、 Ali、阿里标准样式
     value: '0', //和正常一样，开1，关0
@@ -168,7 +168,7 @@ const swithCell = new JDUI.instance.SwitchCell({
     },
 });
 
-const swithCell2 = new JDUI.instance.SwitchCell({
+var swithCell2 = new JDUI.instance.SwitchCell({
     title: '开关',
     type: 'Ali', //JD、jd标准样式、 Ali、阿里标准样式
     value: '0', //和正常一样，开1，关0
@@ -188,6 +188,25 @@ const swithCell2 = new JDUI.instance.SwitchCell({
     }
 });
 
+var swithCell3 = new JDUI.instance.SwitchCell({
+    title: '开关',
+    type: 'Ali', //JD、jd标准样式、 Ali、阿里标准样式
+    value: '0', //和正常一样，开1，关0
+    hook: '.switch-cell3',
+    map: {
+        on: '1',
+        off: '0'
+    },
+    onTapBefore: function() {
+        //console.log('before');
+    },
+    onTap: function(index) {
+        console.log('click ali', index);
+    },
+    onTapAfter: function() {
+        //console.log('after');
+    }
+});
 
 new JDUI.instance.DateSelector_Slide({
     input: 'date-selector-input', //点击触发插件的input框的id

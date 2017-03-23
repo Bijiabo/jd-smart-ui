@@ -19,7 +19,7 @@ class SwitchCell extends UI {
                     <div class="switch-control flex-left">
                         <div class="switch-title">${this._title}</div>
                         <div class="switch-btn-main">
-                            <input type="checkbox" id = "switch-cell-${this._type === 1 ? 'jd' : 'ali'}">
+                            <input type="checkbox" name= "switch-cell-${this._type === 1 ? 'jd' : 'ali'}">
                             <label for="switch-cell-${this._type === 1 ? 'jd' : 'ali'}"
                                 class="tapbtn iconfont">${this._type === 1 ? '&#xe6c5;':''}</label>
                         </div>
@@ -41,14 +41,15 @@ class SwitchCell extends UI {
 
     getCheckBox() {
         if (this._type === 1) {
-            return '#switch-cell-jd';
+            return this._hook + ` :checkbox`;
         } else {
-            return '#switch-cell-ali'
+            return this._hook + ` :checkbox`;
         }
     }
 
     getTapDom() {
-        return this._hook + ` .tapbtn`;
+        const domSelector = this._hook + ` .tapbtn`;
+        return domSelector;
     }
 
     bindSwitch_tap() {
@@ -56,16 +57,15 @@ class SwitchCell extends UI {
         let that = this;
         $(document).on('tap', trigger, (e) => {
             if (that.isChecked) {
-                this._value = "1";
+                this.value = "1";
             } else {
-                this._value = "0";
+                this.value = "0";
             }
 
             if (this.options.onTap) {
                 this.options.onTap(this.value);
             }
-
-        })
+        });
     }
 
     unbindSwitch_tap() {
@@ -86,8 +86,14 @@ class SwitchCell extends UI {
     }
 
     set value(nowValue) {
+        // console.warn($(this.getCheckBox()));
+        const labelElement = $(`${this._hook} label`);
         if (nowValue === "1") {
             $(this.getCheckBox()).attr('checked', 'checked');
+            labelElement.addClass('checked');
+        } else {
+            $(this.getCheckBox()).attr('checked', false);
+            labelElement.removeClass('checked');
         }
         this._value = nowValue;
     }

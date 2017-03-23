@@ -455,11 +455,11 @@ label[for="switch-cell-ali"]::after {
     box-shadow: 0 0 2px #eee;
 }
 
-input[type='checkbox']:checked+label[for='switch-cell-ali'] {
+input[type='checkbox']:checked, label[for='switch-cell-ali'].checked {
     background: #9FD6AE
 }
 
-input[type='checkbox']:checked+label[for='switch-cell-ali']::after {
+input[type='checkbox']:checked, label[for='switch-cell-ali'].checked::after {
     left: 50%;
 }
 
