@@ -171,7 +171,13 @@ var swiperStep = new JDUI.instance.SwiperSlide({
 });
 
 var swithCell = new JDUI.instance.SwitchCell({
-    title: '开关',
+    title: function (value) {
+        if (value === '1') {
+            return '开关开---';
+        } else {
+            return '开关关---';
+        }
+    },
     type: 'JD', //JD、jd标准样式、 Ali、阿里标准样式
     value: '0', //和正常一样，开1，关0
     hook: '.switch-cell',

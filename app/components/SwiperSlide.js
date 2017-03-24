@@ -157,7 +157,7 @@ class SwiperSlide extends UI {
 
     set value(targetValue) {
         targetValue = Number(targetValue);
-        console.warn(`targetValue: ${targetValue}`);
+
         const min = this.options.map.min;
         const max = this.options.map.max;
         const slideElement = $(this._hook + ' .inner');

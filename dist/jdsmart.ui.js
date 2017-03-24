@@ -64,7 +64,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 21);
+/******/ 	return __webpack_require__(__webpack_require__.s = 22);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -90,6 +90,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var $ = __webpack_require__(1);
 var jqueryFinger = __webpack_require__(20);
+
+var _ = __webpack_require__(21);
+global._ = _;
 
 var UI = function () {
     function UI(options) {
@@ -2748,7 +2751,7 @@ var SwiperSlide = function (_UI) {
                 html += '<div class="panel-title">' + this.options.title + '</div>';
             }
 
-            html += '<div class="swiper-control">\n                    <div class="inner" id = "innerTrack">\n                        <!-- \u8F68\u9053 -->\n                        <div class="' + (type === 3 ? 'swiper-step-track flex-left' : 'swiper-track theme-block') + '"\n                            id = "track-inner"\n                            min="' + this.options.map.min + '"\n                            max="' + this.options.map.max + '"\n                            data-now = \'\'>\n                            ' + (type === 3 ? innerNode : "") + '\n                        </div>\n                        <!-- \u62C7\u6307 -->\n                        <div class="swiper-thumb theme-border" data-content =\'\'></div>\n                        <!-- \u6570\u503C -->\n                        <div class="swiper-num' + (type === 3 ? '2' : '') + ' flex-left">\n                            ' + bottomVal + '\n                        </div>\n                    </div>\n                </div>';
+            html += '<div class="swiper-control">\n                    <div class="inner" id = "innerTrack">\n                        <!-- \u8F68\u9053 -->\n                        <div class="' + (type === 3 ? 'swiper-step-track flex-left theme-block' : 'swiper-track theme-block') + '"\n                            id = "track-inner"\n                            min="' + this.options.map.min + '"\n                            max="' + this.options.map.max + '"\n                            data-now = \'\'>\n                            ' + (type === 3 ? innerNode : "") + '\n                        </div>\n                        <!-- \u62C7\u6307 -->\n                        <div class="swiper-thumb theme-border" data-content =\'\'></div>\n                        <!-- \u6570\u503C -->\n                        <div class="swiper-num' + (type === 3 ? '2' : '') + ' flex-left">\n                            ' + bottomVal + '\n                        </div>\n                    </div>\n                </div>';
 
             if (type === 2) {
                 html += '\n                    <!-- \u63A7\u5236 -->\n                    <div class="contorlPanel flex-right">\n                        <span class="plus-button" data-value ="plusBtn">+</span>\n                        <span class="minus-button" data-value ="minusBtn">-</span>\n                    </div>\n                    ';
@@ -2791,7 +2794,7 @@ var SwiperSlide = function (_UI) {
         key: 'createBtm',
         value: function createBtm() {
             var html = "";
-            if (this._type === 3 && this._nameMap !== undefined) {
+            if (this._type === 3) {
                 var arr = this._nameMap;
                 for (var index = 0; index < this.options.map.max + 1; index++) {
                     html += '<span style = "width:' + 110 / arr.length + '%">' + arr[index] + '</span>';
@@ -2940,7 +2943,7 @@ var SwiperSlide = function (_UI) {
         },
         set: function set(targetValue) {
             targetValue = Number(targetValue);
-            console.warn('targetValue: ' + targetValue);
+
             var min = this.options.map.min;
             var max = this.options.map.max;
             var slideElement = $(this._hook + ' .inner');
@@ -3061,7 +3064,7 @@ var SwitchCell = function (_UI) {
             this._map = this.options.map;
             var html = '';
 
-            html = '<div class="panel">\n                    <div class="switch-control flex-left">\n                        <div class="switch-title">' + this._title + '</div>\n                        <div class="switch-btn-main">\n                            <input type="checkbox" name= "switch-cell-' + (this._type === 1 ? 'jd' : 'ali') + '">\n                            <label for="switch-cell-' + (this._type === 1 ? 'jd' : 'ali') + '"\n                                class="tapbtn iconfont">' + (this._type === 1 ? '&#xe6c5;' : '') + '</label>\n                        </div>\n\n                    </div>\n                </div>';
+            html = '<div class="panel ' + (this._type === 1 ? 'no-margin no-border-radius' : '') + '">\n                    <div class="switch-control flex-left">\n                        <div class="switch-title">' + this.title + '</div>\n                        <div class="switch-btn-main">\n                            <input type="checkbox" name= "switch-cell-' + (this._type === 1 ? 'jd' : 'ali') + '">\n                            <label for="switch-cell-' + (this._type === 1 ? 'jd' : 'ali') + '"\n                                class="tapbtn iconfont">' + (this._type === 1 ? '&#xe6c5;' : '') + '</label>\n                        </div>\n\n                    </div>\n                </div>';
 
             $(this._hook).append(html);
         }
@@ -3137,6 +3140,15 @@ var SwitchCell = function (_UI) {
             $(this.getCheckBox()).removeAttr('disabled');
         }
     }, {
+        key: 'title',
+        get: function get() {
+            if (_.isFunction(this.options.title)) {
+                return this.options.title(this.value);
+            } else {
+                return this.options.title;
+            }
+        }
+    }, {
         key: 'isChecked',
         get: function get() {
             return !$(this.getCheckBox()).is(':checked');
@@ -3157,6 +3169,14 @@ var SwitchCell = function (_UI) {
                 labelElement.removeClass('checked');
             }
             this._value = nowValue;
+
+            var titleElement = $(this._hook + ' .switch-title');
+            titleElement.text(this.title);
+            if (nowValue === '1') {
+                titleElement.addClass('theme-text');
+            } else {
+                titleElement.removeClass('theme-text');
+            }
         }
     }]);
 
@@ -3408,7 +3428,7 @@ exports = module.exports = __webpack_require__(3)();
 
 
 // module
-exports.push([module.i, "@charset \"UTF-8\";\nhtml {\n  box-sizing: border-box; }\n\n*,\n*::before,\n*::after {\n  box-sizing: inherit; }\n\nhtml {\n  font-size: 10px;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);\n  text-size-adjust: 100%; }\n\nbody {\n  background-color: #f3f3f3;\n  color: #333;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Cantarell\", \"Fira Sans\", \"Droid Sans\", \"Hiragino Sans GB\", \"Microsoft Yahei\", \"\\5FAE\\8F6F\\96C5\\9ED1\", Arial, Helvetica, STHeiti, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-size: 1.8rem;\n  line-height: 1.5;\n  margin: 0; }\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  margin: 32px 0 0; }\n\np,\nblockquote,\ntable,\nhr,\ndl,\nul,\nol,\npre,\naddress,\nfigure {\n  margin: 14px 0 0; }\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  font-weight: 600; }\n\nh1 {\n  font-size: 3.2rem; }\n\nh2 {\n  font-size: 2.6rem; }\n\nh3 {\n  font-size: 2.4rem; }\n\nh4 {\n  font-size: 2.2rem; }\n\nh5 {\n  font-size: 2rem; }\n\nh6 {\n  font-size: 1.8rem; }\n\na {\n  color: #0080ff;\n  text-decoration: none;\n  -webkit-text-decoration-skip: objects; }\n  a:active, a:hover {\n    text-decoration: underline; }\n\nb,\nstrong,\ndt {\n  font-weight: 600; }\n\ncode,\nkbd,\nsamp {\n  background-color: rgba(0, 0, 0, 0.05);\n  font-family: Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace;\n  font-size: 85%;\n  padding: 0.1em 0.2em; }\n\npre {\n  max-height: 300px;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch;\n  background-color: rgba(0, 0, 0, 0.05);\n  font-family: Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace;\n  font-size: 1.3rem;\n  line-height: 1.2;\n  margin-left: -14px;\n  margin-right: -14px;\n  padding: 14px; }\n  pre code {\n    background-color: transparent;\n    font-size: 1.3rem;\n    padding: 0; }\n  @media (min-width: 740px) {\n    pre {\n      margin-left: 0;\n      margin-right: 0; } }\n\nblockquote {\n  border-left: 5px solid #ddd;\n  color: #777;\n  padding-left: 14px; }\n\nul,\nol {\n  padding-left: 28px; }\n\ndt,\ndd,\nol ol,\nul ul,\nol ul,\nul ol {\n  margin: 0; }\n\nhr {\n  border: 0;\n  border-top: 1px solid #ddd; }\n\nsmall {\n  font-size: 85%; }\n\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline; }\n\nsub {\n  bottom: -.25em; }\n\nsup {\n  top: -.5em; }\n\naddress,\ntime {\n  color: #777;\n  font-style: normal; }\n\nmark {\n  background-color: #ff0;\n  color: #333;\n  padding: 0 .2em; }\n\nabbr[title] {\n  border-bottom: 0;\n  text-decoration: underline;\n  text-decoration: underline dotted; }\n\naudio:not([controls]) {\n  display: none;\n  height: 0; }\n\nimg {\n  max-width: 100%;\n  vertical-align: middle; }\n\naudio,\nvideo {\n  width: 100%; }\n\n[role=\"button\"] {\n  cursor: pointer; }\n\na,\narea,\nbutton,\n[role=\"button\"],\ninput,\nlabel,\nselect,\nsummary,\ntextarea {\n  outline: 0;\n  touch-action: manipulation; }\n\nbutton,\ninput,\nselect,\ntextarea {\n  font: inherit; }\n\nbutton,\nhtml [type=button],\n[type=reset],\n[type=submit],\n::-webkit-file-upload-button {\n  appearance: button; }\n\n[type=search] {\n  appearance: none; }\n\n::-webkit-file-upload-button {\n  font: inherit; }\n\n[hidden] {\n  display: none; }\n\nfieldset {\n  border: 1px solid #ddd;\n  margin: 14px 0 0;\n  padding: 0 14px 14px; }\n\nlegend {\n  padding: 0 3px; }\n\noptgroup {\n  color: #777;\n  font-style: normal;\n  font-weight: normal; }\n\noption {\n  color: #333; }\n\nprogress {\n  width: 100%; }\n\n.container {\n  background-color: #fff;\n  max-width: 740px;\n  min-width: 320px;\n  outline: 14px solid #fff;\n  overflow: hidden;\n  padding: 0 14px 14px;\n  width: 100%; }\n\n@media (min-width: 1041px) {\n  .container {\n    max-width: 768px;\n    outline: 0;\n    padding: 0 28px 14px; } }\n\n.top-gap-big,\n.form .top-gap-big {\n  margin-top: 32px; }\n\n.top-gap,\n.form .top-gap {\n  margin-top: 14px; }\n\n.top-gap-0,\n.form .top-gap-0 {\n  margin-top: 0; }\n\n.flex-left,\n.flex-center,\n.flex-right,\n.flex-top,\n.flex-middle,\n.flex-bottom,\n.flex-vertical {\n  display: flex;\n  flex-flow: row nowrap; }\n\n.flex-left,\n.flex-center,\n.flex-right,\n.flex-top,\n.flex-middle,\n.flex-bottom,\n.flex-vertical.flex-left,\n.flex-vertical.flex-center,\n.flex-vertical.flex-right,\n.flex-vertical.flex-top,\n.flex-vertical.flex-middle,\n.flex-vertical.flex-bottom {\n  align-items: stretch;\n  justify-content: flex-start; }\n\n.flex-center,\n.flex-vertical.flex-middle {\n  justify-content: center; }\n\n.flex-right,\n.flex-vertical.flex-bottom {\n  justify-content: flex-end; }\n\n.flex-top,\n.flex-vertical.flex-left {\n  align-items: flex-start; }\n\n.flex-middle,\n.flex-vertical.flex-center {\n  align-items: center; }\n\n.flex-bottom,\n.flex-vertical.flex-right {\n  align-items: flex-end; }\n\n.units-gap {\n  margin-left: -7px;\n  margin-right: -7px; }\n  .units-gap > .unit,\n  .units-gap > .unit-0,\n  .units-gap > .unit-1-2,\n  .units-gap > .unit-1-3,\n  .units-gap > .unit-2-3,\n  .units-gap > .unit-1-4,\n  .units-gap > .unit-3-4 {\n    padding-left: 7px;\n    padding-right: 7px; }\n\n.unit {\n  flex-basis: 0;\n  flex-grow: 1;\n  max-width: 100%; }\n\n.unit-1-2,\n.unit-1-3,\n.unit-2-3,\n.unit-1-4,\n.unit-3-4 {\n  flex-shrink: 0; }\n\n.unit-1-2 {\n  flex-basis: 50%;\n  max-width: 50%; }\n\n.unit-1-3 {\n  flex-basis: 33.33%;\n  max-width: 33.33%; }\n\n.unit-2-3 {\n  flex-basis: 66.67%;\n  max-width: 66.67%; }\n\n.unit-1-4 {\n  flex-basis: 25%;\n  max-width: 25%; }\n\n.unit-3-4 {\n  flex-basis: 75%;\n  max-width: 75%; }\n\n.flex-vertical {\n  flex-direction: column; }\n  .flex-vertical > .unit,\n  .flex-vertical > .unit-0,\n  .flex-vertical > .unit-1-2,\n  .flex-vertical > .unit-1-3,\n  .flex-vertical > .unit-2-3,\n  .flex-vertical > .unit-1-4,\n  .flex-vertical > .unit-3-4 {\n    max-width: none; }\n  .flex-vertical > .unit-1-2 {\n    max-height: 50%; }\n  .flex-vertical > .unit-1-3 {\n    max-height: 33.33%; }\n  .flex-vertical > .unit-2-3 {\n    max-height: 66.67%; }\n  .flex-vertical > .unit-1-4 {\n    max-height: 25%; }\n  .flex-vertical > .unit-3-4 {\n    max-height: 75%; }\n\n.table {\n  background-color: #fff;\n  border: 0;\n  border-collapse: collapse;\n  border-spacing: 0;\n  width: 100%; }\n  .table caption {\n    caption-side: bottom;\n    color: #777;\n    padding: 5px;\n    text-align: left; }\n  .table th,\n  .table td {\n    border: 0;\n    border-bottom: 1px solid #ddd;\n    padding: 5px;\n    text-align: left; }\n  .table th {\n    background-color: rgba(0, 0, 0, 0.05);\n    font-weight: 600; }\n\n.form {\n  margin: 0; }\n  .form label {\n    cursor: pointer;\n    display: block;\n    line-height: 1.25;\n    margin-top: 14px;\n    padding-bottom: 6px;\n    padding-top: 6px; }\n  .form [type=text],\n  .form [type=password],\n  .form [type=email],\n  .form [type=search],\n  .form [type=url],\n  .form [type=tel],\n  .form [type=number],\n  .form textarea,\n  .form select {\n    appearance: none;\n    background-color: #fff;\n    border: 1px solid #ddd;\n    border-radius: 3px;\n    color: #333;\n    font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Cantarell\", \"Fira Sans\", \"Droid Sans\", \"Hiragino Sans GB\", \"Microsoft Yahei\", \"\\5FAE\\8F6F\\96C5\\9ED1\", Arial, Helvetica, STHeiti, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n    font-size: 1.8rem;\n    padding: 5px 10px;\n    display: block;\n    line-height: 1.25;\n    margin: 14px 0 0;\n    width: 100%; }\n    .form [type=text]:focus,\n    .form [type=password]:focus,\n    .form [type=email]:focus,\n    .form [type=search]:focus,\n    .form [type=url]:focus,\n    .form [type=tel]:focus,\n    .form [type=number]:focus,\n    .form textarea:focus,\n    .form select:focus {\n      border-color: #3399ff; }\n  @media (max-width: 1040px) {\n    .form [type=time],\n    .form [type=week],\n    .form [type=month],\n    .form [type=date],\n    .form [type=datetime-local] {\n      margin: 14px 0 0; } }\n  @media (min-width: 1041px) {\n    .form [type=time],\n    .form [type=week],\n    .form [type=month],\n    .form [type=date],\n    .form [type=datetime-local] {\n      appearance: none;\n      background-color: #fff;\n      border: 1px solid #ddd;\n      border-radius: 3px;\n      color: #333;\n      font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Cantarell\", \"Fira Sans\", \"Droid Sans\", \"Hiragino Sans GB\", \"Microsoft Yahei\", \"\\5FAE\\8F6F\\96C5\\9ED1\", Arial, Helvetica, STHeiti, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n      font-size: 1.8rem;\n      padding: 5px 10px;\n      display: block;\n      line-height: 1.25;\n      margin: 14px 0 0;\n      width: 100%; }\n      .form [type=time]:focus,\n      .form [type=week]:focus,\n      .form [type=month]:focus,\n      .form [type=date]:focus,\n      .form [type=datetime-local]:focus {\n        border-color: #3399ff; } }\n  .form [type=checkbox],\n  .form [type=radio] {\n    cursor: pointer;\n    margin: 0 5px 0 0; }\n  .form select {\n    background: url(\"data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='20' viewBox='0 0 32 20'><path fill='#333' d='M0 0h32L16 20z'/></svg>\") right 8px center no-repeat;\n    background-size: 8px 8px;\n    padding-right: 25px;\n    cursor: pointer; }\n  .form [type=file],\n  .form [type=range] {\n    display: block;\n    line-height: 1.25;\n    margin: 14px 0 0;\n    width: 100%;\n    cursor: pointer;\n    padding: 6px 0; }\n  .form [type=color],\n  .form [type=image] {\n    cursor: pointer;\n    display: block;\n    margin: 14px 0 0; }\n  .form [disabled] {\n    cursor: default;\n    opacity: .5;\n    pointer-events: none; }\n  .form [readonly] {\n    background-color: #f3f3f3; }\n\n.btn {\n  display: block;\n  line-height: 1.25;\n  margin: 14px 0 0;\n  width: 100%;\n  appearance: none;\n  background-color: #fff;\n  border: 1px solid #ddd;\n  border-radius: 3px;\n  color: #333;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Cantarell\", \"Fira Sans\", \"Droid Sans\", \"Hiragino Sans GB\", \"Microsoft Yahei\", \"\\5FAE\\8F6F\\96C5\\9ED1\", Arial, Helvetica, STHeiti, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-size: 1.8rem;\n  padding: 5px 10px;\n  text-align: center;\n  background-color: #f3f3f3;\n  cursor: pointer; }\n  .btn:focus {\n    border-color: #3399ff; }\n  .btn:hover, .btn:active {\n    text-decoration: none; }\n  .btn[disabled] {\n    cursor: default;\n    opacity: .5;\n    pointer-events: none; }\n\n.btn-primary {\n  background-color: #40bf40;\n  border-color: #40bf40;\n  color: #fff; }\n  .btn-primary[disabled] {\n    cursor: default;\n    opacity: .5;\n    pointer-events: none; }\n\n.btn-danger {\n  color: #cc0000; }\n  .btn-danger[disabled] {\n    cursor: default;\n    opacity: .5;\n    pointer-events: none; }\n\n@media (max-width: 1040px) {\n  .hide-on-mobile {\n    display: none; } }\n\n@media (min-width: 1041px) {\n  .show-on-mobile {\n    display: none; } }\n\n.scroll-view {\n  max-height: 300px;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch; }\n\n.text-left {\n  text-align: left; }\n\n.text-center {\n  text-align: center; }\n\n.text-right {\n  text-align: right; }\n\n.text-muted {\n  color: #777; }\n\na.text-muted {\n  color: #777;\n  text-decoration: underline; }\n\n/* public */\nbody {\n  background-color: #F0F0F0; }\n\nul,\nli,\ndl,\ndt,\ndd {\n  list-style: none; }\n\n.active-block {\n  color: #ffffff; }\n\n.animation-quick, .grid-item, .swiper-control .inner .swiper-thumb {\n  transition: all 0.1s ease; }\n\n.animation, .grid-item:before, .list-item:before, label[for=\"switch-cell-jd\"] {\n  transition: all 0.3s ease; }\n\n.animation-slow {\n  transition: all 0.8s ease; }\n\n.animation-switch, label[for=\"switch-cell-ali\"], label[for=\"switch-cell-ali\"]::after {\n  transition: all 0.4s ease; }\n\n.bg_hover {\n  height: 100% !important;\n  overflow: hidden !important; }\n\n.testSpan {\n  padding: 5px;\n  border: 1px solid #ccc;\n  border-radius: 10px;\n  margin: 0 5px; }\n\n/* panel */\n.panel {\n  background-color: #ffffff;\n  margin: 8px;\n  border-radius: 4px;\n  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.08);\n  overflow: hidden; }\n\n.panel-title {\n  height: 48px;\n  padding-left: 12px;\n  padding-right: 12px;\n  line-height: 48px;\n  font-size: 16px;\n  color: #464646; }\n\n.ui_wrap {\n  flex-wrap: wrap; }\n\n.ui_wrap div[class~=\"unit-1-4\"].disabled,\n.ui_wrap div[class~=\"unit-1-3\"].disabled {\n  opacity: 0.5; }\n\n.ui_wrap div[class~=\"unit-1-4\"] .mode_name,\n.ui_wrap div[class~=\"unit-1-3\"] .mode_name {\n  display: block;\n  font-size: 1.4rem; }\n\n@font-face {\n  font-family: 'iconfont';\n  /* project id 87760 */\n  src: url(\"https://at.alicdn.com/t/font_svndvyyea8fo5hfr.eot\");\n  src: url(\"https://at.alicdn.com/t/font_svndvyyea8fo5hfr.eot?#iefix\") format(\"embedded-opentype\"), url(\"https://at.alicdn.com/t/font_svndvyyea8fo5hfr.woff\") format(\"woff\"), url(\"https://at.alicdn.com/t/font_svndvyyea8fo5hfr.ttf\") format(\"truetype\"), url(\"https://at.alicdn.com/t/font_svndvyyea8fo5hfr.svg#iconfont\") format(\"svg\"); }\n\n.iconfont {\n  font-family: \"iconfont\" !important;\n  font-size: 26px;\n  font-style: normal;\n  -webkit-font-smoothing: antialiased;\n  -webkit-text-stroke-width: 0.2px;\n  -moz-osx-font-smoothing: grayscale; }\n\n.wrap {\n  background: #fff; }\n\ndiv[class~=\"unit-0\"].disabled {\n  opacity: 0.5; }\n\ndiv[class~=\"unit-0\"] .title {\n  width: 65%;\n  line-height: 30px;\n  padding-left: 10px; }\n\ndiv[class~=\"unit-0\"] .title .maint {\n  font-size: 16px;\n  line-height: 30px;\n  display: block; }\n\ndiv[class~=\"unit-0\"] .title .maint_nosub {\n  display: block;\n  line-height: 40px; }\n\ndiv[class~=\"unit-0\"] .title .sub {\n  font-size: 12px;\n  line-height: 12px;\n  display: block; }\n\ndiv[class~=\"unit-0\"] .rightPart {\n  width: 25%;\n  font-size: 16px;\n  line-height: 40px; }\n\ndiv[class~=\"unit-0\"] .rightPart .rightarrow {\n  font-size: 16px; }\n\n/* Grid Item */\n.grid-item {\n  position: relative;\n  padding-top: 20px;\n  padding-bottom: 20px;\n  border-color: #E5E5E5;\n  border-width: 0;\n  border-right-width: 1px;\n  border-bottom-width: 1px;\n  border-style: solid;\n  color: #A6A6A6; }\n\n.grid-item.active-block {\n  color: #ffffff; }\n\n.grid-item.no-right-border {\n  border-right-width: 0; }\n\n.grid-item.no-bottom-border {\n  border-bottom-width: 0; }\n\n.grid-item:before {\n  position: absolute;\n  content: \"\";\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: transparent; }\n\n.grid-item.grid-item-hover:before {\n  background-color: rgba(0, 0, 0, 0.1); }\n\n/* List Item */\n.list-item {\n  position: relative;\n  padding: 8px 10px; }\n\n.list-item:before {\n  position: absolute;\n  content: \"\";\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: transparent; }\n\n.list-item.list-item-hover:before {\n  background-color: rgba(0, 0, 0, 0.1); }\n\n.list-item-split-line {\n  width: 100%;\n  height: 1px;\n  background-color: #E5E5E5; }\n\n/* Swiper Slide */\n.swiper-wrap-normal,\n.swiper-wrap-controlpanel,\n.swiper-wrap-hasbar,\n.swiper-step,\n.switch-cell {\n  position: relative; }\n\n.swiper-wrap-normal.disabled,\n.swiper-wrap-controlpanel.disabled,\n.swiper-wrap-hasbar.disabled,\n.swiper-step.disabled,\n.switch-cell.disabled {\n  opacity: 0.5; }\n\n.disabled {\n  opacity: 0.5; }\n\n.swiper-control {\n  margin: 25px 20px;\n  position: relative; }\n\n.swiper-control .inner {\n  -webkit-box-flex: 1;\n  -webkit-flex: 1;\n  flex: 1; }\n\n.swiper-control .inner .swiper-track,\n.swiper-control .inner .swiper-step-track {\n  position: relative;\n  top: 2px;\n  height: 1px;\n  border-radius: 5px; }\n\n.swiper-control .inner .swiper-step-track {\n  background: #ccc; }\n\n.swiper-control .inner .swiper-step-track li {\n  width: 20%; }\n\n.swiper-control .inner .swiper-step-track li:first-child::before {\n  content: '';\n  float: left;\n  width: 5px;\n  height: 5px;\n  background: green; }\n\n.swiper-control .inner .swiper-step-track li::after {\n  content: '';\n  float: right;\n  width: 5px;\n  height: 5px;\n  background: green; }\n\n.swiper-control .inner .swiper-thumb {\n  position: absolute;\n  width: 24px;\n  height: 24px;\n  border-radius: 50%;\n  background: #f1f1f1;\n  border-width: 2px;\n  border-style: solid;\n  top: -9px;\n  z-index: 2;\n  cursor: pointer;\n  left: 0;\n  margin-left: -12px;\n  transform: translate3d(0, 0, 0);\n  -webkit-transform: translate3d(0, 0, 0);\n  transition: transform 0.1s linear;\n  -webkit-transition: transform 0.1s linear;\n  background-image: linear-gradient(-180deg, #FEFFFF 0%, #F6F1F1 100%); }\n\n.swiper-control .inner .swiper-thumb::before {\n  position: absolute;\n  content: attr(data-content);\n  left: 0;\n  bottom: -24px;\n  width: 100px;\n  text-align: center;\n  margin-left: -38px;\n  font-size: 15px;\n  color: #A6A6A6;\n  line-height: 20px; }\n\n.swiper-control .inner .swiper-num {\n  margin-top: 15px;\n  display: flex;\n  justify-content: space-between;\n  font-size: 15px;\n  color: #A6A6A6;\n  line-height: 20px; }\n\n.swiper-control .inner .swiper-num2 {\n  margin-top: 15px;\n  color: #464646;\n  font-size: 12px;\n  width: 120%;\n  margin-left: -10%;\n  text-align: center; }\n\n.contorlPanel {\n  width: 120px;\n  position: absolute;\n  right: 20px;\n  top: 10px; }\n\n.contorlPanel span {\n  width: 50px;\n  padding: 2px 15px;\n  border: 1px solid #E5E5E5;\n  border-radius: 10px;\n  text-align: center;\n  border-radius: 33px; }\n\n.contorlPanel .plus-button {\n  border-bottom-right-radius: 0;\n  border-top-right-radius: 0; }\n\n.contorlPanel .minus-button {\n  border-left: none;\n  border-bottom-left-radius: 0;\n  border-top-left-radius: 0; }\n\n/* Switch Cell */\n.switch-control {\n  padding-left: 12px;\n  padding-right: 12px;\n  margin: 10px 0; }\n\n.switch-title {\n  line-height: 52px;\n  width: 86%; }\n\n.switch-btn {\n  width: 45px;\n  height: 45px;\n  border-radius: 50%;\n  border: 1px solid #ccc;\n  text-align: center;\n  line-height: 45px; }\n\n.switch-btn.on {\n  background: #ff6600;\n  color: #fff; }\n\n.switch-btn-main {\n  position: relative; }\n\ninput[type='checkbox'] {\n  display: none; }\n\nlabel[for=\"switch-cell-jd\"] {\n  width: 45px;\n  height: 45px;\n  display: inline-block;\n  border-radius: 50%;\n  border: 1px solid #ccc;\n  position: relative;\n  top: 4px;\n  text-align: center;\n  line-height: 45px; }\n\ninput[type='checkbox']:checked + label[for=\"switch-cell-jd\"] {\n  background: #ff6600;\n  color: #fff; }\n\nlabel[for=\"switch-cell-ali\"] {\n  display: inline-block;\n  width: 60px;\n  height: 30px;\n  border: 1px solid #ccc;\n  border-radius: 30px;\n  position: relative;\n  top: 11px;\n  background: #f0f0f0; }\n\nlabel[for=\"switch-cell-ali\"]::after {\n  display: block;\n  position: relative;\n  content: '';\n  width: 50%;\n  height: 100%;\n  background: #fff;\n  border-radius: 50%;\n  left: 0;\n  box-shadow: 0 0 2px #eee; }\n\ninput[type='checkbox']:checked, label[for='switch-cell-ali'].checked {\n  background: #9FD6AE; }\n\ninput[type='checkbox']:checked, label[for='switch-cell-ali'].checked::after {\n  left: 50%; }\n\n/*time scroll*/\n.scrollLine {\n  position: relative;\n  display: flex;\n  flex-direction: row;\n  height: 250px; }\n\n.scrollLine ul {\n  padding: 0;\n  width: 100%;\n  margin-top: 0;\n  overflow: hidden;\n  height: 200px; }\n\n.scrollLine li {\n  padding: 0;\n  text-align: center;\n  line-height: 28px;\n  font-size: 20px; }\n\n.scrollLine li.active {\n  font-size: 24px; }\n\n.scrollLine .topMask {\n  width: 100%;\n  height: 110px;\n  position: absolute;\n  top: 0;\n  background: -moz-linear-gradient(top, #f1f1f1, #fff);\n  background: -webkit-linear-gradient(top, #f1f1f1, #fff);\n  opacity: 0.9;\n  border-bottom: 1px solid #ccc; }\n\n.scrollLine .bottomMask {\n  width: 100%;\n  height: 110px;\n  position: absolute;\n  bottom: 0;\n  background: -moz-linear-gradient(bottom, #f1f1f1, #fff);\n  background: -webkit-linear-gradient(bottom, #f1f1f1, #fff);\n  opacity: 0.9;\n  border-top: 1px solid #ccc; }\n\n/*confirm toast*/\n.confirmHover {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  background: rgba(75, 75, 75, 0.65) !important;\n  z-index: 998;\n  top: 0;\n  left: 0;\n  display: none; }\n\n.confirmWrap {\n  width: 250px;\n  position: absolute;\n  top: 50%;\n  transform: translate3d(-50%, -50%, 0);\n  left: 50%;\n  background: #fff;\n  border-radius: 10px;\n  box-shadow: 0 0 2px #ccc;\n  z-index: 999; }\n\n.confirmWrap .cfm_main {\n  padding: 10px; }\n\n.confirmWrap .cfm_title {\n  text-align: center; }\n\n.confirmWrap .cfm_content {\n  padding: 10px 0;\n  font-size: 14px; }\n\n.confirmWrap .cfm_btnWrap {\n  position: relative; }\n\n.confirmWrap .cfm_btnWrap span {\n  width: 100%;\n  text-align: center;\n  line-height: 40px;\n  border-top: 1px solid #eee; }\n\n.confirmWrap .cfm_btnWrap span:first-child {\n  border-bottom-left-radius: 10px; }\n\n.confirmWrap .cfm_btnWrap span:last-child {\n  border-bottom-right-radius: 10px;\n  border-left: 1px solid #eee; }\n\n.hovers {\n  background: #eee; }\n", "", {"version":3,"sources":["/./app/assets/style.scss","/./app/assets/node_modules/mobi.css/src/_resets.scss","/./app/assets/node_modules/mobi.css/src/_variables.scss","/./app/assets/node_modules/mobi.css/src/_mixins.scss","/./app/assets/node_modules/mobi.css/src/_layout.scss","/./app/assets/node_modules/mobi.css/src/_flexbox.scss","/./app/assets/node_modules/mobi.css/src/_table.scss","/./app/assets/node_modules/mobi.css/src/_form.scss","/./app/assets/node_modules/mobi.css/src/_utilities.scss","/./app/assets/style.scss"],"names":[],"mappings":"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","file":"style.scss","sourcesContent":["@charset \"UTF-8\";\nhtml {\n  box-sizing: border-box; }\n\n*,\n*::before,\n*::after {\n  box-sizing: inherit; }\n\nhtml {\n  font-size: 10px;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);\n  text-size-adjust: 100%; }\n\nbody {\n  background-color: #f3f3f3;\n  color: #333;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Cantarell\", \"Fira Sans\", \"Droid Sans\", \"Hiragino Sans GB\", \"Microsoft Yahei\", \"微软雅黑\", Arial, Helvetica, STHeiti, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-size: 1.8rem;\n  line-height: 1.5;\n  margin: 0; }\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  margin: 32px 0 0; }\n\np,\nblockquote,\ntable,\nhr,\ndl,\nul,\nol,\npre,\naddress,\nfigure {\n  margin: 14px 0 0; }\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  font-weight: 600; }\n\nh1 {\n  font-size: 3.2rem; }\n\nh2 {\n  font-size: 2.6rem; }\n\nh3 {\n  font-size: 2.4rem; }\n\nh4 {\n  font-size: 2.2rem; }\n\nh5 {\n  font-size: 2rem; }\n\nh6 {\n  font-size: 1.8rem; }\n\na {\n  color: #0080ff;\n  text-decoration: none;\n  -webkit-text-decoration-skip: objects; }\n  a:active, a:hover {\n    text-decoration: underline; }\n\nb,\nstrong,\ndt {\n  font-weight: 600; }\n\ncode,\nkbd,\nsamp {\n  background-color: rgba(0, 0, 0, 0.05);\n  font-family: Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace;\n  font-size: 85%;\n  padding: 0.1em 0.2em; }\n\npre {\n  max-height: 300px;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch;\n  background-color: rgba(0, 0, 0, 0.05);\n  font-family: Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace;\n  font-size: 1.3rem;\n  line-height: 1.2;\n  margin-left: -14px;\n  margin-right: -14px;\n  padding: 14px; }\n  pre code {\n    background-color: transparent;\n    font-size: 1.3rem;\n    padding: 0; }\n  @media (min-width: 740px) {\n    pre {\n      margin-left: 0;\n      margin-right: 0; } }\n\nblockquote {\n  border-left: 5px solid #ddd;\n  color: #777;\n  padding-left: 14px; }\n\nul,\nol {\n  padding-left: 28px; }\n\ndt,\ndd,\nol ol,\nul ul,\nol ul,\nul ol {\n  margin: 0; }\n\nhr {\n  border: 0;\n  border-top: 1px solid #ddd; }\n\nsmall {\n  font-size: 85%; }\n\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline; }\n\nsub {\n  bottom: -.25em; }\n\nsup {\n  top: -.5em; }\n\naddress,\ntime {\n  color: #777;\n  font-style: normal; }\n\nmark {\n  background-color: #ff0;\n  color: #333;\n  padding: 0 .2em; }\n\nabbr[title] {\n  border-bottom: 0;\n  text-decoration: underline;\n  text-decoration: underline dotted; }\n\naudio:not([controls]) {\n  display: none;\n  height: 0; }\n\nimg {\n  max-width: 100%;\n  vertical-align: middle; }\n\naudio,\nvideo {\n  width: 100%; }\n\n[role=\"button\"] {\n  cursor: pointer; }\n\na,\narea,\nbutton,\n[role=\"button\"],\ninput,\nlabel,\nselect,\nsummary,\ntextarea {\n  outline: 0;\n  touch-action: manipulation; }\n\nbutton,\ninput,\nselect,\ntextarea {\n  font: inherit; }\n\nbutton,\nhtml [type=button],\n[type=reset],\n[type=submit],\n::-webkit-file-upload-button {\n  appearance: button; }\n\n[type=search] {\n  appearance: none; }\n\n::-webkit-file-upload-button {\n  font: inherit; }\n\n[hidden] {\n  display: none; }\n\nfieldset {\n  border: 1px solid #ddd;\n  margin: 14px 0 0;\n  padding: 0 14px 14px; }\n\nlegend {\n  padding: 0 3px; }\n\noptgroup {\n  color: #777;\n  font-style: normal;\n  font-weight: normal; }\n\noption {\n  color: #333; }\n\nprogress {\n  width: 100%; }\n\n.container {\n  background-color: #fff;\n  max-width: 740px;\n  min-width: 320px;\n  outline: 14px solid #fff;\n  overflow: hidden;\n  padding: 0 14px 14px;\n  width: 100%; }\n\n@media (min-width: 1041px) {\n  .container {\n    max-width: 768px;\n    outline: 0;\n    padding: 0 28px 14px; } }\n\n.top-gap-big,\n.form .top-gap-big {\n  margin-top: 32px; }\n\n.top-gap,\n.form .top-gap {\n  margin-top: 14px; }\n\n.top-gap-0,\n.form .top-gap-0 {\n  margin-top: 0; }\n\n.flex-left,\n.flex-center,\n.flex-right,\n.flex-top,\n.flex-middle,\n.flex-bottom,\n.flex-vertical {\n  display: flex;\n  flex-flow: row nowrap; }\n\n.flex-left,\n.flex-center,\n.flex-right,\n.flex-top,\n.flex-middle,\n.flex-bottom,\n.flex-vertical.flex-left,\n.flex-vertical.flex-center,\n.flex-vertical.flex-right,\n.flex-vertical.flex-top,\n.flex-vertical.flex-middle,\n.flex-vertical.flex-bottom {\n  align-items: stretch;\n  justify-content: flex-start; }\n\n.flex-center,\n.flex-vertical.flex-middle {\n  justify-content: center; }\n\n.flex-right,\n.flex-vertical.flex-bottom {\n  justify-content: flex-end; }\n\n.flex-top,\n.flex-vertical.flex-left {\n  align-items: flex-start; }\n\n.flex-middle,\n.flex-vertical.flex-center {\n  align-items: center; }\n\n.flex-bottom,\n.flex-vertical.flex-right {\n  align-items: flex-end; }\n\n.units-gap {\n  margin-left: -7px;\n  margin-right: -7px; }\n  .units-gap > .unit,\n  .units-gap > .unit-0,\n  .units-gap > .unit-1-2,\n  .units-gap > .unit-1-3,\n  .units-gap > .unit-2-3,\n  .units-gap > .unit-1-4,\n  .units-gap > .unit-3-4 {\n    padding-left: 7px;\n    padding-right: 7px; }\n\n.unit {\n  flex-basis: 0;\n  flex-grow: 1;\n  max-width: 100%; }\n\n.unit-1-2,\n.unit-1-3,\n.unit-2-3,\n.unit-1-4,\n.unit-3-4 {\n  flex-shrink: 0; }\n\n.unit-1-2 {\n  flex-basis: 50%;\n  max-width: 50%; }\n\n.unit-1-3 {\n  flex-basis: 33.33%;\n  max-width: 33.33%; }\n\n.unit-2-3 {\n  flex-basis: 66.67%;\n  max-width: 66.67%; }\n\n.unit-1-4 {\n  flex-basis: 25%;\n  max-width: 25%; }\n\n.unit-3-4 {\n  flex-basis: 75%;\n  max-width: 75%; }\n\n.flex-vertical {\n  flex-direction: column; }\n  .flex-vertical > .unit,\n  .flex-vertical > .unit-0,\n  .flex-vertical > .unit-1-2,\n  .flex-vertical > .unit-1-3,\n  .flex-vertical > .unit-2-3,\n  .flex-vertical > .unit-1-4,\n  .flex-vertical > .unit-3-4 {\n    max-width: none; }\n  .flex-vertical > .unit-1-2 {\n    max-height: 50%; }\n  .flex-vertical > .unit-1-3 {\n    max-height: 33.33%; }\n  .flex-vertical > .unit-2-3 {\n    max-height: 66.67%; }\n  .flex-vertical > .unit-1-4 {\n    max-height: 25%; }\n  .flex-vertical > .unit-3-4 {\n    max-height: 75%; }\n\n.table {\n  background-color: #fff;\n  border: 0;\n  border-collapse: collapse;\n  border-spacing: 0;\n  width: 100%; }\n  .table caption {\n    caption-side: bottom;\n    color: #777;\n    padding: 5px;\n    text-align: left; }\n  .table th,\n  .table td {\n    border: 0;\n    border-bottom: 1px solid #ddd;\n    padding: 5px;\n    text-align: left; }\n  .table th {\n    background-color: rgba(0, 0, 0, 0.05);\n    font-weight: 600; }\n\n.form {\n  margin: 0; }\n  .form label {\n    cursor: pointer;\n    display: block;\n    line-height: 1.25;\n    margin-top: 14px;\n    padding-bottom: 6px;\n    padding-top: 6px; }\n  .form [type=text],\n  .form [type=password],\n  .form [type=email],\n  .form [type=search],\n  .form [type=url],\n  .form [type=tel],\n  .form [type=number],\n  .form textarea,\n  .form select {\n    appearance: none;\n    background-color: #fff;\n    border: 1px solid #ddd;\n    border-radius: 3px;\n    color: #333;\n    font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Cantarell\", \"Fira Sans\", \"Droid Sans\", \"Hiragino Sans GB\", \"Microsoft Yahei\", \"微软雅黑\", Arial, Helvetica, STHeiti, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n    font-size: 1.8rem;\n    padding: 5px 10px;\n    display: block;\n    line-height: 1.25;\n    margin: 14px 0 0;\n    width: 100%; }\n    .form [type=text]:focus,\n    .form [type=password]:focus,\n    .form [type=email]:focus,\n    .form [type=search]:focus,\n    .form [type=url]:focus,\n    .form [type=tel]:focus,\n    .form [type=number]:focus,\n    .form textarea:focus,\n    .form select:focus {\n      border-color: #3399ff; }\n  @media (max-width: 1040px) {\n    .form [type=time],\n    .form [type=week],\n    .form [type=month],\n    .form [type=date],\n    .form [type=datetime-local] {\n      margin: 14px 0 0; } }\n  @media (min-width: 1041px) {\n    .form [type=time],\n    .form [type=week],\n    .form [type=month],\n    .form [type=date],\n    .form [type=datetime-local] {\n      appearance: none;\n      background-color: #fff;\n      border: 1px solid #ddd;\n      border-radius: 3px;\n      color: #333;\n      font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Cantarell\", \"Fira Sans\", \"Droid Sans\", \"Hiragino Sans GB\", \"Microsoft Yahei\", \"微软雅黑\", Arial, Helvetica, STHeiti, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n      font-size: 1.8rem;\n      padding: 5px 10px;\n      display: block;\n      line-height: 1.25;\n      margin: 14px 0 0;\n      width: 100%; }\n      .form [type=time]:focus,\n      .form [type=week]:focus,\n      .form [type=month]:focus,\n      .form [type=date]:focus,\n      .form [type=datetime-local]:focus {\n        border-color: #3399ff; } }\n  .form [type=checkbox],\n  .form [type=radio] {\n    cursor: pointer;\n    margin: 0 5px 0 0; }\n  .form select {\n    background: url(\"data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='20' viewBox='0 0 32 20'><path fill='#333' d='M0 0h32L16 20z'/></svg>\") right 8px center no-repeat;\n    background-size: 8px 8px;\n    padding-right: 25px;\n    cursor: pointer; }\n  .form [type=file],\n  .form [type=range] {\n    display: block;\n    line-height: 1.25;\n    margin: 14px 0 0;\n    width: 100%;\n    cursor: pointer;\n    padding: 6px 0; }\n  .form [type=color],\n  .form [type=image] {\n    cursor: pointer;\n    display: block;\n    margin: 14px 0 0; }\n  .form [disabled] {\n    cursor: default;\n    opacity: .5;\n    pointer-events: none; }\n  .form [readonly] {\n    background-color: #f3f3f3; }\n\n.btn {\n  display: block;\n  line-height: 1.25;\n  margin: 14px 0 0;\n  width: 100%;\n  appearance: none;\n  background-color: #fff;\n  border: 1px solid #ddd;\n  border-radius: 3px;\n  color: #333;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Cantarell\", \"Fira Sans\", \"Droid Sans\", \"Hiragino Sans GB\", \"Microsoft Yahei\", \"微软雅黑\", Arial, Helvetica, STHeiti, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-size: 1.8rem;\n  padding: 5px 10px;\n  text-align: center;\n  background-color: #f3f3f3;\n  cursor: pointer; }\n  .btn:focus {\n    border-color: #3399ff; }\n  .btn:hover, .btn:active {\n    text-decoration: none; }\n  .btn[disabled] {\n    cursor: default;\n    opacity: .5;\n    pointer-events: none; }\n\n.btn-primary {\n  background-color: #40bf40;\n  border-color: #40bf40;\n  color: #fff; }\n  .btn-primary[disabled] {\n    cursor: default;\n    opacity: .5;\n    pointer-events: none; }\n\n.btn-danger {\n  color: #cc0000; }\n  .btn-danger[disabled] {\n    cursor: default;\n    opacity: .5;\n    pointer-events: none; }\n\n@media (max-width: 1040px) {\n  .hide-on-mobile {\n    display: none; } }\n\n@media (min-width: 1041px) {\n  .show-on-mobile {\n    display: none; } }\n\n.scroll-view {\n  max-height: 300px;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch; }\n\n.text-left {\n  text-align: left; }\n\n.text-center {\n  text-align: center; }\n\n.text-right {\n  text-align: right; }\n\n.text-muted {\n  color: #777; }\n\na.text-muted {\n  color: #777;\n  text-decoration: underline; }\n\n/* public */\nbody {\n  background-color: #F0F0F0; }\n\nul,\nli,\ndl,\ndt,\ndd {\n  list-style: none; }\n\n.active-block {\n  color: #ffffff; }\n\n.animation-quick, .grid-item, .swiper-control .inner .swiper-thumb {\n  transition: all 0.1s ease; }\n\n.animation, .grid-item:before, .list-item:before, label[for=\"switch-cell-jd\"] {\n  transition: all 0.3s ease; }\n\n.animation-slow {\n  transition: all 0.8s ease; }\n\n.animation-switch, label[for=\"switch-cell-ali\"], label[for=\"switch-cell-ali\"]::after {\n  transition: all 0.4s ease; }\n\n.bg_hover {\n  height: 100% !important;\n  overflow: hidden !important; }\n\n.testSpan {\n  padding: 5px;\n  border: 1px solid #ccc;\n  border-radius: 10px;\n  margin: 0 5px; }\n\n/* panel */\n.panel {\n  background-color: #ffffff;\n  margin: 8px;\n  border-radius: 4px;\n  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.08);\n  overflow: hidden; }\n\n.panel-title {\n  height: 48px;\n  padding-left: 12px;\n  padding-right: 12px;\n  line-height: 48px;\n  font-size: 16px;\n  color: #464646; }\n\n.ui_wrap {\n  flex-wrap: wrap; }\n\n.ui_wrap div[class~=\"unit-1-4\"].disabled,\n.ui_wrap div[class~=\"unit-1-3\"].disabled {\n  opacity: 0.5; }\n\n.ui_wrap div[class~=\"unit-1-4\"] .mode_name,\n.ui_wrap div[class~=\"unit-1-3\"] .mode_name {\n  display: block;\n  font-size: 1.4rem; }\n\n@font-face {\n  font-family: 'iconfont';\n  /* project id 87760 */\n  src: url(\"https://at.alicdn.com/t/font_svndvyyea8fo5hfr.eot\");\n  src: url(\"https://at.alicdn.com/t/font_svndvyyea8fo5hfr.eot?#iefix\") format(\"embedded-opentype\"), url(\"https://at.alicdn.com/t/font_svndvyyea8fo5hfr.woff\") format(\"woff\"), url(\"https://at.alicdn.com/t/font_svndvyyea8fo5hfr.ttf\") format(\"truetype\"), url(\"https://at.alicdn.com/t/font_svndvyyea8fo5hfr.svg#iconfont\") format(\"svg\"); }\n\n.iconfont {\n  font-family: \"iconfont\" !important;\n  font-size: 26px;\n  font-style: normal;\n  -webkit-font-smoothing: antialiased;\n  -webkit-text-stroke-width: 0.2px;\n  -moz-osx-font-smoothing: grayscale; }\n\n.wrap {\n  background: #fff; }\n\ndiv[class~=\"unit-0\"].disabled {\n  opacity: 0.5; }\n\ndiv[class~=\"unit-0\"] .title {\n  width: 65%;\n  line-height: 30px;\n  padding-left: 10px; }\n\ndiv[class~=\"unit-0\"] .title .maint {\n  font-size: 16px;\n  line-height: 30px;\n  display: block; }\n\ndiv[class~=\"unit-0\"] .title .maint_nosub {\n  display: block;\n  line-height: 40px; }\n\ndiv[class~=\"unit-0\"] .title .sub {\n  font-size: 12px;\n  line-height: 12px;\n  display: block; }\n\ndiv[class~=\"unit-0\"] .rightPart {\n  width: 25%;\n  font-size: 16px;\n  line-height: 40px; }\n\ndiv[class~=\"unit-0\"] .rightPart .rightarrow {\n  font-size: 16px; }\n\n/* Grid Item */\n.grid-item {\n  position: relative;\n  padding-top: 20px;\n  padding-bottom: 20px;\n  border-color: #E5E5E5;\n  border-width: 0;\n  border-right-width: 1px;\n  border-bottom-width: 1px;\n  border-style: solid;\n  color: #A6A6A6; }\n\n.grid-item.active-block {\n  color: #ffffff; }\n\n.grid-item.no-right-border {\n  border-right-width: 0; }\n\n.grid-item.no-bottom-border {\n  border-bottom-width: 0; }\n\n.grid-item:before {\n  position: absolute;\n  content: \"\";\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: transparent; }\n\n.grid-item.grid-item-hover:before {\n  background-color: rgba(0, 0, 0, 0.1); }\n\n/* List Item */\n.list-item {\n  position: relative;\n  padding: 8px 10px; }\n\n.list-item:before {\n  position: absolute;\n  content: \"\";\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: transparent; }\n\n.list-item.list-item-hover:before {\n  background-color: rgba(0, 0, 0, 0.1); }\n\n.list-item-split-line {\n  width: 100%;\n  height: 1px;\n  background-color: #E5E5E5; }\n\n/* Swiper Slide */\n.swiper-wrap-normal,\n.swiper-wrap-controlpanel,\n.swiper-wrap-hasbar,\n.swiper-step,\n.switch-cell {\n  position: relative; }\n\n.swiper-wrap-normal.disabled,\n.swiper-wrap-controlpanel.disabled,\n.swiper-wrap-hasbar.disabled,\n.swiper-step.disabled,\n.switch-cell.disabled {\n  opacity: 0.5; }\n\n.disabled {\n  opacity: 0.5; }\n\n.swiper-control {\n  margin: 25px 20px;\n  position: relative; }\n\n.swiper-control .inner {\n  -webkit-box-flex: 1;\n  -webkit-flex: 1;\n  flex: 1; }\n\n.swiper-control .inner .swiper-track,\n.swiper-control .inner .swiper-step-track {\n  position: relative;\n  top: 2px;\n  height: 1px;\n  border-radius: 5px; }\n\n.swiper-control .inner .swiper-step-track {\n  background: #ccc; }\n\n.swiper-control .inner .swiper-step-track li {\n  width: 20%; }\n\n.swiper-control .inner .swiper-step-track li:first-child::before {\n  content: '';\n  float: left;\n  width: 5px;\n  height: 5px;\n  background: green; }\n\n.swiper-control .inner .swiper-step-track li::after {\n  content: '';\n  float: right;\n  width: 5px;\n  height: 5px;\n  background: green; }\n\n.swiper-control .inner .swiper-thumb {\n  position: absolute;\n  width: 24px;\n  height: 24px;\n  border-radius: 50%;\n  background: #f1f1f1;\n  border-width: 2px;\n  border-style: solid;\n  top: -9px;\n  z-index: 2;\n  cursor: pointer;\n  left: 0;\n  margin-left: -12px;\n  transform: translate3d(0, 0, 0);\n  -webkit-transform: translate3d(0, 0, 0);\n  transition: transform 0.1s linear;\n  -webkit-transition: transform 0.1s linear;\n  background-image: linear-gradient(-180deg, #FEFFFF 0%, #F6F1F1 100%); }\n\n.swiper-control .inner .swiper-thumb::before {\n  position: absolute;\n  content: attr(data-content);\n  left: 0;\n  bottom: -24px;\n  width: 100px;\n  text-align: center;\n  margin-left: -38px;\n  font-size: 15px;\n  color: #A6A6A6;\n  line-height: 20px; }\n\n.swiper-control .inner .swiper-num {\n  margin-top: 15px;\n  display: flex;\n  justify-content: space-between;\n  font-size: 15px;\n  color: #A6A6A6;\n  line-height: 20px; }\n\n.swiper-control .inner .swiper-num2 {\n  margin-top: 15px;\n  color: #464646;\n  font-size: 12px;\n  width: 120%;\n  margin-left: -10%;\n  text-align: center; }\n\n.contorlPanel {\n  width: 120px;\n  position: absolute;\n  right: 20px;\n  top: 10px; }\n\n.contorlPanel span {\n  width: 50px;\n  padding: 2px 15px;\n  border: 1px solid #E5E5E5;\n  border-radius: 10px;\n  text-align: center;\n  border-radius: 33px; }\n\n.contorlPanel .plus-button {\n  border-bottom-right-radius: 0;\n  border-top-right-radius: 0; }\n\n.contorlPanel .minus-button {\n  border-left: none;\n  border-bottom-left-radius: 0;\n  border-top-left-radius: 0; }\n\n/* Switch Cell */\n.switch-control {\n  padding-left: 12px;\n  padding-right: 12px;\n  margin: 10px 0; }\n\n.switch-title {\n  line-height: 52px;\n  width: 86%; }\n\n.switch-btn {\n  width: 45px;\n  height: 45px;\n  border-radius: 50%;\n  border: 1px solid #ccc;\n  text-align: center;\n  line-height: 45px; }\n\n.switch-btn.on {\n  background: #ff6600;\n  color: #fff; }\n\n.switch-btn-main {\n  position: relative; }\n\ninput[type='checkbox'] {\n  display: none; }\n\nlabel[for=\"switch-cell-jd\"] {\n  width: 45px;\n  height: 45px;\n  display: inline-block;\n  border-radius: 50%;\n  border: 1px solid #ccc;\n  position: relative;\n  top: 4px;\n  text-align: center;\n  line-height: 45px; }\n\ninput[type='checkbox']:checked + label[for=\"switch-cell-jd\"] {\n  background: #ff6600;\n  color: #fff; }\n\nlabel[for=\"switch-cell-ali\"] {\n  display: inline-block;\n  width: 60px;\n  height: 30px;\n  border: 1px solid #ccc;\n  border-radius: 30px;\n  position: relative;\n  top: 11px;\n  background: #f0f0f0; }\n\nlabel[for=\"switch-cell-ali\"]::after {\n  display: block;\n  position: relative;\n  content: '';\n  width: 50%;\n  height: 100%;\n  background: #fff;\n  border-radius: 50%;\n  left: 0;\n  box-shadow: 0 0 2px #eee; }\n\ninput[type='checkbox']:checked, label[for='switch-cell-ali'].checked {\n  background: #9FD6AE; }\n\ninput[type='checkbox']:checked, label[for='switch-cell-ali'].checked::after {\n  left: 50%; }\n\n/*time scroll*/\n.scrollLine {\n  position: relative;\n  display: flex;\n  flex-direction: row;\n  height: 250px; }\n\n.scrollLine ul {\n  padding: 0;\n  width: 100%;\n  margin-top: 0;\n  overflow: hidden;\n  height: 200px; }\n\n.scrollLine li {\n  padding: 0;\n  text-align: center;\n  line-height: 28px;\n  font-size: 20px; }\n\n.scrollLine li.active {\n  font-size: 24px; }\n\n.scrollLine .topMask {\n  width: 100%;\n  height: 110px;\n  position: absolute;\n  top: 0;\n  background: -moz-linear-gradient(top, #f1f1f1, #fff);\n  background: -webkit-linear-gradient(top, #f1f1f1, #fff);\n  opacity: 0.9;\n  border-bottom: 1px solid #ccc; }\n\n.scrollLine .bottomMask {\n  width: 100%;\n  height: 110px;\n  position: absolute;\n  bottom: 0;\n  background: -moz-linear-gradient(bottom, #f1f1f1, #fff);\n  background: -webkit-linear-gradient(bottom, #f1f1f1, #fff);\n  opacity: 0.9;\n  border-top: 1px solid #ccc; }\n\n/*confirm toast*/\n.confirmHover {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  background: rgba(75, 75, 75, 0.65) !important;\n  z-index: 998;\n  top: 0;\n  left: 0;\n  display: none; }\n\n.confirmWrap {\n  width: 250px;\n  position: absolute;\n  top: 50%;\n  transform: translate3d(-50%, -50%, 0);\n  left: 50%;\n  background: #fff;\n  border-radius: 10px;\n  box-shadow: 0 0 2px #ccc;\n  z-index: 999; }\n\n.confirmWrap .cfm_main {\n  padding: 10px; }\n\n.confirmWrap .cfm_title {\n  text-align: center; }\n\n.confirmWrap .cfm_content {\n  padding: 10px 0;\n  font-size: 14px; }\n\n.confirmWrap .cfm_btnWrap {\n  position: relative; }\n\n.confirmWrap .cfm_btnWrap span {\n  width: 100%;\n  text-align: center;\n  line-height: 40px;\n  border-top: 1px solid #eee; }\n\n.confirmWrap .cfm_btnWrap span:first-child {\n  border-bottom-left-radius: 10px; }\n\n.confirmWrap .cfm_btnWrap span:last-child {\n  border-bottom-right-radius: 10px;\n  border-left: 1px solid #eee; }\n\n.hovers {\n  background: #eee; }\n","// scss-lint:disable DuplicateProperty, MergeableSelector, QualifyingElement\n\n// Resets\n//\n// Global resets to common HTML elements.\n// Doesn't depend on any third party libraries.\n// Inspired by Normalise.css and bootstrap/_reboot.scss\n\n\n//\n// `html` and `body`\n//\n\n// Reset the box-sizing\nhtml {\n  box-sizing: border-box;\n}\n\n*,\n*::before,\n*::after {\n  box-sizing: inherit;\n}\n\nhtml {\n  // `rem` based on the `font-size` of html\n  font-size: $rem-base;\n  // Changes the default tap highlight in iOS.\n  -webkit-tap-highlight-color: $color-background-active;\n  // Prevent adjustments of font size after orientation changes in IE and iOS.\n  text-size-adjust: 100%;\n}\n\nbody {\n  background-color: $color-background-body;\n  color: $color-text-body;\n  font-family: $font-family;\n  font-size: $font-size;\n  line-height: $line-height;\n  margin: 0;\n}\n\n\n//\n// Typography\n//\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  margin: $width-gap-big 0 0;\n}\n\np,\nblockquote,\ntable,\nhr,\ndl,\nul,\nol,\npre,\naddress,\nfigure {\n  margin: $width-gap 0 0;\n}\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  font-weight: $font-weight-bold;\n}\n\nh1 { font-size: $font-size-h1; }\nh2 { font-size: $font-size-h2; }\nh3 { font-size: $font-size-h3; }\nh4 { font-size: $font-size-h4; }\nh5 { font-size: $font-size-h5; }\nh6 { font-size: $font-size-h6; }\n\na {\n  color: $color-text-link;\n  text-decoration: none;\n  // Remove gaps in links underline in iOS 8+ and Safari 8+.\n  -webkit-text-decoration-skip: objects;\n\n  &:active,\n  &:hover {\n    text-decoration: underline;\n  }\n}\n\nb,\nstrong,\ndt {\n  font-weight: $font-weight-bold;\n}\n\ncode,\nkbd,\nsamp {\n  background-color: $color-background-code;\n  font-family: $font-family-monospace;\n  font-size: $font-size-code;\n  padding: $padding-code;\n}\n\npre {\n  // Mobile device has a small height, so we need to enable scroll-view\n  @include scroll-view();\n\n  background-color: $color-background-pre;\n  font-family: $font-family-monospace;\n  font-size: $font-size-pre;\n  line-height: $line-height-pre;\n  // Mobile device has a small height, so we need to set the width of pre to the device width\n  margin-left: -$width-gap;\n  margin-right: -$width-gap;\n  padding: $width-gap;\n\n  // Override the code styles\n  code {\n    background-color: transparent;\n    font-size: $font-size-pre;\n    padding: 0;\n  }\n\n  @media (min-width: $max-width-container - $width-gap-double) {\n    margin-left: 0;\n    margin-right: 0;\n  }\n}\n\nblockquote {\n  border-left: $border-left-blockquote;\n  color: $color-text-blockquote;\n  padding-left: $width-gap;\n}\n\nul,\nol {\n  padding-left: $width-gap-double;\n}\n\ndt,\ndd,\nol ol,\nul ul,\nol ul,\nul ol {\n  margin: 0;\n}\n\nhr {\n  border: 0;\n  border-top: $border-top-hr;\n}\n\nsmall {\n  font-size: $font-size-small;\n}\n\n// Prevent `sub` and `sup` elements from affecting the line height in all browsers.\nsub,\nsup {\n  font-size: $font-size-sub-sup;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline;\n}\n\nsub {\n  bottom: -.25em;\n}\n\nsup {\n  top: -.5em;\n}\n\naddress,\ntime {\n  color: $color-text-muted;\n  font-style: normal;\n}\n\nmark {\n  background-color: $color-background-mark;\n  color: $color-text;\n  padding: 0 .2em;\n}\n\nabbr[title] {\n  border-bottom: 0;\n  text-decoration: underline;\n  text-decoration: underline dotted;\n}\n\n\n//\n// Embedded Content\n//\n\n// Add the correct display in iOS 4-7.\naudio:not([controls]) {\n  display: none;\n  height: 0;\n}\n\nimg {\n  max-width: 100%;\n  vertical-align: middle;\n}\n\naudio,\nvideo {\n  width: 100%;\n}\n\n\n//\n// Forms\n//\n\n// iOS \"clickable elements\" fix for role=\"button\"\n//\n// Fixes \"clickability\" issue (and more generally, the firing of events such as focus as well)\n// for traditionally non-focusable elements with role=\"button\"\n// see https://developer.mozilla.org/en-US/docs/Web/Events/click#Safari_Mobile\n[role=\"button\"] {\n  cursor: pointer;\n}\n\n// Avoid 300ms click delay on touch devices that support the `touch-action` CSS property.\na,\narea,\nbutton,\n[role=\"button\"],\ninput,\nlabel,\nselect,\nsummary,\ntextarea {\n  outline: 0;\n  touch-action: manipulation;\n}\n\nbutton,\ninput,\nselect,\ntextarea {\n  font: inherit;\n}\n\nbutton,\n// Prevent a WebKit bug where (*) destroys native `audio` and `video` controls in Android 4.\nhtml [type=button],\n[type=reset],\n[type=submit],\n::-webkit-file-upload-button {\n  // (*) Correct the inability to style clickable types in iOS and Safari.\n  appearance: button;\n}\n\n[type=search] {\n  // Correct the odd appearance in Chrome and Safari.\n  appearance: none;\n}\n\n// Change font properties to `inherit` in Safari.\n::-webkit-file-upload-button {\n  font: inherit;\n}\n\n[hidden] {\n  display: none;\n}\n\nfieldset {\n  border: $width-border solid $color-border;\n  margin: $width-gap 0 0;\n  padding: 0 $width-gap $width-gap;\n}\n\nlegend {\n  padding: $padding-legend;\n}\n\noptgroup {\n  color: $color-optgroup;\n  font-style: normal;\n  font-weight: normal;\n}\n\noption {\n  color: $color-text;\n}\n\nprogress {\n  width: 100%;\n}\n","// Variables\n//\n// Copy settings from this file into the provided `_custom.scss` to override\n// the Bootstrap defaults without modifying key, versioned files.\n//\n// All variables need to be named as ${rule}-${element}-${modifier}\n\n\n//\n// Colors\n//\n\n// Common colors\n// Add !default so _custom.scss can override it\n$color-text: #333 !default;\n$color-text-muted: #777 !default;\n\n$color-background: #fff !default;\n$color-background-over: rgba(0, 0, 0, .05) !default;\n$color-background-back: #f3f3f3 !default;\n\n$color-border: #ddd !default;\n\n// `body` and `container`\n$color-text-body: $color-text !default;\n$color-background-body: $color-background-back !default;\n$color-background-container: $color-background !default;\n\n// Links\n// hsl is easy to modify\n$color-text-link: hsl(210, 100%, 50%) !default;\n// Use rgba so it can nesting\n$color-background-active: rgba(0, 0, 0, .1) !default;\n\n// Codes\n$color-background-code: $color-background-over !default;\n$color-background-pre: $color-background-over !default;\n\n// `blockquote`\n$color-text-blockquote: $color-text-muted !default;\n\n// `mark`\n$color-background-mark: #ff0 !default;\n\n// Tables\n$color-background-table: $color-background !default;\n$color-background-th: $color-background-over !default;\n\n// Forms\n// For `input`s which is not a button\n$color-background-input: $color-background !default;\n// For focused input\n$color-border-input-focus: hsl(210, 100%, 60%) !default;\n// For buttons\n$color-background-btn: $color-background-back !default;\n$color-text-btn-primary: $color-background !default;\n$color-background-btn-primary: hsl(120, 50%, 50%) !default;\n$color-text-btn-danger: hsl(0, 100%, 40%) !default;\n//For optgroup\n$color-optgroup: $color-text-muted;\n\n//\n// Spacing\n//\n\n$width-gap: 14px !default;\n$width-gap-double: 28px !default;\n$width-gap-half: 7px !default;\n\n$width-gap-big: 32px !default;\n\n$width-padding-input: 5px !default;\n\n$width-border: 1px !default;\n\n// $width-padding-input + $width-border\n$width-padding-border-input: 6px !default;\n\n//\n// layouts\n//\n\n$width-scrollbar: 17px !default;\n\n$padding-container: 0 $width-gap $width-gap !default;\n$padding-container-desktop: 0 $width-gap-double $width-gap !default;\n\n$min-width-container: 320px !default;\n$max-width-container: 768px !default;\n$max-width-side: 256px !default;\n// So won't have scroll-x on device which width is 1025px\n$width-container-breakpoint: $max-width-container + $max-width-side + $width-scrollbar !default;\n\n//\n// Typography\n//\n\n// 1rem = 10px\n$rem-base: 10px !default;\n\n$font-size: 1.8rem !default;\n\n// h4, h5, h6 is not very useful, so we set them to the same size of normal\n// font-size, but with $font-weight-bold\n$font-size-h1: 3.2rem !default;\n$font-size-h2: 2.6rem !default;\n$font-size-h3: 2.4rem !default;\n$font-size-h4: 2.2rem !default;\n$font-size-h5: 2rem !default;\n$font-size-h6: 1.8rem !default;\n\n$font-size-pre: 1.3rem !default;\n\n$font-size-small: 85% !default;\n$font-size-code: $font-size-small !default;\n$font-size-sub-sup: 75% !default;\n\n$line-height: 1.5 !default;\n\n$line-height-input: 1.25 !default;\n// line-height need to be set to pre, not code\n$line-height-pre: 1.2 !default;\n\n$font-weight-bold: 600 !default;\n\n$font-family:\n  // Safari for OS X and iOS (San Francisco)\n  -apple-system,\n  // Chrome for OS X (San Francisco)\n  BlinkMacSystemFont,\n  // Windows\n  'Segoe UI',\n  // Android\n  'Roboto',\n  // Linux\n  'Oxygen', // KDE\n  'Ubuntu',\n  'Cantarell', // GNOME\n  // Firefox OS [R.I.P.]\n  'Fira Sans',\n  // Older Android\n  'Droid Sans',\n  // Chinese font for OSX and iOS\n  'Hiragino Sans GB',\n  // Chinese font for Windows\n  'Microsoft Yahei', '微软雅黑',\n  // Basic web fallback\n  Arial, Helvetica, STHeiti, sans-serif,\n  // Emoji\n  'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol' !default;\n\n// TODO Chinese font-family for pre code\n// https://github.com/xcatliu/mobi.css/issues/8\n$font-family-monospace: Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace !default;\n\n$padding-code: .1em .2em !default;\n\n$border-left-blockquote: $width-padding-input solid $color-border !default;\n\n$border-top-hr: $width-border solid $color-border !default;\n\n// Set the default max-height to scroll-view\n$max-height-scroll-view: 300px !default;\n\n\n//\n// Tables\n//\n\n$padding-table-cell: $width-padding-input !default;\n$border-bottom-th-td: $width-border solid $color-border !default;\n\n//\n// Forms\n//\n\n// For inputs\n$border-radius-input: 3px !default;\n$padding-input: $width-padding-input 2 * $width-padding-input !default;\n$border-input: $width-border solid $color-border !default;\n// For file input\n$padding-file: $width-padding-border-input 0 !default;\n\n// For checkbox and radio\n$margin-checkbox-radio: 0 $width-padding-input 0 0 !default;\n// 5px padding + 1px border\n$width-padding-top-label: $width-padding-border-input !default;\n$width-padding-bottom-label: $width-padding-border-input !default;\n\n$padding-legend: 0 3px !default;\n\n// Background image of down arrow\n$background-image-angle-down: url(\"data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='20' viewBox='0 0 32 20'><path fill='#{$color-text}' d='M0 0h32L16 20z'/></svg>\") !default;\n","@mixin scroll-view() {\n  max-height: $max-height-scroll-view;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch;\n}\n\n@mixin background-icon-angle-down() {\n  background: $background-image-angle-down right 8px center no-repeat;\n  background-size: 8px 8px;\n  padding-right: 25px;\n}\n\n@mixin flex-container() {\n  display: flex;\n  flex-flow: row nowrap;\n}\n\n@mixin flex-width($percentage) {\n  flex-basis: $percentage;\n  max-width: $percentage;\n}\n\n\n//\n// Forms\n//\n\n@mixin input-and-button() {\n  appearance: none;\n  background-color: $color-background-input;\n  border: $border-input;\n  border-radius: $border-radius-input;\n  // Follow the color of body text\n  color: $color-text-body;\n  font-family: $font-family;\n  font-size: $font-size;\n  padding: $padding-input;\n\n  &:focus {\n    border-color: $color-border-input-focus;\n  }\n}\n\n@mixin input-block() {\n  display: block;\n  line-height: $line-height-input;\n  margin: $width-gap 0 0;\n  width: 100%;\n}\n\n@mixin button() {\n  text-align: center;\n  background-color: $color-background-btn;\n  cursor: pointer;\n\n  &:hover,\n  &:active {\n    text-decoration: none;\n  }\n}\n\n@mixin disabled() {\n  cursor: default;\n  opacity: .5;\n  pointer-events: none;\n}\n\n@mixin btn() {\n  @include input-block();\n  @include input-and-button();\n  @include button();\n\n  &[disabled] {\n    @include disabled();\n  }\n}\n\n@mixin btn-primary() {\n  background-color: $color-background-btn-primary;\n  border-color: $color-background-btn-primary;\n  color: $color-text-btn-primary;\n\n  &[disabled] {\n    @include disabled();\n  }\n}\n\n@mixin btn-danger() {\n  color: $color-text-btn-danger;\n\n  &[disabled] {\n    @include disabled();\n  }\n}\n",".container {\n  background-color: $color-background-container;\n  max-width: $max-width-container - $width-gap-double;\n  min-width: $min-width-container;\n  outline: $width-gap solid $color-background-container;\n  overflow: hidden;\n  padding: $padding-container;\n  width: 100%;\n}\n\n@media (min-width: $width-container-breakpoint) {\n  .container {\n    max-width: $max-width-container;\n    outline: 0;\n    padding: $padding-container-desktop;\n  }\n}\n\n.top-gap-big,\n.form .top-gap-big {\n  margin-top: $width-gap-big;\n}\n\n.top-gap,\n.form .top-gap {\n  margin-top: $width-gap;\n}\n\n.top-gap-0,\n.form .top-gap-0 {\n  margin-top: 0;\n}\n",".flex-left,\n.flex-center,\n.flex-right,\n.flex-top,\n.flex-middle,\n.flex-bottom,\n.flex-vertical {\n  @include flex-container();\n}\n\n.flex-left,\n.flex-center,\n.flex-right,\n.flex-top,\n.flex-middle,\n.flex-bottom,\n.flex-vertical.flex-left,\n.flex-vertical.flex-center,\n.flex-vertical.flex-right,\n.flex-vertical.flex-top,\n.flex-vertical.flex-middle,\n.flex-vertical.flex-bottom {\n  align-items: stretch;\n  justify-content: flex-start;\n}\n\n.flex-center,\n.flex-vertical.flex-middle {\n  justify-content: center;\n}\n\n.flex-right,\n.flex-vertical.flex-bottom {\n  justify-content: flex-end;\n}\n\n.flex-top,\n.flex-vertical.flex-left {\n  align-items: flex-start;\n}\n\n.flex-middle,\n.flex-vertical.flex-center {\n  align-items: center;\n}\n\n.flex-bottom,\n.flex-vertical.flex-right {\n  align-items: flex-end;\n}\n\n.units-gap {\n  margin-left: - $width-gap-half;\n  margin-right: - $width-gap-half;\n\n  > .unit,\n  > .unit-0,\n  > .unit-1-2,\n  > .unit-1-3,\n  > .unit-2-3,\n  > .unit-1-4,\n  > .unit-3-4, {\n    padding-left: $width-gap-half;\n    padding-right: $width-gap-half;\n  }\n}\n\n.unit {\n  flex-basis: 0;\n  flex-grow: 1;\n  max-width: 100%;\n}\n\n.unit-1-2,\n.unit-1-3,\n.unit-2-3,\n.unit-1-4,\n.unit-3-4 {\n  flex-shrink: 0;\n}\n\n.unit-1-2 {\n  @include flex-width(50%);\n}\n\n.unit-1-3 {\n  @include flex-width(33.33%);\n}\n\n.unit-2-3 {\n  @include flex-width(66.67%);\n}\n\n.unit-1-4 {\n  @include flex-width(25%);\n}\n\n.unit-3-4 {\n  @include flex-width(75%);\n}\n\n.flex-vertical {\n  flex-direction: column;\n\n  > .unit,\n  > .unit-0,\n  > .unit-1-2,\n  > .unit-1-3,\n  > .unit-2-3,\n  > .unit-1-4,\n  > .unit-3-4, {\n    max-width: none;\n  }\n\n  > .unit-1-2 {\n    max-height: 50%;\n  }\n\n  > .unit-1-3 {\n    max-height: 33.33%;\n  }\n\n  > .unit-2-3 {\n    max-height: 66.67%;\n  }\n\n  > .unit-1-4 {\n    max-height: 25%;\n  }\n\n  > .unit-3-4 {\n    max-height: 75%;\n  }\n}\n",".table {\n  // Reset for nesting within parents with `background-color`.\n  background-color: $color-background-table;\n  border: 0;\n  border-collapse: collapse;\n  border-spacing: 0;\n  // Enable scroll-view on mobile\n  width: 100%;\n\n  caption {\n    caption-side: bottom;\n    color: $color-text-muted;\n    padding: $padding-table-cell;\n    text-align: left;\n  }\n\n  th,\n  td {\n    border: 0;\n    border-bottom: $border-bottom-th-td;\n    padding: $padding-table-cell;\n    text-align: left;\n  }\n\n  th {\n    background-color: $color-background-th;\n    font-weight: $font-weight-bold;\n  }\n}\n",".form {\n  margin: 0;\n\n  label {\n    cursor: pointer;\n    display: block;\n    line-height: $line-height-input;\n    margin-top: $width-gap;\n    padding-bottom: $width-padding-bottom-label;\n    padding-top: $width-padding-top-label;\n  }\n\n  // Text inputs + Select inputs\n  [type=text],\n  [type=password],\n  [type=email],\n  [type=search],\n  [type=url],\n  [type=tel],\n  [type=number],\n  textarea,\n  select {\n    @include input-and-button();\n    @include input-block();\n  }\n\n  @media (max-width: $width-container-breakpoint - 1px) {\n    [type=time],\n    [type=week],\n    [type=month],\n    [type=date],\n    [type=datetime-local] {\n      margin: $width-gap 0 0;\n    }\n  }\n\n  @media (min-width: $width-container-breakpoint) {\n    [type=time],\n    [type=week],\n    [type=month],\n    [type=date],\n    [type=datetime-local] {\n      @include input-and-button();\n      @include input-block();\n    }\n  }\n\n  [type=checkbox],\n  [type=radio] {\n    cursor: pointer;\n    margin: $margin-checkbox-radio;\n  }\n\n  select {\n    // Reset the default angle-down icon\n    @include background-icon-angle-down();\n    cursor: pointer;\n  }\n\n  [type=file],\n  [type=range] {\n    @include input-block();\n    cursor: pointer;\n    padding: $padding-file;\n  }\n\n  [type=color],\n  [type=image] {\n    cursor: pointer;\n    display: block;\n    margin: $width-gap 0 0;\n  }\n\n  [disabled] {\n    @include disabled();\n  }\n\n  [readonly] {\n    background-color: $color-background-btn;\n  }\n}\n\n.btn {\n  @include btn();\n}\n\n.btn-primary {\n  @include btn-primary();\n}\n\n.btn-danger {\n  @include btn-danger();\n}\n","@media (max-width: $width-container-breakpoint - 1px) {\n  .hide-on-mobile {\n    display: none;\n  }\n}\n\n@media (min-width: $width-container-breakpoint) {\n  .show-on-mobile {\n    display: none;\n  }\n}\n\n.scroll-view {\n  @include scroll-view();\n}\n\n.text-left {\n  text-align: left;\n}\n\n.text-center {\n  text-align: center;\n}\n\n.text-right {\n  text-align: right;\n}\n\n.text-muted {\n  color: $color-text-muted;\n}\n\na.text-muted {\n  color: $color-text-muted;\n  text-decoration: underline;\n}\n","@import 'mobi.css/src/mobi';\n\n/* public */\n\n$splitLineColor: #E5E5E5;\n$hoverColor: rgba(0, 0, 0, 0.1);\n$transparentColor: rgba(0, 0, 0, 0);\nbody {\n    background-color: #F0F0F0;\n}\n\nul,\nli,\ndl,\ndt,\ndd {\n    list-style: none;\n}\n\n.active-block {\n    color: #ffffff;\n}\n\n.animation-quick {\n    transition: all 0.1s ease;\n}\n\n.animation {\n    transition: all 0.3s ease;\n}\n\n.animation-slow {\n    transition: all 0.8s ease;\n}\n\n.animation-switch {\n    transition: all 0.4s ease;\n}\n\n.bg_hover {\n    height: 100% !important;\n    overflow: hidden !important;\n}\n\n.testSpan {\n    padding: 5px;\n    border: 1px solid #ccc;\n    border-radius: 10px;\n    margin: 0 5px;\n}\n\n\n/* panel */\n\n.panel {\n    background-color: #ffffff;\n    margin: 8px;\n    border-radius: 4px;\n    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.08);\n    overflow: hidden;\n}\n\n.panel-title {\n    height: 48px;\n    padding-left: 12px;\n    padding-right: 12px;\n    line-height: 48px;\n    font-size: 16px;\n    color: #464646;\n}\n\n.ui_wrap {\n    flex-wrap: wrap;\n}\n\n.ui_wrap div[class~=\"unit-1-4\"],\n.ui_wrap div[class~=\"unit-1-3\"] {\n    //height: 6rem;\n    //border: 1px solid #eee;\n}\n\n.ui_wrap div[class~=\"unit-1-4\"].disabled,\n.ui_wrap div[class~=\"unit-1-3\"].disabled {\n    opacity: 0.5;\n}\n\n.ui_wrap div[class~=\"unit-1-4\"] .mode_name,\n.ui_wrap div[class~=\"unit-1-3\"] .mode_name {\n    display: block;\n    font-size: 1.4rem;\n}\n\n.ui_wrap div[class~=\"unit-1-4\"].on {\n    //background: #eee;\n    //opacity: 0.5;\n}\n\n@font-face {\n    font-family: 'iconfont';\n    /* project id 87760 */\n    src: url('https://at.alicdn.com/t/font_svndvyyea8fo5hfr.eot');\n    src: url('https://at.alicdn.com/t/font_svndvyyea8fo5hfr.eot?#iefix') format('embedded-opentype'), url('https://at.alicdn.com/t/font_svndvyyea8fo5hfr.woff') format('woff'), url('https://at.alicdn.com/t/font_svndvyyea8fo5hfr.ttf') format('truetype'), url('https://at.alicdn.com/t/font_svndvyyea8fo5hfr.svg#iconfont') format('svg');\n}\n\n.iconfont {\n    font-family: \"iconfont\" !important;\n    font-size: 26px;\n    font-style: normal;\n    -webkit-font-smoothing: antialiased;\n    -webkit-text-stroke-width: 0.2px;\n    -moz-osx-font-smoothing: grayscale;\n}\n\n.wrap {\n    background: #fff;\n}\n\ndiv[class~=\"unit-0\"] {\n    //padding: 8px 10px;\n    //border-bottom: 1px solid #eee;\n}\n\ndiv[class~=\"unit-0\"].disabled {\n    opacity: 0.5;\n}\n\ndiv[class~=\"unit-0\"] .title {\n    width: 65%;\n    line-height: 30px;\n    padding-left: 10px;\n}\n\ndiv[class~=\"unit-0\"] .title .maint {\n    font-size: 16px;\n    line-height: 30px;\n    display: block\n}\n\ndiv[class~=\"unit-0\"] .title .maint_nosub {\n    display: block;\n    line-height: 40px;\n}\n\ndiv[class~=\"unit-0\"] .title .sub {\n    font-size: 12px;\n    line-height: 12px;\n    display: block;\n}\n\ndiv[class~=\"unit-0\"] .rightPart {\n    width: 25%;\n    font-size: 16px;\n    line-height: 40px;\n}\n\ndiv[class~=\"unit-0\"] .rightPart .rightarrow {\n    font-size: 16px;\n}\n\n\n/* Grid Item */\n\n.grid-item {\n    @extend .animation-quick;\n    position: relative;\n    padding-top: 20px;\n    padding-bottom: 20px;\n    border-color: $splitLineColor;\n    border-width: 0;\n    border-right-width: 1px;\n    border-bottom-width: 1px;\n    border-style: solid;\n    color: #A6A6A6;\n}\n\n.grid-item.active-block {\n    color: #ffffff;\n}\n\n.grid-item.no-right-border {\n    border-right-width: 0;\n}\n\n.grid-item.no-bottom-border {\n    border-bottom-width: 0;\n}\n\n.grid-item:before {\n    @extend .animation;\n    position: absolute;\n    content: \"\";\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: $transparentColor;\n}\n\n.grid-item.grid-item-hover:before {\n    background-color: $hoverColor;\n}\n\n\n/* List Item */\n\n.list-item {\n    position: relative;\n    padding: 8px 10px;\n}\n\n.list-item:before {\n    @extend .animation;\n    position: absolute;\n    content: \"\";\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: $transparentColor;\n}\n\n.list-item.list-item-hover:before {\n    background-color: $hoverColor;\n}\n\n.list-item-split-line {\n    width: 100%;\n    height: 1px;\n    background-color: $splitLineColor;\n}\n\n\n/* Swiper Slide */\n\n$defineBorderRaduis: 5px;\n.swiper-wrap-normal,\n.swiper-wrap-controlpanel,\n.swiper-wrap-hasbar,\n.swiper-step,\n.switch-cell {\n    position: relative;\n}\n\n.swiper-wrap-normal.disabled,\n.swiper-wrap-controlpanel.disabled,\n.swiper-wrap-hasbar.disabled,\n.swiper-step.disabled,\n.switch-cell.disabled {\n    opacity: 0.5;\n}\n\n.disabled {\n    opacity: 0.5;\n}\n\n.swiper-control {\n    margin: 25px 20px;\n    position: relative;\n}\n\n.swiper-control .inner {\n    -webkit-box-flex: 1;\n    -webkit-flex: 1;\n    flex: 1;\n}\n\n.swiper-control .inner .swiper-track,\n.swiper-control .inner .swiper-step-track {\n    position: relative;\n    top: 2px;\n    height: 1px;\n    //background: #f00;\n    border-radius: $defineBorderRaduis;\n}\n\n.swiper-control .inner .swiper-step-track {\n    background: #ccc;\n}\n\n.swiper-control .inner .swiper-step-track li {\n    width: 20%;\n}\n\n.swiper-control .inner .swiper-step-track li:first-child::before {\n    content: '';\n    float: left;\n    width: 5px;\n    height: 5px;\n    background: green;\n}\n\n.swiper-control .inner .swiper-step-track li::after {\n    content: '';\n    float: right;\n    width: 5px;\n    height: 5px;\n    background: green;\n}\n\n.swiper-control .inner .swiper-thumb {\n    @extend .animation-quick;\n    position: absolute;\n    width: 24px;\n    height: 24px;\n    border-radius: 50%;\n    background: #f1f1f1;\n    border-width: 2px;\n    border-style: solid;\n    top: -9px;\n    z-index: 2;\n    cursor: pointer;\n    left: 0;\n    margin-left: -12px;\n    transform: translate3d(0, 0, 0);\n    -webkit-transform: translate3d(0, 0, 0);\n    transition: transform 0.1s linear;\n    -webkit-transition: transform 0.1s linear;\n    background-image: linear-gradient(-180deg, #FEFFFF 0%, #F6F1F1 100%);\n}\n\n.swiper-control .inner .swiper-thumb::before {\n    position: absolute;\n    content: attr(data-content);\n    left: 0;\n    bottom: -24px;\n    width: 100px;\n    text-align: center;\n    margin-left: -38px;\n    font-size: 15px;\n    color: #A6A6A6;\n    line-height: 20px;\n}\n\n.swiper-control .inner .swiper-num {\n    margin-top: 15px;\n    display: flex;\n    justify-content: space-between;\n    font-size: 15px;\n    color: #A6A6A6;\n    line-height: 20px;\n}\n\n.swiper-control .inner .swiper-num2 {\n    margin-top: 15px;\n    color: #464646;\n    font-size: 12px;\n    width: 120%;\n    margin-left: -10%;\n    text-align: center;\n}\n\n.contorlPanel {\n    width: 120px;\n    position: absolute;\n    right: 20px;\n    top: 10px;\n}\n\n.contorlPanel {\n    span {\n        width: 50px;\n        padding: 2px 15px;\n        border: 1px solid $splitLineColor;\n        border-radius: 10px;\n        text-align: center;\n        border-radius: 33px;\n    }\n    .plus-button {\n        border-bottom-right-radius: 0;\n        border-top-right-radius: 0;\n    }\n    .minus-button {\n        border-left: none;\n        border-bottom-left-radius: 0;\n        border-top-left-radius: 0;\n    }\n}\n\n\n/* Switch Cell */\n\n.switch-control {\n    padding-left: 12px;\n    padding-right: 12px;\n    margin: 10px 0;\n}\n\n.switch-title {\n    line-height: 52px;\n    width: 86%;\n}\n\n.switch-btn {\n    width: 45px;\n    height: 45px;\n    border-radius: 50%;\n    border: 1px solid #ccc;\n    text-align: center;\n    line-height: 45px;\n}\n\n.switch-btn.on {\n    background: rgb(255, 102, 0);\n    color: #fff;\n}\n\n.switch-btn-main {\n    position: relative\n}\n\ninput[type='checkbox'] {\n    display: none;\n}\n\nlabel[for=\"switch-cell-jd\"] {\n    width: 45px;\n    height: 45px;\n    display: inline-block;\n    border-radius: 50%;\n    border: 1px solid #ccc;\n    position: relative;\n    top: 4px;\n    text-align: center;\n    line-height: 45px;\n    @extend .animation;\n}\n\ninput[type='checkbox']:checked+label[for=\"switch-cell-jd\"] {\n    background: rgb(255, 102, 0);\n    color: #fff;\n}\n\nlabel[for=\"switch-cell-ali\"] {\n    display: inline-block;\n    width: 60px;\n    height: 30px;\n    border: 1px solid #ccc;\n    border-radius: 30px;\n    position: relative;\n    top: 11px;\n    background: #f0f0f0;\n    @extend .animation-switch;\n}\n\nlabel[for=\"switch-cell-ali\"]::after {\n    display: block;\n    position: relative;\n    content: '';\n    width: 50%;\n    height: 100%;\n    background: #fff;\n    border-radius: 50%;\n    left: 0;\n    @extend .animation-switch;\n    box-shadow: 0 0 2px #eee;\n}\n\ninput[type='checkbox']:checked, label[for='switch-cell-ali'].checked {\n    background: #9FD6AE\n}\n\ninput[type='checkbox']:checked, label[for='switch-cell-ali'].checked::after {\n    left: 50%;\n}\n\n\n/*time scroll*/\n\n.scrollLine {\n    position: relative;\n    display: flex;\n    flex-direction: row;\n    height: 250px;\n}\n\n.scrollLine ul {\n    padding: 0;\n    width: 100%;\n    margin-top: 0;\n    overflow: hidden;\n    height: 200px;\n}\n\n.scrollLine li {\n    padding: 0;\n    text-align: center;\n    line-height: 28px;\n    font-size: 20px;\n}\n\n.scrollLine li.active {\n    font-size: 24px;\n}\n\n.scrollLine .topMask {\n    width: 100%;\n    height: 110px;\n    position: absolute;\n    top: 0;\n    background: -moz-linear-gradient( top, #f1f1f1, #fff);\n    background: -webkit-linear-gradient(top, #f1f1f1, #fff);\n    opacity: 0.9;\n    border-bottom: 1px solid #ccc;\n}\n\n.scrollLine .bottomMask {\n    width: 100%;\n    height: 110px;\n    position: absolute;\n    bottom: 0;\n    background: -moz-linear-gradient( bottom, #f1f1f1, #fff);\n    background: -webkit-linear-gradient(bottom, #f1f1f1, #fff);\n    opacity: 0.9;\n    border-top: 1px solid #ccc;\n}\n\n\n/*confirm toast*/\n\n.confirmHover {\n    position: fixed;\n    width: 100%;\n    height: 100%;\n    background: rgba(75, 75, 75, 0.65) !important;\n    z-index: 998;\n    top: 0;\n    left: 0;\n    display: none;\n}\n\n.confirmWrap {\n    width: 250px;\n    position: absolute;\n    top: 50%;\n    transform: translate3d(-50%, -50%, 0);\n    left: 50%;\n    background: #fff;\n    border-radius: 10px;\n    box-shadow: 0 0 2px #ccc;\n    z-index: 999;\n}\n\n.confirmWrap {\n    .cfm_main {\n        padding: 10px;\n    }\n    .cfm_title {\n        text-align: center;\n    }\n    .cfm_content {\n        padding: 10px 0;\n        font-size: 14px;\n    }\n    .cfm_btnWrap {\n        position: relative;\n    }\n    .cfm_btnWrap span {\n        width: 100%;\n        text-align: center;\n        line-height: 40px;\n        border-top: 1px solid #eee;\n    }\n    .cfm_btnWrap span:first-child {\n        border-bottom-left-radius: 10px;\n    }\n    .cfm_btnWrap span:last-child {\n        border-bottom-right-radius: 10px;\n        border-left: 1px solid #eee;\n    }\n}\n\n.hovers {\n    background: #eee;\n}"],"sourceRoot":"webpack://"}]);
+exports.push([module.i, "@charset \"UTF-8\";\nhtml {\n  box-sizing: border-box; }\n\n*,\n*::before,\n*::after {\n  box-sizing: inherit; }\n\nhtml {\n  font-size: 10px;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);\n  text-size-adjust: 100%; }\n\nbody {\n  background-color: #f3f3f3;\n  color: #333;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Cantarell\", \"Fira Sans\", \"Droid Sans\", \"Hiragino Sans GB\", \"Microsoft Yahei\", \"\\5FAE\\8F6F\\96C5\\9ED1\", Arial, Helvetica, STHeiti, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-size: 1.8rem;\n  line-height: 1.5;\n  margin: 0; }\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  margin: 32px 0 0; }\n\np,\nblockquote,\ntable,\nhr,\ndl,\nul,\nol,\npre,\naddress,\nfigure {\n  margin: 14px 0 0; }\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  font-weight: 600; }\n\nh1 {\n  font-size: 3.2rem; }\n\nh2 {\n  font-size: 2.6rem; }\n\nh3 {\n  font-size: 2.4rem; }\n\nh4 {\n  font-size: 2.2rem; }\n\nh5 {\n  font-size: 2rem; }\n\nh6 {\n  font-size: 1.8rem; }\n\na {\n  color: #0080ff;\n  text-decoration: none;\n  -webkit-text-decoration-skip: objects; }\n  a:active, a:hover {\n    text-decoration: underline; }\n\nb,\nstrong,\ndt {\n  font-weight: 600; }\n\ncode,\nkbd,\nsamp {\n  background-color: rgba(0, 0, 0, 0.05);\n  font-family: Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace;\n  font-size: 85%;\n  padding: 0.1em 0.2em; }\n\npre {\n  max-height: 300px;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch;\n  background-color: rgba(0, 0, 0, 0.05);\n  font-family: Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace;\n  font-size: 1.3rem;\n  line-height: 1.2;\n  margin-left: -14px;\n  margin-right: -14px;\n  padding: 14px; }\n  pre code {\n    background-color: transparent;\n    font-size: 1.3rem;\n    padding: 0; }\n  @media (min-width: 740px) {\n    pre {\n      margin-left: 0;\n      margin-right: 0; } }\n\nblockquote {\n  border-left: 5px solid #ddd;\n  color: #777;\n  padding-left: 14px; }\n\nul,\nol {\n  padding-left: 28px; }\n\ndt,\ndd,\nol ol,\nul ul,\nol ul,\nul ol {\n  margin: 0; }\n\nhr {\n  border: 0;\n  border-top: 1px solid #ddd; }\n\nsmall {\n  font-size: 85%; }\n\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline; }\n\nsub {\n  bottom: -.25em; }\n\nsup {\n  top: -.5em; }\n\naddress,\ntime {\n  color: #777;\n  font-style: normal; }\n\nmark {\n  background-color: #ff0;\n  color: #333;\n  padding: 0 .2em; }\n\nabbr[title] {\n  border-bottom: 0;\n  text-decoration: underline;\n  text-decoration: underline dotted; }\n\naudio:not([controls]) {\n  display: none;\n  height: 0; }\n\nimg {\n  max-width: 100%;\n  vertical-align: middle; }\n\naudio,\nvideo {\n  width: 100%; }\n\n[role=\"button\"] {\n  cursor: pointer; }\n\na,\narea,\nbutton,\n[role=\"button\"],\ninput,\nlabel,\nselect,\nsummary,\ntextarea {\n  outline: 0;\n  touch-action: manipulation; }\n\nbutton,\ninput,\nselect,\ntextarea {\n  font: inherit; }\n\nbutton,\nhtml [type=button],\n[type=reset],\n[type=submit],\n::-webkit-file-upload-button {\n  appearance: button; }\n\n[type=search] {\n  appearance: none; }\n\n::-webkit-file-upload-button {\n  font: inherit; }\n\n[hidden] {\n  display: none; }\n\nfieldset {\n  border: 1px solid #ddd;\n  margin: 14px 0 0;\n  padding: 0 14px 14px; }\n\nlegend {\n  padding: 0 3px; }\n\noptgroup {\n  color: #777;\n  font-style: normal;\n  font-weight: normal; }\n\noption {\n  color: #333; }\n\nprogress {\n  width: 100%; }\n\n.container {\n  background-color: #fff;\n  max-width: 740px;\n  min-width: 320px;\n  outline: 14px solid #fff;\n  overflow: hidden;\n  padding: 0 14px 14px;\n  width: 100%; }\n\n@media (min-width: 1041px) {\n  .container {\n    max-width: 768px;\n    outline: 0;\n    padding: 0 28px 14px; } }\n\n.top-gap-big,\n.form .top-gap-big {\n  margin-top: 32px; }\n\n.top-gap,\n.form .top-gap {\n  margin-top: 14px; }\n\n.top-gap-0,\n.form .top-gap-0 {\n  margin-top: 0; }\n\n.flex-left,\n.flex-center,\n.flex-right,\n.flex-top,\n.flex-middle,\n.flex-bottom,\n.flex-vertical {\n  display: flex;\n  flex-flow: row nowrap; }\n\n.flex-left,\n.flex-center,\n.flex-right,\n.flex-top,\n.flex-middle,\n.flex-bottom,\n.flex-vertical.flex-left,\n.flex-vertical.flex-center,\n.flex-vertical.flex-right,\n.flex-vertical.flex-top,\n.flex-vertical.flex-middle,\n.flex-vertical.flex-bottom {\n  align-items: stretch;\n  justify-content: flex-start; }\n\n.flex-center,\n.flex-vertical.flex-middle {\n  justify-content: center; }\n\n.flex-right,\n.flex-vertical.flex-bottom {\n  justify-content: flex-end; }\n\n.flex-top,\n.flex-vertical.flex-left {\n  align-items: flex-start; }\n\n.flex-middle,\n.flex-vertical.flex-center {\n  align-items: center; }\n\n.flex-bottom,\n.flex-vertical.flex-right {\n  align-items: flex-end; }\n\n.units-gap {\n  margin-left: -7px;\n  margin-right: -7px; }\n  .units-gap > .unit,\n  .units-gap > .unit-0,\n  .units-gap > .unit-1-2,\n  .units-gap > .unit-1-3,\n  .units-gap > .unit-2-3,\n  .units-gap > .unit-1-4,\n  .units-gap > .unit-3-4 {\n    padding-left: 7px;\n    padding-right: 7px; }\n\n.unit {\n  flex-basis: 0;\n  flex-grow: 1;\n  max-width: 100%; }\n\n.unit-1-2,\n.unit-1-3,\n.unit-2-3,\n.unit-1-4,\n.unit-3-4 {\n  flex-shrink: 0; }\n\n.unit-1-2 {\n  flex-basis: 50%;\n  max-width: 50%; }\n\n.unit-1-3 {\n  flex-basis: 33.33%;\n  max-width: 33.33%; }\n\n.unit-2-3 {\n  flex-basis: 66.67%;\n  max-width: 66.67%; }\n\n.unit-1-4 {\n  flex-basis: 25%;\n  max-width: 25%; }\n\n.unit-3-4 {\n  flex-basis: 75%;\n  max-width: 75%; }\n\n.flex-vertical {\n  flex-direction: column; }\n  .flex-vertical > .unit,\n  .flex-vertical > .unit-0,\n  .flex-vertical > .unit-1-2,\n  .flex-vertical > .unit-1-3,\n  .flex-vertical > .unit-2-3,\n  .flex-vertical > .unit-1-4,\n  .flex-vertical > .unit-3-4 {\n    max-width: none; }\n  .flex-vertical > .unit-1-2 {\n    max-height: 50%; }\n  .flex-vertical > .unit-1-3 {\n    max-height: 33.33%; }\n  .flex-vertical > .unit-2-3 {\n    max-height: 66.67%; }\n  .flex-vertical > .unit-1-4 {\n    max-height: 25%; }\n  .flex-vertical > .unit-3-4 {\n    max-height: 75%; }\n\n.table {\n  background-color: #fff;\n  border: 0;\n  border-collapse: collapse;\n  border-spacing: 0;\n  width: 100%; }\n  .table caption {\n    caption-side: bottom;\n    color: #777;\n    padding: 5px;\n    text-align: left; }\n  .table th,\n  .table td {\n    border: 0;\n    border-bottom: 1px solid #ddd;\n    padding: 5px;\n    text-align: left; }\n  .table th {\n    background-color: rgba(0, 0, 0, 0.05);\n    font-weight: 600; }\n\n.form {\n  margin: 0; }\n  .form label {\n    cursor: pointer;\n    display: block;\n    line-height: 1.25;\n    margin-top: 14px;\n    padding-bottom: 6px;\n    padding-top: 6px; }\n  .form [type=text],\n  .form [type=password],\n  .form [type=email],\n  .form [type=search],\n  .form [type=url],\n  .form [type=tel],\n  .form [type=number],\n  .form textarea,\n  .form select {\n    appearance: none;\n    background-color: #fff;\n    border: 1px solid #ddd;\n    border-radius: 3px;\n    color: #333;\n    font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Cantarell\", \"Fira Sans\", \"Droid Sans\", \"Hiragino Sans GB\", \"Microsoft Yahei\", \"\\5FAE\\8F6F\\96C5\\9ED1\", Arial, Helvetica, STHeiti, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n    font-size: 1.8rem;\n    padding: 5px 10px;\n    display: block;\n    line-height: 1.25;\n    margin: 14px 0 0;\n    width: 100%; }\n    .form [type=text]:focus,\n    .form [type=password]:focus,\n    .form [type=email]:focus,\n    .form [type=search]:focus,\n    .form [type=url]:focus,\n    .form [type=tel]:focus,\n    .form [type=number]:focus,\n    .form textarea:focus,\n    .form select:focus {\n      border-color: #3399ff; }\n  @media (max-width: 1040px) {\n    .form [type=time],\n    .form [type=week],\n    .form [type=month],\n    .form [type=date],\n    .form [type=datetime-local] {\n      margin: 14px 0 0; } }\n  @media (min-width: 1041px) {\n    .form [type=time],\n    .form [type=week],\n    .form [type=month],\n    .form [type=date],\n    .form [type=datetime-local] {\n      appearance: none;\n      background-color: #fff;\n      border: 1px solid #ddd;\n      border-radius: 3px;\n      color: #333;\n      font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Cantarell\", \"Fira Sans\", \"Droid Sans\", \"Hiragino Sans GB\", \"Microsoft Yahei\", \"\\5FAE\\8F6F\\96C5\\9ED1\", Arial, Helvetica, STHeiti, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n      font-size: 1.8rem;\n      padding: 5px 10px;\n      display: block;\n      line-height: 1.25;\n      margin: 14px 0 0;\n      width: 100%; }\n      .form [type=time]:focus,\n      .form [type=week]:focus,\n      .form [type=month]:focus,\n      .form [type=date]:focus,\n      .form [type=datetime-local]:focus {\n        border-color: #3399ff; } }\n  .form [type=checkbox],\n  .form [type=radio] {\n    cursor: pointer;\n    margin: 0 5px 0 0; }\n  .form select {\n    background: url(\"data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='20' viewBox='0 0 32 20'><path fill='#333' d='M0 0h32L16 20z'/></svg>\") right 8px center no-repeat;\n    background-size: 8px 8px;\n    padding-right: 25px;\n    cursor: pointer; }\n  .form [type=file],\n  .form [type=range] {\n    display: block;\n    line-height: 1.25;\n    margin: 14px 0 0;\n    width: 100%;\n    cursor: pointer;\n    padding: 6px 0; }\n  .form [type=color],\n  .form [type=image] {\n    cursor: pointer;\n    display: block;\n    margin: 14px 0 0; }\n  .form [disabled] {\n    cursor: default;\n    opacity: .5;\n    pointer-events: none; }\n  .form [readonly] {\n    background-color: #f3f3f3; }\n\n.btn {\n  display: block;\n  line-height: 1.25;\n  margin: 14px 0 0;\n  width: 100%;\n  appearance: none;\n  background-color: #fff;\n  border: 1px solid #ddd;\n  border-radius: 3px;\n  color: #333;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Cantarell\", \"Fira Sans\", \"Droid Sans\", \"Hiragino Sans GB\", \"Microsoft Yahei\", \"\\5FAE\\8F6F\\96C5\\9ED1\", Arial, Helvetica, STHeiti, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-size: 1.8rem;\n  padding: 5px 10px;\n  text-align: center;\n  background-color: #f3f3f3;\n  cursor: pointer; }\n  .btn:focus {\n    border-color: #3399ff; }\n  .btn:hover, .btn:active {\n    text-decoration: none; }\n  .btn[disabled] {\n    cursor: default;\n    opacity: .5;\n    pointer-events: none; }\n\n.btn-primary {\n  background-color: #40bf40;\n  border-color: #40bf40;\n  color: #fff; }\n  .btn-primary[disabled] {\n    cursor: default;\n    opacity: .5;\n    pointer-events: none; }\n\n.btn-danger {\n  color: #cc0000; }\n  .btn-danger[disabled] {\n    cursor: default;\n    opacity: .5;\n    pointer-events: none; }\n\n@media (max-width: 1040px) {\n  .hide-on-mobile {\n    display: none; } }\n\n@media (min-width: 1041px) {\n  .show-on-mobile {\n    display: none; } }\n\n.scroll-view {\n  max-height: 300px;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch; }\n\n.text-left {\n  text-align: left; }\n\n.text-center {\n  text-align: center; }\n\n.text-right {\n  text-align: right; }\n\n.text-muted {\n  color: #777; }\n\na.text-muted {\n  color: #777;\n  text-decoration: underline; }\n\n/* public */\nbody {\n  background-color: #F0F0F0; }\n\nul,\nli,\ndl,\ndt,\ndd {\n  list-style: none; }\n\n.active-block {\n  color: #ffffff; }\n\n.animation-quick, .grid-item, .swiper-control .inner .swiper-thumb {\n  transition: all 0.1s ease; }\n\n.animation, .grid-item:before, .list-item:before, label[for=\"switch-cell-jd\"] {\n  transition: all 0.3s ease; }\n\n.animation-slow {\n  transition: all 0.8s ease; }\n\n.animation-switch, label[for=\"switch-cell-ali\"], label[for=\"switch-cell-ali\"]::after {\n  transition: all 0.4s ease; }\n\n.bg_hover {\n  height: 100% !important;\n  overflow: hidden !important; }\n\n.testSpan {\n  padding: 5px;\n  border: 1px solid #ccc;\n  border-radius: 10px;\n  margin: 0 5px; }\n\n/* panel */\n.panel {\n  background-color: #ffffff;\n  margin: 8px;\n  border-radius: 4px;\n  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.08);\n  overflow: hidden; }\n\n.panel.no-margin {\n  margin: 0px; }\n\n.panel.no-border-radius {\n  border-radius: 0; }\n\n.panel-title {\n  height: 48px;\n  padding-left: 12px;\n  padding-right: 12px;\n  line-height: 48px;\n  font-size: 16px;\n  color: #464646; }\n\n.ui_wrap {\n  flex-wrap: wrap; }\n\n.ui_wrap div[class~=\"unit-1-4\"].disabled,\n.ui_wrap div[class~=\"unit-1-3\"].disabled {\n  opacity: 0.5; }\n\n.ui_wrap div[class~=\"unit-1-4\"] .mode_name,\n.ui_wrap div[class~=\"unit-1-3\"] .mode_name {\n  display: block;\n  font-size: 1.4rem; }\n\n@font-face {\n  font-family: 'iconfont';\n  /* project id 87760 */\n  src: url(\"https://at.alicdn.com/t/font_svndvyyea8fo5hfr.eot\");\n  src: url(\"https://at.alicdn.com/t/font_svndvyyea8fo5hfr.eot?#iefix\") format(\"embedded-opentype\"), url(\"https://at.alicdn.com/t/font_svndvyyea8fo5hfr.woff\") format(\"woff\"), url(\"https://at.alicdn.com/t/font_svndvyyea8fo5hfr.ttf\") format(\"truetype\"), url(\"https://at.alicdn.com/t/font_svndvyyea8fo5hfr.svg#iconfont\") format(\"svg\"); }\n\n.iconfont {\n  font-family: \"iconfont\" !important;\n  font-size: 26px;\n  font-style: normal;\n  -webkit-font-smoothing: antialiased;\n  -webkit-text-stroke-width: 0.2px;\n  -moz-osx-font-smoothing: grayscale; }\n\n.wrap {\n  background: #fff; }\n\ndiv[class~=\"unit-0\"].disabled {\n  opacity: 0.5; }\n\ndiv[class~=\"unit-0\"] .title {\n  width: 65%;\n  line-height: 30px;\n  padding-left: 10px; }\n\ndiv[class~=\"unit-0\"] .title .maint {\n  font-size: 16px;\n  line-height: 30px;\n  display: block; }\n\ndiv[class~=\"unit-0\"] .title .maint_nosub {\n  display: block;\n  line-height: 40px; }\n\ndiv[class~=\"unit-0\"] .title .sub {\n  font-size: 12px;\n  line-height: 12px;\n  display: block; }\n\ndiv[class~=\"unit-0\"] .rightPart {\n  width: 25%;\n  font-size: 16px;\n  line-height: 40px; }\n\ndiv[class~=\"unit-0\"] .rightPart .rightarrow {\n  font-size: 16px; }\n\n/* Grid Item */\n.grid-item {\n  position: relative;\n  padding-top: 20px;\n  padding-bottom: 20px;\n  border-color: #E5E5E5;\n  border-width: 0;\n  border-right-width: 1px;\n  border-bottom-width: 1px;\n  border-style: solid;\n  color: #A6A6A6; }\n\n.grid-item.active-block {\n  color: #ffffff; }\n\n.grid-item.no-right-border {\n  border-right-width: 0; }\n\n.grid-item.no-bottom-border {\n  border-bottom-width: 0; }\n\n.grid-item:before {\n  position: absolute;\n  content: \"\";\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: transparent; }\n\n.grid-item.grid-item-hover:before {\n  background-color: rgba(0, 0, 0, 0.1); }\n\n/* List Item */\n.list-item {\n  position: relative;\n  padding: 8px 10px; }\n\n.list-item:before {\n  position: absolute;\n  content: \"\";\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: transparent; }\n\n.list-item.list-item-hover:before {\n  background-color: rgba(0, 0, 0, 0.1); }\n\n.list-item-split-line {\n  width: 100%;\n  height: 1px;\n  background-color: #E5E5E5; }\n\n/* Swiper Slide */\n.swiper-wrap-normal,\n.swiper-wrap-controlpanel,\n.swiper-wrap-hasbar,\n.swiper-step,\n.switch-cell {\n  position: relative; }\n\n.swiper-wrap-normal.disabled,\n.swiper-wrap-controlpanel.disabled,\n.swiper-wrap-hasbar.disabled,\n.swiper-step.disabled,\n.switch-cell.disabled {\n  opacity: 0.5; }\n\n.disabled {\n  opacity: 0.5; }\n\n.swiper-control {\n  margin: 25px 20px;\n  position: relative; }\n\n.swiper-control .inner {\n  -webkit-box-flex: 1;\n  -webkit-flex: 1;\n  flex: 1; }\n\n.swiper-control .inner .swiper-track,\n.swiper-control .inner .swiper-step-track {\n  position: relative;\n  top: 2px;\n  height: 1px;\n  border-radius: 5px; }\n\n.swiper-control .inner .swiper-step-track li {\n  width: 100%; }\n\n.swiper-control .inner .swiper-step-track li:first-child::before {\n  content: '';\n  float: left;\n  position: relative;\n  width: 6px;\n  height: 6px;\n  left: -3px;\n  top: -3px;\n  border-radius: 50%; }\n\n.swiper-control .inner .swiper-step-track li::after {\n  content: '';\n  float: right;\n  position: relative;\n  width: 6px;\n  height: 6px;\n  left: -3px;\n  top: -3px;\n  border-radius: 50%;\n  background: green; }\n\n.swiper-control .inner .swiper-thumb {\n  position: absolute;\n  width: 24px;\n  height: 24px;\n  border-radius: 50%;\n  background: #f1f1f1;\n  border-width: 2px;\n  border-style: solid;\n  top: -9px;\n  z-index: 2;\n  cursor: pointer;\n  left: 0;\n  margin-left: -12px;\n  transform: translate3d(0, 0, 0);\n  -webkit-transform: translate3d(0, 0, 0);\n  transition: transform 0.1s linear;\n  -webkit-transition: transform 0.1s linear;\n  background-image: linear-gradient(-180deg, #FEFFFF 0%, #F6F1F1 100%); }\n\n.swiper-control .inner .swiper-thumb::before {\n  position: absolute;\n  content: attr(data-content);\n  left: 0;\n  bottom: -24px;\n  width: 100px;\n  text-align: center;\n  margin-left: -38px;\n  font-size: 15px;\n  color: #A6A6A6;\n  line-height: 20px; }\n\n.swiper-control .inner .swiper-num {\n  margin-top: 15px;\n  display: flex;\n  justify-content: space-between;\n  font-size: 15px;\n  color: #A6A6A6;\n  line-height: 20px; }\n\n.swiper-control .inner .swiper-num2 {\n  margin-top: 15px;\n  color: #464646;\n  font-size: 12px;\n  width: 120%;\n  margin-left: -10%;\n  text-align: center; }\n\n.contorlPanel {\n  width: 120px;\n  position: absolute;\n  right: 20px;\n  top: 10px; }\n\n.contorlPanel span {\n  width: 50px;\n  padding: 2px 15px;\n  border: 1px solid #E5E5E5;\n  border-radius: 10px;\n  text-align: center;\n  border-radius: 33px; }\n\n.contorlPanel .plus-button {\n  border-bottom-right-radius: 0;\n  border-top-right-radius: 0; }\n\n.contorlPanel .minus-button {\n  border-left: none;\n  border-bottom-left-radius: 0;\n  border-top-left-radius: 0; }\n\n/* Switch Cell */\n.switch-control {\n  padding-left: 12px;\n  padding-right: 12px;\n  margin: 10px 0; }\n\n.switch-title {\n  line-height: 52px;\n  width: 86%; }\n\n.switch-btn {\n  width: 45px;\n  height: 45px;\n  border-radius: 50%;\n  border: 1px solid #ccc;\n  text-align: center;\n  line-height: 45px; }\n\n.switch-btn.on {\n  background: #ff6600;\n  color: #fff; }\n\n.switch-btn-main {\n  position: relative; }\n\ninput[type='checkbox'] {\n  display: none; }\n\nlabel[for=\"switch-cell-jd\"] {\n  width: 45px;\n  height: 45px;\n  display: inline-block;\n  border-radius: 50%;\n  border: 1px solid #ccc;\n  position: relative;\n  top: 4px;\n  text-align: center;\n  line-height: 45px; }\n\ninput[type='checkbox']:checked + label[for=\"switch-cell-jd\"] {\n  background: #ff6600;\n  color: #fff; }\n\nlabel[for=\"switch-cell-ali\"] {\n  display: inline-block;\n  width: 60px;\n  height: 30px;\n  border: 1px solid #ccc;\n  border-radius: 30px;\n  position: relative;\n  top: 11px;\n  background: #f0f0f0; }\n\nlabel[for=\"switch-cell-ali\"]::after {\n  display: block;\n  position: relative;\n  content: '';\n  width: 50%;\n  height: 100%;\n  background: #fff;\n  border-radius: 50%;\n  left: 0;\n  box-shadow: 0 0 2px #eee; }\n\ninput[type='checkbox']:checked, label[for='switch-cell-ali'].checked {\n  background: #9FD6AE; }\n\ninput[type='checkbox']:checked, label[for='switch-cell-ali'].checked::after {\n  left: 50%; }\n\n/*time scroll*/\n.scrollLine {\n  position: relative;\n  display: flex;\n  flex-direction: row;\n  height: 250px; }\n\n.scrollLine ul {\n  padding: 0;\n  width: 100%;\n  margin-top: 0;\n  overflow: hidden;\n  height: 200px; }\n\n.scrollLine li {\n  padding: 0;\n  text-align: center;\n  line-height: 28px;\n  font-size: 20px; }\n\n.scrollLine li.active {\n  font-size: 24px; }\n\n.scrollLine .topMask {\n  width: 100%;\n  height: 110px;\n  position: absolute;\n  top: 0;\n  background: -moz-linear-gradient(top, #f1f1f1, #fff);\n  background: -webkit-linear-gradient(top, #f1f1f1, #fff);\n  opacity: 0.9;\n  border-bottom: 1px solid #ccc; }\n\n.scrollLine .bottomMask {\n  width: 100%;\n  height: 110px;\n  position: absolute;\n  bottom: 0;\n  background: -moz-linear-gradient(bottom, #f1f1f1, #fff);\n  background: -webkit-linear-gradient(bottom, #f1f1f1, #fff);\n  opacity: 0.9;\n  border-top: 1px solid #ccc; }\n\n/*confirm toast*/\n.confirmHover {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  background: rgba(75, 75, 75, 0.65) !important;\n  z-index: 998;\n  top: 0;\n  left: 0;\n  display: none; }\n\n.confirmWrap {\n  width: 250px;\n  position: absolute;\n  top: 50%;\n  transform: translate3d(-50%, -50%, 0);\n  left: 50%;\n  background: #fff;\n  border-radius: 10px;\n  box-shadow: 0 0 2px #ccc;\n  z-index: 999; }\n\n.confirmWrap .cfm_main {\n  padding: 10px; }\n\n.confirmWrap .cfm_title {\n  text-align: center; }\n\n.confirmWrap .cfm_content {\n  padding: 10px 0;\n  font-size: 14px; }\n\n.confirmWrap .cfm_btnWrap {\n  position: relative; }\n\n.confirmWrap .cfm_btnWrap span {\n  width: 100%;\n  text-align: center;\n  line-height: 40px;\n  border-top: 1px solid #eee; }\n\n.confirmWrap .cfm_btnWrap span:first-child {\n  border-bottom-left-radius: 10px; }\n\n.confirmWrap .cfm_btnWrap span:last-child {\n  border-bottom-right-radius: 10px;\n  border-left: 1px solid #eee; }\n\n.hovers {\n  background: #eee; }\n", "", {"version":3,"sources":["/./app/assets/style.scss","/./app/assets/node_modules/mobi.css/src/_resets.scss","/./app/assets/node_modules/mobi.css/src/_variables.scss","/./app/assets/node_modules/mobi.css/src/_mixins.scss","/./app/assets/node_modules/mobi.css/src/_layout.scss","/./app/assets/node_modules/mobi.css/src/_flexbox.scss","/./app/assets/node_modules/mobi.css/src/_table.scss","/./app/assets/node_modules/mobi.css/src/_form.scss","/./app/assets/node_modules/mobi.css/src/_utilities.scss","/./app/assets/style.scss"],"names":[],"mappings":"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","file":"style.scss","sourcesContent":["@charset \"UTF-8\";\nhtml {\n  box-sizing: border-box; }\n\n*,\n*::before,\n*::after {\n  box-sizing: inherit; }\n\nhtml {\n  font-size: 10px;\n  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);\n  text-size-adjust: 100%; }\n\nbody {\n  background-color: #f3f3f3;\n  color: #333;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Cantarell\", \"Fira Sans\", \"Droid Sans\", \"Hiragino Sans GB\", \"Microsoft Yahei\", \"微软雅黑\", Arial, Helvetica, STHeiti, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-size: 1.8rem;\n  line-height: 1.5;\n  margin: 0; }\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  margin: 32px 0 0; }\n\np,\nblockquote,\ntable,\nhr,\ndl,\nul,\nol,\npre,\naddress,\nfigure {\n  margin: 14px 0 0; }\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  font-weight: 600; }\n\nh1 {\n  font-size: 3.2rem; }\n\nh2 {\n  font-size: 2.6rem; }\n\nh3 {\n  font-size: 2.4rem; }\n\nh4 {\n  font-size: 2.2rem; }\n\nh5 {\n  font-size: 2rem; }\n\nh6 {\n  font-size: 1.8rem; }\n\na {\n  color: #0080ff;\n  text-decoration: none;\n  -webkit-text-decoration-skip: objects; }\n  a:active, a:hover {\n    text-decoration: underline; }\n\nb,\nstrong,\ndt {\n  font-weight: 600; }\n\ncode,\nkbd,\nsamp {\n  background-color: rgba(0, 0, 0, 0.05);\n  font-family: Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace;\n  font-size: 85%;\n  padding: 0.1em 0.2em; }\n\npre {\n  max-height: 300px;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch;\n  background-color: rgba(0, 0, 0, 0.05);\n  font-family: Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace;\n  font-size: 1.3rem;\n  line-height: 1.2;\n  margin-left: -14px;\n  margin-right: -14px;\n  padding: 14px; }\n  pre code {\n    background-color: transparent;\n    font-size: 1.3rem;\n    padding: 0; }\n  @media (min-width: 740px) {\n    pre {\n      margin-left: 0;\n      margin-right: 0; } }\n\nblockquote {\n  border-left: 5px solid #ddd;\n  color: #777;\n  padding-left: 14px; }\n\nul,\nol {\n  padding-left: 28px; }\n\ndt,\ndd,\nol ol,\nul ul,\nol ul,\nul ol {\n  margin: 0; }\n\nhr {\n  border: 0;\n  border-top: 1px solid #ddd; }\n\nsmall {\n  font-size: 85%; }\n\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline; }\n\nsub {\n  bottom: -.25em; }\n\nsup {\n  top: -.5em; }\n\naddress,\ntime {\n  color: #777;\n  font-style: normal; }\n\nmark {\n  background-color: #ff0;\n  color: #333;\n  padding: 0 .2em; }\n\nabbr[title] {\n  border-bottom: 0;\n  text-decoration: underline;\n  text-decoration: underline dotted; }\n\naudio:not([controls]) {\n  display: none;\n  height: 0; }\n\nimg {\n  max-width: 100%;\n  vertical-align: middle; }\n\naudio,\nvideo {\n  width: 100%; }\n\n[role=\"button\"] {\n  cursor: pointer; }\n\na,\narea,\nbutton,\n[role=\"button\"],\ninput,\nlabel,\nselect,\nsummary,\ntextarea {\n  outline: 0;\n  touch-action: manipulation; }\n\nbutton,\ninput,\nselect,\ntextarea {\n  font: inherit; }\n\nbutton,\nhtml [type=button],\n[type=reset],\n[type=submit],\n::-webkit-file-upload-button {\n  appearance: button; }\n\n[type=search] {\n  appearance: none; }\n\n::-webkit-file-upload-button {\n  font: inherit; }\n\n[hidden] {\n  display: none; }\n\nfieldset {\n  border: 1px solid #ddd;\n  margin: 14px 0 0;\n  padding: 0 14px 14px; }\n\nlegend {\n  padding: 0 3px; }\n\noptgroup {\n  color: #777;\n  font-style: normal;\n  font-weight: normal; }\n\noption {\n  color: #333; }\n\nprogress {\n  width: 100%; }\n\n.container {\n  background-color: #fff;\n  max-width: 740px;\n  min-width: 320px;\n  outline: 14px solid #fff;\n  overflow: hidden;\n  padding: 0 14px 14px;\n  width: 100%; }\n\n@media (min-width: 1041px) {\n  .container {\n    max-width: 768px;\n    outline: 0;\n    padding: 0 28px 14px; } }\n\n.top-gap-big,\n.form .top-gap-big {\n  margin-top: 32px; }\n\n.top-gap,\n.form .top-gap {\n  margin-top: 14px; }\n\n.top-gap-0,\n.form .top-gap-0 {\n  margin-top: 0; }\n\n.flex-left,\n.flex-center,\n.flex-right,\n.flex-top,\n.flex-middle,\n.flex-bottom,\n.flex-vertical {\n  display: flex;\n  flex-flow: row nowrap; }\n\n.flex-left,\n.flex-center,\n.flex-right,\n.flex-top,\n.flex-middle,\n.flex-bottom,\n.flex-vertical.flex-left,\n.flex-vertical.flex-center,\n.flex-vertical.flex-right,\n.flex-vertical.flex-top,\n.flex-vertical.flex-middle,\n.flex-vertical.flex-bottom {\n  align-items: stretch;\n  justify-content: flex-start; }\n\n.flex-center,\n.flex-vertical.flex-middle {\n  justify-content: center; }\n\n.flex-right,\n.flex-vertical.flex-bottom {\n  justify-content: flex-end; }\n\n.flex-top,\n.flex-vertical.flex-left {\n  align-items: flex-start; }\n\n.flex-middle,\n.flex-vertical.flex-center {\n  align-items: center; }\n\n.flex-bottom,\n.flex-vertical.flex-right {\n  align-items: flex-end; }\n\n.units-gap {\n  margin-left: -7px;\n  margin-right: -7px; }\n  .units-gap > .unit,\n  .units-gap > .unit-0,\n  .units-gap > .unit-1-2,\n  .units-gap > .unit-1-3,\n  .units-gap > .unit-2-3,\n  .units-gap > .unit-1-4,\n  .units-gap > .unit-3-4 {\n    padding-left: 7px;\n    padding-right: 7px; }\n\n.unit {\n  flex-basis: 0;\n  flex-grow: 1;\n  max-width: 100%; }\n\n.unit-1-2,\n.unit-1-3,\n.unit-2-3,\n.unit-1-4,\n.unit-3-4 {\n  flex-shrink: 0; }\n\n.unit-1-2 {\n  flex-basis: 50%;\n  max-width: 50%; }\n\n.unit-1-3 {\n  flex-basis: 33.33%;\n  max-width: 33.33%; }\n\n.unit-2-3 {\n  flex-basis: 66.67%;\n  max-width: 66.67%; }\n\n.unit-1-4 {\n  flex-basis: 25%;\n  max-width: 25%; }\n\n.unit-3-4 {\n  flex-basis: 75%;\n  max-width: 75%; }\n\n.flex-vertical {\n  flex-direction: column; }\n  .flex-vertical > .unit,\n  .flex-vertical > .unit-0,\n  .flex-vertical > .unit-1-2,\n  .flex-vertical > .unit-1-3,\n  .flex-vertical > .unit-2-3,\n  .flex-vertical > .unit-1-4,\n  .flex-vertical > .unit-3-4 {\n    max-width: none; }\n  .flex-vertical > .unit-1-2 {\n    max-height: 50%; }\n  .flex-vertical > .unit-1-3 {\n    max-height: 33.33%; }\n  .flex-vertical > .unit-2-3 {\n    max-height: 66.67%; }\n  .flex-vertical > .unit-1-4 {\n    max-height: 25%; }\n  .flex-vertical > .unit-3-4 {\n    max-height: 75%; }\n\n.table {\n  background-color: #fff;\n  border: 0;\n  border-collapse: collapse;\n  border-spacing: 0;\n  width: 100%; }\n  .table caption {\n    caption-side: bottom;\n    color: #777;\n    padding: 5px;\n    text-align: left; }\n  .table th,\n  .table td {\n    border: 0;\n    border-bottom: 1px solid #ddd;\n    padding: 5px;\n    text-align: left; }\n  .table th {\n    background-color: rgba(0, 0, 0, 0.05);\n    font-weight: 600; }\n\n.form {\n  margin: 0; }\n  .form label {\n    cursor: pointer;\n    display: block;\n    line-height: 1.25;\n    margin-top: 14px;\n    padding-bottom: 6px;\n    padding-top: 6px; }\n  .form [type=text],\n  .form [type=password],\n  .form [type=email],\n  .form [type=search],\n  .form [type=url],\n  .form [type=tel],\n  .form [type=number],\n  .form textarea,\n  .form select {\n    appearance: none;\n    background-color: #fff;\n    border: 1px solid #ddd;\n    border-radius: 3px;\n    color: #333;\n    font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Cantarell\", \"Fira Sans\", \"Droid Sans\", \"Hiragino Sans GB\", \"Microsoft Yahei\", \"微软雅黑\", Arial, Helvetica, STHeiti, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n    font-size: 1.8rem;\n    padding: 5px 10px;\n    display: block;\n    line-height: 1.25;\n    margin: 14px 0 0;\n    width: 100%; }\n    .form [type=text]:focus,\n    .form [type=password]:focus,\n    .form [type=email]:focus,\n    .form [type=search]:focus,\n    .form [type=url]:focus,\n    .form [type=tel]:focus,\n    .form [type=number]:focus,\n    .form textarea:focus,\n    .form select:focus {\n      border-color: #3399ff; }\n  @media (max-width: 1040px) {\n    .form [type=time],\n    .form [type=week],\n    .form [type=month],\n    .form [type=date],\n    .form [type=datetime-local] {\n      margin: 14px 0 0; } }\n  @media (min-width: 1041px) {\n    .form [type=time],\n    .form [type=week],\n    .form [type=month],\n    .form [type=date],\n    .form [type=datetime-local] {\n      appearance: none;\n      background-color: #fff;\n      border: 1px solid #ddd;\n      border-radius: 3px;\n      color: #333;\n      font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Cantarell\", \"Fira Sans\", \"Droid Sans\", \"Hiragino Sans GB\", \"Microsoft Yahei\", \"微软雅黑\", Arial, Helvetica, STHeiti, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n      font-size: 1.8rem;\n      padding: 5px 10px;\n      display: block;\n      line-height: 1.25;\n      margin: 14px 0 0;\n      width: 100%; }\n      .form [type=time]:focus,\n      .form [type=week]:focus,\n      .form [type=month]:focus,\n      .form [type=date]:focus,\n      .form [type=datetime-local]:focus {\n        border-color: #3399ff; } }\n  .form [type=checkbox],\n  .form [type=radio] {\n    cursor: pointer;\n    margin: 0 5px 0 0; }\n  .form select {\n    background: url(\"data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='20' viewBox='0 0 32 20'><path fill='#333' d='M0 0h32L16 20z'/></svg>\") right 8px center no-repeat;\n    background-size: 8px 8px;\n    padding-right: 25px;\n    cursor: pointer; }\n  .form [type=file],\n  .form [type=range] {\n    display: block;\n    line-height: 1.25;\n    margin: 14px 0 0;\n    width: 100%;\n    cursor: pointer;\n    padding: 6px 0; }\n  .form [type=color],\n  .form [type=image] {\n    cursor: pointer;\n    display: block;\n    margin: 14px 0 0; }\n  .form [disabled] {\n    cursor: default;\n    opacity: .5;\n    pointer-events: none; }\n  .form [readonly] {\n    background-color: #f3f3f3; }\n\n.btn {\n  display: block;\n  line-height: 1.25;\n  margin: 14px 0 0;\n  width: 100%;\n  appearance: none;\n  background-color: #fff;\n  border: 1px solid #ddd;\n  border-radius: 3px;\n  color: #333;\n  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", \"Roboto\", \"Oxygen\", \"Ubuntu\", \"Cantarell\", \"Fira Sans\", \"Droid Sans\", \"Hiragino Sans GB\", \"Microsoft Yahei\", \"微软雅黑\", Arial, Helvetica, STHeiti, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\";\n  font-size: 1.8rem;\n  padding: 5px 10px;\n  text-align: center;\n  background-color: #f3f3f3;\n  cursor: pointer; }\n  .btn:focus {\n    border-color: #3399ff; }\n  .btn:hover, .btn:active {\n    text-decoration: none; }\n  .btn[disabled] {\n    cursor: default;\n    opacity: .5;\n    pointer-events: none; }\n\n.btn-primary {\n  background-color: #40bf40;\n  border-color: #40bf40;\n  color: #fff; }\n  .btn-primary[disabled] {\n    cursor: default;\n    opacity: .5;\n    pointer-events: none; }\n\n.btn-danger {\n  color: #cc0000; }\n  .btn-danger[disabled] {\n    cursor: default;\n    opacity: .5;\n    pointer-events: none; }\n\n@media (max-width: 1040px) {\n  .hide-on-mobile {\n    display: none; } }\n\n@media (min-width: 1041px) {\n  .show-on-mobile {\n    display: none; } }\n\n.scroll-view {\n  max-height: 300px;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch; }\n\n.text-left {\n  text-align: left; }\n\n.text-center {\n  text-align: center; }\n\n.text-right {\n  text-align: right; }\n\n.text-muted {\n  color: #777; }\n\na.text-muted {\n  color: #777;\n  text-decoration: underline; }\n\n/* public */\nbody {\n  background-color: #F0F0F0; }\n\nul,\nli,\ndl,\ndt,\ndd {\n  list-style: none; }\n\n.active-block {\n  color: #ffffff; }\n\n.animation-quick, .grid-item, .swiper-control .inner .swiper-thumb {\n  transition: all 0.1s ease; }\n\n.animation, .grid-item:before, .list-item:before, label[for=\"switch-cell-jd\"] {\n  transition: all 0.3s ease; }\n\n.animation-slow {\n  transition: all 0.8s ease; }\n\n.animation-switch, label[for=\"switch-cell-ali\"], label[for=\"switch-cell-ali\"]::after {\n  transition: all 0.4s ease; }\n\n.bg_hover {\n  height: 100% !important;\n  overflow: hidden !important; }\n\n.testSpan {\n  padding: 5px;\n  border: 1px solid #ccc;\n  border-radius: 10px;\n  margin: 0 5px; }\n\n/* panel */\n.panel {\n  background-color: #ffffff;\n  margin: 8px;\n  border-radius: 4px;\n  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.08);\n  overflow: hidden; }\n\n.panel.no-margin {\n  margin: 0px; }\n\n.panel.no-border-radius {\n  border-radius: 0; }\n\n.panel-title {\n  height: 48px;\n  padding-left: 12px;\n  padding-right: 12px;\n  line-height: 48px;\n  font-size: 16px;\n  color: #464646; }\n\n.ui_wrap {\n  flex-wrap: wrap; }\n\n.ui_wrap div[class~=\"unit-1-4\"].disabled,\n.ui_wrap div[class~=\"unit-1-3\"].disabled {\n  opacity: 0.5; }\n\n.ui_wrap div[class~=\"unit-1-4\"] .mode_name,\n.ui_wrap div[class~=\"unit-1-3\"] .mode_name {\n  display: block;\n  font-size: 1.4rem; }\n\n@font-face {\n  font-family: 'iconfont';\n  /* project id 87760 */\n  src: url(\"https://at.alicdn.com/t/font_svndvyyea8fo5hfr.eot\");\n  src: url(\"https://at.alicdn.com/t/font_svndvyyea8fo5hfr.eot?#iefix\") format(\"embedded-opentype\"), url(\"https://at.alicdn.com/t/font_svndvyyea8fo5hfr.woff\") format(\"woff\"), url(\"https://at.alicdn.com/t/font_svndvyyea8fo5hfr.ttf\") format(\"truetype\"), url(\"https://at.alicdn.com/t/font_svndvyyea8fo5hfr.svg#iconfont\") format(\"svg\"); }\n\n.iconfont {\n  font-family: \"iconfont\" !important;\n  font-size: 26px;\n  font-style: normal;\n  -webkit-font-smoothing: antialiased;\n  -webkit-text-stroke-width: 0.2px;\n  -moz-osx-font-smoothing: grayscale; }\n\n.wrap {\n  background: #fff; }\n\ndiv[class~=\"unit-0\"].disabled {\n  opacity: 0.5; }\n\ndiv[class~=\"unit-0\"] .title {\n  width: 65%;\n  line-height: 30px;\n  padding-left: 10px; }\n\ndiv[class~=\"unit-0\"] .title .maint {\n  font-size: 16px;\n  line-height: 30px;\n  display: block; }\n\ndiv[class~=\"unit-0\"] .title .maint_nosub {\n  display: block;\n  line-height: 40px; }\n\ndiv[class~=\"unit-0\"] .title .sub {\n  font-size: 12px;\n  line-height: 12px;\n  display: block; }\n\ndiv[class~=\"unit-0\"] .rightPart {\n  width: 25%;\n  font-size: 16px;\n  line-height: 40px; }\n\ndiv[class~=\"unit-0\"] .rightPart .rightarrow {\n  font-size: 16px; }\n\n/* Grid Item */\n.grid-item {\n  position: relative;\n  padding-top: 20px;\n  padding-bottom: 20px;\n  border-color: #E5E5E5;\n  border-width: 0;\n  border-right-width: 1px;\n  border-bottom-width: 1px;\n  border-style: solid;\n  color: #A6A6A6; }\n\n.grid-item.active-block {\n  color: #ffffff; }\n\n.grid-item.no-right-border {\n  border-right-width: 0; }\n\n.grid-item.no-bottom-border {\n  border-bottom-width: 0; }\n\n.grid-item:before {\n  position: absolute;\n  content: \"\";\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: transparent; }\n\n.grid-item.grid-item-hover:before {\n  background-color: rgba(0, 0, 0, 0.1); }\n\n/* List Item */\n.list-item {\n  position: relative;\n  padding: 8px 10px; }\n\n.list-item:before {\n  position: absolute;\n  content: \"\";\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background-color: transparent; }\n\n.list-item.list-item-hover:before {\n  background-color: rgba(0, 0, 0, 0.1); }\n\n.list-item-split-line {\n  width: 100%;\n  height: 1px;\n  background-color: #E5E5E5; }\n\n/* Swiper Slide */\n.swiper-wrap-normal,\n.swiper-wrap-controlpanel,\n.swiper-wrap-hasbar,\n.swiper-step,\n.switch-cell {\n  position: relative; }\n\n.swiper-wrap-normal.disabled,\n.swiper-wrap-controlpanel.disabled,\n.swiper-wrap-hasbar.disabled,\n.swiper-step.disabled,\n.switch-cell.disabled {\n  opacity: 0.5; }\n\n.disabled {\n  opacity: 0.5; }\n\n.swiper-control {\n  margin: 25px 20px;\n  position: relative; }\n\n.swiper-control .inner {\n  -webkit-box-flex: 1;\n  -webkit-flex: 1;\n  flex: 1; }\n\n.swiper-control .inner .swiper-track,\n.swiper-control .inner .swiper-step-track {\n  position: relative;\n  top: 2px;\n  height: 1px;\n  border-radius: 5px; }\n\n.swiper-control .inner .swiper-step-track li {\n  width: 100%; }\n\n.swiper-control .inner .swiper-step-track li:first-child::before {\n  content: '';\n  float: left;\n  position: relative;\n  width: 6px;\n  height: 6px;\n  left: -3px;\n  top: -3px;\n  border-radius: 50%; }\n\n.swiper-control .inner .swiper-step-track li::after {\n  content: '';\n  float: right;\n  position: relative;\n  width: 6px;\n  height: 6px;\n  left: -3px;\n  top: -3px;\n  border-radius: 50%;\n  background: green; }\n\n.swiper-control .inner .swiper-thumb {\n  position: absolute;\n  width: 24px;\n  height: 24px;\n  border-radius: 50%;\n  background: #f1f1f1;\n  border-width: 2px;\n  border-style: solid;\n  top: -9px;\n  z-index: 2;\n  cursor: pointer;\n  left: 0;\n  margin-left: -12px;\n  transform: translate3d(0, 0, 0);\n  -webkit-transform: translate3d(0, 0, 0);\n  transition: transform 0.1s linear;\n  -webkit-transition: transform 0.1s linear;\n  background-image: linear-gradient(-180deg, #FEFFFF 0%, #F6F1F1 100%); }\n\n.swiper-control .inner .swiper-thumb::before {\n  position: absolute;\n  content: attr(data-content);\n  left: 0;\n  bottom: -24px;\n  width: 100px;\n  text-align: center;\n  margin-left: -38px;\n  font-size: 15px;\n  color: #A6A6A6;\n  line-height: 20px; }\n\n.swiper-control .inner .swiper-num {\n  margin-top: 15px;\n  display: flex;\n  justify-content: space-between;\n  font-size: 15px;\n  color: #A6A6A6;\n  line-height: 20px; }\n\n.swiper-control .inner .swiper-num2 {\n  margin-top: 15px;\n  color: #464646;\n  font-size: 12px;\n  width: 120%;\n  margin-left: -10%;\n  text-align: center; }\n\n.contorlPanel {\n  width: 120px;\n  position: absolute;\n  right: 20px;\n  top: 10px; }\n\n.contorlPanel span {\n  width: 50px;\n  padding: 2px 15px;\n  border: 1px solid #E5E5E5;\n  border-radius: 10px;\n  text-align: center;\n  border-radius: 33px; }\n\n.contorlPanel .plus-button {\n  border-bottom-right-radius: 0;\n  border-top-right-radius: 0; }\n\n.contorlPanel .minus-button {\n  border-left: none;\n  border-bottom-left-radius: 0;\n  border-top-left-radius: 0; }\n\n/* Switch Cell */\n.switch-control {\n  padding-left: 12px;\n  padding-right: 12px;\n  margin: 10px 0; }\n\n.switch-title {\n  line-height: 52px;\n  width: 86%; }\n\n.switch-btn {\n  width: 45px;\n  height: 45px;\n  border-radius: 50%;\n  border: 1px solid #ccc;\n  text-align: center;\n  line-height: 45px; }\n\n.switch-btn.on {\n  background: #ff6600;\n  color: #fff; }\n\n.switch-btn-main {\n  position: relative; }\n\ninput[type='checkbox'] {\n  display: none; }\n\nlabel[for=\"switch-cell-jd\"] {\n  width: 45px;\n  height: 45px;\n  display: inline-block;\n  border-radius: 50%;\n  border: 1px solid #ccc;\n  position: relative;\n  top: 4px;\n  text-align: center;\n  line-height: 45px; }\n\ninput[type='checkbox']:checked + label[for=\"switch-cell-jd\"] {\n  background: #ff6600;\n  color: #fff; }\n\nlabel[for=\"switch-cell-ali\"] {\n  display: inline-block;\n  width: 60px;\n  height: 30px;\n  border: 1px solid #ccc;\n  border-radius: 30px;\n  position: relative;\n  top: 11px;\n  background: #f0f0f0; }\n\nlabel[for=\"switch-cell-ali\"]::after {\n  display: block;\n  position: relative;\n  content: '';\n  width: 50%;\n  height: 100%;\n  background: #fff;\n  border-radius: 50%;\n  left: 0;\n  box-shadow: 0 0 2px #eee; }\n\ninput[type='checkbox']:checked, label[for='switch-cell-ali'].checked {\n  background: #9FD6AE; }\n\ninput[type='checkbox']:checked, label[for='switch-cell-ali'].checked::after {\n  left: 50%; }\n\n/*time scroll*/\n.scrollLine {\n  position: relative;\n  display: flex;\n  flex-direction: row;\n  height: 250px; }\n\n.scrollLine ul {\n  padding: 0;\n  width: 100%;\n  margin-top: 0;\n  overflow: hidden;\n  height: 200px; }\n\n.scrollLine li {\n  padding: 0;\n  text-align: center;\n  line-height: 28px;\n  font-size: 20px; }\n\n.scrollLine li.active {\n  font-size: 24px; }\n\n.scrollLine .topMask {\n  width: 100%;\n  height: 110px;\n  position: absolute;\n  top: 0;\n  background: -moz-linear-gradient(top, #f1f1f1, #fff);\n  background: -webkit-linear-gradient(top, #f1f1f1, #fff);\n  opacity: 0.9;\n  border-bottom: 1px solid #ccc; }\n\n.scrollLine .bottomMask {\n  width: 100%;\n  height: 110px;\n  position: absolute;\n  bottom: 0;\n  background: -moz-linear-gradient(bottom, #f1f1f1, #fff);\n  background: -webkit-linear-gradient(bottom, #f1f1f1, #fff);\n  opacity: 0.9;\n  border-top: 1px solid #ccc; }\n\n/*confirm toast*/\n.confirmHover {\n  position: fixed;\n  width: 100%;\n  height: 100%;\n  background: rgba(75, 75, 75, 0.65) !important;\n  z-index: 998;\n  top: 0;\n  left: 0;\n  display: none; }\n\n.confirmWrap {\n  width: 250px;\n  position: absolute;\n  top: 50%;\n  transform: translate3d(-50%, -50%, 0);\n  left: 50%;\n  background: #fff;\n  border-radius: 10px;\n  box-shadow: 0 0 2px #ccc;\n  z-index: 999; }\n\n.confirmWrap .cfm_main {\n  padding: 10px; }\n\n.confirmWrap .cfm_title {\n  text-align: center; }\n\n.confirmWrap .cfm_content {\n  padding: 10px 0;\n  font-size: 14px; }\n\n.confirmWrap .cfm_btnWrap {\n  position: relative; }\n\n.confirmWrap .cfm_btnWrap span {\n  width: 100%;\n  text-align: center;\n  line-height: 40px;\n  border-top: 1px solid #eee; }\n\n.confirmWrap .cfm_btnWrap span:first-child {\n  border-bottom-left-radius: 10px; }\n\n.confirmWrap .cfm_btnWrap span:last-child {\n  border-bottom-right-radius: 10px;\n  border-left: 1px solid #eee; }\n\n.hovers {\n  background: #eee; }\n","// scss-lint:disable DuplicateProperty, MergeableSelector, QualifyingElement\n\n// Resets\n//\n// Global resets to common HTML elements.\n// Doesn't depend on any third party libraries.\n// Inspired by Normalise.css and bootstrap/_reboot.scss\n\n\n//\n// `html` and `body`\n//\n\n// Reset the box-sizing\nhtml {\n  box-sizing: border-box;\n}\n\n*,\n*::before,\n*::after {\n  box-sizing: inherit;\n}\n\nhtml {\n  // `rem` based on the `font-size` of html\n  font-size: $rem-base;\n  // Changes the default tap highlight in iOS.\n  -webkit-tap-highlight-color: $color-background-active;\n  // Prevent adjustments of font size after orientation changes in IE and iOS.\n  text-size-adjust: 100%;\n}\n\nbody {\n  background-color: $color-background-body;\n  color: $color-text-body;\n  font-family: $font-family;\n  font-size: $font-size;\n  line-height: $line-height;\n  margin: 0;\n}\n\n\n//\n// Typography\n//\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  margin: $width-gap-big 0 0;\n}\n\np,\nblockquote,\ntable,\nhr,\ndl,\nul,\nol,\npre,\naddress,\nfigure {\n  margin: $width-gap 0 0;\n}\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  font-weight: $font-weight-bold;\n}\n\nh1 { font-size: $font-size-h1; }\nh2 { font-size: $font-size-h2; }\nh3 { font-size: $font-size-h3; }\nh4 { font-size: $font-size-h4; }\nh5 { font-size: $font-size-h5; }\nh6 { font-size: $font-size-h6; }\n\na {\n  color: $color-text-link;\n  text-decoration: none;\n  // Remove gaps in links underline in iOS 8+ and Safari 8+.\n  -webkit-text-decoration-skip: objects;\n\n  &:active,\n  &:hover {\n    text-decoration: underline;\n  }\n}\n\nb,\nstrong,\ndt {\n  font-weight: $font-weight-bold;\n}\n\ncode,\nkbd,\nsamp {\n  background-color: $color-background-code;\n  font-family: $font-family-monospace;\n  font-size: $font-size-code;\n  padding: $padding-code;\n}\n\npre {\n  // Mobile device has a small height, so we need to enable scroll-view\n  @include scroll-view();\n\n  background-color: $color-background-pre;\n  font-family: $font-family-monospace;\n  font-size: $font-size-pre;\n  line-height: $line-height-pre;\n  // Mobile device has a small height, so we need to set the width of pre to the device width\n  margin-left: -$width-gap;\n  margin-right: -$width-gap;\n  padding: $width-gap;\n\n  // Override the code styles\n  code {\n    background-color: transparent;\n    font-size: $font-size-pre;\n    padding: 0;\n  }\n\n  @media (min-width: $max-width-container - $width-gap-double) {\n    margin-left: 0;\n    margin-right: 0;\n  }\n}\n\nblockquote {\n  border-left: $border-left-blockquote;\n  color: $color-text-blockquote;\n  padding-left: $width-gap;\n}\n\nul,\nol {\n  padding-left: $width-gap-double;\n}\n\ndt,\ndd,\nol ol,\nul ul,\nol ul,\nul ol {\n  margin: 0;\n}\n\nhr {\n  border: 0;\n  border-top: $border-top-hr;\n}\n\nsmall {\n  font-size: $font-size-small;\n}\n\n// Prevent `sub` and `sup` elements from affecting the line height in all browsers.\nsub,\nsup {\n  font-size: $font-size-sub-sup;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline;\n}\n\nsub {\n  bottom: -.25em;\n}\n\nsup {\n  top: -.5em;\n}\n\naddress,\ntime {\n  color: $color-text-muted;\n  font-style: normal;\n}\n\nmark {\n  background-color: $color-background-mark;\n  color: $color-text;\n  padding: 0 .2em;\n}\n\nabbr[title] {\n  border-bottom: 0;\n  text-decoration: underline;\n  text-decoration: underline dotted;\n}\n\n\n//\n// Embedded Content\n//\n\n// Add the correct display in iOS 4-7.\naudio:not([controls]) {\n  display: none;\n  height: 0;\n}\n\nimg {\n  max-width: 100%;\n  vertical-align: middle;\n}\n\naudio,\nvideo {\n  width: 100%;\n}\n\n\n//\n// Forms\n//\n\n// iOS \"clickable elements\" fix for role=\"button\"\n//\n// Fixes \"clickability\" issue (and more generally, the firing of events such as focus as well)\n// for traditionally non-focusable elements with role=\"button\"\n// see https://developer.mozilla.org/en-US/docs/Web/Events/click#Safari_Mobile\n[role=\"button\"] {\n  cursor: pointer;\n}\n\n// Avoid 300ms click delay on touch devices that support the `touch-action` CSS property.\na,\narea,\nbutton,\n[role=\"button\"],\ninput,\nlabel,\nselect,\nsummary,\ntextarea {\n  outline: 0;\n  touch-action: manipulation;\n}\n\nbutton,\ninput,\nselect,\ntextarea {\n  font: inherit;\n}\n\nbutton,\n// Prevent a WebKit bug where (*) destroys native `audio` and `video` controls in Android 4.\nhtml [type=button],\n[type=reset],\n[type=submit],\n::-webkit-file-upload-button {\n  // (*) Correct the inability to style clickable types in iOS and Safari.\n  appearance: button;\n}\n\n[type=search] {\n  // Correct the odd appearance in Chrome and Safari.\n  appearance: none;\n}\n\n// Change font properties to `inherit` in Safari.\n::-webkit-file-upload-button {\n  font: inherit;\n}\n\n[hidden] {\n  display: none;\n}\n\nfieldset {\n  border: $width-border solid $color-border;\n  margin: $width-gap 0 0;\n  padding: 0 $width-gap $width-gap;\n}\n\nlegend {\n  padding: $padding-legend;\n}\n\noptgroup {\n  color: $color-optgroup;\n  font-style: normal;\n  font-weight: normal;\n}\n\noption {\n  color: $color-text;\n}\n\nprogress {\n  width: 100%;\n}\n","// Variables\n//\n// Copy settings from this file into the provided `_custom.scss` to override\n// the Bootstrap defaults without modifying key, versioned files.\n//\n// All variables need to be named as ${rule}-${element}-${modifier}\n\n\n//\n// Colors\n//\n\n// Common colors\n// Add !default so _custom.scss can override it\n$color-text: #333 !default;\n$color-text-muted: #777 !default;\n\n$color-background: #fff !default;\n$color-background-over: rgba(0, 0, 0, .05) !default;\n$color-background-back: #f3f3f3 !default;\n\n$color-border: #ddd !default;\n\n// `body` and `container`\n$color-text-body: $color-text !default;\n$color-background-body: $color-background-back !default;\n$color-background-container: $color-background !default;\n\n// Links\n// hsl is easy to modify\n$color-text-link: hsl(210, 100%, 50%) !default;\n// Use rgba so it can nesting\n$color-background-active: rgba(0, 0, 0, .1) !default;\n\n// Codes\n$color-background-code: $color-background-over !default;\n$color-background-pre: $color-background-over !default;\n\n// `blockquote`\n$color-text-blockquote: $color-text-muted !default;\n\n// `mark`\n$color-background-mark: #ff0 !default;\n\n// Tables\n$color-background-table: $color-background !default;\n$color-background-th: $color-background-over !default;\n\n// Forms\n// For `input`s which is not a button\n$color-background-input: $color-background !default;\n// For focused input\n$color-border-input-focus: hsl(210, 100%, 60%) !default;\n// For buttons\n$color-background-btn: $color-background-back !default;\n$color-text-btn-primary: $color-background !default;\n$color-background-btn-primary: hsl(120, 50%, 50%) !default;\n$color-text-btn-danger: hsl(0, 100%, 40%) !default;\n//For optgroup\n$color-optgroup: $color-text-muted;\n\n//\n// Spacing\n//\n\n$width-gap: 14px !default;\n$width-gap-double: 28px !default;\n$width-gap-half: 7px !default;\n\n$width-gap-big: 32px !default;\n\n$width-padding-input: 5px !default;\n\n$width-border: 1px !default;\n\n// $width-padding-input + $width-border\n$width-padding-border-input: 6px !default;\n\n//\n// layouts\n//\n\n$width-scrollbar: 17px !default;\n\n$padding-container: 0 $width-gap $width-gap !default;\n$padding-container-desktop: 0 $width-gap-double $width-gap !default;\n\n$min-width-container: 320px !default;\n$max-width-container: 768px !default;\n$max-width-side: 256px !default;\n// So won't have scroll-x on device which width is 1025px\n$width-container-breakpoint: $max-width-container + $max-width-side + $width-scrollbar !default;\n\n//\n// Typography\n//\n\n// 1rem = 10px\n$rem-base: 10px !default;\n\n$font-size: 1.8rem !default;\n\n// h4, h5, h6 is not very useful, so we set them to the same size of normal\n// font-size, but with $font-weight-bold\n$font-size-h1: 3.2rem !default;\n$font-size-h2: 2.6rem !default;\n$font-size-h3: 2.4rem !default;\n$font-size-h4: 2.2rem !default;\n$font-size-h5: 2rem !default;\n$font-size-h6: 1.8rem !default;\n\n$font-size-pre: 1.3rem !default;\n\n$font-size-small: 85% !default;\n$font-size-code: $font-size-small !default;\n$font-size-sub-sup: 75% !default;\n\n$line-height: 1.5 !default;\n\n$line-height-input: 1.25 !default;\n// line-height need to be set to pre, not code\n$line-height-pre: 1.2 !default;\n\n$font-weight-bold: 600 !default;\n\n$font-family:\n  // Safari for OS X and iOS (San Francisco)\n  -apple-system,\n  // Chrome for OS X (San Francisco)\n  BlinkMacSystemFont,\n  // Windows\n  'Segoe UI',\n  // Android\n  'Roboto',\n  // Linux\n  'Oxygen', // KDE\n  'Ubuntu',\n  'Cantarell', // GNOME\n  // Firefox OS [R.I.P.]\n  'Fira Sans',\n  // Older Android\n  'Droid Sans',\n  // Chinese font for OSX and iOS\n  'Hiragino Sans GB',\n  // Chinese font for Windows\n  'Microsoft Yahei', '微软雅黑',\n  // Basic web fallback\n  Arial, Helvetica, STHeiti, sans-serif,\n  // Emoji\n  'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol' !default;\n\n// TODO Chinese font-family for pre code\n// https://github.com/xcatliu/mobi.css/issues/8\n$font-family-monospace: Menlo, Monaco, Consolas, \"Liberation Mono\", \"Courier New\", monospace !default;\n\n$padding-code: .1em .2em !default;\n\n$border-left-blockquote: $width-padding-input solid $color-border !default;\n\n$border-top-hr: $width-border solid $color-border !default;\n\n// Set the default max-height to scroll-view\n$max-height-scroll-view: 300px !default;\n\n\n//\n// Tables\n//\n\n$padding-table-cell: $width-padding-input !default;\n$border-bottom-th-td: $width-border solid $color-border !default;\n\n//\n// Forms\n//\n\n// For inputs\n$border-radius-input: 3px !default;\n$padding-input: $width-padding-input 2 * $width-padding-input !default;\n$border-input: $width-border solid $color-border !default;\n// For file input\n$padding-file: $width-padding-border-input 0 !default;\n\n// For checkbox and radio\n$margin-checkbox-radio: 0 $width-padding-input 0 0 !default;\n// 5px padding + 1px border\n$width-padding-top-label: $width-padding-border-input !default;\n$width-padding-bottom-label: $width-padding-border-input !default;\n\n$padding-legend: 0 3px !default;\n\n// Background image of down arrow\n$background-image-angle-down: url(\"data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='20' viewBox='0 0 32 20'><path fill='#{$color-text}' d='M0 0h32L16 20z'/></svg>\") !default;\n","@mixin scroll-view() {\n  max-height: $max-height-scroll-view;\n  overflow: auto;\n  -webkit-overflow-scrolling: touch;\n}\n\n@mixin background-icon-angle-down() {\n  background: $background-image-angle-down right 8px center no-repeat;\n  background-size: 8px 8px;\n  padding-right: 25px;\n}\n\n@mixin flex-container() {\n  display: flex;\n  flex-flow: row nowrap;\n}\n\n@mixin flex-width($percentage) {\n  flex-basis: $percentage;\n  max-width: $percentage;\n}\n\n\n//\n// Forms\n//\n\n@mixin input-and-button() {\n  appearance: none;\n  background-color: $color-background-input;\n  border: $border-input;\n  border-radius: $border-radius-input;\n  // Follow the color of body text\n  color: $color-text-body;\n  font-family: $font-family;\n  font-size: $font-size;\n  padding: $padding-input;\n\n  &:focus {\n    border-color: $color-border-input-focus;\n  }\n}\n\n@mixin input-block() {\n  display: block;\n  line-height: $line-height-input;\n  margin: $width-gap 0 0;\n  width: 100%;\n}\n\n@mixin button() {\n  text-align: center;\n  background-color: $color-background-btn;\n  cursor: pointer;\n\n  &:hover,\n  &:active {\n    text-decoration: none;\n  }\n}\n\n@mixin disabled() {\n  cursor: default;\n  opacity: .5;\n  pointer-events: none;\n}\n\n@mixin btn() {\n  @include input-block();\n  @include input-and-button();\n  @include button();\n\n  &[disabled] {\n    @include disabled();\n  }\n}\n\n@mixin btn-primary() {\n  background-color: $color-background-btn-primary;\n  border-color: $color-background-btn-primary;\n  color: $color-text-btn-primary;\n\n  &[disabled] {\n    @include disabled();\n  }\n}\n\n@mixin btn-danger() {\n  color: $color-text-btn-danger;\n\n  &[disabled] {\n    @include disabled();\n  }\n}\n",".container {\n  background-color: $color-background-container;\n  max-width: $max-width-container - $width-gap-double;\n  min-width: $min-width-container;\n  outline: $width-gap solid $color-background-container;\n  overflow: hidden;\n  padding: $padding-container;\n  width: 100%;\n}\n\n@media (min-width: $width-container-breakpoint) {\n  .container {\n    max-width: $max-width-container;\n    outline: 0;\n    padding: $padding-container-desktop;\n  }\n}\n\n.top-gap-big,\n.form .top-gap-big {\n  margin-top: $width-gap-big;\n}\n\n.top-gap,\n.form .top-gap {\n  margin-top: $width-gap;\n}\n\n.top-gap-0,\n.form .top-gap-0 {\n  margin-top: 0;\n}\n",".flex-left,\n.flex-center,\n.flex-right,\n.flex-top,\n.flex-middle,\n.flex-bottom,\n.flex-vertical {\n  @include flex-container();\n}\n\n.flex-left,\n.flex-center,\n.flex-right,\n.flex-top,\n.flex-middle,\n.flex-bottom,\n.flex-vertical.flex-left,\n.flex-vertical.flex-center,\n.flex-vertical.flex-right,\n.flex-vertical.flex-top,\n.flex-vertical.flex-middle,\n.flex-vertical.flex-bottom {\n  align-items: stretch;\n  justify-content: flex-start;\n}\n\n.flex-center,\n.flex-vertical.flex-middle {\n  justify-content: center;\n}\n\n.flex-right,\n.flex-vertical.flex-bottom {\n  justify-content: flex-end;\n}\n\n.flex-top,\n.flex-vertical.flex-left {\n  align-items: flex-start;\n}\n\n.flex-middle,\n.flex-vertical.flex-center {\n  align-items: center;\n}\n\n.flex-bottom,\n.flex-vertical.flex-right {\n  align-items: flex-end;\n}\n\n.units-gap {\n  margin-left: - $width-gap-half;\n  margin-right: - $width-gap-half;\n\n  > .unit,\n  > .unit-0,\n  > .unit-1-2,\n  > .unit-1-3,\n  > .unit-2-3,\n  > .unit-1-4,\n  > .unit-3-4, {\n    padding-left: $width-gap-half;\n    padding-right: $width-gap-half;\n  }\n}\n\n.unit {\n  flex-basis: 0;\n  flex-grow: 1;\n  max-width: 100%;\n}\n\n.unit-1-2,\n.unit-1-3,\n.unit-2-3,\n.unit-1-4,\n.unit-3-4 {\n  flex-shrink: 0;\n}\n\n.unit-1-2 {\n  @include flex-width(50%);\n}\n\n.unit-1-3 {\n  @include flex-width(33.33%);\n}\n\n.unit-2-3 {\n  @include flex-width(66.67%);\n}\n\n.unit-1-4 {\n  @include flex-width(25%);\n}\n\n.unit-3-4 {\n  @include flex-width(75%);\n}\n\n.flex-vertical {\n  flex-direction: column;\n\n  > .unit,\n  > .unit-0,\n  > .unit-1-2,\n  > .unit-1-3,\n  > .unit-2-3,\n  > .unit-1-4,\n  > .unit-3-4, {\n    max-width: none;\n  }\n\n  > .unit-1-2 {\n    max-height: 50%;\n  }\n\n  > .unit-1-3 {\n    max-height: 33.33%;\n  }\n\n  > .unit-2-3 {\n    max-height: 66.67%;\n  }\n\n  > .unit-1-4 {\n    max-height: 25%;\n  }\n\n  > .unit-3-4 {\n    max-height: 75%;\n  }\n}\n",".table {\n  // Reset for nesting within parents with `background-color`.\n  background-color: $color-background-table;\n  border: 0;\n  border-collapse: collapse;\n  border-spacing: 0;\n  // Enable scroll-view on mobile\n  width: 100%;\n\n  caption {\n    caption-side: bottom;\n    color: $color-text-muted;\n    padding: $padding-table-cell;\n    text-align: left;\n  }\n\n  th,\n  td {\n    border: 0;\n    border-bottom: $border-bottom-th-td;\n    padding: $padding-table-cell;\n    text-align: left;\n  }\n\n  th {\n    background-color: $color-background-th;\n    font-weight: $font-weight-bold;\n  }\n}\n",".form {\n  margin: 0;\n\n  label {\n    cursor: pointer;\n    display: block;\n    line-height: $line-height-input;\n    margin-top: $width-gap;\n    padding-bottom: $width-padding-bottom-label;\n    padding-top: $width-padding-top-label;\n  }\n\n  // Text inputs + Select inputs\n  [type=text],\n  [type=password],\n  [type=email],\n  [type=search],\n  [type=url],\n  [type=tel],\n  [type=number],\n  textarea,\n  select {\n    @include input-and-button();\n    @include input-block();\n  }\n\n  @media (max-width: $width-container-breakpoint - 1px) {\n    [type=time],\n    [type=week],\n    [type=month],\n    [type=date],\n    [type=datetime-local] {\n      margin: $width-gap 0 0;\n    }\n  }\n\n  @media (min-width: $width-container-breakpoint) {\n    [type=time],\n    [type=week],\n    [type=month],\n    [type=date],\n    [type=datetime-local] {\n      @include input-and-button();\n      @include input-block();\n    }\n  }\n\n  [type=checkbox],\n  [type=radio] {\n    cursor: pointer;\n    margin: $margin-checkbox-radio;\n  }\n\n  select {\n    // Reset the default angle-down icon\n    @include background-icon-angle-down();\n    cursor: pointer;\n  }\n\n  [type=file],\n  [type=range] {\n    @include input-block();\n    cursor: pointer;\n    padding: $padding-file;\n  }\n\n  [type=color],\n  [type=image] {\n    cursor: pointer;\n    display: block;\n    margin: $width-gap 0 0;\n  }\n\n  [disabled] {\n    @include disabled();\n  }\n\n  [readonly] {\n    background-color: $color-background-btn;\n  }\n}\n\n.btn {\n  @include btn();\n}\n\n.btn-primary {\n  @include btn-primary();\n}\n\n.btn-danger {\n  @include btn-danger();\n}\n","@media (max-width: $width-container-breakpoint - 1px) {\n  .hide-on-mobile {\n    display: none;\n  }\n}\n\n@media (min-width: $width-container-breakpoint) {\n  .show-on-mobile {\n    display: none;\n  }\n}\n\n.scroll-view {\n  @include scroll-view();\n}\n\n.text-left {\n  text-align: left;\n}\n\n.text-center {\n  text-align: center;\n}\n\n.text-right {\n  text-align: right;\n}\n\n.text-muted {\n  color: $color-text-muted;\n}\n\na.text-muted {\n  color: $color-text-muted;\n  text-decoration: underline;\n}\n","@import 'mobi.css/src/mobi';\n\n/* public */\n\n$splitLineColor: #E5E5E5;\n$hoverColor: rgba(0, 0, 0, 0.1);\n$transparentColor: rgba(0, 0, 0, 0);\nbody {\n    background-color: #F0F0F0;\n}\n\nul,\nli,\ndl,\ndt,\ndd {\n    list-style: none;\n}\n\n.active-block {\n    color: #ffffff;\n}\n\n.animation-quick {\n    transition: all 0.1s ease;\n}\n\n.animation {\n    transition: all 0.3s ease;\n}\n\n.animation-slow {\n    transition: all 0.8s ease;\n}\n\n.animation-switch {\n    transition: all 0.4s ease;\n}\n\n.bg_hover {\n    height: 100% !important;\n    overflow: hidden !important;\n}\n\n.testSpan {\n    padding: 5px;\n    border: 1px solid #ccc;\n    border-radius: 10px;\n    margin: 0 5px;\n}\n\n\n/* panel */\n\n.panel {\n    background-color: #ffffff;\n    margin: 8px;\n    border-radius: 4px;\n    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.08);\n    overflow: hidden;\n}\n\n.panel.no-margin {\n    margin: 0px;\n}\n\n.panel.no-border-radius {\n    border-radius: 0;\n}\n\n.panel-title {\n    height: 48px;\n    padding-left: 12px;\n    padding-right: 12px;\n    line-height: 48px;\n    font-size: 16px;\n    color: #464646;\n}\n\n.ui_wrap {\n    flex-wrap: wrap;\n}\n\n.ui_wrap div[class~=\"unit-1-4\"],\n.ui_wrap div[class~=\"unit-1-3\"] {\n    //height: 6rem;\n    //border: 1px solid #eee;\n}\n\n.ui_wrap div[class~=\"unit-1-4\"].disabled,\n.ui_wrap div[class~=\"unit-1-3\"].disabled {\n    opacity: 0.5;\n}\n\n.ui_wrap div[class~=\"unit-1-4\"] .mode_name,\n.ui_wrap div[class~=\"unit-1-3\"] .mode_name {\n    display: block;\n    font-size: 1.4rem;\n}\n\n.ui_wrap div[class~=\"unit-1-4\"].on {\n    //background: #eee;\n    //opacity: 0.5;\n}\n\n@font-face {\n    font-family: 'iconfont';\n    /* project id 87760 */\n    src: url('https://at.alicdn.com/t/font_svndvyyea8fo5hfr.eot');\n    src: url('https://at.alicdn.com/t/font_svndvyyea8fo5hfr.eot?#iefix') format('embedded-opentype'), url('https://at.alicdn.com/t/font_svndvyyea8fo5hfr.woff') format('woff'), url('https://at.alicdn.com/t/font_svndvyyea8fo5hfr.ttf') format('truetype'), url('https://at.alicdn.com/t/font_svndvyyea8fo5hfr.svg#iconfont') format('svg');\n}\n\n.iconfont {\n    font-family: \"iconfont\" !important;\n    font-size: 26px;\n    font-style: normal;\n    -webkit-font-smoothing: antialiased;\n    -webkit-text-stroke-width: 0.2px;\n    -moz-osx-font-smoothing: grayscale;\n}\n\n.wrap {\n    background: #fff;\n}\n\ndiv[class~=\"unit-0\"] {\n    //padding: 8px 10px;\n    //border-bottom: 1px solid #eee;\n}\n\ndiv[class~=\"unit-0\"].disabled {\n    opacity: 0.5;\n}\n\ndiv[class~=\"unit-0\"] .title {\n    width: 65%;\n    line-height: 30px;\n    padding-left: 10px;\n}\n\ndiv[class~=\"unit-0\"] .title .maint {\n    font-size: 16px;\n    line-height: 30px;\n    display: block\n}\n\ndiv[class~=\"unit-0\"] .title .maint_nosub {\n    display: block;\n    line-height: 40px;\n}\n\ndiv[class~=\"unit-0\"] .title .sub {\n    font-size: 12px;\n    line-height: 12px;\n    display: block;\n}\n\ndiv[class~=\"unit-0\"] .rightPart {\n    width: 25%;\n    font-size: 16px;\n    line-height: 40px;\n}\n\ndiv[class~=\"unit-0\"] .rightPart .rightarrow {\n    font-size: 16px;\n}\n\n\n/* Grid Item */\n\n.grid-item {\n    @extend .animation-quick;\n    position: relative;\n    padding-top: 20px;\n    padding-bottom: 20px;\n    border-color: $splitLineColor;\n    border-width: 0;\n    border-right-width: 1px;\n    border-bottom-width: 1px;\n    border-style: solid;\n    color: #A6A6A6;\n}\n\n.grid-item.active-block {\n    color: #ffffff;\n}\n\n.grid-item.no-right-border {\n    border-right-width: 0;\n}\n\n.grid-item.no-bottom-border {\n    border-bottom-width: 0;\n}\n\n.grid-item:before {\n    @extend .animation;\n    position: absolute;\n    content: \"\";\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: $transparentColor;\n}\n\n.grid-item.grid-item-hover:before {\n    background-color: $hoverColor;\n}\n\n\n/* List Item */\n\n.list-item {\n    position: relative;\n    padding: 8px 10px;\n}\n\n.list-item:before {\n    @extend .animation;\n    position: absolute;\n    content: \"\";\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: $transparentColor;\n}\n\n.list-item.list-item-hover:before {\n    background-color: $hoverColor;\n}\n\n.list-item-split-line {\n    width: 100%;\n    height: 1px;\n    background-color: $splitLineColor;\n}\n\n\n/* Swiper Slide */\n\n$defineBorderRaduis: 5px;\n.swiper-wrap-normal,\n.swiper-wrap-controlpanel,\n.swiper-wrap-hasbar,\n.swiper-step,\n.switch-cell {\n    position: relative;\n}\n\n.swiper-wrap-normal.disabled,\n.swiper-wrap-controlpanel.disabled,\n.swiper-wrap-hasbar.disabled,\n.swiper-step.disabled,\n.switch-cell.disabled {\n    opacity: 0.5;\n}\n\n.disabled {\n    opacity: 0.5;\n}\n\n.swiper-control {\n    margin: 25px 20px;\n    position: relative;\n}\n\n.swiper-control .inner {\n    -webkit-box-flex: 1;\n    -webkit-flex: 1;\n    flex: 1;\n}\n\n.swiper-control .inner .swiper-track,\n.swiper-control .inner .swiper-step-track {\n    position: relative;\n    top: 2px;\n    height: 1px;\n    //background: #f00;\n    border-radius: $defineBorderRaduis;\n}\n\n.swiper-control .inner .swiper-step-track {\n}\n\n.swiper-control .inner .swiper-step-track li {\n    width: 100%;\n}\n\n.swiper-control .inner .swiper-step-track li:first-child::before {\n    content: '';\n    float: left;\n    position: relative;\n    width: 6px;\n    height: 6px;\n    left: -3px;\n    top: -3px;\n    border-radius: 50%;\n    //background: green;\n}\n\n.swiper-control .inner .swiper-step-track li::after {\n    content: '';\n    float: right;\n    position: relative;\n    width: 6px;\n    height: 6px;\n    left: -3px;\n    top: -3px;\n    border-radius: 50%;\n    background: green;\n}\n\n.swiper-control .inner .swiper-thumb {\n    @extend .animation-quick;\n    position: absolute;\n    width: 24px;\n    height: 24px;\n    border-radius: 50%;\n    background: #f1f1f1;\n    border-width: 2px;\n    border-style: solid;\n    top: -9px;\n    z-index: 2;\n    cursor: pointer;\n    left: 0;\n    margin-left: -12px;\n    transform: translate3d(0, 0, 0);\n    -webkit-transform: translate3d(0, 0, 0);\n    transition: transform 0.1s linear;\n    -webkit-transition: transform 0.1s linear;\n    background-image: linear-gradient(-180deg, #FEFFFF 0%, #F6F1F1 100%);\n}\n\n.swiper-control .inner .swiper-thumb::before {\n    position: absolute;\n    content: attr(data-content);\n    left: 0;\n    bottom: -24px;\n    width: 100px;\n    text-align: center;\n    margin-left: -38px;\n    font-size: 15px;\n    color: #A6A6A6;\n    line-height: 20px;\n}\n\n.swiper-control .inner .swiper-num {\n    margin-top: 15px;\n    display: flex;\n    justify-content: space-between;\n    font-size: 15px;\n    color: #A6A6A6;\n    line-height: 20px;\n}\n\n.swiper-control .inner .swiper-num2 {\n    margin-top: 15px;\n    color: #464646;\n    font-size: 12px;\n    width: 120%;\n    margin-left: -10%;\n    text-align: center;\n}\n\n.contorlPanel {\n    width: 120px;\n    position: absolute;\n    right: 20px;\n    top: 10px;\n}\n\n.contorlPanel {\n    span {\n        width: 50px;\n        padding: 2px 15px;\n        border: 1px solid $splitLineColor;\n        border-radius: 10px;\n        text-align: center;\n        border-radius: 33px;\n    }\n    .plus-button {\n        border-bottom-right-radius: 0;\n        border-top-right-radius: 0;\n    }\n    .minus-button {\n        border-left: none;\n        border-bottom-left-radius: 0;\n        border-top-left-radius: 0;\n    }\n}\n\n\n/* Switch Cell */\n\n.switch-control {\n    padding-left: 12px;\n    padding-right: 12px;\n    margin: 10px 0;\n}\n\n.switch-title {\n    line-height: 52px;\n    width: 86%;\n}\n\n.switch-btn {\n    width: 45px;\n    height: 45px;\n    border-radius: 50%;\n    border: 1px solid #ccc;\n    text-align: center;\n    line-height: 45px;\n}\n\n.switch-btn.on {\n    background: rgb(255, 102, 0);\n    color: #fff;\n}\n\n.switch-btn-main {\n    position: relative\n}\n\ninput[type='checkbox'] {\n    display: none;\n}\n\nlabel[for=\"switch-cell-jd\"] {\n    width: 45px;\n    height: 45px;\n    display: inline-block;\n    border-radius: 50%;\n    border: 1px solid #ccc;\n    position: relative;\n    top: 4px;\n    text-align: center;\n    line-height: 45px;\n    @extend .animation;\n}\n\ninput[type='checkbox']:checked+label[for=\"switch-cell-jd\"] {\n    background: rgb(255, 102, 0);\n    color: #fff;\n}\n\nlabel[for=\"switch-cell-ali\"] {\n    display: inline-block;\n    width: 60px;\n    height: 30px;\n    border: 1px solid #ccc;\n    border-radius: 30px;\n    position: relative;\n    top: 11px;\n    background: #f0f0f0;\n    @extend .animation-switch;\n}\n\nlabel[for=\"switch-cell-ali\"]::after {\n    display: block;\n    position: relative;\n    content: '';\n    width: 50%;\n    height: 100%;\n    background: #fff;\n    border-radius: 50%;\n    left: 0;\n    @extend .animation-switch;\n    box-shadow: 0 0 2px #eee;\n}\n\ninput[type='checkbox']:checked, label[for='switch-cell-ali'].checked {\n    background: #9FD6AE\n}\n\ninput[type='checkbox']:checked, label[for='switch-cell-ali'].checked::after {\n    left: 50%;\n}\n\n\n/*time scroll*/\n\n.scrollLine {\n    position: relative;\n    display: flex;\n    flex-direction: row;\n    height: 250px;\n}\n\n.scrollLine ul {\n    padding: 0;\n    width: 100%;\n    margin-top: 0;\n    overflow: hidden;\n    height: 200px;\n}\n\n.scrollLine li {\n    padding: 0;\n    text-align: center;\n    line-height: 28px;\n    font-size: 20px;\n}\n\n.scrollLine li.active {\n    font-size: 24px;\n}\n\n.scrollLine .topMask {\n    width: 100%;\n    height: 110px;\n    position: absolute;\n    top: 0;\n    background: -moz-linear-gradient( top, #f1f1f1, #fff);\n    background: -webkit-linear-gradient(top, #f1f1f1, #fff);\n    opacity: 0.9;\n    border-bottom: 1px solid #ccc;\n}\n\n.scrollLine .bottomMask {\n    width: 100%;\n    height: 110px;\n    position: absolute;\n    bottom: 0;\n    background: -moz-linear-gradient( bottom, #f1f1f1, #fff);\n    background: -webkit-linear-gradient(bottom, #f1f1f1, #fff);\n    opacity: 0.9;\n    border-top: 1px solid #ccc;\n}\n\n\n/*confirm toast*/\n\n.confirmHover {\n    position: fixed;\n    width: 100%;\n    height: 100%;\n    background: rgba(75, 75, 75, 0.65) !important;\n    z-index: 998;\n    top: 0;\n    left: 0;\n    display: none;\n}\n\n.confirmWrap {\n    width: 250px;\n    position: absolute;\n    top: 50%;\n    transform: translate3d(-50%, -50%, 0);\n    left: 50%;\n    background: #fff;\n    border-radius: 10px;\n    box-shadow: 0 0 2px #ccc;\n    z-index: 999;\n}\n\n.confirmWrap {\n    .cfm_main {\n        padding: 10px;\n    }\n    .cfm_title {\n        text-align: center;\n    }\n    .cfm_content {\n        padding: 10px 0;\n        font-size: 14px;\n    }\n    .cfm_btnWrap {\n        position: relative;\n    }\n    .cfm_btnWrap span {\n        width: 100%;\n        text-align: center;\n        line-height: 40px;\n        border-top: 1px solid #eee;\n    }\n    .cfm_btnWrap span:first-child {\n        border-bottom-left-radius: 10px;\n    }\n    .cfm_btnWrap span:last-child {\n        border-bottom-right-radius: 10px;\n        border-left: 1px solid #eee;\n    }\n}\n\n.hovers {\n    background: #eee;\n}"],"sourceRoot":"webpack://"}]);
 
 // exports
 
@@ -3606,6 +3626,1561 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.8.3
+//     http://underscorejs.org
+//     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+//     Underscore may be freely distributed under the MIT license.
+
+(function() {
+
+  // Baseline setup
+  // --------------
+
+  // Establish the root object, `window` in the browser, or `exports` on the server.
+  var root = this;
+
+  // Save the previous value of the `_` variable.
+  var previousUnderscore = root._;
+
+  // Save bytes in the minified (but not gzipped) version:
+  var ArrayProto = Array.prototype, ObjProto = Object.prototype, FuncProto = Function.prototype;
+
+  // Create quick reference variables for speed access to core prototypes.
+  var
+    push             = ArrayProto.push,
+    slice            = ArrayProto.slice,
+    toString         = ObjProto.toString,
+    hasOwnProperty   = ObjProto.hasOwnProperty;
+
+  // All **ECMAScript 5** native function implementations that we hope to use
+  // are declared here.
+  var
+    nativeIsArray      = Array.isArray,
+    nativeKeys         = Object.keys,
+    nativeBind         = FuncProto.bind,
+    nativeCreate       = Object.create;
+
+  // Naked function reference for surrogate-prototype-swapping.
+  var Ctor = function(){};
+
+  // Create a safe reference to the Underscore object for use below.
+  var _ = function(obj) {
+    if (obj instanceof _) return obj;
+    if (!(this instanceof _)) return new _(obj);
+    this._wrapped = obj;
+  };
+
+  // Export the Underscore object for **Node.js**, with
+  // backwards-compatibility for the old `require()` API. If we're in
+  // the browser, add `_` as a global object.
+  if (true) {
+    if (typeof module !== 'undefined' && module.exports) {
+      exports = module.exports = _;
+    }
+    exports._ = _;
+  } else {
+    root._ = _;
+  }
+
+  // Current version.
+  _.VERSION = '1.8.3';
+
+  // Internal function that returns an efficient (for current engines) version
+  // of the passed-in callback, to be repeatedly applied in other Underscore
+  // functions.
+  var optimizeCb = function(func, context, argCount) {
+    if (context === void 0) return func;
+    switch (argCount == null ? 3 : argCount) {
+      case 1: return function(value) {
+        return func.call(context, value);
+      };
+      case 2: return function(value, other) {
+        return func.call(context, value, other);
+      };
+      case 3: return function(value, index, collection) {
+        return func.call(context, value, index, collection);
+      };
+      case 4: return function(accumulator, value, index, collection) {
+        return func.call(context, accumulator, value, index, collection);
+      };
+    }
+    return function() {
+      return func.apply(context, arguments);
+    };
+  };
+
+  // A mostly-internal function to generate callbacks that can be applied
+  // to each element in a collection, returning the desired result — either
+  // identity, an arbitrary callback, a property matcher, or a property accessor.
+  var cb = function(value, context, argCount) {
+    if (value == null) return _.identity;
+    if (_.isFunction(value)) return optimizeCb(value, context, argCount);
+    if (_.isObject(value)) return _.matcher(value);
+    return _.property(value);
+  };
+  _.iteratee = function(value, context) {
+    return cb(value, context, Infinity);
+  };
+
+  // An internal function for creating assigner functions.
+  var createAssigner = function(keysFunc, undefinedOnly) {
+    return function(obj) {
+      var length = arguments.length;
+      if (length < 2 || obj == null) return obj;
+      for (var index = 1; index < length; index++) {
+        var source = arguments[index],
+            keys = keysFunc(source),
+            l = keys.length;
+        for (var i = 0; i < l; i++) {
+          var key = keys[i];
+          if (!undefinedOnly || obj[key] === void 0) obj[key] = source[key];
+        }
+      }
+      return obj;
+    };
+  };
+
+  // An internal function for creating a new object that inherits from another.
+  var baseCreate = function(prototype) {
+    if (!_.isObject(prototype)) return {};
+    if (nativeCreate) return nativeCreate(prototype);
+    Ctor.prototype = prototype;
+    var result = new Ctor;
+    Ctor.prototype = null;
+    return result;
+  };
+
+  var property = function(key) {
+    return function(obj) {
+      return obj == null ? void 0 : obj[key];
+    };
+  };
+
+  // Helper for collection methods to determine whether a collection
+  // should be iterated as an array or as an object
+  // Related: http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tolength
+  // Avoids a very nasty iOS 8 JIT bug on ARM-64. #2094
+  var MAX_ARRAY_INDEX = Math.pow(2, 53) - 1;
+  var getLength = property('length');
+  var isArrayLike = function(collection) {
+    var length = getLength(collection);
+    return typeof length == 'number' && length >= 0 && length <= MAX_ARRAY_INDEX;
+  };
+
+  // Collection Functions
+  // --------------------
+
+  // The cornerstone, an `each` implementation, aka `forEach`.
+  // Handles raw objects in addition to array-likes. Treats all
+  // sparse array-likes as if they were dense.
+  _.each = _.forEach = function(obj, iteratee, context) {
+    iteratee = optimizeCb(iteratee, context);
+    var i, length;
+    if (isArrayLike(obj)) {
+      for (i = 0, length = obj.length; i < length; i++) {
+        iteratee(obj[i], i, obj);
+      }
+    } else {
+      var keys = _.keys(obj);
+      for (i = 0, length = keys.length; i < length; i++) {
+        iteratee(obj[keys[i]], keys[i], obj);
+      }
+    }
+    return obj;
+  };
+
+  // Return the results of applying the iteratee to each element.
+  _.map = _.collect = function(obj, iteratee, context) {
+    iteratee = cb(iteratee, context);
+    var keys = !isArrayLike(obj) && _.keys(obj),
+        length = (keys || obj).length,
+        results = Array(length);
+    for (var index = 0; index < length; index++) {
+      var currentKey = keys ? keys[index] : index;
+      results[index] = iteratee(obj[currentKey], currentKey, obj);
+    }
+    return results;
+  };
+
+  // Create a reducing function iterating left or right.
+  function createReduce(dir) {
+    // Optimized iterator function as using arguments.length
+    // in the main function will deoptimize the, see #1991.
+    function iterator(obj, iteratee, memo, keys, index, length) {
+      for (; index >= 0 && index < length; index += dir) {
+        var currentKey = keys ? keys[index] : index;
+        memo = iteratee(memo, obj[currentKey], currentKey, obj);
+      }
+      return memo;
+    }
+
+    return function(obj, iteratee, memo, context) {
+      iteratee = optimizeCb(iteratee, context, 4);
+      var keys = !isArrayLike(obj) && _.keys(obj),
+          length = (keys || obj).length,
+          index = dir > 0 ? 0 : length - 1;
+      // Determine the initial value if none is provided.
+      if (arguments.length < 3) {
+        memo = obj[keys ? keys[index] : index];
+        index += dir;
+      }
+      return iterator(obj, iteratee, memo, keys, index, length);
+    };
+  }
+
+  // **Reduce** builds up a single result from a list of values, aka `inject`,
+  // or `foldl`.
+  _.reduce = _.foldl = _.inject = createReduce(1);
+
+  // The right-associative version of reduce, also known as `foldr`.
+  _.reduceRight = _.foldr = createReduce(-1);
+
+  // Return the first value which passes a truth test. Aliased as `detect`.
+  _.find = _.detect = function(obj, predicate, context) {
+    var key;
+    if (isArrayLike(obj)) {
+      key = _.findIndex(obj, predicate, context);
+    } else {
+      key = _.findKey(obj, predicate, context);
+    }
+    if (key !== void 0 && key !== -1) return obj[key];
+  };
+
+  // Return all the elements that pass a truth test.
+  // Aliased as `select`.
+  _.filter = _.select = function(obj, predicate, context) {
+    var results = [];
+    predicate = cb(predicate, context);
+    _.each(obj, function(value, index, list) {
+      if (predicate(value, index, list)) results.push(value);
+    });
+    return results;
+  };
+
+  // Return all the elements for which a truth test fails.
+  _.reject = function(obj, predicate, context) {
+    return _.filter(obj, _.negate(cb(predicate)), context);
+  };
+
+  // Determine whether all of the elements match a truth test.
+  // Aliased as `all`.
+  _.every = _.all = function(obj, predicate, context) {
+    predicate = cb(predicate, context);
+    var keys = !isArrayLike(obj) && _.keys(obj),
+        length = (keys || obj).length;
+    for (var index = 0; index < length; index++) {
+      var currentKey = keys ? keys[index] : index;
+      if (!predicate(obj[currentKey], currentKey, obj)) return false;
+    }
+    return true;
+  };
+
+  // Determine if at least one element in the object matches a truth test.
+  // Aliased as `any`.
+  _.some = _.any = function(obj, predicate, context) {
+    predicate = cb(predicate, context);
+    var keys = !isArrayLike(obj) && _.keys(obj),
+        length = (keys || obj).length;
+    for (var index = 0; index < length; index++) {
+      var currentKey = keys ? keys[index] : index;
+      if (predicate(obj[currentKey], currentKey, obj)) return true;
+    }
+    return false;
+  };
+
+  // Determine if the array or object contains a given item (using `===`).
+  // Aliased as `includes` and `include`.
+  _.contains = _.includes = _.include = function(obj, item, fromIndex, guard) {
+    if (!isArrayLike(obj)) obj = _.values(obj);
+    if (typeof fromIndex != 'number' || guard) fromIndex = 0;
+    return _.indexOf(obj, item, fromIndex) >= 0;
+  };
+
+  // Invoke a method (with arguments) on every item in a collection.
+  _.invoke = function(obj, method) {
+    var args = slice.call(arguments, 2);
+    var isFunc = _.isFunction(method);
+    return _.map(obj, function(value) {
+      var func = isFunc ? method : value[method];
+      return func == null ? func : func.apply(value, args);
+    });
+  };
+
+  // Convenience version of a common use case of `map`: fetching a property.
+  _.pluck = function(obj, key) {
+    return _.map(obj, _.property(key));
+  };
+
+  // Convenience version of a common use case of `filter`: selecting only objects
+  // containing specific `key:value` pairs.
+  _.where = function(obj, attrs) {
+    return _.filter(obj, _.matcher(attrs));
+  };
+
+  // Convenience version of a common use case of `find`: getting the first object
+  // containing specific `key:value` pairs.
+  _.findWhere = function(obj, attrs) {
+    return _.find(obj, _.matcher(attrs));
+  };
+
+  // Return the maximum element (or element-based computation).
+  _.max = function(obj, iteratee, context) {
+    var result = -Infinity, lastComputed = -Infinity,
+        value, computed;
+    if (iteratee == null && obj != null) {
+      obj = isArrayLike(obj) ? obj : _.values(obj);
+      for (var i = 0, length = obj.length; i < length; i++) {
+        value = obj[i];
+        if (value > result) {
+          result = value;
+        }
+      }
+    } else {
+      iteratee = cb(iteratee, context);
+      _.each(obj, function(value, index, list) {
+        computed = iteratee(value, index, list);
+        if (computed > lastComputed || computed === -Infinity && result === -Infinity) {
+          result = value;
+          lastComputed = computed;
+        }
+      });
+    }
+    return result;
+  };
+
+  // Return the minimum element (or element-based computation).
+  _.min = function(obj, iteratee, context) {
+    var result = Infinity, lastComputed = Infinity,
+        value, computed;
+    if (iteratee == null && obj != null) {
+      obj = isArrayLike(obj) ? obj : _.values(obj);
+      for (var i = 0, length = obj.length; i < length; i++) {
+        value = obj[i];
+        if (value < result) {
+          result = value;
+        }
+      }
+    } else {
+      iteratee = cb(iteratee, context);
+      _.each(obj, function(value, index, list) {
+        computed = iteratee(value, index, list);
+        if (computed < lastComputed || computed === Infinity && result === Infinity) {
+          result = value;
+          lastComputed = computed;
+        }
+      });
+    }
+    return result;
+  };
+
+  // Shuffle a collection, using the modern version of the
+  // [Fisher-Yates shuffle](http://en.wikipedia.org/wiki/Fisher–Yates_shuffle).
+  _.shuffle = function(obj) {
+    var set = isArrayLike(obj) ? obj : _.values(obj);
+    var length = set.length;
+    var shuffled = Array(length);
+    for (var index = 0, rand; index < length; index++) {
+      rand = _.random(0, index);
+      if (rand !== index) shuffled[index] = shuffled[rand];
+      shuffled[rand] = set[index];
+    }
+    return shuffled;
+  };
+
+  // Sample **n** random values from a collection.
+  // If **n** is not specified, returns a single random element.
+  // The internal `guard` argument allows it to work with `map`.
+  _.sample = function(obj, n, guard) {
+    if (n == null || guard) {
+      if (!isArrayLike(obj)) obj = _.values(obj);
+      return obj[_.random(obj.length - 1)];
+    }
+    return _.shuffle(obj).slice(0, Math.max(0, n));
+  };
+
+  // Sort the object's values by a criterion produced by an iteratee.
+  _.sortBy = function(obj, iteratee, context) {
+    iteratee = cb(iteratee, context);
+    return _.pluck(_.map(obj, function(value, index, list) {
+      return {
+        value: value,
+        index: index,
+        criteria: iteratee(value, index, list)
+      };
+    }).sort(function(left, right) {
+      var a = left.criteria;
+      var b = right.criteria;
+      if (a !== b) {
+        if (a > b || a === void 0) return 1;
+        if (a < b || b === void 0) return -1;
+      }
+      return left.index - right.index;
+    }), 'value');
+  };
+
+  // An internal function used for aggregate "group by" operations.
+  var group = function(behavior) {
+    return function(obj, iteratee, context) {
+      var result = {};
+      iteratee = cb(iteratee, context);
+      _.each(obj, function(value, index) {
+        var key = iteratee(value, index, obj);
+        behavior(result, value, key);
+      });
+      return result;
+    };
+  };
+
+  // Groups the object's values by a criterion. Pass either a string attribute
+  // to group by, or a function that returns the criterion.
+  _.groupBy = group(function(result, value, key) {
+    if (_.has(result, key)) result[key].push(value); else result[key] = [value];
+  });
+
+  // Indexes the object's values by a criterion, similar to `groupBy`, but for
+  // when you know that your index values will be unique.
+  _.indexBy = group(function(result, value, key) {
+    result[key] = value;
+  });
+
+  // Counts instances of an object that group by a certain criterion. Pass
+  // either a string attribute to count by, or a function that returns the
+  // criterion.
+  _.countBy = group(function(result, value, key) {
+    if (_.has(result, key)) result[key]++; else result[key] = 1;
+  });
+
+  // Safely create a real, live array from anything iterable.
+  _.toArray = function(obj) {
+    if (!obj) return [];
+    if (_.isArray(obj)) return slice.call(obj);
+    if (isArrayLike(obj)) return _.map(obj, _.identity);
+    return _.values(obj);
+  };
+
+  // Return the number of elements in an object.
+  _.size = function(obj) {
+    if (obj == null) return 0;
+    return isArrayLike(obj) ? obj.length : _.keys(obj).length;
+  };
+
+  // Split a collection into two arrays: one whose elements all satisfy the given
+  // predicate, and one whose elements all do not satisfy the predicate.
+  _.partition = function(obj, predicate, context) {
+    predicate = cb(predicate, context);
+    var pass = [], fail = [];
+    _.each(obj, function(value, key, obj) {
+      (predicate(value, key, obj) ? pass : fail).push(value);
+    });
+    return [pass, fail];
+  };
+
+  // Array Functions
+  // ---------------
+
+  // Get the first element of an array. Passing **n** will return the first N
+  // values in the array. Aliased as `head` and `take`. The **guard** check
+  // allows it to work with `_.map`.
+  _.first = _.head = _.take = function(array, n, guard) {
+    if (array == null) return void 0;
+    if (n == null || guard) return array[0];
+    return _.initial(array, array.length - n);
+  };
+
+  // Returns everything but the last entry of the array. Especially useful on
+  // the arguments object. Passing **n** will return all the values in
+  // the array, excluding the last N.
+  _.initial = function(array, n, guard) {
+    return slice.call(array, 0, Math.max(0, array.length - (n == null || guard ? 1 : n)));
+  };
+
+  // Get the last element of an array. Passing **n** will return the last N
+  // values in the array.
+  _.last = function(array, n, guard) {
+    if (array == null) return void 0;
+    if (n == null || guard) return array[array.length - 1];
+    return _.rest(array, Math.max(0, array.length - n));
+  };
+
+  // Returns everything but the first entry of the array. Aliased as `tail` and `drop`.
+  // Especially useful on the arguments object. Passing an **n** will return
+  // the rest N values in the array.
+  _.rest = _.tail = _.drop = function(array, n, guard) {
+    return slice.call(array, n == null || guard ? 1 : n);
+  };
+
+  // Trim out all falsy values from an array.
+  _.compact = function(array) {
+    return _.filter(array, _.identity);
+  };
+
+  // Internal implementation of a recursive `flatten` function.
+  var flatten = function(input, shallow, strict, startIndex) {
+    var output = [], idx = 0;
+    for (var i = startIndex || 0, length = getLength(input); i < length; i++) {
+      var value = input[i];
+      if (isArrayLike(value) && (_.isArray(value) || _.isArguments(value))) {
+        //flatten current level of array or arguments object
+        if (!shallow) value = flatten(value, shallow, strict);
+        var j = 0, len = value.length;
+        output.length += len;
+        while (j < len) {
+          output[idx++] = value[j++];
+        }
+      } else if (!strict) {
+        output[idx++] = value;
+      }
+    }
+    return output;
+  };
+
+  // Flatten out an array, either recursively (by default), or just one level.
+  _.flatten = function(array, shallow) {
+    return flatten(array, shallow, false);
+  };
+
+  // Return a version of the array that does not contain the specified value(s).
+  _.without = function(array) {
+    return _.difference(array, slice.call(arguments, 1));
+  };
+
+  // Produce a duplicate-free version of the array. If the array has already
+  // been sorted, you have the option of using a faster algorithm.
+  // Aliased as `unique`.
+  _.uniq = _.unique = function(array, isSorted, iteratee, context) {
+    if (!_.isBoolean(isSorted)) {
+      context = iteratee;
+      iteratee = isSorted;
+      isSorted = false;
+    }
+    if (iteratee != null) iteratee = cb(iteratee, context);
+    var result = [];
+    var seen = [];
+    for (var i = 0, length = getLength(array); i < length; i++) {
+      var value = array[i],
+          computed = iteratee ? iteratee(value, i, array) : value;
+      if (isSorted) {
+        if (!i || seen !== computed) result.push(value);
+        seen = computed;
+      } else if (iteratee) {
+        if (!_.contains(seen, computed)) {
+          seen.push(computed);
+          result.push(value);
+        }
+      } else if (!_.contains(result, value)) {
+        result.push(value);
+      }
+    }
+    return result;
+  };
+
+  // Produce an array that contains the union: each distinct element from all of
+  // the passed-in arrays.
+  _.union = function() {
+    return _.uniq(flatten(arguments, true, true));
+  };
+
+  // Produce an array that contains every item shared between all the
+  // passed-in arrays.
+  _.intersection = function(array) {
+    var result = [];
+    var argsLength = arguments.length;
+    for (var i = 0, length = getLength(array); i < length; i++) {
+      var item = array[i];
+      if (_.contains(result, item)) continue;
+      for (var j = 1; j < argsLength; j++) {
+        if (!_.contains(arguments[j], item)) break;
+      }
+      if (j === argsLength) result.push(item);
+    }
+    return result;
+  };
+
+  // Take the difference between one array and a number of other arrays.
+  // Only the elements present in just the first array will remain.
+  _.difference = function(array) {
+    var rest = flatten(arguments, true, true, 1);
+    return _.filter(array, function(value){
+      return !_.contains(rest, value);
+    });
+  };
+
+  // Zip together multiple lists into a single array -- elements that share
+  // an index go together.
+  _.zip = function() {
+    return _.unzip(arguments);
+  };
+
+  // Complement of _.zip. Unzip accepts an array of arrays and groups
+  // each array's elements on shared indices
+  _.unzip = function(array) {
+    var length = array && _.max(array, getLength).length || 0;
+    var result = Array(length);
+
+    for (var index = 0; index < length; index++) {
+      result[index] = _.pluck(array, index);
+    }
+    return result;
+  };
+
+  // Converts lists into objects. Pass either a single array of `[key, value]`
+  // pairs, or two parallel arrays of the same length -- one of keys, and one of
+  // the corresponding values.
+  _.object = function(list, values) {
+    var result = {};
+    for (var i = 0, length = getLength(list); i < length; i++) {
+      if (values) {
+        result[list[i]] = values[i];
+      } else {
+        result[list[i][0]] = list[i][1];
+      }
+    }
+    return result;
+  };
+
+  // Generator function to create the findIndex and findLastIndex functions
+  function createPredicateIndexFinder(dir) {
+    return function(array, predicate, context) {
+      predicate = cb(predicate, context);
+      var length = getLength(array);
+      var index = dir > 0 ? 0 : length - 1;
+      for (; index >= 0 && index < length; index += dir) {
+        if (predicate(array[index], index, array)) return index;
+      }
+      return -1;
+    };
+  }
+
+  // Returns the first index on an array-like that passes a predicate test
+  _.findIndex = createPredicateIndexFinder(1);
+  _.findLastIndex = createPredicateIndexFinder(-1);
+
+  // Use a comparator function to figure out the smallest index at which
+  // an object should be inserted so as to maintain order. Uses binary search.
+  _.sortedIndex = function(array, obj, iteratee, context) {
+    iteratee = cb(iteratee, context, 1);
+    var value = iteratee(obj);
+    var low = 0, high = getLength(array);
+    while (low < high) {
+      var mid = Math.floor((low + high) / 2);
+      if (iteratee(array[mid]) < value) low = mid + 1; else high = mid;
+    }
+    return low;
+  };
+
+  // Generator function to create the indexOf and lastIndexOf functions
+  function createIndexFinder(dir, predicateFind, sortedIndex) {
+    return function(array, item, idx) {
+      var i = 0, length = getLength(array);
+      if (typeof idx == 'number') {
+        if (dir > 0) {
+            i = idx >= 0 ? idx : Math.max(idx + length, i);
+        } else {
+            length = idx >= 0 ? Math.min(idx + 1, length) : idx + length + 1;
+        }
+      } else if (sortedIndex && idx && length) {
+        idx = sortedIndex(array, item);
+        return array[idx] === item ? idx : -1;
+      }
+      if (item !== item) {
+        idx = predicateFind(slice.call(array, i, length), _.isNaN);
+        return idx >= 0 ? idx + i : -1;
+      }
+      for (idx = dir > 0 ? i : length - 1; idx >= 0 && idx < length; idx += dir) {
+        if (array[idx] === item) return idx;
+      }
+      return -1;
+    };
+  }
+
+  // Return the position of the first occurrence of an item in an array,
+  // or -1 if the item is not included in the array.
+  // If the array is large and already in sort order, pass `true`
+  // for **isSorted** to use binary search.
+  _.indexOf = createIndexFinder(1, _.findIndex, _.sortedIndex);
+  _.lastIndexOf = createIndexFinder(-1, _.findLastIndex);
+
+  // Generate an integer Array containing an arithmetic progression. A port of
+  // the native Python `range()` function. See
+  // [the Python documentation](http://docs.python.org/library/functions.html#range).
+  _.range = function(start, stop, step) {
+    if (stop == null) {
+      stop = start || 0;
+      start = 0;
+    }
+    step = step || 1;
+
+    var length = Math.max(Math.ceil((stop - start) / step), 0);
+    var range = Array(length);
+
+    for (var idx = 0; idx < length; idx++, start += step) {
+      range[idx] = start;
+    }
+
+    return range;
+  };
+
+  // Function (ahem) Functions
+  // ------------------
+
+  // Determines whether to execute a function as a constructor
+  // or a normal function with the provided arguments
+  var executeBound = function(sourceFunc, boundFunc, context, callingContext, args) {
+    if (!(callingContext instanceof boundFunc)) return sourceFunc.apply(context, args);
+    var self = baseCreate(sourceFunc.prototype);
+    var result = sourceFunc.apply(self, args);
+    if (_.isObject(result)) return result;
+    return self;
+  };
+
+  // Create a function bound to a given object (assigning `this`, and arguments,
+  // optionally). Delegates to **ECMAScript 5**'s native `Function.bind` if
+  // available.
+  _.bind = function(func, context) {
+    if (nativeBind && func.bind === nativeBind) return nativeBind.apply(func, slice.call(arguments, 1));
+    if (!_.isFunction(func)) throw new TypeError('Bind must be called on a function');
+    var args = slice.call(arguments, 2);
+    var bound = function() {
+      return executeBound(func, bound, context, this, args.concat(slice.call(arguments)));
+    };
+    return bound;
+  };
+
+  // Partially apply a function by creating a version that has had some of its
+  // arguments pre-filled, without changing its dynamic `this` context. _ acts
+  // as a placeholder, allowing any combination of arguments to be pre-filled.
+  _.partial = function(func) {
+    var boundArgs = slice.call(arguments, 1);
+    var bound = function() {
+      var position = 0, length = boundArgs.length;
+      var args = Array(length);
+      for (var i = 0; i < length; i++) {
+        args[i] = boundArgs[i] === _ ? arguments[position++] : boundArgs[i];
+      }
+      while (position < arguments.length) args.push(arguments[position++]);
+      return executeBound(func, bound, this, this, args);
+    };
+    return bound;
+  };
+
+  // Bind a number of an object's methods to that object. Remaining arguments
+  // are the method names to be bound. Useful for ensuring that all callbacks
+  // defined on an object belong to it.
+  _.bindAll = function(obj) {
+    var i, length = arguments.length, key;
+    if (length <= 1) throw new Error('bindAll must be passed function names');
+    for (i = 1; i < length; i++) {
+      key = arguments[i];
+      obj[key] = _.bind(obj[key], obj);
+    }
+    return obj;
+  };
+
+  // Memoize an expensive function by storing its results.
+  _.memoize = function(func, hasher) {
+    var memoize = function(key) {
+      var cache = memoize.cache;
+      var address = '' + (hasher ? hasher.apply(this, arguments) : key);
+      if (!_.has(cache, address)) cache[address] = func.apply(this, arguments);
+      return cache[address];
+    };
+    memoize.cache = {};
+    return memoize;
+  };
+
+  // Delays a function for the given number of milliseconds, and then calls
+  // it with the arguments supplied.
+  _.delay = function(func, wait) {
+    var args = slice.call(arguments, 2);
+    return setTimeout(function(){
+      return func.apply(null, args);
+    }, wait);
+  };
+
+  // Defers a function, scheduling it to run after the current call stack has
+  // cleared.
+  _.defer = _.partial(_.delay, _, 1);
+
+  // Returns a function, that, when invoked, will only be triggered at most once
+  // during a given window of time. Normally, the throttled function will run
+  // as much as it can, without ever going more than once per `wait` duration;
+  // but if you'd like to disable the execution on the leading edge, pass
+  // `{leading: false}`. To disable execution on the trailing edge, ditto.
+  _.throttle = function(func, wait, options) {
+    var context, args, result;
+    var timeout = null;
+    var previous = 0;
+    if (!options) options = {};
+    var later = function() {
+      previous = options.leading === false ? 0 : _.now();
+      timeout = null;
+      result = func.apply(context, args);
+      if (!timeout) context = args = null;
+    };
+    return function() {
+      var now = _.now();
+      if (!previous && options.leading === false) previous = now;
+      var remaining = wait - (now - previous);
+      context = this;
+      args = arguments;
+      if (remaining <= 0 || remaining > wait) {
+        if (timeout) {
+          clearTimeout(timeout);
+          timeout = null;
+        }
+        previous = now;
+        result = func.apply(context, args);
+        if (!timeout) context = args = null;
+      } else if (!timeout && options.trailing !== false) {
+        timeout = setTimeout(later, remaining);
+      }
+      return result;
+    };
+  };
+
+  // Returns a function, that, as long as it continues to be invoked, will not
+  // be triggered. The function will be called after it stops being called for
+  // N milliseconds. If `immediate` is passed, trigger the function on the
+  // leading edge, instead of the trailing.
+  _.debounce = function(func, wait, immediate) {
+    var timeout, args, context, timestamp, result;
+
+    var later = function() {
+      var last = _.now() - timestamp;
+
+      if (last < wait && last >= 0) {
+        timeout = setTimeout(later, wait - last);
+      } else {
+        timeout = null;
+        if (!immediate) {
+          result = func.apply(context, args);
+          if (!timeout) context = args = null;
+        }
+      }
+    };
+
+    return function() {
+      context = this;
+      args = arguments;
+      timestamp = _.now();
+      var callNow = immediate && !timeout;
+      if (!timeout) timeout = setTimeout(later, wait);
+      if (callNow) {
+        result = func.apply(context, args);
+        context = args = null;
+      }
+
+      return result;
+    };
+  };
+
+  // Returns the first function passed as an argument to the second,
+  // allowing you to adjust arguments, run code before and after, and
+  // conditionally execute the original function.
+  _.wrap = function(func, wrapper) {
+    return _.partial(wrapper, func);
+  };
+
+  // Returns a negated version of the passed-in predicate.
+  _.negate = function(predicate) {
+    return function() {
+      return !predicate.apply(this, arguments);
+    };
+  };
+
+  // Returns a function that is the composition of a list of functions, each
+  // consuming the return value of the function that follows.
+  _.compose = function() {
+    var args = arguments;
+    var start = args.length - 1;
+    return function() {
+      var i = start;
+      var result = args[start].apply(this, arguments);
+      while (i--) result = args[i].call(this, result);
+      return result;
+    };
+  };
+
+  // Returns a function that will only be executed on and after the Nth call.
+  _.after = function(times, func) {
+    return function() {
+      if (--times < 1) {
+        return func.apply(this, arguments);
+      }
+    };
+  };
+
+  // Returns a function that will only be executed up to (but not including) the Nth call.
+  _.before = function(times, func) {
+    var memo;
+    return function() {
+      if (--times > 0) {
+        memo = func.apply(this, arguments);
+      }
+      if (times <= 1) func = null;
+      return memo;
+    };
+  };
+
+  // Returns a function that will be executed at most one time, no matter how
+  // often you call it. Useful for lazy initialization.
+  _.once = _.partial(_.before, 2);
+
+  // Object Functions
+  // ----------------
+
+  // Keys in IE < 9 that won't be iterated by `for key in ...` and thus missed.
+  var hasEnumBug = !{toString: null}.propertyIsEnumerable('toString');
+  var nonEnumerableProps = ['valueOf', 'isPrototypeOf', 'toString',
+                      'propertyIsEnumerable', 'hasOwnProperty', 'toLocaleString'];
+
+  function collectNonEnumProps(obj, keys) {
+    var nonEnumIdx = nonEnumerableProps.length;
+    var constructor = obj.constructor;
+    var proto = (_.isFunction(constructor) && constructor.prototype) || ObjProto;
+
+    // Constructor is a special case.
+    var prop = 'constructor';
+    if (_.has(obj, prop) && !_.contains(keys, prop)) keys.push(prop);
+
+    while (nonEnumIdx--) {
+      prop = nonEnumerableProps[nonEnumIdx];
+      if (prop in obj && obj[prop] !== proto[prop] && !_.contains(keys, prop)) {
+        keys.push(prop);
+      }
+    }
+  }
+
+  // Retrieve the names of an object's own properties.
+  // Delegates to **ECMAScript 5**'s native `Object.keys`
+  _.keys = function(obj) {
+    if (!_.isObject(obj)) return [];
+    if (nativeKeys) return nativeKeys(obj);
+    var keys = [];
+    for (var key in obj) if (_.has(obj, key)) keys.push(key);
+    // Ahem, IE < 9.
+    if (hasEnumBug) collectNonEnumProps(obj, keys);
+    return keys;
+  };
+
+  // Retrieve all the property names of an object.
+  _.allKeys = function(obj) {
+    if (!_.isObject(obj)) return [];
+    var keys = [];
+    for (var key in obj) keys.push(key);
+    // Ahem, IE < 9.
+    if (hasEnumBug) collectNonEnumProps(obj, keys);
+    return keys;
+  };
+
+  // Retrieve the values of an object's properties.
+  _.values = function(obj) {
+    var keys = _.keys(obj);
+    var length = keys.length;
+    var values = Array(length);
+    for (var i = 0; i < length; i++) {
+      values[i] = obj[keys[i]];
+    }
+    return values;
+  };
+
+  // Returns the results of applying the iteratee to each element of the object
+  // In contrast to _.map it returns an object
+  _.mapObject = function(obj, iteratee, context) {
+    iteratee = cb(iteratee, context);
+    var keys =  _.keys(obj),
+          length = keys.length,
+          results = {},
+          currentKey;
+      for (var index = 0; index < length; index++) {
+        currentKey = keys[index];
+        results[currentKey] = iteratee(obj[currentKey], currentKey, obj);
+      }
+      return results;
+  };
+
+  // Convert an object into a list of `[key, value]` pairs.
+  _.pairs = function(obj) {
+    var keys = _.keys(obj);
+    var length = keys.length;
+    var pairs = Array(length);
+    for (var i = 0; i < length; i++) {
+      pairs[i] = [keys[i], obj[keys[i]]];
+    }
+    return pairs;
+  };
+
+  // Invert the keys and values of an object. The values must be serializable.
+  _.invert = function(obj) {
+    var result = {};
+    var keys = _.keys(obj);
+    for (var i = 0, length = keys.length; i < length; i++) {
+      result[obj[keys[i]]] = keys[i];
+    }
+    return result;
+  };
+
+  // Return a sorted list of the function names available on the object.
+  // Aliased as `methods`
+  _.functions = _.methods = function(obj) {
+    var names = [];
+    for (var key in obj) {
+      if (_.isFunction(obj[key])) names.push(key);
+    }
+    return names.sort();
+  };
+
+  // Extend a given object with all the properties in passed-in object(s).
+  _.extend = createAssigner(_.allKeys);
+
+  // Assigns a given object with all the own properties in the passed-in object(s)
+  // (https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)
+  _.extendOwn = _.assign = createAssigner(_.keys);
+
+  // Returns the first key on an object that passes a predicate test
+  _.findKey = function(obj, predicate, context) {
+    predicate = cb(predicate, context);
+    var keys = _.keys(obj), key;
+    for (var i = 0, length = keys.length; i < length; i++) {
+      key = keys[i];
+      if (predicate(obj[key], key, obj)) return key;
+    }
+  };
+
+  // Return a copy of the object only containing the whitelisted properties.
+  _.pick = function(object, oiteratee, context) {
+    var result = {}, obj = object, iteratee, keys;
+    if (obj == null) return result;
+    if (_.isFunction(oiteratee)) {
+      keys = _.allKeys(obj);
+      iteratee = optimizeCb(oiteratee, context);
+    } else {
+      keys = flatten(arguments, false, false, 1);
+      iteratee = function(value, key, obj) { return key in obj; };
+      obj = Object(obj);
+    }
+    for (var i = 0, length = keys.length; i < length; i++) {
+      var key = keys[i];
+      var value = obj[key];
+      if (iteratee(value, key, obj)) result[key] = value;
+    }
+    return result;
+  };
+
+   // Return a copy of the object without the blacklisted properties.
+  _.omit = function(obj, iteratee, context) {
+    if (_.isFunction(iteratee)) {
+      iteratee = _.negate(iteratee);
+    } else {
+      var keys = _.map(flatten(arguments, false, false, 1), String);
+      iteratee = function(value, key) {
+        return !_.contains(keys, key);
+      };
+    }
+    return _.pick(obj, iteratee, context);
+  };
+
+  // Fill in a given object with default properties.
+  _.defaults = createAssigner(_.allKeys, true);
+
+  // Creates an object that inherits from the given prototype object.
+  // If additional properties are provided then they will be added to the
+  // created object.
+  _.create = function(prototype, props) {
+    var result = baseCreate(prototype);
+    if (props) _.extendOwn(result, props);
+    return result;
+  };
+
+  // Create a (shallow-cloned) duplicate of an object.
+  _.clone = function(obj) {
+    if (!_.isObject(obj)) return obj;
+    return _.isArray(obj) ? obj.slice() : _.extend({}, obj);
+  };
+
+  // Invokes interceptor with the obj, and then returns obj.
+  // The primary purpose of this method is to "tap into" a method chain, in
+  // order to perform operations on intermediate results within the chain.
+  _.tap = function(obj, interceptor) {
+    interceptor(obj);
+    return obj;
+  };
+
+  // Returns whether an object has a given set of `key:value` pairs.
+  _.isMatch = function(object, attrs) {
+    var keys = _.keys(attrs), length = keys.length;
+    if (object == null) return !length;
+    var obj = Object(object);
+    for (var i = 0; i < length; i++) {
+      var key = keys[i];
+      if (attrs[key] !== obj[key] || !(key in obj)) return false;
+    }
+    return true;
+  };
+
+
+  // Internal recursive comparison function for `isEqual`.
+  var eq = function(a, b, aStack, bStack) {
+    // Identical objects are equal. `0 === -0`, but they aren't identical.
+    // See the [Harmony `egal` proposal](http://wiki.ecmascript.org/doku.php?id=harmony:egal).
+    if (a === b) return a !== 0 || 1 / a === 1 / b;
+    // A strict comparison is necessary because `null == undefined`.
+    if (a == null || b == null) return a === b;
+    // Unwrap any wrapped objects.
+    if (a instanceof _) a = a._wrapped;
+    if (b instanceof _) b = b._wrapped;
+    // Compare `[[Class]]` names.
+    var className = toString.call(a);
+    if (className !== toString.call(b)) return false;
+    switch (className) {
+      // Strings, numbers, regular expressions, dates, and booleans are compared by value.
+      case '[object RegExp]':
+      // RegExps are coerced to strings for comparison (Note: '' + /a/i === '/a/i')
+      case '[object String]':
+        // Primitives and their corresponding object wrappers are equivalent; thus, `"5"` is
+        // equivalent to `new String("5")`.
+        return '' + a === '' + b;
+      case '[object Number]':
+        // `NaN`s are equivalent, but non-reflexive.
+        // Object(NaN) is equivalent to NaN
+        if (+a !== +a) return +b !== +b;
+        // An `egal` comparison is performed for other numeric values.
+        return +a === 0 ? 1 / +a === 1 / b : +a === +b;
+      case '[object Date]':
+      case '[object Boolean]':
+        // Coerce dates and booleans to numeric primitive values. Dates are compared by their
+        // millisecond representations. Note that invalid dates with millisecond representations
+        // of `NaN` are not equivalent.
+        return +a === +b;
+    }
+
+    var areArrays = className === '[object Array]';
+    if (!areArrays) {
+      if (typeof a != 'object' || typeof b != 'object') return false;
+
+      // Objects with different constructors are not equivalent, but `Object`s or `Array`s
+      // from different frames are.
+      var aCtor = a.constructor, bCtor = b.constructor;
+      if (aCtor !== bCtor && !(_.isFunction(aCtor) && aCtor instanceof aCtor &&
+                               _.isFunction(bCtor) && bCtor instanceof bCtor)
+                          && ('constructor' in a && 'constructor' in b)) {
+        return false;
+      }
+    }
+    // Assume equality for cyclic structures. The algorithm for detecting cyclic
+    // structures is adapted from ES 5.1 section 15.12.3, abstract operation `JO`.
+
+    // Initializing stack of traversed objects.
+    // It's done here since we only need them for objects and arrays comparison.
+    aStack = aStack || [];
+    bStack = bStack || [];
+    var length = aStack.length;
+    while (length--) {
+      // Linear search. Performance is inversely proportional to the number of
+      // unique nested structures.
+      if (aStack[length] === a) return bStack[length] === b;
+    }
+
+    // Add the first object to the stack of traversed objects.
+    aStack.push(a);
+    bStack.push(b);
+
+    // Recursively compare objects and arrays.
+    if (areArrays) {
+      // Compare array lengths to determine if a deep comparison is necessary.
+      length = a.length;
+      if (length !== b.length) return false;
+      // Deep compare the contents, ignoring non-numeric properties.
+      while (length--) {
+        if (!eq(a[length], b[length], aStack, bStack)) return false;
+      }
+    } else {
+      // Deep compare objects.
+      var keys = _.keys(a), key;
+      length = keys.length;
+      // Ensure that both objects contain the same number of properties before comparing deep equality.
+      if (_.keys(b).length !== length) return false;
+      while (length--) {
+        // Deep compare each member
+        key = keys[length];
+        if (!(_.has(b, key) && eq(a[key], b[key], aStack, bStack))) return false;
+      }
+    }
+    // Remove the first object from the stack of traversed objects.
+    aStack.pop();
+    bStack.pop();
+    return true;
+  };
+
+  // Perform a deep comparison to check if two objects are equal.
+  _.isEqual = function(a, b) {
+    return eq(a, b);
+  };
+
+  // Is a given array, string, or object empty?
+  // An "empty" object has no enumerable own-properties.
+  _.isEmpty = function(obj) {
+    if (obj == null) return true;
+    if (isArrayLike(obj) && (_.isArray(obj) || _.isString(obj) || _.isArguments(obj))) return obj.length === 0;
+    return _.keys(obj).length === 0;
+  };
+
+  // Is a given value a DOM element?
+  _.isElement = function(obj) {
+    return !!(obj && obj.nodeType === 1);
+  };
+
+  // Is a given value an array?
+  // Delegates to ECMA5's native Array.isArray
+  _.isArray = nativeIsArray || function(obj) {
+    return toString.call(obj) === '[object Array]';
+  };
+
+  // Is a given variable an object?
+  _.isObject = function(obj) {
+    var type = typeof obj;
+    return type === 'function' || type === 'object' && !!obj;
+  };
+
+  // Add some isType methods: isArguments, isFunction, isString, isNumber, isDate, isRegExp, isError.
+  _.each(['Arguments', 'Function', 'String', 'Number', 'Date', 'RegExp', 'Error'], function(name) {
+    _['is' + name] = function(obj) {
+      return toString.call(obj) === '[object ' + name + ']';
+    };
+  });
+
+  // Define a fallback version of the method in browsers (ahem, IE < 9), where
+  // there isn't any inspectable "Arguments" type.
+  if (!_.isArguments(arguments)) {
+    _.isArguments = function(obj) {
+      return _.has(obj, 'callee');
+    };
+  }
+
+  // Optimize `isFunction` if appropriate. Work around some typeof bugs in old v8,
+  // IE 11 (#1621), and in Safari 8 (#1929).
+  if (typeof /./ != 'function' && typeof Int8Array != 'object') {
+    _.isFunction = function(obj) {
+      return typeof obj == 'function' || false;
+    };
+  }
+
+  // Is a given object a finite number?
+  _.isFinite = function(obj) {
+    return isFinite(obj) && !isNaN(parseFloat(obj));
+  };
+
+  // Is the given value `NaN`? (NaN is the only number which does not equal itself).
+  _.isNaN = function(obj) {
+    return _.isNumber(obj) && obj !== +obj;
+  };
+
+  // Is a given value a boolean?
+  _.isBoolean = function(obj) {
+    return obj === true || obj === false || toString.call(obj) === '[object Boolean]';
+  };
+
+  // Is a given value equal to null?
+  _.isNull = function(obj) {
+    return obj === null;
+  };
+
+  // Is a given variable undefined?
+  _.isUndefined = function(obj) {
+    return obj === void 0;
+  };
+
+  // Shortcut function for checking if an object has a given property directly
+  // on itself (in other words, not on a prototype).
+  _.has = function(obj, key) {
+    return obj != null && hasOwnProperty.call(obj, key);
+  };
+
+  // Utility Functions
+  // -----------------
+
+  // Run Underscore.js in *noConflict* mode, returning the `_` variable to its
+  // previous owner. Returns a reference to the Underscore object.
+  _.noConflict = function() {
+    root._ = previousUnderscore;
+    return this;
+  };
+
+  // Keep the identity function around for default iteratees.
+  _.identity = function(value) {
+    return value;
+  };
+
+  // Predicate-generating functions. Often useful outside of Underscore.
+  _.constant = function(value) {
+    return function() {
+      return value;
+    };
+  };
+
+  _.noop = function(){};
+
+  _.property = property;
+
+  // Generates a function for a given object that returns a given property.
+  _.propertyOf = function(obj) {
+    return obj == null ? function(){} : function(key) {
+      return obj[key];
+    };
+  };
+
+  // Returns a predicate for checking whether an object has a given set of
+  // `key:value` pairs.
+  _.matcher = _.matches = function(attrs) {
+    attrs = _.extendOwn({}, attrs);
+    return function(obj) {
+      return _.isMatch(obj, attrs);
+    };
+  };
+
+  // Run a function **n** times.
+  _.times = function(n, iteratee, context) {
+    var accum = Array(Math.max(0, n));
+    iteratee = optimizeCb(iteratee, context, 1);
+    for (var i = 0; i < n; i++) accum[i] = iteratee(i);
+    return accum;
+  };
+
+  // Return a random integer between min and max (inclusive).
+  _.random = function(min, max) {
+    if (max == null) {
+      max = min;
+      min = 0;
+    }
+    return min + Math.floor(Math.random() * (max - min + 1));
+  };
+
+  // A (possibly faster) way to get the current timestamp as an integer.
+  _.now = Date.now || function() {
+    return new Date().getTime();
+  };
+
+   // List of HTML entities for escaping.
+  var escapeMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;',
+    '`': '&#x60;'
+  };
+  var unescapeMap = _.invert(escapeMap);
+
+  // Functions for escaping and unescaping strings to/from HTML interpolation.
+  var createEscaper = function(map) {
+    var escaper = function(match) {
+      return map[match];
+    };
+    // Regexes for identifying a key that needs to be escaped
+    var source = '(?:' + _.keys(map).join('|') + ')';
+    var testRegexp = RegExp(source);
+    var replaceRegexp = RegExp(source, 'g');
+    return function(string) {
+      string = string == null ? '' : '' + string;
+      return testRegexp.test(string) ? string.replace(replaceRegexp, escaper) : string;
+    };
+  };
+  _.escape = createEscaper(escapeMap);
+  _.unescape = createEscaper(unescapeMap);
+
+  // If the value of the named `property` is a function then invoke it with the
+  // `object` as context; otherwise, return it.
+  _.result = function(object, property, fallback) {
+    var value = object == null ? void 0 : object[property];
+    if (value === void 0) {
+      value = fallback;
+    }
+    return _.isFunction(value) ? value.call(object) : value;
+  };
+
+  // Generate a unique integer id (unique within the entire client session).
+  // Useful for temporary DOM ids.
+  var idCounter = 0;
+  _.uniqueId = function(prefix) {
+    var id = ++idCounter + '';
+    return prefix ? prefix + id : id;
+  };
+
+  // By default, Underscore uses ERB-style template delimiters, change the
+  // following template settings to use alternative delimiters.
+  _.templateSettings = {
+    evaluate    : /<%([\s\S]+?)%>/g,
+    interpolate : /<%=([\s\S]+?)%>/g,
+    escape      : /<%-([\s\S]+?)%>/g
+  };
+
+  // When customizing `templateSettings`, if you don't want to define an
+  // interpolation, evaluation or escaping regex, we need one that is
+  // guaranteed not to match.
+  var noMatch = /(.)^/;
+
+  // Certain characters need to be escaped so that they can be put into a
+  // string literal.
+  var escapes = {
+    "'":      "'",
+    '\\':     '\\',
+    '\r':     'r',
+    '\n':     'n',
+    '\u2028': 'u2028',
+    '\u2029': 'u2029'
+  };
+
+  var escaper = /\\|'|\r|\n|\u2028|\u2029/g;
+
+  var escapeChar = function(match) {
+    return '\\' + escapes[match];
+  };
+
+  // JavaScript micro-templating, similar to John Resig's implementation.
+  // Underscore templating handles arbitrary delimiters, preserves whitespace,
+  // and correctly escapes quotes within interpolated code.
+  // NB: `oldSettings` only exists for backwards compatibility.
+  _.template = function(text, settings, oldSettings) {
+    if (!settings && oldSettings) settings = oldSettings;
+    settings = _.defaults({}, settings, _.templateSettings);
+
+    // Combine delimiters into one regular expression via alternation.
+    var matcher = RegExp([
+      (settings.escape || noMatch).source,
+      (settings.interpolate || noMatch).source,
+      (settings.evaluate || noMatch).source
+    ].join('|') + '|$', 'g');
+
+    // Compile the template source, escaping string literals appropriately.
+    var index = 0;
+    var source = "__p+='";
+    text.replace(matcher, function(match, escape, interpolate, evaluate, offset) {
+      source += text.slice(index, offset).replace(escaper, escapeChar);
+      index = offset + match.length;
+
+      if (escape) {
+        source += "'+\n((__t=(" + escape + "))==null?'':_.escape(__t))+\n'";
+      } else if (interpolate) {
+        source += "'+\n((__t=(" + interpolate + "))==null?'':__t)+\n'";
+      } else if (evaluate) {
+        source += "';\n" + evaluate + "\n__p+='";
+      }
+
+      // Adobe VMs need the match returned to produce the correct offest.
+      return match;
+    });
+    source += "';\n";
+
+    // If a variable is not specified, place data values in local scope.
+    if (!settings.variable) source = 'with(obj||{}){\n' + source + '}\n';
+
+    source = "var __t,__p='',__j=Array.prototype.join," +
+      "print=function(){__p+=__j.call(arguments,'');};\n" +
+      source + 'return __p;\n';
+
+    try {
+      var render = new Function(settings.variable || 'obj', '_', source);
+    } catch (e) {
+      e.source = source;
+      throw e;
+    }
+
+    var template = function(data) {
+      return render.call(this, data, _);
+    };
+
+    // Provide the compiled source as a convenience for precompilation.
+    var argument = settings.variable || 'obj';
+    template.source = 'function(' + argument + '){\n' + source + '}';
+
+    return template;
+  };
+
+  // Add a "chain" function. Start chaining a wrapped Underscore object.
+  _.chain = function(obj) {
+    var instance = _(obj);
+    instance._chain = true;
+    return instance;
+  };
+
+  // OOP
+  // ---------------
+  // If Underscore is called as a function, it returns a wrapped object that
+  // can be used OO-style. This wrapper holds altered versions of all the
+  // underscore functions. Wrapped objects may be chained.
+
+  // Helper function to continue chaining intermediate results.
+  var result = function(instance, obj) {
+    return instance._chain ? _(obj).chain() : obj;
+  };
+
+  // Add your own custom functions to the Underscore object.
+  _.mixin = function(obj) {
+    _.each(_.functions(obj), function(name) {
+      var func = _[name] = obj[name];
+      _.prototype[name] = function() {
+        var args = [this._wrapped];
+        push.apply(args, arguments);
+        return result(this, func.apply(_, args));
+      };
+    });
+  };
+
+  // Add all of the Underscore functions to the wrapper object.
+  _.mixin(_);
+
+  // Add all mutator Array functions to the wrapper.
+  _.each(['pop', 'push', 'reverse', 'shift', 'sort', 'splice', 'unshift'], function(name) {
+    var method = ArrayProto[name];
+    _.prototype[name] = function() {
+      var obj = this._wrapped;
+      method.apply(obj, arguments);
+      if ((name === 'shift' || name === 'splice') && obj.length === 0) delete obj[0];
+      return result(this, obj);
+    };
+  });
+
+  // Add all accessor Array functions to the wrapper.
+  _.each(['concat', 'join', 'slice'], function(name) {
+    var method = ArrayProto[name];
+    _.prototype[name] = function() {
+      return result(this, method.apply(this._wrapped, arguments));
+    };
+  });
+
+  // Extracts the result from a wrapped and chained object.
+  _.prototype.value = function() {
+    return this._wrapped;
+  };
+
+  // Provide unwrapping proxy for some methods used in engine operations
+  // such as arithmetic and JSON stringification.
+  _.prototype.valueOf = _.prototype.toJSON = _.prototype.value;
+
+  _.prototype.toString = function() {
+    return '' + this._wrapped;
+  };
+
+  // AMD registration happens at the end for compatibility with AMD loaders
+  // that may not enforce next-turn semantics on modules. Even though general
+  // practice for AMD registration is to be anonymous, underscore registers
+  // as a named module because, like jQuery, it is a base library that is
+  // popular enough to be bundled in a third party lib, but not be part of
+  // an AMD load request. Those cases could generate an error when an
+  // anonymous define() is called outside of a loader request.
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function() {
+      return _;
+    }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  }
+}.call(this));
+
+
+/***/ }),
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

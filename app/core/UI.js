@@ -1,6 +1,8 @@
 const $ = require('jquery');
 const jqueryFinger = require('jquery.finger');
 import styleManager from './StyleManager';
+const _ = require('underscore');
+global._ = _;
 
 class UI {
     constructor(options) {

@@ -60,6 +60,14 @@ dd {
     overflow: hidden;
 }
 
+.panel.no-margin {
+    margin: 0px;
+}
+
+.panel.no-border-radius {
+    border-radius: 0;
+}
+
 .panel-title {
     height: 48px;
     padding-left: 12px;

@@ -15,9 +15,9 @@ class SwitchCell extends UI {
         this._map = this.options.map;
         let html = '';
 
-        html = `<div class="panel">
+        html = `<div class="panel ${this._type === 1 ? 'no-margin no-border-radius' : ''}">
                     <div class="switch-control flex-left">
-                        <div class="switch-title">${this._title}</div>
+                        <div class="switch-title">${this.title}</div>
                         <div class="switch-btn-main">
                             <input type="checkbox" name= "switch-cell-${this._type === 1 ? 'jd' : 'ali'}">
                             <label for="switch-cell-${this._type === 1 ? 'jd' : 'ali'}"
@@ -28,6 +28,14 @@ class SwitchCell extends UI {
                 </div>`;
 
         $(this._hook).append(html);
+    }
+
+    get title() {
+        if (_.isFunction(this.options.title)) {
+            return this.options.title(this.value);
+        } else {
+            return this.options.title;
+        }
     }
 
     getTypeIndexFn(type) {
@@ -96,6 +104,14 @@ class SwitchCell extends UI {
             labelElement.removeClass('checked');
         }
         this._value = nowValue;
+
+        const titleElement = $(this._hook + ' .switch-title');
+        titleElement.text(this.title);
+        if (nowValue === '1') {
+            titleElement.addClass('theme-text');
+        } else {
+            titleElement.removeClass('theme-text');
+        }
     }
 
     disabled() {
