@@ -322,6 +322,6 @@ com_btn2.addEventListener('click', (e) => {
 
 $(function () {
     setTimeout(function () {
-        swiper.value = 40;
+        swiper.value = 20;
     },1000);
 });

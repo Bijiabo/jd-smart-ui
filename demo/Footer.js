@@ -33,15 +33,15 @@
         });
     };
 
-    // Object.defineProperty(Footer.prototype, "value", {
-    //     get: function value() {
-    //         // code
-    //         return this._value;
-    //     },
-    //     set: function value(targetValue) {
-    //         this._value = targetValue;
-    //     }
-    // });
+    Footer.prototype.beforeSetValue = function () {
+        console.warn('run beforeSetValue');
+        return true;
+    };
+
+    Footer.prototype.didSetValue = function (value) {
+        console.warn('run afterSetValue');
+        $(this.options.hook).text(this.value);
+    };
 
     JDUI.registerComponent('Footer', Footer);
 })();

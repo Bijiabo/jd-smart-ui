@@ -149,6 +149,14 @@ var UI = function () {
             this._enabled = false;
         }
     }, {
+        key: 'beforeSetValue',
+        value: function beforeSetValue() {
+            return true;
+        }
+    }, {
+        key: 'afterSetValue',
+        value: function afterSetValue() {}
+    }, {
         key: 'visibility',
 
         //可见性
@@ -185,7 +193,11 @@ var UI = function () {
             return this._value;
         },
         set: function set(val) {
+            if (!this.beforeSetValue()) {
+                return;
+            }
             this._value = val;
+            this.afterSetValue();
         }
     }, {
         key: 'el',
@@ -2947,7 +2959,7 @@ var SwiperSlide = function (_UI) {
             var min = this.options.map.min;
             var max = this.options.map.max;
             var slideElement = $(this._hook + ' .inner');
-            var innerTrack = document.getElementById('innerTrack').clientLeft;
+            // const innerTrack = document.getElementById('innerTrack').clientLeft;
 
             if (targetValue < min || targetValue > max) {
                 return;

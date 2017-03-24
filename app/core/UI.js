@@ -64,7 +64,19 @@ class UI {
     get value(){
         return this._value;
     };
+
+    beforeSetValue() {
+        return true;
+    }
+
+    afterSetValue() {
+
+    }
+
     set value(val) {
+        // console.warn(this.afterSetValue());
+        if (!this.beforeSetValue()) { return; }
+        this.afterSetValue(val);
         this._value = val;
     };
     get el() {
