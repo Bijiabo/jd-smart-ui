@@ -3,27 +3,45 @@
  */
 (function () {
     function Footer(options) {
-        this.init(options);
-
+        this.options = options;
+        this._unclickMap = [];
+        this._visibility = true;
+        this._enabled = true;
+        this.create();
+        this.initEventFn();
         return this.instance;
     }
 
-    Footer.prototype.init = function(options) {
-        this.instance = new JDUI.class(options);
-        this.create(options);
-    };
+    Footer.prototype = JDUI.class.prototype;
+    Footer.prototype.constructor = JDUI.class;
 
     Footer.prototype.create = function(options) {
-        this.instance.dom.html('<div class="footer">Hello, I am footer component!</div>');
+        this.dom.html('<div class="footer">Hello, I am footer component!</div>');
     };
 
     Footer.prototype.show = function() {
-        this.instance.dom.show();
+        this.dom.show();
     };
 
     Footer.prototype.hide = function() {
-        this.instance.dom.hide();
+        this.dom.hide();
     };
+
+    Footer.prototype.initEventFn = function () {
+        $(document).on('tap', this.hook, function () {
+            console.warn('tap footer!!!');
+        });
+    };
+
+    // Object.defineProperty(Footer.prototype, "value", {
+    //     get: function value() {
+    //         // code
+    //         return this._value;
+    //     },
+    //     set: function value(targetValue) {
+    //         this._value = targetValue;
+    //     }
+    // });
 
     JDUI.registerComponent('Footer', Footer);
 })();
