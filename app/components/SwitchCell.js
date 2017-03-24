@@ -98,10 +98,21 @@ class SwitchCell extends UI {
         const labelElement = $(`${this._hook} label`);
         if (nowValue === "1") {
             $(this.getCheckBox()).attr('checked', 'checked');
-            labelElement.addClass('checked');
+            labelElement.addClass('checked')
+            if (this._type === 'jd') {
+                labelElement.removeClass('active-block');
+            } else {
+                labelElement.addClass('active-block')
+            }
+
         } else {
             $(this.getCheckBox()).attr('checked', false);
             labelElement.removeClass('checked');
+            if (this._type === 'jd') {
+                labelElement.addClass('active-block');
+            } else {
+                labelElement.removeClass('active-block')
+            }
         }
         this._value = nowValue;
 

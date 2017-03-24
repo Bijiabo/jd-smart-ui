@@ -441,8 +441,8 @@ label[for="switch-cell-jd"] {
 }
 
 input[type='checkbox']:checked+label[for="switch-cell-jd"] {
-    background: rgb(255, 102, 0);
-    color: #fff;
+    //background: rgb(255, 102, 0);
+    //color: #fff;
 }
 
 label[for="switch-cell-ali"] {
@@ -471,7 +471,7 @@ label[for="switch-cell-ali"]::after {
 }
 
 input[type='checkbox']:checked, label[for='switch-cell-ali'].checked {
-    background: #9FD6AE
+    //background: #9FD6AE
 }
 
 input[type='checkbox']:checked, label[for='switch-cell-ali'].checked::after {

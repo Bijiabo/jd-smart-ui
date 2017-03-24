@@ -4,12 +4,12 @@
 const rules = {
     themeColor(value) {
         return [
-            `.active-block { background-color: ${value}}`,
-            `.active-text { color: ${value}}`,
-            `.active-border { border-color: ${value}}`,
-            `.theme-block { background-color: ${value}}`,
-            `.theme-text { color: ${value}}`,
-            `.theme-border { border-color: ${value}}`,
+            `.active-block { background-color: ${value} !important}`,
+            `.active-text { color: ${value} !important}`,
+            `.active-border { border-color: ${value} !important}`,
+            `.theme-block { background-color: ${value} !important}`,
+            `.theme-text { color: ${value} !important}`,
+            `.theme-border { border-color: ${value} !important}`,
         ];
     }
 };
