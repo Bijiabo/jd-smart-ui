@@ -28,6 +28,8 @@ class SwitchCell extends UI {
                 </div>`;
 
         $(this._hook).append(html);
+
+        this.value = '0';
     }
 
     get title() {
@@ -99,7 +101,7 @@ class SwitchCell extends UI {
         if (nowValue === "1") {
             $(this.getCheckBox()).attr('checked', 'checked');
             labelElement.addClass('checked')
-            if (this._type === 'jd') {
+            if (this._type === 1) {
                 labelElement.removeClass('active-block');
             } else {
                 labelElement.addClass('active-block')
@@ -108,7 +110,7 @@ class SwitchCell extends UI {
         } else {
             $(this.getCheckBox()).attr('checked', false);
             labelElement.removeClass('checked');
-            if (this._type === 'jd') {
+            if (this._type === 1) {
                 labelElement.addClass('active-block');
             } else {
                 labelElement.removeClass('active-block')
@@ -118,7 +120,7 @@ class SwitchCell extends UI {
 
         const titleElement = $(this._hook + ' .switch-title');
         titleElement.text(this.title);
-        if (nowValue === '1') {
+        if (nowValue === '1' && this._type === 1) {
             titleElement.addClass('theme-text');
         } else {
             titleElement.removeClass('theme-text');

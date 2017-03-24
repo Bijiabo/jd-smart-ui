@@ -3067,6 +3067,8 @@ var SwitchCell = function (_UI) {
             html = '<div class="panel ' + (this._type === 1 ? 'no-margin no-border-radius' : '') + '">\n                    <div class="switch-control flex-left">\n                        <div class="switch-title">' + this.title + '</div>\n                        <div class="switch-btn-main">\n                            <input type="checkbox" name= "switch-cell-' + (this._type === 1 ? 'jd' : 'ali') + '">\n                            <label for="switch-cell-' + (this._type === 1 ? 'jd' : 'ali') + '"\n                                class="tapbtn iconfont">' + (this._type === 1 ? '&#xe6c5;' : '') + '</label>\n                        </div>\n\n                    </div>\n                </div>';
 
             $(this._hook).append(html);
+
+            this.value = '0';
         }
     }, {
         key: 'getTypeIndexFn',
@@ -3164,7 +3166,7 @@ var SwitchCell = function (_UI) {
             if (nowValue === "1") {
                 $(this.getCheckBox()).attr('checked', 'checked');
                 labelElement.addClass('checked');
-                if (this._type === 'jd') {
+                if (this._type === 1) {
                     labelElement.removeClass('active-block');
                 } else {
                     labelElement.addClass('active-block');
@@ -3172,7 +3174,7 @@ var SwitchCell = function (_UI) {
             } else {
                 $(this.getCheckBox()).attr('checked', false);
                 labelElement.removeClass('checked');
-                if (this._type === 'jd') {
+                if (this._type === 1) {
                     labelElement.addClass('active-block');
                 } else {
                     labelElement.removeClass('active-block');
@@ -3182,7 +3184,7 @@ var SwitchCell = function (_UI) {
 
             var titleElement = $(this._hook + ' .switch-title');
             titleElement.text(this.title);
-            if (nowValue === '1') {
+            if (nowValue === '1' && this._type === 1) {
                 titleElement.addClass('theme-text');
             } else {
                 titleElement.removeClass('theme-text');
