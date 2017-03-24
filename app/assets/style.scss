@@ -274,26 +274,33 @@ $defineBorderRaduis: 5px;
 }
 
 .swiper-control .inner .swiper-step-track {
-    background: #ccc;
 }
 
 .swiper-control .inner .swiper-step-track li {
-    width: 20%;
+    width: 100%;
 }
 
 .swiper-control .inner .swiper-step-track li:first-child::before {
     content: '';
     float: left;
-    width: 5px;
-    height: 5px;
-    background: green;
+    position: relative;
+    width: 6px;
+    height: 6px;
+    left: -3px;
+    top: -3px;
+    border-radius: 50%;
+    //background: green;
 }
 
 .swiper-control .inner .swiper-step-track li::after {
     content: '';
     float: right;
-    width: 5px;
-    height: 5px;
+    position: relative;
+    width: 6px;
+    height: 6px;
+    left: -3px;
+    top: -3px;
+    border-radius: 50%;
     background: green;
 }
 

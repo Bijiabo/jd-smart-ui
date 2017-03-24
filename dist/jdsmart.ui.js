@@ -2939,6 +2939,8 @@ var SwiperSlide = function (_UI) {
             return _get(SwiperSlide.prototype.__proto__ || Object.getPrototypeOf(SwiperSlide.prototype), 'value', this);
         },
         set: function set(targetValue) {
+            targetValue = Number(targetValue);
+            console.warn('targetValue: ' + targetValue);
             var min = this.options.map.min;
             var max = this.options.map.max;
             var slideElement = $(this._hook + ' .inner');
@@ -2947,6 +2949,7 @@ var SwiperSlide = function (_UI) {
             if (targetValue < min || targetValue > max) {
                 return;
             }
+
             if (targetValue == this.value) {
                 return;
             }

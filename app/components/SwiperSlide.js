@@ -60,7 +60,7 @@ class SwiperSlide extends UI {
             `<div class="swiper-control">
                     <div class="inner" id = "innerTrack">
                         <!-- 轨道 -->
-                        <div class="${type === 3 ? 'swiper-step-track flex-left': 'swiper-track theme-block'}"
+                        <div class="${type === 3 ? 'swiper-step-track flex-left theme-block': 'swiper-track theme-block'}"
                             id = "track-inner"
                             min="${this.options.map.min}"
                             max="${this.options.map.max}"
@@ -119,7 +119,7 @@ class SwiperSlide extends UI {
 
     createBtm() {
         let html = "";
-        if (this._type === 3 && this._nameMap !== undefined) {
+        if (this._type === 3 ) {
             let arr = this._nameMap;
             for (let index = 0; index < this.options.map.max + 1; index++) {
                 html +=
@@ -156,6 +156,8 @@ class SwiperSlide extends UI {
 
 
     set value(targetValue) {
+        targetValue = Number(targetValue);
+        console.warn(`targetValue: ${targetValue}`);
         const min = this.options.map.min;
         const max = this.options.map.max;
         const slideElement = $(this._hook + ' .inner');
@@ -164,6 +166,7 @@ class SwiperSlide extends UI {
         if (targetValue < min || targetValue > max) {
             return;
         }
+
         if (targetValue == this.value) {
             return;
         }

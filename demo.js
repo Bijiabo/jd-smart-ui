@@ -61,6 +61,23 @@ var gridItem = new JDUI.instance.GridItem({
     }
 });
 
+var swiper_tow_points = new JDUI.instance.SwiperSlide({
+    title: '风速调节',
+    hook: '.wind-speed-bar',
+    showTip: false,
+    type: 'withPoints',
+    map: {
+        min: 0,
+        max: 1,
+        valMap: ['0', '2'],
+        nameMap: ['抵挡', '高档'],
+        defaultValue: '0'
+    },
+    onChange: function(index) {
+        console.log(index);
+    }
+});
+
 
 var listitem = new JDUI.instance.ListItem({
     title: "列表",
@@ -100,7 +117,7 @@ listitem.updateItem({
 
 
 var swiper = new JDUI.instance.SwiperSlide({
-    title: '滑动组件',
+    title: '滑动组件0',
     hook: '.swiper-wrap-normal',
     type: 'common',
     showTip: true,
@@ -115,7 +132,7 @@ var swiper = new JDUI.instance.SwiperSlide({
 });
 
 var swiper2 = new JDUI.instance.SwiperSlide({
-    title: '滑动组件',
+    title: '滑动组件1',
     hook: '.swiper-wrap-hasbar',
     type: 'widthBtn',
     showTip: true,
@@ -143,9 +160,9 @@ var swiperStep = new JDUI.instance.SwiperSlide({
     type: 'withPoints',
     map: {
         min: 0,
-        max: 6,
-        valMap: ['10', '20', '40', '50', '70', '80', '90'],
-        nameMap: ['模式1', '模式2', '模式3', '模式4', '模式5', '模式6', '模式7'],
+        max: 7,
+        valMap: ['10', '20', '40', '50', '70', '80', '90', '100'],
+        nameMap: ['模式1', '模式2', '模式3', '模式4', '模式5', '模式6', '模式7', '模式8'],
         defaultValue: '40'
     },
     onChange: function(value, targetIndex, targetName) {
@@ -296,3 +313,9 @@ let com_btn2 = document.getElementById('oneCFM');
 com_btn2.addEventListener('click', (e) => {
     confirm2.openConfirm();
 }, false);
+
+$(function () {
+    setTimeout(function () {
+        swiper.value = 40;
+    },1000);
+});
