@@ -80,6 +80,8 @@ new JDUI.instance.YourComponentName(selector, options);
 
 具体编写可参照 `demo/Footer.js`，在 HTML 中直接添加 `<script src="demo/Footer.js"></script>` 引入即可。
 
+更多组件开发相关内容，可阅读 [组件开发](./documents/develop_components.md)。
+
 ## 新建组件实例
 
 ```JavaScript
