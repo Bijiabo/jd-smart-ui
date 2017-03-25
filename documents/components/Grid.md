@@ -1,4 +1,4 @@
-###GridItem
+# GridItem
 
 ```JavaScript
 var  GridItem = new JDUI.instance.GridItem(options);

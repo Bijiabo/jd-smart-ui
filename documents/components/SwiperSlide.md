@@ -1,4 +1,63 @@
-###SwiperSlide
+# SwiperSlide
+
+# 参数配置说明
+
+<table>
+	<tr>
+		<th>参数</th>
+		<th>说明</th>
+		<th>必填</th>
+		<th>介绍</th>
+	</tr>
+	<tr>
+		<td>title</td>
+		<td>dom的标题</td>
+		<td>否</td>
+		<td>如：工作模式</td>
+	</tr>
+	<tr>
+		<td> hook </td>
+		<td>挂载dom的钩子</td>
+		<td>是</td>
+		<td>如：`.swiper-wrap-normal`</td>
+	</tr>
+	<tr>
+		<td> showTip </td>
+		<td>是否显示滑块上的动态数值</td>
+		<td>否</td>
+		<td>默认`false`</td>
+	</tr>
+	<tr>
+		<td> type </td>
+		<td> 滑动组件类型 </td>
+		<td>是</td>
+		<td>默认类型：`common`;
+			 带+和-按钮类型:`widthBtn`;
+			 带刻度的类型:`withPoints`
+			 (*类型名称必须写对*)
+		</td>
+	</tr>
+	<tr>
+		<td rowspan = "5"> map </td>
+		<td rowspan = "5"> 组件配置对象 </td>
+		<td rowspan = "5">是</td>
+		<td>`min`:最小值</td>
+	</tr>
+	<tr>
+		<td>`max`:最大值</td>
+	</tr>
+	<tr>
+		<td>`defaultValue`:默认值</td>
+	</tr>
+	<tr>
+		<td>`valMap`:值的数组</td>
+	</tr>
+	<tr>
+		<td>`nameMap`:下标名称数组</td>
+	</tr>
+</table>
+
+## 使用举例
 
 ```JavaScript
 const swiper = new JDUI.instance.SwiperSlide({
