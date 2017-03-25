@@ -2729,7 +2729,7 @@ var SwiperSlide = function (_UI) {
             this._showTip = this.options.showTip || false;
 
             this.setDefaultValue();
-            this.sliderCommon();
+            this.insertHtml();
 
             // 这里dom渲染后设置值
             if (this.options.map.defaultValue && this._type !== 3) {
@@ -2750,7 +2750,7 @@ var SwiperSlide = function (_UI) {
             }
         }
     }, {
-        key: 'sliderCommon',
+        key: 'insertHtml',
         value: function sliderCommon() {
             var html = '';
             var type = Number(this._type);

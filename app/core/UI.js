@@ -65,7 +65,7 @@ class UI {
         return this._value;
     };
 
-    beforeSetValue() {
+    beforeSetValue(targetValue, oldValue) {
         return true;
     }
 
@@ -76,8 +76,8 @@ class UI {
     set value(val) {
         // console.warn(this.afterSetValue());
         if (!this.beforeSetValue()) { return; }
-        this.afterSetValue(val);
         this._value = val;
+        this.afterSetValue(val);
     };
     get el() {
         return $(this.options.hook);

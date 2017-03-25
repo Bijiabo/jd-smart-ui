@@ -38,7 +38,7 @@
         return true;
     };
 
-    Footer.prototype.didSetValue = function (value) {
+    Footer.prototype.afterSetValue = function (value) {
         console.warn('run afterSetValue');
         $(this.options.hook).text(this.value);
     };

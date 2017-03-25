@@ -22,14 +22,14 @@ class SwiperSlide extends UI {
         this._showTip = this.options.showTip || false;
 
         this.setDefaultValue();
-        this.sliderCommon();
+        this.insertHtml();
 
         // 这里dom渲染后设置值
-        if (this.options.map.defaultValue && this._type !== 3) {
-            this.value = this.options.map.defaultValue;
-        } else if (this.options.map.defaultValue && this._type === 3) {
-            this.value = this.getIndexFromPointsTypeValueMap(this.options.map.defaultValue);
-        }
+        // if (this.options.map.defaultValue && this._type !== 3) {
+        //     this.value = this.options.map.defaultValue;
+        // } else if (this.options.map.defaultValue && this._type === 3) {
+        //     this.value = this.getIndexFromPointsTypeValueMap(this.options.map.defaultValue);
+        // }
 
     }
 
@@ -44,7 +44,7 @@ class SwiperSlide extends UI {
 
     }
 
-    sliderCommon() {
+    insertHtml() {
         let html = '';
         let type = Number(this._type);
 
@@ -87,6 +87,7 @@ class SwiperSlide extends UI {
                     `;
         }
 
+        console.warn(html);
         $(this._hook).append(html);
     }
 
