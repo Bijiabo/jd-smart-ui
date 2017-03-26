@@ -2776,9 +2776,22 @@ var SwiperSlide = function (_UI) {
     function SwiperSlide(options) {
         _classCallCheck(this, SwiperSlide);
 
-        // TODO: 添加配置检测方法
-        // TODO: 预处理配置数据
-        return _possibleConstructorReturn(this, (SwiperSlide.__proto__ || Object.getPrototypeOf(SwiperSlide)).call(this, options));
+        var defaultOptions = {
+            title: 'Swiper Slider Title',
+            hook: false,
+            type: SwiperSlide.type.default,
+            min: 0,
+            max: 100,
+            step: 1,
+            defaultValue: 0,
+            unit: '',
+            beforeUserChanged: function beforeUserChanged(newVal, oldVal) {
+                return true;
+            },
+            afterUserChanged: function afterUserChanged(val, label) {}
+        };
+        var _options = $.extend(defaultOptions, options);
+        return _possibleConstructorReturn(this, (SwiperSlide.__proto__ || Object.getPrototypeOf(SwiperSlide)).call(this, _options));
     }
 
     _createClass(SwiperSlide, [{
@@ -2802,7 +2815,7 @@ var SwiperSlide = function (_UI) {
 
             // 添加标题
             if (this.options.title) {
-                html += '<div class="panel-title">' + this.options.title + '<span class="value"></span></div>';
+                html += '<div class="panel-title">' + this.options.title + '<span class="value theme-text"></span></div>';
             }
 
             html += '<div class="swiper-control">\n                    <div class="inner" id = "innerTrack">\n                        <!-- \u8F68\u9053 -->\n                        <div class="' + (type === SwiperSlide.type.withPoints ? 'swiper-step-track flex-left theme-block' : 'swiper-track theme-block') + '"\n                            id = "track-inner"\n                            min="' + this.options.min + '"\n                            max="' + this.options.max + '"\n                            data-now = \'\'>\n                            ' + this.pointsHTML + '\n                        </div>\n                        <!-- \u62C7\u6307 -->\n                        <div class="swiper-thumb theme-border" data-content =\'\'></div>\n                    </div>\n                </div>';
@@ -2882,7 +2895,7 @@ var SwiperSlide = function (_UI) {
         key: 'renderForValue',
         value: function renderForValue(targetRenderValue) {
             if (this.options.type === SwiperSlide.type.withBtn || this.options.type === SwiperSlide.type.default) {
-                $(this._hook + ' .panel-title .value').text(targetRenderValue);
+                $(this._hook + ' .panel-title .value').text(targetRenderValue + this.options.unit);
             }
 
             var targetLeftPersentage = void 0;
@@ -3110,7 +3123,8 @@ var SwiperSlide = function (_UI) {
                     mapItem = i === 0 ? _this6.options.min : _this6.options.max;
                 }
                 var currentItem = _.isObject(mapItem) ? mapItem : { value: mapItem, label: mapItem.toString() };
-                return '\n            <div class="point-container" style="left: ' + percentageForOnePart * i + '%;" label="' + currentItem.label + '" value="' + currentItem.value + '">\n            <div class="point theme-block"></div>\n            </div>';
+                var displayUnit = pointsCount === 2 ? _this6.options.unit : '';
+                return '\n            <div class="point-container" \n            style="left: ' + percentageForOnePart * i + '%;" \n            label="' + currentItem.label + displayUnit + '" \n            value="' + currentItem.value + '">\n            <div class="point theme-block"></div>\n            </div>';
             }).join('');
 
             // 判断是否有圆点可见

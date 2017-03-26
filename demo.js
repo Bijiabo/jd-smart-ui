@@ -180,10 +180,9 @@ var swithCell = new JDUI.instance.SwitchCell({
         on: '1',
         off: '0'
     },
-
     onTap: function(index) {
         console.log('click jd', index);
-    },
+    }
 });
 
 var swithCell2 = new JDUI.instance.SwitchCell({

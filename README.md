@@ -94,6 +94,7 @@ listItem.updateValue('2');
 - [Grid](./documents/components/Grid.md)
 - [ListItem](./documents/components/ListItem.md)
 - [SwiperSlide](./documents/components/SwiperSlide.md)
+- [SwitchCell](./documents/components/SwitchCell.md)
 
 
 ## 样式开发
