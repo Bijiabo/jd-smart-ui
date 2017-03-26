@@ -46,41 +46,9 @@ npm run dev
 
 ![结构草图](http://okw4n9e5h.bkt.clouddn.com/082712.jpg)
 
-## 添加组件
+## 新建组件
 
-### 项目中添加
-
-在`app/compinents/`中新建组件文件
-```JavaScript
-import UI from './../core/UI';
-const $ = require("jquery");
-
-class YourComponentClassName extends UI {
-    // ...
-}
-
-// 注册组件，不要漏
-UI.registerComponent('YourComponentName', YourComponentClassName);
-
-export default YourComponentClassName;
-
-```
-
-新建后，运行
-```bash
-npm run build
-```
-
-用户调用你的新组件新建实例：
-```JavaScript
-new JDUI.instance.YourComponentName(selector, options);
-```
-
-### 新建可单独引入的组件文件
-
-具体编写可参照 `demo/Footer.js`，在 HTML 中直接添加 `<script src="demo/Footer.js"></script>` 引入即可。
-
-更多组件开发相关内容，可阅读 [组件开发](./documents/develop_components.md)。
+组件开发相关内容，可阅读 [组件开发](./documents/develop_components.md)。
 
 ## 新建组件实例
 
