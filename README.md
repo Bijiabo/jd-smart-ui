@@ -10,11 +10,11 @@
 
 - [本地开发](#本地开发)
 - [结构](#结构)
-- [添加组件](#添加组件)
-    - [项目中添加](#项目中添加)
-    - [新建可单独引入的组件文件](#新建可单独引入的组件文件)
-- [新建组件实例](#新建组件实例)
-- [通用方法](#通用方法)
+- [如何使用](#如何使用)
+    - [引入文件](#引入文件)
+    - [新建组件](#新建组件)
+    - [新建组件实例](#新建组件实例)
+    - [通用方法](#通用方法)
 - [现有组件](#现有组件)
 - [样式开发](#样式开发)
 
@@ -46,11 +46,20 @@ npm run dev
 
 ![结构草图](http://okw4n9e5h.bkt.clouddn.com/082712.jpg)
 
-## 新建组件
+## 如何使用
+
+## 引入文件
+
+1. 在 HTML 中引入 `jQuery` 库文件，目前我们使用的版本是 `v3.1.1`。
+2. 在 HTML 中引入 `jdsmart.ui.js` 库文件，可以在 [这里](./dist/jdsmart.ui.js) 直接下载最新编译的版本。
+3. 根据使用文档，编写你的业务逻辑。
+
+
+### 新建组件
 
 组件开发相关内容，可阅读 [组件开发](./documents/develop_components.md)。
 
-## 新建组件实例
+### 新建组件实例
 
 ```JavaScript
 var selector = '.work-modes';
@@ -58,7 +67,7 @@ var workModeComponentInstance = new JDUI.instance.GridItem(selector, options);
 ```
 
 
-## 通用方法
+### 通用方法
 
 ```JavaScript
 var listItem = new JDUI.instance.(selector, {...});
