@@ -194,7 +194,7 @@ var UI = function () {
         },
         set: function set(val) {
             // console.warn(this.afterSetValue());
-            if (!this.beforeSetValue()) {
+            if (!this.beforeSetValue(val, this._value)) {
                 return;
             }
             this._value = val;
@@ -211,19 +211,27 @@ var UI = function () {
     }], [{
         key: 'hasComponent',
         value: function hasComponent(name) {
-            if (global.__JDUICache === undefined || global.__JDUICache.components === undefined) {
-                return false;
-            }
-
-            var hasTargetComponent = !!global.__JDUICache.components[name];
-
-            return hasTargetComponent;
+            return !!global.JDUI.instance[name];
         }
+
+        // 检测是否有对应的组件类型
+
+    }, {
+        key: 'hasTypeForComponent',
+        value: function hasTypeForComponent(name) {
+            return !!global.JDUI.type[name];
+        }
+
         // 注册组件方法
 
     }, {
         key: 'registerComponent',
         value: function registerComponent(componentName, componentClass) {
+            /*
+            * componentName, // 组件名称，开发者使用时使用 new JDUI.instance.componentName() 即可使用
+            * componentClass, // 组件类
+            * types, // 组件内的类型注册，用于方便开发者传参使用
+            * */
             var result = {
                 success: false,
                 error: 'unknow'
@@ -238,7 +246,22 @@ var UI = function () {
             if (global.JDUI) {
                 global.JDUI.instance[componentName] = componentClass;
             }
+
+            // 注册类型
+            if (!componentClass.type) {
+                return;
+            }
+            if (this.hasTypeForComponent(componentName)) {
+                result.success = false;
+                result.error = 'the component \'' + componentName + '\' has been registerted type before';
+                return result;
+            }
+
+            global.JDUI.type[componentName] = componentClass.type;
         }
+
+        // 注册类型方法
+
     }]);
 
     return UI;
@@ -249,6 +272,7 @@ var JDUI = {
     hasComponent: UI.hasComponent,
     registerComponent: UI.registerComponent,
     instance: {}, // new JDUI.instance.componentName
+    type: {}, // 组件类型注册 JDUI.type.组件名.类型
     _themeColor: '#FF8650',
     style: _StyleManager2.default,
     class: UI
@@ -2686,9 +2710,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _set = function set(object, property, value, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent !== null) { set(parent, property, value, receiver); } } else if ("value" in desc && desc.writable) { desc.value = value; } else { var setter = desc.set; if (setter !== undefined) { setter.call(receiver, value); } } return value; };
-
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _set = function set(object, property, value, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent !== null) { set(parent, property, value, receiver); } } else if ("value" in desc && desc.writable) { desc.value = value; } else { var setter = desc.set; if (setter !== undefined) { setter.call(receiver, value); } } return value; };
 
 var _UI2 = __webpack_require__(0);
 
@@ -2729,7 +2753,7 @@ var SwiperSlide = function (_UI) {
             this._type = this.getIndexOfType(this.options.type);
             this._showTip = this.options.showTip || false;
 
-            this.setDefaultValue();
+            // this.setDefaultValue();
             this.insertHtml();
 
             // 这里dom渲染后设置值
@@ -2738,6 +2762,7 @@ var SwiperSlide = function (_UI) {
             // } else if (this.options.map.defaultValue && this._type === 3) {
             //     this.value = this.getIndexFromPointsTypeValueMap(this.options.map.defaultValue);
             // }
+            this.value = this.options.map.defaultValue;
         }
     }, {
         key: 'getIndexOfType',
@@ -2760,23 +2785,23 @@ var SwiperSlide = function (_UI) {
             var bottomVal = this.createBtm();
 
             html += '<div class="panel">';
+
+            // 添加标题
             if (this.options.title) {
                 html += '<div class="panel-title">' + this.options.title + '</div>';
             }
 
-            html += '<div class="swiper-control">\n                    <div class="inner" id = "innerTrack">\n                        <!-- \u8F68\u9053 -->\n                        <div class="' + (type === 3 ? 'swiper-step-track flex-left theme-block' : 'swiper-track theme-block') + '"\n                            id = "track-inner"\n                            min="' + this.options.map.min + '"\n                            max="' + this.options.map.max + '"\n                            data-now = \'\'>\n                            ' + (type === 3 ? innerNode : "") + '\n                        </div>\n                        <!-- \u62C7\u6307 -->\n                        <div class="swiper-thumb theme-border" data-content =\'\'></div>\n                        <!-- \u6570\u503C -->\n                        <div class="swiper-num' + (type === 3 ? '2' : '') + ' flex-left">\n                            ' + bottomVal + '\n                        </div>\n                    </div>\n                </div>';
+            html += '<div class="swiper-control">\n                    <div class="inner" id = "innerTrack">\n                        <!-- \u8F68\u9053 -->\n                        <div class="' + (type === SwiperSlide.type.withPoints ? 'swiper-step-track flex-left theme-block' : 'swiper-track theme-block') + '"\n                            id = "track-inner"\n                            min="' + this.options.map.min + '"\n                            max="' + this.options.map.max + '"\n                            data-now = \'\'>\n                            ' + (type === 3 ? innerNode : "") + '\n                        </div>\n                        <!-- \u62C7\u6307 -->\n                        <div class="swiper-thumb theme-border" data-content =\'\'></div>\n                        <!-- \u6570\u503C -->\n                        <div class="swiper-num' + (type === SwiperSlide.type.withPoints ? '2' : '') + ' flex-left">\n                            ' + bottomVal + '\n                        </div>\n                    </div>\n                </div>';
 
-            if (type === 2) {
-                html += '\n                    <!-- \u63A7\u5236 -->\n                    <div class="contorlPanel flex-right">\n                        <span class="plus-button" data-value ="plusBtn">+</span>\n                        <span class="minus-button" data-value ="minusBtn">-</span>\n                    </div>\n                    ';
+            if (type === SwiperSlide.type.widthBtn) {
+                html += '   <!-- \u63A7\u5236 -->\n                    <div class="contorlPanel flex-right">\n                        <span class="plus-button" data-value ="plusBtn">+</span>\n                        <span class="minus-button" data-value ="minusBtn">-</span>\n                    </div>\n                    ';
             }
 
-            console.warn(html);
             $(this._hook).append(html);
         }
     }, {
         key: 'initEventFn',
         value: function initEventFn() {
-
             this.bindEvent_touchEvent_Group();
             this.bindEvent_tapEvent_Group();
         }
@@ -2808,7 +2833,7 @@ var SwiperSlide = function (_UI) {
         key: 'createBtm',
         value: function createBtm() {
             var html = "";
-            if (this._type === 3) {
+            if (this._type === SwiperSlide.type.withPoints) {
                 var arr = this._nameMap;
                 for (var index = 0; index < this.options.map.max + 1; index++) {
                     html += '<span style = "width:' + 110 / arr.length + '%">' + arr[index] + '</span>';
@@ -2894,6 +2919,7 @@ var SwiperSlide = function (_UI) {
             var _this4 = this;
 
             $(document).on('tap', this.handleButton.plus.selector, function () {
+                console.warn(_this4);
                 _this4.value += 1;
                 if (_this4.options.onPlus) {
                     _this4.options.onPlus(_this4.value);
@@ -2951,10 +2977,14 @@ var SwiperSlide = function (_UI) {
             this.bindEvent_tapEvent_Group();
         }
     }, {
-        key: 'value',
+        key: 'pointsHTML',
         get: function get() {
-            return _get(SwiperSlide.prototype.__proto__ || Object.getPrototypeOf(SwiperSlide.prototype), 'value', this);
-        },
+            var html = '';
+
+            return html;
+        }
+    }, {
+        key: 'value',
         set: function set(targetValue) {
             targetValue = Number(targetValue);
 
@@ -3025,6 +3055,14 @@ var SwiperSlide = function (_UI) {
 
     return SwiperSlide;
 }(_UI3.default);
+
+// 添加类型
+
+
+SwiperSlide.type = {
+    default: Symbol(), // 默认类型
+    widthBtn: Symbol(), // 带+和-按钮
+    withPoints: Symbol() };
 
 _UI3.default.registerComponent('SwiperSlide', SwiperSlide);
 
