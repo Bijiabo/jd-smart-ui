@@ -168,12 +168,12 @@ var swiper_tow_points = new JDUI.instance.SwiperSlide({
 var swithCell = new JDUI.instance.SwitchCell({
     title: function (value) {
         if (value === '1') {
-            return '开关开---';
+            return '电源打开';
         } else {
-            return '开关关---';
+            return '电源关闭';
         }
     },
-    type: 'JD', //JD、jd标准样式、 Ali、阿里标准样式
+    type: JDUI.type.SwitchCell.power, //JD、jd标准样式、 Ali、阿里标准样式
     value: '0', //和正常一样，开1，关0
     hook: '.switch-cell',
     map: {
@@ -187,7 +187,7 @@ var swithCell = new JDUI.instance.SwitchCell({
 
 var swithCell2 = new JDUI.instance.SwitchCell({
     title: '开关',
-    type: 'Ali', //JD、jd标准样式、 Ali、阿里标准样式
+    type: JDUI.type.SwitchCell.switch, //JD、jd标准样式、 Ali、阿里标准样式
     value: '0', //和正常一样，开1，关0
     hook: '.switch-cell2',
     map: {
@@ -207,7 +207,7 @@ var swithCell2 = new JDUI.instance.SwitchCell({
 
 var swithCell3 = new JDUI.instance.SwitchCell({
     title: '开关',
-    type: 'Ali', //JD、jd标准样式、 Ali、阿里标准样式
+    type: JDUI.type.SwitchCell.switch, //JD、jd标准样式、 Ali、阿里标准样式
     value: '0', //和正常一样，开1，关0
     hook: '.switch-cell3',
     map: {

@@ -4,24 +4,37 @@ var $ = require('jquery');
 class SwitchCell extends UI {
 
     constructor(options) {
-        super(options);
+        const defaultOptions = {
+            title: '电源开关',
+            type: 'JD', //JD、jd标准样式、 Ali、阿里标准样式
+            value: '0', //和正常一样，开1，关0
+            hook: false,
+            map: {
+                on: '1',
+                off: '0'
+            },
+            onTap: function(index) {
+
+            }
+        };
+        const _options = $.extend(defaultOptions, options);
+        super(_options);
     }
 
     create() {
         this._hook = this.options.hook;
-        this._title = this.options.title || '电源开关';
-        this._type = this.getTypeIndexFn(this.options.type);
+        // this._type = this.getTypeIndexFn(this.options.type);
 
         this._map = this.options.map;
         let html = '';
 
-        html = `<div class="panel ${this._type === 1 ? 'no-margin no-border-radius' : ''}">
+        html = `<div class="panel ${this.options.type === SwitchCell.type.power ? 'no-margin no-border-radius' : ''}">
                     <div class="switch-control flex-left">
                         <div class="switch-title">${this.title}</div>
                         <div class="switch-btn-main">
-                            <input type="checkbox" name= "switch-cell-${this._type === 1 ? 'jd' : 'ali'}">
-                            <label for="switch-cell-${this._type === 1 ? 'jd' : 'ali'}"
-                                class="tapbtn iconfont">${this._type === 1 ? '&#xe6c5;':''}</label>
+                            <input type="checkbox" name= "switch-cell-${this.options.type === SwitchCell.type.power ? 'jd' : 'ali'}">
+                            <label for="switch-cell-${this.options.type === SwitchCell.type.power ? 'jd' : 'ali'}"
+                                class="tapbtn iconfont">${this.options.type === SwitchCell.type.power ? '&#xe6c5;':''}</label>
                         </div>
 
                     </div>
@@ -50,7 +63,7 @@ class SwitchCell extends UI {
     }
 
     getCheckBox() {
-        if (this._type === 1) {
+        if (this.options.type === SwitchCell.type.power) {
             return this._hook + ` :checkbox`;
         } else {
             return this._hook + ` :checkbox`;
@@ -101,7 +114,7 @@ class SwitchCell extends UI {
         if (nowValue === "1") {
             $(this.getCheckBox()).attr('checked', 'checked');
             labelElement.addClass('checked')
-            if (this._type === 1) {
+            if (this.options.type === SwitchCell.type.power) {
                 labelElement.removeClass('active-block');
             } else {
                 labelElement.addClass('active-block')
@@ -110,7 +123,7 @@ class SwitchCell extends UI {
         } else {
             $(this.getCheckBox()).attr('checked', false);
             labelElement.removeClass('checked');
-            if (this._type === 1) {
+            if (this.options.type === SwitchCell.type.power) {
                 labelElement.addClass('active-block');
             } else {
                 labelElement.removeClass('active-block')
@@ -120,7 +133,7 @@ class SwitchCell extends UI {
 
         const titleElement = $(this._hook + ' .switch-title');
         titleElement.text(this.title);
-        if (nowValue === '1' && this._type === 1) {
+        if (nowValue === '1' && this.options.type === SwitchCell.type.power) {
             titleElement.addClass('theme-text');
         } else {
             titleElement.removeClass('theme-text');
@@ -141,6 +154,11 @@ class SwitchCell extends UI {
         $(this.getCheckBox()).removeAttr('disabled');
     }
 }
+
+SwitchCell.type = {
+    power: Symbol(), // 电源开关
+    switch: Symbol(), // 切换按钮
+};
 
 UI.registerComponent('SwitchCell', SwitchCell);
 export default SwitchCell;

@@ -1,6 +1,8 @@
 # SwiperSlide
 
-# 参数配置说明
+![](http://okw4n9e5h.bkt.clouddn.com/161619.jpg)
+
+## 参数配置说明
 
 - title 组件标题，必填
     - String
