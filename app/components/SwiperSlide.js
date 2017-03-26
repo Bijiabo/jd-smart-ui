@@ -54,7 +54,7 @@ class SwiperSlide extends UI {
                     </div>
                 </div>`;
 
-        if (type === SwiperSlide.type.widthBtn) {
+        if (this.options.type === SwiperSlide.type.withBtn) {
             html +=
                 `   <!-- 控制 -->
                     <div class="contorlPanel flex-right">
@@ -81,10 +81,10 @@ class SwiperSlide extends UI {
     bindEvent_tapEvent_Group() {
         this.bindEvent_tapPlusButton();
         this.bindEvent_tapMinusButton();
+        this.bindEvent_tapPoint();
     }
 
     get pointsHTML() {
-        console.warn('get pointsHTML() {');
         let html = '';
         let pointsCount = this.options.type === SwiperSlide.type.withPoints ? this.options.map.length : 2;
 
@@ -99,7 +99,10 @@ class SwiperSlide extends UI {
                 mapItem = i === 0 ? this.options.min : this.options.max;
             }
             const currentItem = _.isObject(mapItem) ? mapItem : { value: mapItem, label: mapItem.toString() };
-            return `<div class="point theme-block" style="left: ${percentageForOnePart * i}%;" label="${currentItem.label}"></div>`;
+            return `
+            <div class="point-container" style="left: ${percentageForOnePart * i}%;" label="${currentItem.label}" value="${currentItem.value}">
+            <div class="point theme-block"></div>
+            </div>`;
         }).join('');
 
         // 判断是否有圆点可见
@@ -111,8 +114,6 @@ class SwiperSlide extends UI {
                 html += `<div class="no-points">${pointsHTML}</div>`;
                 break;
         }
-
-        console.warn(html);
 
         return html;
     }
@@ -161,7 +162,9 @@ class SwiperSlide extends UI {
     }
 
     renderForValue(targetRenderValue) {
-        $(this._hook + ' .panel-title .value').text(targetRenderValue);
+        if (this.options.type === SwiperSlide.type.withBtn || this.options.type === SwiperSlide.type.default) {
+            $(this._hook + ' .panel-title .value').text(targetRenderValue);
+        }
 
         let targetLeftPersentage;
         switch (this.options.type) {
@@ -229,7 +232,6 @@ class SwiperSlide extends UI {
         return this._onSliding || false;
     }
     set onSliding(v) {
-        console.log(v);
         this._onSliding = !!v;
     }
 
@@ -241,8 +243,7 @@ class SwiperSlide extends UI {
 
     bindEvent_touchMove() {
         const self = this;
-        $(document).on('touchmove', this.handlePoint.selector, function(
-            event) {
+        $(document).on('touchmove', this.handlePoint.selector, function(event) {
             if (!self.onSliding) {
                 return;
             }
@@ -300,12 +301,14 @@ class SwiperSlide extends UI {
             minus: {
                 selector: this._hook + ' .minus-button'
             },
-        }
+            point: {
+                selector: this._hook + ' .point-container'
+            },
+        };
     }
 
     bindEvent_tapPlusButton() {
         $(document).on('tap', this.handleButton.plus.selector, () => {
-            console.warn(this);
             this.value += 1;
             if (this.options.onPlus) {
                 this.options.onPlus(this.value);
@@ -319,6 +322,15 @@ class SwiperSlide extends UI {
             if (this.options.onMinus) {
                 this.options.onMinus(this.value);
             }
+        });
+    }
+
+    bindEvent_tapPoint() {
+        var self = this;
+        $(document).on('tap', this.handleButton.point.selector, function() {
+            const targetPoint = $(this);
+            console.log(targetPoint.attr('value'));
+            self.viewValue = targetPoint.attr('value');
         });
     }
 
@@ -361,7 +373,7 @@ class SwiperSlide extends UI {
 // 添加类型
 SwiperSlide.type = {
     default: Symbol(), // 默认类型
-    widthBtn: Symbol(), // 带+和-按钮
+    withBtn: Symbol(), // 带+和-按钮
     withPoints: Symbol(), // 带刻度
 };
 

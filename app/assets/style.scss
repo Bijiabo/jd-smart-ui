@@ -289,24 +289,40 @@ $defineBorderRaduis: 5px;
 .swiper-control .inner .swiper-track {
     margin-bottom: 52px;
 
-    .point {
+    .point-container {
         position: absolute;
         top: 1px;
+        width: 44px;
+        margin-left: -22px;
+        height: 65px;
+        margin-top: -25px;
+        //border: 1px solid #cccccc;
+    }
+
+    .point {
+        position: absolute;
+        top: 25px;
+        left: 50%;
         width: 6px;
         height: 6px;
         margin: -3px 0 0 -3px;
         border-radius: 50%;
     }
 
-    .point::before {
+    .point-container::before {
         content: attr(label);
         position: absolute;
-        top: 12px;
-        left: 50%;
-        width: 100px;
+        top: 35px;
+        width: 100%;
         text-align: center;
-        margin-left: -50px;
         color: #A6A6A6;
+        font-size: 14px;
+    }
+
+    .no-points {
+        .point {
+            display: none;
+        }
     }
 }
 
