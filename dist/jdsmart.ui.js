@@ -150,7 +150,7 @@ var UI = function () {
         }
     }, {
         key: 'beforeSetValue',
-        value: function beforeSetValue() {
+        value: function beforeSetValue(targetValue, oldValue) {
             return true;
         }
     }, {
@@ -193,11 +193,12 @@ var UI = function () {
             return this._value;
         },
         set: function set(val) {
+            // console.warn(this.afterSetValue());
             if (!this.beforeSetValue()) {
                 return;
             }
             this._value = val;
-            this.afterSetValue();
+            this.afterSetValue(val);
         }
     }, {
         key: 'el',
@@ -2732,11 +2733,11 @@ var SwiperSlide = function (_UI) {
             this.insertHtml();
 
             // 这里dom渲染后设置值
-            if (this.options.map.defaultValue && this._type !== 3) {
-                this.value = this.options.map.defaultValue;
-            } else if (this.options.map.defaultValue && this._type === 3) {
-                this.value = this.getIndexFromPointsTypeValueMap(this.options.map.defaultValue);
-            }
+            // if (this.options.map.defaultValue && this._type !== 3) {
+            //     this.value = this.options.map.defaultValue;
+            // } else if (this.options.map.defaultValue && this._type === 3) {
+            //     this.value = this.getIndexFromPointsTypeValueMap(this.options.map.defaultValue);
+            // }
         }
     }, {
         key: 'getIndexOfType',
@@ -2751,7 +2752,7 @@ var SwiperSlide = function (_UI) {
         }
     }, {
         key: 'insertHtml',
-        value: function sliderCommon() {
+        value: function insertHtml() {
             var html = '';
             var type = Number(this._type);
 
@@ -2769,6 +2770,7 @@ var SwiperSlide = function (_UI) {
                 html += '\n                    <!-- \u63A7\u5236 -->\n                    <div class="contorlPanel flex-right">\n                        <span class="plus-button" data-value ="plusBtn">+</span>\n                        <span class="minus-button" data-value ="minusBtn">-</span>\n                    </div>\n                    ';
             }
 
+            console.warn(html);
             $(this._hook).append(html);
         }
     }, {
@@ -2959,7 +2961,7 @@ var SwiperSlide = function (_UI) {
             var min = this.options.map.min;
             var max = this.options.map.max;
             var slideElement = $(this._hook + ' .inner');
-            // const innerTrack = document.getElementById('innerTrack').clientLeft;
+            var innerTrack = document.getElementById('innerTrack').clientLeft;
 
             if (targetValue < min || targetValue > max) {
                 return;

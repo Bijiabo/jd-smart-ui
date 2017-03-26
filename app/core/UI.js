@@ -75,7 +75,7 @@ class UI {
 
     set value(val) {
         // console.warn(this.afterSetValue());
-        if (!this.beforeSetValue()) { return; }
+        if (!this.beforeSetValue(val, this._value)) { return; }
         this._value = val;
         this.afterSetValue(val);
     };

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SwipreSlider - jd-smart-ui</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="../../jdsmart.ui.js" charset="utf-8"></script>
+</head>
+<body>
+
+<!--SwiperSlide-->
+<div class="swiper-wrap-normal"></div>
+
+<!--SwiperHasBar-->
+<div class="swiper-wrap-hasbar"></div>
+
+<div class="swiper-step"></div>
+
+<script>
+    var swiper = new JDUI.instance.SwiperSlide({
+        title: '滑动组件0',
+        hook: '.swiper-wrap-normal',
+        type: 'common',
+        showTip: true,
+        map: {
+            min: 10,
+            max: 39,
+            defaultValue: 30
+        },
+        onChange: function(index) {
+            console.log(index);
+        }
+    });
+
+    var swiper2 = new JDUI.instance.SwiperSlide({
+        title: '滑动组件1',
+        hook: '.swiper-wrap-hasbar',
+        type: 'widthBtn',
+        showTip: true,
+        map: {
+            min: 0,
+            max: 100,
+            defaultValue: 20
+        },
+        onChange: function(index) {
+            console.log(index);
+        },
+        //onPlus and onMinus function only support at type 2;
+        onPlus: function(value) {
+            console.log(value);
+        },
+        onMinus: function(value) {
+            console.log(value);
+        }
+    });
+
+    var swiperStep = new JDUI.instance.SwiperSlide({
+        title: '带刻度的滑动条',
+        hook: '.swiper-step',
+        showTip: false,
+        type: 'withPoints',
+        map: {
+            min: 0,
+            max: 7,
+            valMap: ['10', '20', '40', '50', '70', '80', '90', '100'],
+            nameMap: ['模式1', '模式2', '模式3', '模式4', '模式5', '模式6', '模式7', '模式8'],
+            defaultValue: '40'
+        },
+        onChange: function(value, targetIndex, targetName) {
+            console.log(value, targetIndex, targetName);
+        }
+    });
+</script>
+
+</body>
+</html>
