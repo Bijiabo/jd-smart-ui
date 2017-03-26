@@ -355,8 +355,8 @@ class SwiperSlide extends UI {
     }
 
 
-    disabled() {
-        super.disabled();
+    disable() {
+        super.disable();
         $(this._hook).addClass('disabled');
         this.unbindEvent_touchFunction();
         this.unbindEvent_tapFunction();

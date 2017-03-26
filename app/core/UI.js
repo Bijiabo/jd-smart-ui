@@ -42,7 +42,7 @@ class UI {
         this._enabled = true;
     };
     //设置不可用
-    disabled() {
+    disable() {
         this._enabled = false;
     };
     //是否可用
