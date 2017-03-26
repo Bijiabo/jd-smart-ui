@@ -198,7 +198,6 @@ class SwiperSlide extends UI {
                 this.syncValueFromViewValue();
                 if(this.options.afterUserChanged) {
                     const label = this.labelForValue(this.value);
-                    console.log(label);
                     this.options.afterUserChanged(this.value, label);
                 }
             } else {

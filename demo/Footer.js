@@ -28,7 +28,7 @@
     };
 
     Footer.prototype.initEventFn = function () {
-        $(document).on('tap', this.hook, function () {
+        $(document).on('tap', this.options.hook, function () {
             console.warn('tap footer!!!');
         });
     };
