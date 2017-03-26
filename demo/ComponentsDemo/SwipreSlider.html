@@ -48,8 +48,8 @@
             console.log('beforeUserChanged', newVal, oldVal);
             return newVal != 3 ;
         },
-        afterUserChanged: function (val) {
-            console.log('afterUserChanged', val);
+        afterUserChanged: function (val, label) {
+            console.log('afterUserChanged', val, label);
         }
     });
 
@@ -62,8 +62,8 @@
         max: 100,
         defaultValue: 20,
         step: 1,
-        afterUserChanged: function (val) {
-            console.log('afterUserChanged', val);
+        afterUserChanged: function (val, label) {
+            console.log('afterUserChanged', val, label);
         },
         //onPlus and onMinus function only support at type 2;
         onPlus: function(value) {
@@ -81,8 +81,8 @@
         type: JDUI.type.SwiperSlide.withPoints,
         map: ['10', '20', '40', '50', '70', '80', '90', '100'],
         defaultValue: '40',
-        onChange: function(value, targetIndex, targetName) {
-            console.log(value, targetIndex, targetName);
+        afterUserChanged: function(value, label) {
+            console.log(value, label);
         }
     });
 
@@ -101,8 +101,8 @@
             },
         ],
         defaultValue: '0',
-        onChange: function(index) {
-            console.log(index);
+        afterUserChanged: function(value, xxx) {
+            console.log(value, xxx);
         }
     });
 

@@ -197,7 +197,9 @@ class SwiperSlide extends UI {
             if (this.options.beforeUserChanged(this.viewValue, this.value)) {
                 this.syncValueFromViewValue();
                 if(this.options.afterUserChanged) {
-                    this.options.afterUserChanged(this.value);
+                    const label = this.labelForValue(this.value);
+                    console.log(label);
+                    this.options.afterUserChanged(this.value, label);
                 }
             } else {
                 this.syncViewValueFromValue();
@@ -207,8 +209,23 @@ class SwiperSlide extends UI {
             this.syncValueFromViewValue();
 
             if(this.options.afterUserChanged) {
-                this.options.afterUserChanged(this.value);
+                this.options.afterUserChanged(this.value, this.labelForValue(this.value));
             }
+        }
+    }
+
+    labelForValue(targetValue) {
+        switch (this.options.type) {
+            case SwiperSlide.type.withPoints:
+                let result = '';
+                this.options.map.forEach((item, index) => {
+                    if (targetValue === (_.isObject(item) ? item.value : item)) {
+                        result = _.isObject(item) ? item.label : item.toString();
+                    }
+                });
+                return result;
+            default:
+                return targetValue.toString();
         }
     }
 
