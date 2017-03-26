@@ -48,7 +48,7 @@ npm run dev
 
 ## 如何使用
 
-## 引入文件
+### 引入文件
 
 1. 在 HTML 中引入 `jQuery` 库文件，目前我们使用的版本是 `v3.1.1`。
 2. 在 HTML 中引入 `jdsmart.ui.js` 库文件，可以在 [这里](./dist/jdsmart.ui.js) 直接下载最新编译的版本。
