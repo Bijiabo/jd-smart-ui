@@ -16,7 +16,7 @@
     - [新建组件实例](#新建组件实例)
     - [通用方法](#通用方法)
 - [现有组件](#现有组件)
-- [样式开发](#样式开发)
+- [设定主题色](#设定主题色)
 
 ## 本地开发
 
@@ -70,7 +70,7 @@ var workModeComponentInstance = new JDUI.instance.GridItem(selector, options);
 ### 通用方法
 
 ```JavaScript
-var listItem = new JDUI.instance.(selector, {...});
+var listItem = new JDUI.instance.ComponentName(options);
 
 listItem.show();
 listItem.hide();
@@ -97,27 +97,10 @@ listItem.updateValue('2');
 - [SwitchCell](./documents/components/SwitchCell.md)
 
 
-## 样式开发
+## 设定主题色
 
-页面中的大部分组件均添加面板类(`.panel`)，以模式选择控件举例：
-
-![](http://okw4n9e5h.bkt.clouddn.com/124512.jpg)
-
-针对不同的项目，可能需要设定不同的主题色，可直接通过`JDUI.style`接口来实现。具体组件中的样式书写可参考`Griditem.js`，需要高亮显示的块或文字添加类`active-block / active-text ／...`即可。
-
-目前主题色相关类：
-
-- active-block
-- active-text
-- active-border
-- theme-block
-- theme-text
-- theme-border
+原则上，不同项目对应不同的产品品类，所有组件应遵循该品类应有的主题色，符合标准的组件，可以随项目页面主题色切换不同的高亮着色显示效果，业务逻辑开发中，只需一行代码即可更新整个页面的颜色显示效果。
 
 ```JavaScript
 JDUI.style.themeColor = '#3E5266';
 ```
-
-### 组件 css 类命名规范
-
-为避免不同组件之间的命名冲突，css 类命名均采用 `.组件名-组件元素` 的命名方式，如我们现在建立一个开关组件，命名为`switch-cell`，那么它的触摸开关圆点可以命名为`.switch-cell-handle`。

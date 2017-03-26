@@ -1,5 +1,7 @@
 # GridItem
 
+![](http://okw4n9e5h.bkt.clouddn.com/161910.jpg)
+
 ```JavaScript
 var  GridItem = new JDUI.instance.GridItem(options);
 
