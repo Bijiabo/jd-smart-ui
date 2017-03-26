@@ -16,6 +16,8 @@
     - `JDUI.type.SwiperSlider.default` 和 `JDUI.type.SwiperSlider.withBtn` 必须
 - defaultValue 默认值，必填
     - Number / String
+- step 步长，可选，默认为 `1`
+- unit 单位, 可选，默认为空字符串
 - map 值队列
     - \[String\] / \[{value: '', label: ''}\]
     - `JDUI.type.SwiperSlider.withPoints` 必须

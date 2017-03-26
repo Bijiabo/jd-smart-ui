@@ -11,9 +11,23 @@ var $ = require('jquery');
 class SwiperSlide extends UI {
 
     constructor(options) {
-        // TODO: 添加配置检测方法
-        // TODO: 预处理配置数据
-        super(options);
+        const defaultOptions = {
+            title: 'Swiper Slider Title',
+            hook: false,
+            type: SwiperSlide.type.default,
+            min: 0,
+            max: 100,
+            step: 1,
+            defaultValue: 0,
+            unit: '',
+            beforeUserChanged: function(newVal, oldVal) {
+                return true;
+            },
+            afterUserChanged: function (val, label) {
+            }
+        };
+        const _options = $.extend(defaultOptions, options);
+        super(_options);
     }
 
     create() {
@@ -35,7 +49,7 @@ class SwiperSlide extends UI {
 
         // 添加标题
         if (this.options.title) {
-            html += `<div class="panel-title">${this.options.title}<span class="value"></span></div>`;
+            html += `<div class="panel-title">${this.options.title}<span class="value theme-text"></span></div>`;
         }
 
         html +=
@@ -99,8 +113,12 @@ class SwiperSlide extends UI {
                 mapItem = i === 0 ? this.options.min : this.options.max;
             }
             const currentItem = _.isObject(mapItem) ? mapItem : { value: mapItem, label: mapItem.toString() };
+            const displayUnit = pointsCount === 2 ? this.options.unit : '';
             return `
-            <div class="point-container" style="left: ${percentageForOnePart * i}%;" label="${currentItem.label}" value="${currentItem.value}">
+            <div class="point-container" 
+            style="left: ${percentageForOnePart * i}%;" 
+            label="${currentItem.label}${displayUnit}" 
+            value="${currentItem.value}">
             <div class="point theme-block"></div>
             </div>`;
         }).join('');
@@ -163,7 +181,7 @@ class SwiperSlide extends UI {
 
     renderForValue(targetRenderValue) {
         if (this.options.type === SwiperSlide.type.withBtn || this.options.type === SwiperSlide.type.default) {
-            $(this._hook + ' .panel-title .value').text(targetRenderValue);
+            $(this._hook + ' .panel-title .value').text(targetRenderValue + this.options.unit);
         }
 
         let targetLeftPersentage;

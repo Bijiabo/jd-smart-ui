@@ -106,6 +106,7 @@ var swiper = new JDUI.instance.SwiperSlide({
     max: 39,
     step: 1,
     defaultValue: 30,
+    unit: '℃',
     afterUserChanged: function (val, label) {
         console.log(val, label);
     }
