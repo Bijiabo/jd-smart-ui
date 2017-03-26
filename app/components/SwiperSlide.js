@@ -9,6 +9,7 @@ var $ = require('jquery');
 
 
 class SwiperSlide extends UI {
+
     constructor(options) {
         // TODO: 添加配置检测方法
         // TODO: 预处理配置数据
@@ -18,68 +19,44 @@ class SwiperSlide extends UI {
     create() {
         this._hook = this.options.hook;
         this._title = this.options.title;
-        this._type = this.getIndexOfType(this.options.type);
         this._showTip = this.options.showTip || false;
 
+        this.insertHtml();
+
         this.setDefaultValue();
-        this.sliderCommon();
-
-        // 这里dom渲染后设置值
-        if (this.options.map.defaultValue && this._type !== 3) {
-            this.value = this.options.map.defaultValue;
-        } else if (this.options.map.defaultValue && this._type === 3) {
-            this.value = this.getIndexFromPointsTypeValueMap(this.options.map.defaultValue);
-        }
 
     }
 
-    getIndexOfType(type) {
-        const TypeArr = ['common', 'widthBtn', 'withPoints'];
-        let index = TypeArr.indexOf(type);
-        if (index !== -1) {
-            return index + 1;
-        } else {
-            throw 'check the type param again';
-        }
-
-    }
-
-    sliderCommon() {
+    insertHtml() {
         let html = '';
         let type = Number(this._type);
 
-        let innerNode = this.createInner();
-        let bottomVal = this.createBtm();
-
         html += `<div class="panel">`;
+
+        // 添加标题
         if (this.options.title) {
-            html += `<div class="panel-title">${this.options.title}</div>`;
+            html += `<div class="panel-title">${this.options.title}<span class="value"></span></div>`;
         }
 
         html +=
             `<div class="swiper-control">
                     <div class="inner" id = "innerTrack">
                         <!-- 轨道 -->
-                        <div class="${type === 3 ? 'swiper-step-track flex-left theme-block': 'swiper-track theme-block'}"
+                        <div class="${type === SwiperSlide.type.withPoints ? 'swiper-step-track flex-left theme-block': 'swiper-track theme-block'}"
                             id = "track-inner"
-                            min="${this.options.map.min}"
-                            max="${this.options.map.max}"
+                            min="${this.options.min}"
+                            max="${this.options.max}"
                             data-now = ''>
-                            ${ type === 3 ? innerNode : ""}
+                            ${this.pointsHTML}
                         </div>
                         <!-- 拇指 -->
                         <div class="swiper-thumb theme-border" data-content =''></div>
-                        <!-- 数值 -->
-                        <div class="swiper-num${type === 3 ? '2' : ''} flex-left">
-                            ${bottomVal}
-                        </div>
                     </div>
                 </div>`;
 
-        if (type === 2) {
+        if (this.options.type === SwiperSlide.type.withBtn) {
             html +=
-                `
-                    <!-- 控制 -->
+                `   <!-- 控制 -->
                     <div class="contorlPanel flex-right">
                         <span class="plus-button" data-value ="plusBtn">+</span>
                         <span class="minus-button" data-value ="minusBtn">-</span>
@@ -91,7 +68,6 @@ class SwiperSlide extends UI {
     }
 
     initEventFn() {
-
         this.bindEvent_touchEvent_Group();
         this.bindEvent_tapEvent_Group();
     }
@@ -105,96 +81,151 @@ class SwiperSlide extends UI {
     bindEvent_tapEvent_Group() {
         this.bindEvent_tapPlusButton();
         this.bindEvent_tapMinusButton();
+        this.bindEvent_tapPoint();
     }
 
-    createInner() {
-        let html = "";
-        if (this._type === 3 && this._valMap !== undefined) {
-            for (let index = 0; index < this.options.map.max; index++) {
-                html += `<li></li>`;
+    get pointsHTML() {
+        let html = '';
+        let pointsCount = this.options.type === SwiperSlide.type.withPoints ? this.options.map.length : 2;
+
+        // 生成圆点
+        const pointArray = Array.from({ length: pointsCount});
+        const percentageForOnePart = 100 / (pointsCount - 1);
+        const pointsHTML = pointArray.map((x, i) => {
+            let mapItem;
+            if (this.options.type === SwiperSlide.type.withPoints) {
+                mapItem = this.options.map[i];
+            } else {
+                mapItem = i === 0 ? this.options.min : this.options.max;
             }
+            const currentItem = _.isObject(mapItem) ? mapItem : { value: mapItem, label: mapItem.toString() };
+            return `
+            <div class="point-container" style="left: ${percentageForOnePart * i}%;" label="${currentItem.label}" value="${currentItem.value}">
+            <div class="point theme-block"></div>
+            </div>`;
+        }).join('');
+
+        // 判断是否有圆点可见
+        switch (this.options.type) {
+            case SwiperSlide.type.withPoints:
+                html += `<div class="with-points">${pointsHTML}</div>`;
+                break;
+            default:
+                html += `<div class="no-points">${pointsHTML}</div>`;
+                break;
         }
+
         return html;
-    }
-
-    createBtm() {
-        let html = "";
-        if (this._type === 3 ) {
-            let arr = this._nameMap;
-            for (let index = 0; index < this.options.map.max + 1; index++) {
-                html +=
-                    `<span style = "width:${110 / arr.length}%">${arr[index]}</span>`;
-            }
-        } else {
-            html +=
-                `
-                <span>${this.options.map.min}</span>
-                <span>${this.options.map.max}</span>
-            `;
-        }
-        return html
     }
 
 
     setDefaultValue() {
-        // 带刻度的步长
-        if (this.options.map.step) {
-            this._step = this.options.map.step;
-        }
-        if (this.options.map.valMap) {
-            this._valMap = this.options.map.valMap;
-        }
-        if (this.options.map.nameMap) {
-            this._nameMap = this.options.map.nameMap;
+        this.value = this.options.defaultValue;
+    }
+
+    beforeSetValue(targetValue, oldValue) {
+        switch (this.options.type) {
+            case SwiperSlide.type.withPoints:
+                let targetMapIndex = -1;
+                this.options.map.forEach((item, index) => {
+                    if (targetValue === (_.isObject(item) ? item.value : item)) {
+                        targetMapIndex = index;
+                        return;
+                    }
+                });
+                return targetMapIndex >= 0;
+                break;
+            default:
+                const targetLeftPersentage = 1 / ((this.options.max - this.options.min)/this.options.step) * ((targetValue - this.options.min) / this.options.step);
+                return 0 <= targetLeftPersentage && targetLeftPersentage <= 1;
+                break;
         }
     }
 
-
-    get value() {
-        return super.value;
+    beforeSetViewValue(targetValue, oldValue) {
+        switch (this.options.type) {
+            case SwiperSlide.type.withPoints:
+                let targetMapIndex = -1;
+                this.options.map.forEach((item, index) => {
+                    if (targetValue === (_.isObject(item) ? item.value : item)) {
+                        targetMapIndex = index;
+                        return;
+                    }
+                });
+                return targetMapIndex >= 0;
+                break;
+            default:
+                const targetLeftPersentage = 1 / ((this.options.max - this.options.min)/this.options.step) * ((targetValue - this.options.min) / this.options.step);
+                return 0 <= targetLeftPersentage && targetLeftPersentage <= 1;
+                break;
+        }
     }
 
-
-    set value(targetValue) {
-        targetValue = Number(targetValue);
-
-        const min = this.options.map.min;
-        const max = this.options.map.max;
-        const slideElement = $(this._hook + ' .inner');
-        const innerTrack = document.getElementById('innerTrack').clientLeft;
-
-        if (targetValue < min || targetValue > max) {
-            return;
+    renderForValue(targetRenderValue) {
+        if (this.options.type === SwiperSlide.type.withBtn || this.options.type === SwiperSlide.type.default) {
+            $(this._hook + ' .panel-title .value').text(targetRenderValue);
         }
 
-        if (targetValue == this.value) {
-            return;
-        }
+        let targetLeftPersentage;
+        switch (this.options.type) {
+            case SwiperSlide.type.withPoints:
+                let targetMapIndex = 0;
+                this.options.map.forEach((item, index) => {
+                    if (targetRenderValue === (_.isObject(item) ? item.value : item)) {
+                        targetMapIndex = index;
+                        return;
+                    }
+                });
+                targetLeftPersentage = 1 / (this.options.map.length - 1) * targetMapIndex;
+                break;
+            default:
+                targetLeftPersentage = 1 / ((this.options.max - this.options.min)/this.options.step) * ((targetRenderValue - this.options.min) / this.options.step);
+                break;
+            }
 
-        if (this._type === 3 || !this._showTip) {
-            const handleElementLeftPercentage = (targetValue - min) / (max -
-                min) * 100;
+        this.handlePoint.element
+            .css('left', `${targetLeftPersentage * 100}%`)
+            .attr('data-content', this.viewValue);
+    }
 
-            this.handlePoint.element
-                .css('left', `${handleElementLeftPercentage}%`);
-            // this.handlePoint.element
-            //     .css({
-            //         'transform': `translate3d(${handleElementLeftPercentage}px,0,0)`,
-            //         '-webkit-transform': `translate3d(${handleElementLeftPercentage}px,0,0)`
-            //     });
+    afterSetViewValue() {
+        this.renderForValue(this.viewValue);
+
+        if (this.onSliding) { return; }
+
+        if (this.options.beforeUserChanged) {
+            if (this.options.beforeUserChanged(this.viewValue, this.value)) {
+                this.syncValueFromViewValue();
+                if(this.options.afterUserChanged) {
+                    const label = this.labelForValue(this.value);
+                    this.options.afterUserChanged(this.value, label);
+                }
+            } else {
+                this.syncViewValueFromValue();
+                this.renderForValue(this.viewValue); // 恢复原数值
+            }
         } else {
-            const handleElementLeftPercentage = (targetValue - min) / (max -
-                min) * 100;
-            // this.handlePoint.element
-            //     .css({
-            //         'transform': `translate3d(${handleElementLeftPercentage}px,0,0)`,
-            //         '-webkit-transform': `translate3d(${handleElementLeftPercentage}px,0,0)`
-            //     })
-            this.handlePoint.element
-                .css('left', `${handleElementLeftPercentage}%`)
-                .attr('data-content', targetValue);
+            this.syncValueFromViewValue();
+
+            if(this.options.afterUserChanged) {
+                this.options.afterUserChanged(this.value, this.labelForValue(this.value));
+            }
         }
-        super.value = targetValue;
+    }
+
+    labelForValue(targetValue) {
+        switch (this.options.type) {
+            case SwiperSlide.type.withPoints:
+                let result = '';
+                this.options.map.forEach((item, index) => {
+                    if (targetValue === (_.isObject(item) ? item.value : item)) {
+                        result = _.isObject(item) ? item.label : item.toString();
+                    }
+                });
+                return result;
+            default:
+                return targetValue.toString();
+        }
     }
 
     getIndexFromPointsTypeValueMap(value) {
@@ -211,14 +242,12 @@ class SwiperSlide extends UI {
             element: $(this._hook + ' .swiper-thumb'),
             selector: this._hook + ' .swiper-thumb',
         };
-
     }
 
     get onSliding() {
         return this._onSliding || false;
     }
     set onSliding(v) {
-        console.log(v);
         this._onSliding = !!v;
     }
 
@@ -230,8 +259,7 @@ class SwiperSlide extends UI {
 
     bindEvent_touchMove() {
         const self = this;
-        $(document).on('touchmove', this.handlePoint.selector, function(
-            event) {
+        $(document).on('touchmove', this.handlePoint.selector, function(event) {
             if (!self.onSliding) {
                 return;
             }
@@ -242,16 +270,31 @@ class SwiperSlide extends UI {
             }
             // TODO: 判断手指与控件的垂直距离，若太远，则设定 self.onSliding = false;
             console.log(`[${new Date()}] touchmoving...`);
+
             const handleElementPersentage = self.percentageForHandlePoint(
                 event.touches[0].pageX);
-            const targetValue = Math.round(handleElementPersentage * (self.options.map.max - self.options.map.min) + self.options.map.min);
-            self.value = targetValue;
+
+            let targetValue;
+            switch (self.options.type) {
+                case SwiperSlide.type.withPoints:
+                    const targetMapItemIndex = Math.round(handleElementPersentage / (1 / (self.options.map.length - 1)));
+                    const targetMapItem = self.options.map[targetMapItemIndex];
+                    targetValue = _.isObject(targetMapItem) ? targetMapItem.value : targetMapItem;
+                    break;
+                default:
+                    targetValue = Math.round(handleElementPersentage * (self.options.max - self.options.min) + self.options.min);
+                    break;
+            }
+
+            self.viewValue = targetValue;
         });
     }
 
     bindEvent_touchEnd() {
         $(document).on('touchend', this.handlePoint.selector, () => {
             this.onSliding = false;
+            this.viewValue = this.viewValue;
+
             if (this.options.onChange) {
                 if (this._type === 3) {
                     let targetIndex = this.options.map.valMap[this.value];
@@ -274,7 +317,10 @@ class SwiperSlide extends UI {
             minus: {
                 selector: this._hook + ' .minus-button'
             },
-        }
+            point: {
+                selector: this._hook + ' .point-container'
+            },
+        };
     }
 
     bindEvent_tapPlusButton() {
@@ -292,6 +338,15 @@ class SwiperSlide extends UI {
             if (this.options.onMinus) {
                 this.options.onMinus(this.value);
             }
+        });
+    }
+
+    bindEvent_tapPoint() {
+        var self = this;
+        $(document).on('tap', this.handleButton.point.selector, function() {
+            const targetPoint = $(this);
+            console.log(targetPoint.attr('value'));
+            self.viewValue = targetPoint.attr('value');
         });
     }
 
@@ -316,8 +371,8 @@ class SwiperSlide extends UI {
     }
 
 
-    disabled() {
-        super.disabled();
+    disable() {
+        super.disable();
         $(this._hook).addClass('disabled');
         this.unbindEvent_touchFunction();
         this.unbindEvent_tapFunction();
@@ -330,6 +385,13 @@ class SwiperSlide extends UI {
         this.bindEvent_tapEvent_Group();
     }
 }
+
+// 添加类型
+SwiperSlide.type = {
+    default: Symbol(), // 默认类型
+    withBtn: Symbol(), // 带+和-按钮
+    withPoints: Symbol(), // 带刻度
+};
 
 UI.registerComponent('SwiperSlide', SwiperSlide);
 

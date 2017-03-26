@@ -75,6 +75,10 @@ dd {
     line-height: 48px;
     font-size: 16px;
     color: #464646;
+
+    .value {
+        margin-left: 8px;
+    }
 }
 
 .ui_wrap {
@@ -281,6 +285,47 @@ $defineBorderRaduis: 5px;
     border-radius: $defineBorderRaduis;
 }
 
+
+.swiper-control .inner .swiper-track {
+    margin-bottom: 52px;
+
+    .point-container {
+        position: absolute;
+        top: 1px;
+        width: 44px;
+        margin-left: -22px;
+        height: 65px;
+        margin-top: -25px;
+        //border: 1px solid #cccccc;
+    }
+
+    .point {
+        position: absolute;
+        top: 25px;
+        left: 50%;
+        width: 6px;
+        height: 6px;
+        margin: -3px 0 0 -3px;
+        border-radius: 50%;
+    }
+
+    .point-container::before {
+        content: attr(label);
+        position: absolute;
+        top: 35px;
+        width: 100%;
+        text-align: center;
+        color: #A6A6A6;
+        font-size: 14px;
+    }
+
+    .no-points {
+        .point {
+            display: none;
+        }
+    }
+}
+
 .swiper-control .inner .swiper-step-track {
 }
 
@@ -313,7 +358,7 @@ $defineBorderRaduis: 5px;
 }
 
 .swiper-control .inner .swiper-thumb {
-    @extend .animation-quick;
+    //@extend .animation-quick;
     position: absolute;
     width: 24px;
     height: 24px;
@@ -328,11 +373,11 @@ $defineBorderRaduis: 5px;
     margin-left: -12px;
     transform: translate3d(0, 0, 0);
     -webkit-transform: translate3d(0, 0, 0);
-    transition: transform 0.1s linear;
-    -webkit-transition: transform 0.1s linear;
+    //transition: transform 0.1s linear;
+    //-webkit-transition: transform 0.1s linear;
     background-image: linear-gradient(-180deg, #FEFFFF 0%, #F6F1F1 100%);
 }
-
+/*
 .swiper-control .inner .swiper-thumb::before {
     position: absolute;
     content: attr(data-content);
@@ -345,7 +390,7 @@ $defineBorderRaduis: 5px;
     color: #A6A6A6;
     line-height: 20px;
 }
-
+*/
 .swiper-control .inner .swiper-num {
     margin-top: 15px;
     display: flex;

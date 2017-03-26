@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SwipreSlider - jd-smart-ui</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="../../jdsmart.ui.js" charset="utf-8"></script>
+</head>
+<body>
+
+<!--SwiperSlide-->
+<div class="swiper-wrap-normal"></div>
+
+<!--SwiperHasBar-->
+<div class="swiper-wrap-hasbar"></div>
+
+<div class="swiper-step"></div>
+
+<div class="wind-speed-bar"></div>
+
+<script>
+    var swiper = new JDUI.instance.SwiperSlide({
+        title: '滑动组件零',
+        hook: '.swiper-wrap-normal',
+        type: JDUI.type.SwiperSlide.withPoints,
+        showTip: true,
+        map: [
+            {
+                value: '0',
+                label: '零'
+            },
+            {
+                value: '1',
+                label: '壹'
+            },
+            {
+                value: '2',
+                label: '贰'
+            },
+            {
+                value: '3',
+                label: '叁'
+            },
+        ],
+        defaultValue: '0',
+        beforeUserChanged: function(newVal, oldVal) {
+            console.log('beforeUserChanged', newVal, oldVal);
+            return newVal != 3 ;
+        },
+        afterUserChanged: function (val, label) {
+            console.log('afterUserChanged', val, label);
+        }
+    });
+
+    var swiper2 = new JDUI.instance.SwiperSlide({
+        title: '滑动组件壹',
+        hook: '.swiper-wrap-hasbar',
+        type: JDUI.type.SwiperSlide.withBtn,
+        showTip: true,
+        min: 0,
+        max: 100,
+        defaultValue: 20,
+        step: 1,
+        afterUserChanged: function (val, label) {
+            console.log('afterUserChanged', val, label);
+        },
+        //onPlus and onMinus function only support at type 2;
+        onPlus: function(value) {
+            console.log(value);
+        },
+        onMinus: function(value) {
+            console.log(value);
+        }
+    });
+
+    var swiperStep = new JDUI.instance.SwiperSlide({
+        title: '带刻度的滑动条',
+        hook: '.swiper-step',
+        showTip: false,
+        type: JDUI.type.SwiperSlide.withPoints,
+        map: ['10', '20', '40', '50', '70', '80', '90', '100'],
+        defaultValue: '40',
+        afterUserChanged: function(value, label) {
+            console.log(value, label);
+        }
+    });
+
+    var swiper_tow_points = new JDUI.instance.SwiperSlide({
+        title: '风速调节',
+        hook: '.wind-speed-bar',
+        type: JDUI.type.SwiperSlide.withPoints,
+        map: [
+            {
+                value: '0',
+                label: '低档'
+            },
+            {
+                value: '2',
+                label: '高档'
+            },
+        ],
+        defaultValue: '0',
+        afterUserChanged: function(value, xxx) {
+            console.log(value, xxx);
+        }
+    });
+
+</script>
+
+</body>
+</html>

@@ -42,7 +42,7 @@ class UI {
         this._enabled = true;
     };
     //设置不可用
-    disabled() {
+    disable() {
         this._enabled = false;
     };
     //是否可用
@@ -61,11 +61,13 @@ class UI {
     get getself(){
         return this;
     };
+
+    // value
     get value(){
         return this._value;
     };
 
-    beforeSetValue() {
+    beforeSetValue(targetValue, oldValue) {
         return true;
     }
 
@@ -75,27 +77,63 @@ class UI {
 
     set value(val) {
         // console.warn(this.afterSetValue());
-        if (!this.beforeSetValue()) { return; }
-        this.afterSetValue(val);
+        if (!this.beforeSetValue(val, this._value)) { return; }
         this._value = val;
+        this.afterSetValue(val);
+        this.viewValue = this.value;
     };
+
+    // viewValue
+    get viewValue(){
+        return this._viewValue;
+    };
+
+    beforeSetViewValue(targetValue, oldValue) {
+        return true;
+    }
+
+    afterSetViewValue() {
+
+    }
+
+    set viewValue(val) {
+        // console.warn(this.afterSetValue());
+        if (!this.beforeSetViewValue(val, this._viewValue)) { return; }
+        this._viewValue = val;
+        this.afterSetViewValue(val);
+    };
+
+    syncValueFromViewValue() {
+        this._value = this._viewValue;
+    }
+
+    syncViewValueFromValue() {
+        this._viewValue = this._value;
+    }
+
+
     get el() {
         return $(this.options.hook);
     }
    
     // 检测是否有对应的组件
     static hasComponent(name) {
-        if (global.__JDUICache === undefined || global.__JDUICache.components === undefined) {
-            return false;
-        }
-
-        let hasTargetComponent = !!global.__JDUICache.components[name];
-
-        return hasTargetComponent;
+        return !!global.JDUI.instance[name];
     }
+
+    // 检测是否有对应的组件类型
+    static hasTypeForComponent(name) {
+        return !!global.JDUI.type[name];
+    }
+
     // 注册组件方法
     static registerComponent(componentName, componentClass) {
-        let result = {
+        /*
+        * componentName, // 组件名称，开发者使用时使用 new JDUI.instance.componentName() 即可使用
+        * componentClass, // 组件类
+        * types, // 组件内的类型注册，用于方便开发者传参使用
+        * */
+        const result = {
             success: false,
             error: 'unknow'
         };
@@ -109,7 +147,19 @@ class UI {
         if (global.JDUI) {
             global.JDUI.instance[componentName] = componentClass;
         }
+
+        // 注册类型
+        if (!componentClass.type) { return; }
+        if (this.hasTypeForComponent(componentName)) {
+            result.success = false;
+            result.error = `the component '${componentName}' has been registerted type before`;
+            return result;
+        }
+
+        global.JDUI.type[componentName] = componentClass.type;
     }
+
+    // 注册类型方法
 }
 
 const JDUI = {
@@ -117,6 +167,7 @@ const JDUI = {
     hasComponent: UI.hasComponent,
     registerComponent: UI.registerComponent,
     instance: {}, // new JDUI.instance.componentName
+    type: {}, // 组件类型注册 JDUI.type.组件名.类型
     _themeColor: '#FF8650',
     style: styleManager,
     class: UI,

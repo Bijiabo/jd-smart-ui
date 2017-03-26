@@ -61,24 +61,6 @@ var gridItem = new JDUI.instance.GridItem({
     }
 });
 
-var swiper_tow_points = new JDUI.instance.SwiperSlide({
-    title: '风速调节',
-    hook: '.wind-speed-bar',
-    showTip: false,
-    type: 'withPoints',
-    map: {
-        min: 0,
-        max: 1,
-        valMap: ['0', '2'],
-        nameMap: ['抵挡', '高档'],
-        defaultValue: '0'
-    },
-    onChange: function(index) {
-        console.log(index);
-    }
-});
-
-
 var listitem = new JDUI.instance.ListItem({
     title: "列表",
     hook: ".list-item-wrap",
@@ -119,30 +101,27 @@ listitem.updateItem({
 var swiper = new JDUI.instance.SwiperSlide({
     title: '滑动组件0',
     hook: '.swiper-wrap-normal',
-    type: 'common',
-    showTip: true,
-    map: {
-        min: 10,
-        max: 39,
-        defaultValue: 30
-    },
-    onChange: function(index) {
-        console.log(index);
+    type: JDUI.type.SwiperSlide.default,
+    min: 10,
+    max: 39,
+    step: 1,
+    defaultValue: 30,
+    afterUserChanged: function (val, label) {
+        console.log(val, label);
     }
 });
 
 var swiper2 = new JDUI.instance.SwiperSlide({
-    title: '滑动组件1',
+    title: '滑动组件壹',
     hook: '.swiper-wrap-hasbar',
-    type: 'widthBtn',
+    type: JDUI.type.SwiperSlide.withBtn,
     showTip: true,
-    map: {
-        min: 0,
-        max: 100,
-        defaultValue: 20
-    },
-    onChange: function(index) {
-        console.log(index);
+    min: 0,
+    max: 100,
+    defaultValue: 20,
+    step: 1,
+    afterUserChanged: function (val, label) {
+        console.log('afterUserChanged', val, label);
     },
     //onPlus and onMinus function only support at type 2;
     onPlus: function(value) {
@@ -157,16 +136,31 @@ var swiperStep = new JDUI.instance.SwiperSlide({
     title: '带刻度的滑动条',
     hook: '.swiper-step',
     showTip: false,
-    type: 'withPoints',
-    map: {
-        min: 0,
-        max: 7,
-        valMap: ['10', '20', '40', '50', '70', '80', '90', '100'],
-        nameMap: ['模式1', '模式2', '模式3', '模式4', '模式5', '模式6', '模式7', '模式8'],
-        defaultValue: '40'
-    },
-    onChange: function(value, targetIndex, targetName) {
-        console.log(value, targetIndex, targetName);
+    type: JDUI.type.SwiperSlide.withPoints,
+    map: ['10', '20', '40', '50', '70', '80', '90', '100'],
+    defaultValue: '40',
+    afterUserChanged: function(value, label) {
+        console.log(value, label);
+    }
+});
+
+var swiper_tow_points = new JDUI.instance.SwiperSlide({
+    title: '风速调节',
+    hook: '.wind-speed-bar',
+    type: JDUI.type.SwiperSlide.withPoints,
+    map: [
+        {
+            value: '0',
+            label: '低档'
+        },
+        {
+            value: '2',
+            label: '高档'
+        },
+    ],
+    defaultValue: '0',
+    afterUserChanged: function(value, xxx) {
+        console.log(value, xxx);
     }
 });
 
@@ -321,7 +315,7 @@ com_btn2.addEventListener('click', (e) => {
 }, false);
 
 $(function () {
-    setTimeout(function () {
-        swiper.value = 20;
-    },1000);
+    // setTimeout(function () {
+    //     swiper.value = 20;
+    // },1000);
 });

@@ -12,8 +12,8 @@
         return this.instance;
     }
 
-    Footer.prototype = JDUI.class.prototype;
-    Footer.prototype.constructor = JDUI.class;
+    Footer.prototype = new JDUI.class();
+    Footer.prototype.constructor = Footer;
 
     Footer.prototype.create = function(options) {
         this.dom.html('<div class="footer">Hello, I am footer component!</div>');
@@ -28,17 +28,18 @@
     };
 
     Footer.prototype.initEventFn = function () {
-        $(document).on('tap', this.hook, function () {
+        $(document).on('tap', this.options.hook, function () {
             console.warn('tap footer!!!');
         });
     };
 
-    Footer.prototype.beforeSetValue = function () {
+    Footer.prototype.beforeSetValue = function (targetValue, oldValue) {
         console.warn('run beforeSetValue');
+        console.log(targetValue, oldValue);
         return true;
     };
 
-    Footer.prototype.didSetValue = function (value) {
+    Footer.prototype.afterSetValue = function () {
         console.warn('run afterSetValue');
         $(this.options.hook).text(this.value);
     };
