@@ -62,7 +62,7 @@ class SwitchCell extends UI {
         return domSelector;
     }
 
-    bindSwitch_tap() {
+    bindSwitchActions() {
         $(document).on('tap', this.tapElementSelector, (e) => {
             if (this.isChecked) {
                 this.value = "1";
@@ -74,14 +74,29 @@ class SwitchCell extends UI {
                 this.options.onTap(this.value);
             }
         });
+
+        $(document).on('drag', this.tapElementSelector, (e) => {
+            if (!e.end) { return; }
+
+            if (e.dx > 0) {
+                this.value = "1";
+            } else {
+                this.value = "0";
+            }
+
+            if (this.options.onTap) {
+                this.options.onTap(this.value);
+            }
+        });
     }
 
-    unbindSwitch_tap() {
+    unbindSwitchActions() {
         $(document).off('tap', this.tapElementSelector);
+        $(document).off('drag', this.tapElementSelector);
     }
 
     initEventFn() {
-        this.bindSwitch_tap();
+        this.bindSwitchActions();
     }
 
     get isChecked() {
@@ -127,14 +142,14 @@ class SwitchCell extends UI {
     disable() {
         super.disable();
         $(this._hook).addClass('disabled');
-        this.unbindSwitch_tap();
+        this.unbindSwitchActions();
         $(this.getCheckBox()).attr('disabled', 'disabled');
     }
 
     enable() {
         super.enable();
         $(this._hook).removeClass('disabled');
-        this.bindSwitch_tap();
+        this.bindSwitchActions();
         $(this.getCheckBox()).removeAttr('disabled');
     }
 }

@@ -3282,8 +3282,8 @@ var SwitchCell = function (_UI) {
             }
         }
     }, {
-        key: 'bindSwitch_tap',
-        value: function bindSwitch_tap() {
+        key: 'bindSwitchActions',
+        value: function bindSwitchActions() {
             var _this2 = this;
 
             $(document).on('tap', this.tapElementSelector, function (e) {
@@ -3297,23 +3297,40 @@ var SwitchCell = function (_UI) {
                     _this2.options.onTap(_this2.value);
                 }
             });
+
+            $(document).on('drag', this.tapElementSelector, function (e) {
+                if (!e.end) {
+                    return;
+                }
+
+                if (e.dx > 0) {
+                    _this2.value = "1";
+                } else {
+                    _this2.value = "0";
+                }
+
+                if (_this2.options.onTap) {
+                    _this2.options.onTap(_this2.value);
+                }
+            });
         }
     }, {
-        key: 'unbindSwitch_tap',
-        value: function unbindSwitch_tap() {
+        key: 'unbindSwitchActions',
+        value: function unbindSwitchActions() {
             $(document).off('tap', this.tapElementSelector);
+            $(document).off('drag', this.tapElementSelector);
         }
     }, {
         key: 'initEventFn',
         value: function initEventFn() {
-            this.bindSwitch_tap();
+            this.bindSwitchActions();
         }
     }, {
         key: 'disable',
         value: function disable() {
             _get(SwitchCell.prototype.__proto__ || Object.getPrototypeOf(SwitchCell.prototype), 'disable', this).call(this);
             $(this._hook).addClass('disabled');
-            this.unbindSwitch_tap();
+            this.unbindSwitchActions();
             $(this.getCheckBox()).attr('disabled', 'disabled');
         }
     }, {
@@ -3321,7 +3338,7 @@ var SwitchCell = function (_UI) {
         value: function enable() {
             _get(SwitchCell.prototype.__proto__ || Object.getPrototypeOf(SwitchCell.prototype), 'enable', this).call(this);
             $(this._hook).removeClass('disabled');
-            this.bindSwitch_tap();
+            this.bindSwitchActions();
             $(this.getCheckBox()).removeAttr('disabled');
         }
     }, {
