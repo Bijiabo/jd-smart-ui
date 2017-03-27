@@ -234,6 +234,16 @@ div[class~="unit-0"] .rightPart .rightarrow {
     color: #ffffff;
 }
 
+.disabled {
+    .grid-item.active-block {
+        color: #A6A6A6;
+    }
+    .grid-item.active-block {
+        background: none;
+        border-color: #E5E5E5;
+    }
+}
+
 .grid-item.no-right-border {
     border-right-width: 0;
 }

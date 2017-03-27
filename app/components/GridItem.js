@@ -163,17 +163,17 @@ class GridItem extends UI {
         }
     }
 
-    disabled(){
-        super.disabled();
-        let selector = this.selectorDom();
-        $(selector).addClass("disabled");
+    disable(){
+        super.disable();
+        $(this.options.hook).addClass("disabled");
+        const selector = this.selectorDom();
         $(document).off("click",selector);
     }
 
     enable(){
         super.enable();
-        let selector = this.selectorDom();
-        $(selector).removeClass("disabled");
+        $(this.options.hook).removeClass("disabled");
+        const selector = this.selectorDom();
         $(document).on("click",selector,(e)=>{
             this.fn(e);
         });

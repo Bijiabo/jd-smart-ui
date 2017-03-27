@@ -132,8 +132,8 @@ class ListItem extends UI {
         this.create();
     }
 
-    disabled(){
-        super.disabled();
+    disable(){
+        super.disable();
         let selector = this.selector();
         $(selector).addClass("disabled");
         $(document).off("click",selector);
