@@ -124,8 +124,8 @@ class SwitchCell extends UI {
         }
     }
 
-    disabled() {
-        super.disabled();
+    disable() {
+        super.disable();
         $(this._hook).addClass('disabled');
         this.unbindSwitch_tap();
         $(this.getCheckBox()).attr('disabled', 'disabled');

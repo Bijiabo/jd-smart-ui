@@ -3309,9 +3309,9 @@ var SwitchCell = function (_UI) {
             this.bindSwitch_tap();
         }
     }, {
-        key: 'disabled',
-        value: function disabled() {
-            _get(SwitchCell.prototype.__proto__ || Object.getPrototypeOf(SwitchCell.prototype), 'disabled', this).call(this);
+        key: 'disable',
+        value: function disable() {
+            _get(SwitchCell.prototype.__proto__ || Object.getPrototypeOf(SwitchCell.prototype), 'disable', this).call(this);
             $(this._hook).addClass('disabled');
             this.unbindSwitch_tap();
             $(this.getCheckBox()).attr('disabled', 'disabled');
