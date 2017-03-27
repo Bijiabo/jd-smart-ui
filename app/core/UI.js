@@ -6,7 +6,18 @@ global._ = _;
 
 class UI {
     constructor(options) {
-        this.options = options;
+        // options
+        const defaultOptions = {
+            hook: false,
+            defaultValue: 0,
+            afterEnabled: function () {},
+            afterDisabled: function () {},
+            afterShow: function () {},
+            afterHide: function () {}
+        };
+        const _options = $.extend(defaultOptions, options);
+        this.options = _options;
+
         this._unclickMap = [];
         this._visibility = true;
         this._enabled = true;
@@ -40,11 +51,19 @@ class UI {
     //设置可用
     enable() {
         this._enabled = true;
+        this.afterEnabled();
     };
+    afterEnabled() {
+        this.options.afterEnabled();
+    }
     //设置不可用
     disable() {
         this._enabled = false;
+        this.afterDisabled();
     };
+    afterDisabled() {
+        this.options.afterDisabled();
+    }
     //是否可用
     get isEnabled() {
         return this._enabled;
@@ -58,6 +77,7 @@ class UI {
     get dom(){
         return $(this.options.hook);
     };
+
     get getself(){
         return this;
     };

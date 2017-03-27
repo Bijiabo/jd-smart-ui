@@ -23,12 +23,8 @@ class SwitchCell extends UI {
 
     create() {
         this._hook = this.options.hook;
-        // this._type = this.getTypeIndexFn(this.options.type);
 
-        this._map = this.options.map;
-        let html = '';
-
-        html = `<div class="panel ${this.options.type === SwitchCell.type.power ? 'no-margin no-border-radius' : ''}">
+        const html = `<div class="panel ${this.options.type === SwitchCell.type.power ? 'no-margin no-border-radius' : ''}">
                     <div class="switch-control flex-left">
                         <div class="switch-title">${this.title}</div>
                         <div class="switch-btn-main">
@@ -53,15 +49,6 @@ class SwitchCell extends UI {
         }
     }
 
-    getTypeIndexFn(type) {
-        let typeArr = ['JD', 'Ali'];
-        if (typeArr.indexOf(type) !== -1) {
-            return typeArr.indexOf(type) + 1;
-        } else {
-            throw 'please check the type param again!';
-        }
-    }
-
     getCheckBox() {
         if (this.options.type === SwitchCell.type.power) {
             return this._hook + ` :checkbox`;
@@ -70,16 +57,14 @@ class SwitchCell extends UI {
         }
     }
 
-    getTapDom() {
+    get tapElementSelector() {
         const domSelector = this._hook + ` .tapbtn`;
         return domSelector;
     }
 
     bindSwitch_tap() {
-        let trigger = this.getTapDom();
-        let that = this;
-        $(document).on('tap', trigger, (e) => {
-            if (that.isChecked) {
+        $(document).on('tap', this.tapElementSelector, (e) => {
+            if (this.isChecked) {
                 this.value = "1";
             } else {
                 this.value = "0";
@@ -92,8 +77,7 @@ class SwitchCell extends UI {
     }
 
     unbindSwitch_tap() {
-        let trigger = this.getTapDom();
-        $(document).off('tap', trigger);
+        $(document).off('tap', this.tapElementSelector);
     }
 
     initEventFn() {

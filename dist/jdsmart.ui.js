@@ -98,7 +98,18 @@ var UI = function () {
     function UI(options) {
         _classCallCheck(this, UI);
 
-        this.options = options;
+        // options
+        var defaultOptions = {
+            hook: false,
+            defaultValue: 0,
+            afterEnabled: function afterEnabled() {},
+            afterDisabled: function afterDisabled() {},
+            afterShow: function afterShow() {},
+            afterHide: function afterHide() {}
+        };
+        var _options = $.extend(defaultOptions, options);
+        this.options = _options;
+
         this._unclickMap = [];
         this._visibility = true;
         this._enabled = true;
@@ -140,14 +151,28 @@ var UI = function () {
         //设置可用
         value: function enable() {
             this._enabled = true;
+            this.afterEnabled();
         }
     }, {
-        key: 'disable',
-
+        key: 'afterEnabled',
+        value: function afterEnabled() {
+            this.options.afterEnabled();
+        }
         //设置不可用
+
+    }, {
+        key: 'disable',
         value: function disable() {
             this._enabled = false;
+            this.afterDisabled();
         }
+    }, {
+        key: 'afterDisabled',
+        value: function afterDisabled() {
+            this.options.afterDisabled();
+        }
+        //是否可用
+
     }, {
         key: 'beforeSetValue',
         value: function beforeSetValue(targetValue, oldValue) {
@@ -183,8 +208,6 @@ var UI = function () {
         }
     }, {
         key: 'isEnabled',
-
-        //是否可用
         get: function get() {
             return this._enabled;
         }
@@ -3242,26 +3265,12 @@ var SwitchCell = function (_UI) {
         key: 'create',
         value: function create() {
             this._hook = this.options.hook;
-            // this._type = this.getTypeIndexFn(this.options.type);
 
-            this._map = this.options.map;
-            var html = '';
-
-            html = '<div class="panel ' + (this.options.type === SwitchCell.type.power ? 'no-margin no-border-radius' : '') + '">\n                    <div class="switch-control flex-left">\n                        <div class="switch-title">' + this.title + '</div>\n                        <div class="switch-btn-main">\n                            <input type="checkbox" name= "switch-cell-' + (this.options.type === SwitchCell.type.power ? 'jd' : 'ali') + '">\n                            <label for="switch-cell-' + (this.options.type === SwitchCell.type.power ? 'jd' : 'ali') + '"\n                                class="tapbtn iconfont">' + (this.options.type === SwitchCell.type.power ? '&#xe6c5;' : '') + '</label>\n                        </div>\n\n                    </div>\n                </div>';
+            var html = '<div class="panel ' + (this.options.type === SwitchCell.type.power ? 'no-margin no-border-radius' : '') + '">\n                    <div class="switch-control flex-left">\n                        <div class="switch-title">' + this.title + '</div>\n                        <div class="switch-btn-main">\n                            <input type="checkbox" name= "switch-cell-' + (this.options.type === SwitchCell.type.power ? 'jd' : 'ali') + '">\n                            <label for="switch-cell-' + (this.options.type === SwitchCell.type.power ? 'jd' : 'ali') + '"\n                                class="tapbtn iconfont">' + (this.options.type === SwitchCell.type.power ? '&#xe6c5;' : '') + '</label>\n                        </div>\n\n                    </div>\n                </div>';
 
             $(this._hook).append(html);
 
             this.value = '0';
-        }
-    }, {
-        key: 'getTypeIndexFn',
-        value: function getTypeIndexFn(type) {
-            var typeArr = ['JD', 'Ali'];
-            if (typeArr.indexOf(type) !== -1) {
-                return typeArr.indexOf(type) + 1;
-            } else {
-                throw 'please check the type param again!';
-            }
         }
     }, {
         key: 'getCheckBox',
@@ -3273,20 +3282,12 @@ var SwitchCell = function (_UI) {
             }
         }
     }, {
-        key: 'getTapDom',
-        value: function getTapDom() {
-            var domSelector = this._hook + ' .tapbtn';
-            return domSelector;
-        }
-    }, {
         key: 'bindSwitch_tap',
         value: function bindSwitch_tap() {
             var _this2 = this;
 
-            var trigger = this.getTapDom();
-            var that = this;
-            $(document).on('tap', trigger, function (e) {
-                if (that.isChecked) {
+            $(document).on('tap', this.tapElementSelector, function (e) {
+                if (_this2.isChecked) {
                     _this2.value = "1";
                 } else {
                     _this2.value = "0";
@@ -3300,8 +3301,7 @@ var SwitchCell = function (_UI) {
     }, {
         key: 'unbindSwitch_tap',
         value: function unbindSwitch_tap() {
-            var trigger = this.getTapDom();
-            $(document).off('tap', trigger);
+            $(document).off('tap', this.tapElementSelector);
         }
     }, {
         key: 'initEventFn',
@@ -3332,6 +3332,12 @@ var SwitchCell = function (_UI) {
             } else {
                 return this.options.title;
             }
+        }
+    }, {
+        key: 'tapElementSelector',
+        get: function get() {
+            var domSelector = this._hook + ' .tapbtn';
+            return domSelector;
         }
     }, {
         key: 'isChecked',
