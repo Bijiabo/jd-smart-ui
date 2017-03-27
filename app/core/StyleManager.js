@@ -10,6 +10,9 @@ const rules = {
             `.theme-block { background-color: ${value}}`,
             `.theme-text { color: ${value}}`,
             `.theme-border { border-color: ${value}}`,
+            `.theme-border-in-after::after { border-color: ${value}}`,
+            `.theme-block-in-after::after { background-color: ${value}}`,
+            `.theme-text-in-after::after { color: ${value}}`,
         ];
     }
 };

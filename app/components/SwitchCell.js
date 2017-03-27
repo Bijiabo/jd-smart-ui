@@ -118,7 +118,7 @@ class SwitchCell extends UI {
             if (this.options.type === SwitchCell.type.power) {
                 labelElement.removeClass('active-block active-border');
             } else {
-                labelElement.addClass('active-block')
+                labelElement.addClass('theme-block-in-after theme-border')
             }
 
         } else {
@@ -127,7 +127,7 @@ class SwitchCell extends UI {
             if (this.options.type === SwitchCell.type.power) {
                 labelElement.addClass('active-block active-border');
             } else {
-                labelElement.removeClass('active-block')
+                labelElement.removeClass('theme-block-in-after theme-border')
             }
         }
         this._value = nowValue;

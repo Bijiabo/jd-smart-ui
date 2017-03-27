@@ -314,8 +314,15 @@ com_btn2.addEventListener('click', (e) => {
     confirm2.openConfirm();
 }, false);
 
-$(function () {
-    // setTimeout(function () {
-    //     swiper.value = 20;
-    // },1000);
+// test disable()
+(function disableAllComponents() {
+    gridItem.disable();
+    listitem.disable();
+    swiper.disable();
+    swiper2.disable();
+    swiperStep.disable();
+    swiper_tow_points.disable();
+    swithCell.disable();
+    swithCell2.disable();
+    swithCell3.disable();
 });
