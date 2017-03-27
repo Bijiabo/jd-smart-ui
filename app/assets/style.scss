@@ -5,8 +5,10 @@
 $splitLineColor: #E5E5E5;
 $hoverColor: rgba(0, 0, 0, 0.1);
 $transparentColor: rgba(0, 0, 0, 0);
+$disableThemeColor: #C8C8C8;
+
 body {
-    background-color: #F0F0F0;
+    background-color: #EFEFEF;
     -webkit-tap-highlight-color:rgba(0,0,0,0);
     tap-highlight-color:rgba(0,0,0,0);
 }
@@ -64,12 +66,42 @@ dd {
     z-index: 5;
 }
 
+.disabled {
+    .panel {
+        background: #F4F4F4;
+        color: $disableThemeColor;
+
+        .panel-title {
+            color: $disableThemeColor;
+        }
+    }
+
+    .active-block,
+    .theme-block
+    {
+        background: $disableThemeColor;
+    }
+
+    .theme-border,
+    .active-border
+    {
+        border-color: $disableThemeColor;
+    }
+
+    .theme-text,
+    .active-text,
+    .theme-text
+    {
+        color: $disableThemeColor;
+    }
+}
+
 .panel {
     position: relative;
     background-color: #ffffff;
     margin: 8px;
     border-radius: 4px;
-    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.08);
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.15);
     overflow: hidden;
 }
 
@@ -202,6 +234,16 @@ div[class~="unit-0"] .rightPart .rightarrow {
     color: #ffffff;
 }
 
+.disabled {
+    .grid-item.active-block {
+        color: #A6A6A6;
+    }
+    .grid-item.active-block {
+        background: none;
+        border-color: #E5E5E5;
+    }
+}
+
 .grid-item.no-right-border {
     border-right-width: 0;
 }
@@ -266,18 +308,6 @@ $defineBorderRaduis: 5px;
     position: relative;
 }
 
-.swiper-wrap-normal.disabled,
-.swiper-wrap-controlpanel.disabled,
-.swiper-wrap-hasbar.disabled,
-.swiper-step.disabled,
-.switch-cell.disabled {
-    opacity: 0.5;
-}
-
-.disabled {
-    opacity: 0.5;
-}
-
 .swiper-control {
     margin: 25px 20px;
     position: relative;
@@ -337,6 +367,16 @@ $defineBorderRaduis: 5px;
             display: none;
         }
     }
+}
+
+.disabled {
+    .swiper-control .inner .swiper-track,
+    .swiper-control .inner .swiper-step-track {
+        .point-container::before {
+            color: $disableThemeColor;
+        }
+    }
+
 }
 
 .swiper-control .inner .swiper-step-track {
@@ -485,7 +525,7 @@ input[type='checkbox'] {
     display: none;
 }
 
-label[for="switch-cell-jd"] {
+.switch-cell-label-power {
     width: 45px;
     height: 45px;
     display: inline-block;
@@ -503,37 +543,39 @@ input[type='checkbox']:checked+label[for="switch-cell-jd"] {
     //color: #fff;
 }
 
-label[for="switch-cell-ali"] {
+.switch-cell-label-switch {
+    position: relative;
     display: inline-block;
     width: 60px;
     height: 30px;
     border: 1px solid #ccc;
-    border-radius: 30px;
+    border-radius: 36px;
     position: relative;
     top: 11px;
-    background: #f0f0f0;
     @extend .animation-switch;
 }
 
-label[for="switch-cell-ali"]::after {
-    display: block;
-    position: relative;
+.switch-cell-label-switch::after {
     content: '';
-    width: 50%;
-    height: 100%;
-    background: #fff;
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    width: 10px;
+    height: 10px;
+    margin: -5px 0 0 -5px;
+    display: block;
+    background: #cccccc;
     border-radius: 50%;
-    left: 0;
+    //box-shadow: 0 0 2px #eee;
     @extend .animation-switch;
-    box-shadow: 0 0 2px #eee;
 }
 
-input[type='checkbox']:checked, label[for='switch-cell-ali'].checked {
+input.switch-cell-label-power:checked, label.switch-cell-label-switch.checked {
     //background: #9FD6AE
 }
 
-input[type='checkbox']:checked, label[for='switch-cell-ali'].checked::after {
-    left: 50%;
+input[type='checkbox']:checked, label.switch-cell-label-switch.checked::after {
+    left: 46px;
 }
 
 

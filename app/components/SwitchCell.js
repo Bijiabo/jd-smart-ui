@@ -28,9 +28,11 @@ class SwitchCell extends UI {
                     <div class="switch-control flex-left">
                         <div class="switch-title">${this.title}</div>
                         <div class="switch-btn-main">
-                            <input type="checkbox" name= "switch-cell-${this.options.type === SwitchCell.type.power ? 'jd' : 'ali'}">
-                            <label for="switch-cell-${this.options.type === SwitchCell.type.power ? 'jd' : 'ali'}"
-                                class="tapbtn iconfont">${this.options.type === SwitchCell.type.power ? '&#xe6c5;':''}</label>
+                            <input type="checkbox" class="switch-cell-checkbox-${this.options.type === SwitchCell.type.power ? 'power' : 'switch'}">
+                            <label
+                                class="tapbtn iconfont switch-cell-label-${this.options.type === SwitchCell.type.power ? 'power' : 'switch'}">
+                                ${this.options.type === SwitchCell.type.power ? '&#xe6c5;':''}
+                            </label>
                         </div>
 
                     </div>
@@ -114,18 +116,18 @@ class SwitchCell extends UI {
             $(this.getCheckBox()).attr('checked', 'checked');
             labelElement.addClass('checked')
             if (this.options.type === SwitchCell.type.power) {
-                labelElement.removeClass('active-block');
+                labelElement.removeClass('active-block active-border');
             } else {
-                labelElement.addClass('active-block')
+                labelElement.addClass('theme-block-in-after theme-border')
             }
 
         } else {
             $(this.getCheckBox()).attr('checked', false);
             labelElement.removeClass('checked');
             if (this.options.type === SwitchCell.type.power) {
-                labelElement.addClass('active-block');
+                labelElement.addClass('active-block active-border');
             } else {
-                labelElement.removeClass('active-block')
+                labelElement.removeClass('theme-block-in-after theme-border')
             }
         }
         this._value = nowValue;
