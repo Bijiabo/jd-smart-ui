@@ -94,6 +94,10 @@ dd {
     {
         color: $disableThemeColor;
     }
+
+    .theme-border-in-after::after { border-color: $disableThemeColor;}
+    .theme-block-in-after::after { background-color: $disableThemeColor}
+    .theme-text-in-after::after { color: $disableThemeColor}
 }
 
 .panel {
