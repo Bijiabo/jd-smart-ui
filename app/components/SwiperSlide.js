@@ -218,26 +218,6 @@ class SwiperSlide extends UI {
         if (this.onSliding) { return; }
 
         console.warn(this.onSliding);
-
-        if (this.options.beforeUserChanged) {
-            if (this.options.beforeUserChanged(this.viewValue, this.value)) {
-                this.syncValueFromViewValue();
-                if(this.options.afterUserChanged) {
-                    const label = this.labelForValue(this.value);
-                    console.log('xxx');
-                    this.options.afterUserChanged(this.value, label);
-                }
-            } else {
-                this.syncViewValueFromValue();
-                this.renderForValue(this.viewValue); // 恢复原数值
-            }
-        } else {
-            this.syncValueFromViewValue();
-
-            if(this.options.afterUserChanged) {
-                this.options.afterUserChanged(this.value, this.labelForValue(this.value));
-            }
-        }
     }
 
     labelForValue(targetValue) {
@@ -323,18 +303,29 @@ class SwiperSlide extends UI {
             this.onSliding = false;
             this.viewValue = this.viewValue;
 
-            if (this.options.onChange) {
-                if (this._type === 3) {
-                    let targetIndex = this.options.map.valMap[this.value];
-                    let targetName = this.options.map.nameMap[this.value];
-                    this.options.onChange(this.value, targetIndex,
-                        targetName);
-                } else {
-                    this.options.onChange(this.value);
-                }
-
-            }
+            this.userActionEnd();
         });
+    }
+
+    userActionEnd() {
+        if (this.options.beforeUserChanged) {
+            if (this.options.beforeUserChanged(this.viewValue, this.value)) {
+                this.syncValueFromViewValue();
+                if(this.options.afterUserChanged) {
+                    const label = this.labelForValue(this.value);
+                    this.options.afterUserChanged(this.value, label);
+                }
+            } else {
+                this.syncViewValueFromValue();
+                this.renderForValue(this.viewValue); // 恢复原数值
+            }
+        } else {
+            this.syncValueFromViewValue();
+
+            if(this.options.afterUserChanged) {
+                this.options.afterUserChanged(this.value, this.labelForValue(this.value));
+            }
+        }
     }
 
     get handleButton() {
@@ -375,6 +366,8 @@ class SwiperSlide extends UI {
             const targetPoint = $(this);
             console.log(targetPoint.attr('value'));
             self.viewValue = targetPoint.attr('value');
+
+            self.userActionEnd();
         });
     }
 

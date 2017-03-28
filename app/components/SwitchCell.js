@@ -93,8 +93,8 @@ class SwitchCell extends UI {
     }
 
     unbindSwitchActions() {
-        $(document).off('tap', this.tapElementSelector);
-        $(document).off('drag', this.tapElementSelector);
+        // $(document).off('tap', this.tapElementSelector);
+        // $(document).off('drag', this.tapElementSelector);
     }
 
     initEventFn() {
@@ -144,14 +144,14 @@ class SwitchCell extends UI {
     disable() {
         super.disable();
         $(this._hook).addClass('disabled');
-        this.unbindSwitchActions();
+        // this.unbindSwitchActions();
         $(this.getCheckBox()).attr('disabled', 'disabled');
     }
 
     enable() {
         super.enable();
         $(this._hook).removeClass('disabled');
-        this.bindSwitchActions();
+        // this.bindSwitchActions();
         $(this.getCheckBox()).removeAttr('disabled');
     }
 }
