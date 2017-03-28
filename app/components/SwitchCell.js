@@ -116,7 +116,7 @@ class SwitchCell extends UI {
             $(this.getCheckBox()).attr('checked', 'checked');
             labelElement.addClass('checked')
             if (this.options.type === SwitchCell.type.power) {
-                labelElement.removeClass('active-block active-border');
+                labelElement.removeClass('active-block active-border').addClass('theme-text');
             } else {
                 labelElement.addClass('theme-block-in-after theme-border')
             }
@@ -125,7 +125,7 @@ class SwitchCell extends UI {
             $(this.getCheckBox()).attr('checked', false);
             labelElement.removeClass('checked');
             if (this.options.type === SwitchCell.type.power) {
-                labelElement.addClass('active-block active-border');
+                labelElement.addClass('active-block active-border').removeClass('theme-text');
             } else {
                 labelElement.removeClass('theme-block-in-after theme-border')
             }
