@@ -213,11 +213,6 @@ class SwiperSlide extends UI {
 
     afterSetViewValue() {
         this.renderForValue(this.viewValue);
-
-        if (!this.isReady) { return; }
-        if (this.onSliding) { return; }
-
-        console.warn(this.onSliding);
     }
 
     labelForValue(targetValue) {
@@ -276,7 +271,6 @@ class SwiperSlide extends UI {
                 }
             }
             // TODO: 判断手指与控件的垂直距离，若太远，则设定 self.onSliding = false;
-            // console.log(`[${new Date()}] touchmoving...`);
 
             const handleElementPersentage = self.percentageForHandlePoint(
                 event.touches[0].pageX);
@@ -298,9 +292,10 @@ class SwiperSlide extends UI {
     }
 
     bindEvent_touchEnd() {
-        console.debug(this.handlePoint.selector);
         $(document).on('touchend', this.handlePoint.selector, () => {
+            console.info('SwiperSlide touchend', $(this.options.hook), {value: this.value, label: this.viewValue});
             this.onSliding = false;
+            if (this.value === this.viewValue) { return; }
             this.viewValue = this.viewValue;
 
             this.userActionEnd();
@@ -364,8 +359,9 @@ class SwiperSlide extends UI {
         var self = this;
         $(document).on('tap', this.handleButton.point.selector, function() {
             const targetPoint = $(this);
-            console.log(targetPoint.attr('value'));
             self.viewValue = targetPoint.attr('value');
+
+            if (self.value === self.viewValue) { return; }
 
             self.userActionEnd();
         });
