@@ -71,7 +71,6 @@ class SwitchCell extends UI {
             } else {
                 this.value = "0";
             }
-
             if (this.options.onTap) {
                 this.options.onTap(this.value);
             }
@@ -113,7 +112,7 @@ class SwitchCell extends UI {
         // console.warn($(this.getCheckBox()));
         const labelElement = $(`${this._hook} label`);
         if (nowValue === "1") {
-            $(this.getCheckBox()).attr('checked', 'checked');
+            $(this.getCheckBox()).prop('checked', true);
             labelElement.addClass('checked')
             if (this.options.type === SwitchCell.type.power) {
                 labelElement.removeClass('active-block active-border');
@@ -122,7 +121,7 @@ class SwitchCell extends UI {
             }
 
         } else {
-            $(this.getCheckBox()).attr('checked', false);
+            $(this.getCheckBox()).prop('checked', false);
             labelElement.removeClass('checked');
             if (this.options.type === SwitchCell.type.power) {
                 labelElement.addClass('active-block active-border');
