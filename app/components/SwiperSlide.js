@@ -371,7 +371,6 @@ class SwiperSlide extends UI {
     percentageForHandlePoint(currentX) {
         // 根据传入的手指触摸点的 X 坐标，返回对应的控制点百分比
         const slideElement = $(this._hook + ' .inner');
-        console.log(slideElement.width(), slideElement.offset().left);
         return (currentX - slideElement.offset().left) / slideElement.width();
     }
 

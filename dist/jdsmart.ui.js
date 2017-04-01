@@ -3010,6 +3010,9 @@ var SwiperSlide = function (_UI) {
                 if (!self.onSliding) {
                     return;
                 }
+                if (!event.originalEvent.touches) {
+                    return;
+                }
                 if (event.cancelable) {
                     if (!event.defaultPrevented) {
                         event.preventDefault();
@@ -3018,7 +3021,7 @@ var SwiperSlide = function (_UI) {
                 // TODO: 判断手指与控件的垂直距离，若太远，则设定 self.onSliding = false;
                 console.log('[' + new Date() + '] touchmoving...');
 
-                var handleElementPersentage = self.percentageForHandlePoint(event.touches[0].pageX);
+                var handleElementPersentage = self.percentageForHandlePoint(event.originalEvent.touches[0].pageX);
 
                 var targetValue = void 0;
                 switch (self.options.type) {
@@ -3094,7 +3097,6 @@ var SwiperSlide = function (_UI) {
         value: function percentageForHandlePoint(currentX) {
             // 根据传入的手指触摸点的 X 坐标，返回对应的控制点百分比
             var slideElement = $(this._hook + ' .inner');
-            console.log(slideElement.width(), slideElement.offset().left);
             return (currentX - slideElement.offset().left) / slideElement.width();
         }
     }, {
@@ -3269,8 +3271,7 @@ var SwitchCell = function (_UI) {
             var html = '<div class="panel ' + (this.options.type === SwitchCell.type.power ? 'no-margin no-border-radius' : '') + '">\n                    <div class="switch-control flex-left">\n                        <div class="switch-title">' + this.title + '</div>\n                        <div class="switch-btn-main">\n                            <input type="checkbox" class="switch-cell-checkbox-' + (this.options.type === SwitchCell.type.power ? 'power' : 'switch') + '">\n                            <label\n                                class="tapbtn iconfont switch-cell-label-' + (this.options.type === SwitchCell.type.power ? 'power' : 'switch') + '">\n                                ' + (this.options.type === SwitchCell.type.power ? '&#xe6c5;' : '') + '\n                            </label>\n                        </div>\n\n                    </div>\n                </div>';
 
             $(this._hook).append(html);
-
-            this.value = '0';
+            this.value = this.options.value;
         }
     }, {
         key: 'getCheckBox',
@@ -3584,7 +3585,6 @@ function updateStyle() {
                 for (var _iterator = result[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                     var resultItem = _step.value;
 
-                    console.log('ruleCount = ' + ruleCount);
                     styleSheet.insertRule(resultItem, ruleCount);
                     ruleCount++;
                 }
