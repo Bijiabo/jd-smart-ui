@@ -277,7 +277,6 @@ class SwiperSlide extends UI {
     bindEvent_touchMove() {
         const self = this;
         $(document).on('touchmove', this.handlePoint.selector, function(event) {
-            console.log(event);
             if (!self.onSliding) {
                 return;
             }
