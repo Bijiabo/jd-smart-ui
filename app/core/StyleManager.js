@@ -36,8 +36,8 @@ function updateStyle() {
     const styleSheet = $(`#${id}`)[0].sheet;
 
     // 清除已有 stylesheets 内容
-    for (let i=0; i<ruleCount; i++) {
-        
+    for (let i = 0; i < ruleCount; i++) {
+
         if (styleSheet.removeRule) {
             styleSheet.removeRule(0);
         } else if (styleSheet.deleteRule) {
@@ -53,7 +53,6 @@ function updateStyle() {
         if (styleValue[key]) {
             const result = rules[key](styleValue[key]);
             for (let resultItem of result) {
-                console.log(`ruleCount = ${ruleCount}`);
                 styleSheet.insertRule(resultItem, ruleCount);
                 ruleCount++;
             }
@@ -68,8 +67,7 @@ const styleManager = {
 for (let key in rules) {
     Object.defineProperty(
         styleManager,
-        key,
-        {
+        key, {
             set: function(targetValue) {
                 styleValue[key] = targetValue;
                 updateStyle();

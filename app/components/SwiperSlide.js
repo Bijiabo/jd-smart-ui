@@ -277,7 +277,11 @@ class SwiperSlide extends UI {
     bindEvent_touchMove() {
         const self = this;
         $(document).on('touchmove', this.handlePoint.selector, function(event) {
+            console.log(event);
             if (!self.onSliding) {
+                return;
+            }
+            if (!event.originalEvent.touches) {
                 return;
             }
             if (event.cancelable) {
@@ -288,8 +292,7 @@ class SwiperSlide extends UI {
             // TODO: 判断手指与控件的垂直距离，若太远，则设定 self.onSliding = false;
             console.log(`[${new Date()}] touchmoving...`);
 
-            const handleElementPersentage = self.percentageForHandlePoint(
-                event.touches[0].pageX);
+            const handleElementPersentage = self.percentageForHandlePoint(event.originalEvent.touches[0].pageX);
 
             let targetValue;
             switch (self.options.type) {

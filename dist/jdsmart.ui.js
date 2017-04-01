@@ -3369,7 +3369,6 @@ var SwitchCell = function (_UI) {
             // console.warn($(this.getCheckBox()));
             var labelElement = $(this._hook + ' label');
             if (nowValue === "1") {
-                console.log(nowValue);
                 $(this.getCheckBox()).prop('checked', true);
                 labelElement.addClass('checked');
                 if (this.options.type === SwitchCell.type.power) {
@@ -3378,7 +3377,6 @@ var SwitchCell = function (_UI) {
                     labelElement.addClass('theme-block-in-after theme-border');
                 }
             } else {
-                console.log(nowValue);
                 $(this.getCheckBox()).prop('checked', false);
                 labelElement.removeClass('checked');
                 if (this.options.type === SwitchCell.type.power) {
