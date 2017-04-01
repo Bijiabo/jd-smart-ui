@@ -23,8 +23,7 @@ class SwiperSlide extends UI {
             beforeUserChanged: function(newVal, oldVal) {
                 return true;
             },
-            afterUserChanged: function (val, label) {
-            }
+            afterUserChanged: function(val, label) {}
         };
         const _options = $.extend(defaultOptions, options);
         super(_options);
@@ -104,11 +103,8 @@ class SwiperSlide extends UI {
         let pointsCount = this.options.type === SwiperSlide.type.withPoints ? this.options.map.length : 2;
 
         // 生成圆点
-        let pointArray = [];
-        for(let i=0; i<pointsCount; i++) {
-            pointArray.push('');
-        }
-        // const pointArray = Array.from({ length: pointsCount});
+
+        const pointArray = Array.from({ length: pointsCount });
         const percentageForOnePart = 100 / (pointsCount - 1);
         const pointsHTML = pointArray.map((x, i) => {
             let mapItem;
@@ -159,7 +155,7 @@ class SwiperSlide extends UI {
                 return targetMapIndex >= 0;
                 break;
             default:
-                const targetLeftPersentage = 1 / ((this.options.max - this.options.min)/this.options.step) * ((targetValue - this.options.min) / this.options.step);
+                const targetLeftPersentage = 1 / ((this.options.max - this.options.min) / this.options.step) * ((targetValue - this.options.min) / this.options.step);
                 return 0 <= targetLeftPersentage && targetLeftPersentage <= 1;
                 break;
         }
@@ -178,7 +174,7 @@ class SwiperSlide extends UI {
                 return targetMapIndex >= 0;
                 break;
             default:
-                const targetLeftPersentage = 1 / ((this.options.max - this.options.min)/this.options.step) * ((targetValue - this.options.min) / this.options.step);
+                const targetLeftPersentage = 1 / ((this.options.max - this.options.min) / this.options.step) * ((targetValue - this.options.min) / this.options.step);
                 return 0 <= targetLeftPersentage && targetLeftPersentage <= 1;
                 break;
         }
@@ -202,9 +198,9 @@ class SwiperSlide extends UI {
                 targetLeftPersentage = 1 / (this.options.map.length - 1) * targetMapIndex;
                 break;
             default:
-                targetLeftPersentage = 1 / ((this.options.max - this.options.min)/this.options.step) * ((targetRenderValue - this.options.min) / this.options.step);
+                targetLeftPersentage = 1 / ((this.options.max - this.options.min) / this.options.step) * ((targetRenderValue - this.options.min) / this.options.step);
                 break;
-            }
+        }
 
         this.handlePoint.element
             .css('left', `${targetLeftPersentage * 100}%`)
@@ -213,6 +209,26 @@ class SwiperSlide extends UI {
 
     afterSetViewValue() {
         this.renderForValue(this.viewValue);
+        if (this.onSliding) { return; }
+
+        if (this.options.beforeUserChanged) {
+            if (this.options.beforeUserChanged(this.viewValue, this.value)) {
+                this.syncValueFromViewValue();
+                if (this.options.afterUserChanged) {
+                    const label = this.labelForValue(this.value);
+                    this.options.afterUserChanged(this.value, label);
+                }
+            } else {
+                this.syncViewValueFromValue();
+                this.renderForValue(this.viewValue); // 恢复原数值
+            }
+        } else {
+            this.syncValueFromViewValue();
+
+            if (this.options.afterUserChanged) {
+                this.options.afterUserChanged(this.value, this.labelForValue(this.value));
+            }
+        }
     }
 
     labelForValue(targetValue) {
@@ -265,6 +281,9 @@ class SwiperSlide extends UI {
             if (!self.onSliding) {
                 return;
             }
+            if (!event.originalEvent.touches) {
+                return;
+            }
             if (event.cancelable) {
                 if (!event.defaultPrevented) {
                     event.preventDefault();
@@ -272,8 +291,7 @@ class SwiperSlide extends UI {
             }
             // TODO: 判断手指与控件的垂直距离，若太远，则设定 self.onSliding = false;
 
-            const handleElementPersentage = self.percentageForHandlePoint(
-                event.touches[0].pageX);
+            const handleElementPersentage = self.percentageForHandlePoint(event.originalEvent.touches[0].pageX);
 
             let targetValue;
             switch (self.options.type) {
@@ -297,28 +315,14 @@ class SwiperSlide extends UI {
             this.onSliding = false;
             if (this.value === this.viewValue) { return; }
             this.viewValue = this.viewValue;
-
-            this.userActionEnd();
-        });
-    }
-
-    userActionEnd() {
-        if (this.options.beforeUserChanged) {
-            if (this.options.beforeUserChanged(this.viewValue, this.value)) {
-                this.syncValueFromViewValue();
-                if(this.options.afterUserChanged) {
-                    const label = this.labelForValue(this.value);
-                    this.options.afterUserChanged(this.value, label);
+            if (this.options.onChange) {
+                if (this._type === 3) {
+                    let targetIndex = this.options.map.valMap[this.value];
+                    let targetName = this.options.map.nameMap[this.value];
+                    this.options.onChange(this.value, targetIndex, targetName);
+                } else {
+                    this.options.onChange(this.value);
                 }
-            } else {
-                this.syncViewValueFromValue();
-                this.renderForValue(this.viewValue); // 恢复原数值
-            }
-        } else {
-            this.syncValueFromViewValue();
-
-            if(this.options.afterUserChanged) {
-                this.options.afterUserChanged(this.value, this.labelForValue(this.value));
             }
         }
     }
