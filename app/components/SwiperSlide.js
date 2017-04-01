@@ -35,8 +35,9 @@ class SwiperSlide extends UI {
         this._showTip = this.options.showTip || false;
 
         this.insertHtml();
-
+        this.isReady = false;
         this.setDefaultValue();
+        this.isReady = true;
 
     }
 
@@ -102,6 +103,7 @@ class SwiperSlide extends UI {
         let pointsCount = this.options.type === SwiperSlide.type.withPoints ? this.options.map.length : 2;
 
         // 生成圆点
+
         const pointArray = Array.from({ length: pointsCount });
         const percentageForOnePart = 100 / (pointsCount - 1);
         const pointsHTML = pointArray.map((x, i) => {
@@ -207,7 +209,6 @@ class SwiperSlide extends UI {
 
     afterSetViewValue() {
         this.renderForValue(this.viewValue);
-
         if (this.onSliding) { return; }
 
         if (this.options.beforeUserChanged) {
@@ -289,7 +290,6 @@ class SwiperSlide extends UI {
                 }
             }
             // TODO: 判断手指与控件的垂直距离，若太远，则设定 self.onSliding = false;
-            console.log(`[${new Date()}] touchmoving...`);
 
             const handleElementPersentage = self.percentageForHandlePoint(event.originalEvent.touches[0].pageX);
 
@@ -311,104 +311,108 @@ class SwiperSlide extends UI {
 
     bindEvent_touchEnd() {
         $(document).on('touchend', this.handlePoint.selector, () => {
-            this.onSliding = false;
-            this.viewValue = this.viewValue;
-
-            if (this.options.onChange) {
-                if (this._type === 3) {
-                    let targetIndex = this.options.map.valMap[this.value];
-                    let targetName = this.options.map.nameMap[this.value];
-                    this.options.onChange(this.value, targetIndex, targetName);
-                } else {
-                    this.options.onChange(this.value);
+                console.info('SwiperSlide touchend', $(this.options.hook), { value: this.value, label: this.viewValue });
+                this.onSliding = false;
+                if (this.value === this.viewValue) { return; }
+                this.viewValue = this.viewValue;
+                if (this.options.onChange) {
+                    if (this._type === 3) {
+                        let targetIndex = this.options.map.valMap[this.value];
+                        let targetName = this.options.map.nameMap[this.value];
+                        this.options.onChange(this.value, targetIndex, targetName);
+                    } else {
+                        this.options.onChange(this.value);
+                    }
                 }
             }
-        });
+        }
+
+        get handleButton() {
+            return {
+                plus: {
+                    selector: this._hook + ' .plus-button'
+                },
+                minus: {
+                    selector: this._hook + ' .minus-button'
+                },
+                point: {
+                    selector: this._hook + ' .point-container'
+                },
+            };
+        }
+
+        bindEvent_tapPlusButton() {
+            $(document).on('tap', this.handleButton.plus.selector, () => {
+                this.value += 1;
+                if (this.options.onPlus) {
+                    this.options.onPlus(this.value);
+                }
+            });
+        }
+
+        bindEvent_tapMinusButton() {
+            $(document).on('tap', this.handleButton.minus.selector, () => {
+                this.value -= 1;
+                if (this.options.onMinus) {
+                    this.options.onMinus(this.value);
+                }
+            });
+        }
+
+        bindEvent_tapPoint() {
+            var self = this;
+            $(document).on('tap', this.handleButton.point.selector, function() {
+                const targetPoint = $(this);
+                self.viewValue = targetPoint.attr('value');
+
+                if (self.value === self.viewValue) { return; }
+
+                self.userActionEnd();
+            });
+        }
+
+
+        percentageForHandlePoint(currentX) {
+            // 根据传入的手指触摸点的 X 坐标，返回对应的控制点百分比
+            const slideElement = $(this._hook + ' .inner');
+            return (currentX - slideElement.offset().left) / slideElement.width();
+        }
+
+        unbindEvent_touchFunction() {
+            let trigger = this.handlePoint.selector;
+            $(document).off('touchstart touchmove touchend', trigger);
+        }
+
+        unbindEvent_tapFunction() {
+            let trigger1 = this.handleButton.plus.selector;
+            let trigger2 = this.handleButton.minus.selector;
+            $(document).off('tap', trigger1);
+            $(document).off('tap', trigger2);
+        }
+
+
+        disable() {
+            super.disable();
+            $(this._hook).addClass('disabled');
+            // this.unbindEvent_touchFunction();
+            // this.unbindEvent_tapFunction();
+        }
+
+        enable() {
+            super.enable();
+            $(this._hook).removeClass('disabled');
+            // this.bindEvent_touchEvent_Group();
+            // this.bindEvent_tapEvent_Group();
+        }
     }
 
-    get handleButton() {
-        return {
-            plus: {
-                selector: this._hook + ' .plus-button'
-            },
-            minus: {
-                selector: this._hook + ' .minus-button'
-            },
-            point: {
-                selector: this._hook + ' .point-container'
-            },
-        };
-    }
+    // 添加类型
+    SwiperSlide.type = {
+        default: Symbol(), // 默认类型
+        withBtn: Symbol(), // 带+和-按钮
+        withPoints: Symbol(), // 带刻度
+    };
 
-    bindEvent_tapPlusButton() {
-        $(document).on('tap', this.handleButton.plus.selector, () => {
-            this.value += 1;
-            if (this.options.onPlus) {
-                this.options.onPlus(this.value);
-            }
-        });
-    }
+    UI.registerComponent('SwiperSlide', SwiperSlide);
 
-    bindEvent_tapMinusButton() {
-        $(document).on('tap', this.handleButton.minus.selector, () => {
-            this.value -= 1;
-            if (this.options.onMinus) {
-                this.options.onMinus(this.value);
-            }
-        });
-    }
-
-    bindEvent_tapPoint() {
-        var self = this;
-        $(document).on('tap', this.handleButton.point.selector, function() {
-            const targetPoint = $(this);
-            console.log(targetPoint.attr('value'));
-            self.viewValue = targetPoint.attr('value');
-        });
-    }
-
-
-    percentageForHandlePoint(currentX) {
-        // 根据传入的手指触摸点的 X 坐标，返回对应的控制点百分比
-        const slideElement = $(this._hook + ' .inner');
-        return (currentX - slideElement.offset().left) / slideElement.width();
-    }
-
-    unbindEvent_touchFunction() {
-        let trigger = this.handlePoint.selector;
-        $(document).off('touchstart touchmove touchend', trigger);
-    }
-
-    unbindEvent_tapFunction() {
-        let trigger1 = this.handleButton.plus.selector;
-        let trigger2 = this.handleButton.minus.selector;
-        $(document).off('tap', trigger1);
-        $(document).off('tap', trigger2);
-    }
-
-
-    disable() {
-        super.disable();
-        $(this._hook).addClass('disabled');
-        this.unbindEvent_touchFunction();
-        this.unbindEvent_tapFunction();
-    }
-
-    enable() {
-        super.enable();
-        $(this._hook).removeClass('disabled');
-        this.bindEvent_touchEvent_Group();
-        this.bindEvent_tapEvent_Group();
-    }
-}
-
-// 添加类型
-SwiperSlide.type = {
-    default: Symbol(), // 默认类型
-    withBtn: Symbol(), // 带+和-按钮
-    withPoints: Symbol(), // 带刻度
-};
-
-UI.registerComponent('SwiperSlide', SwiperSlide);
-
-export default SwiperSlide;
+    export default SwiperSlide;
