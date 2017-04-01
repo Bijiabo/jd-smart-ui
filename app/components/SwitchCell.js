@@ -39,8 +39,7 @@ class SwitchCell extends UI {
                 </div>`;
 
         $(this._hook).append(html);
-
-        this.value = '0';
+        this.value = this.options.value;
     }
 
     get title() {

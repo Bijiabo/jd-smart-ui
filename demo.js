@@ -107,7 +107,7 @@ var swiper = new JDUI.instance.SwiperSlide({
     step: 1,
     defaultValue: 30,
     unit: '℃',
-    afterUserChanged: function (val, label) {
+    afterUserChanged: function(val, label) {
         console.log(val, label);
     }
 });
@@ -121,7 +121,7 @@ var swiper2 = new JDUI.instance.SwiperSlide({
     max: 100,
     defaultValue: 20,
     step: 1,
-    afterUserChanged: function (val, label) {
+    afterUserChanged: function(val, label) {
         console.log('afterUserChanged', val, label);
     },
     //onPlus and onMinus function only support at type 2;
@@ -149,8 +149,7 @@ var swiper_tow_points = new JDUI.instance.SwiperSlide({
     title: '风速调节',
     hook: '.wind-speed-bar',
     type: JDUI.type.SwiperSlide.withPoints,
-    map: [
-        {
+    map: [{
             value: '0',
             label: '低档'
         },
@@ -166,7 +165,7 @@ var swiper_tow_points = new JDUI.instance.SwiperSlide({
 });
 
 var swithCell = new JDUI.instance.SwitchCell({
-    title: function (value) {
+    title: function(value) {
         if (value === '1') {
             return '电源打开';
         } else {
@@ -188,7 +187,7 @@ var swithCell = new JDUI.instance.SwitchCell({
 var swithCell2 = new JDUI.instance.SwitchCell({
     title: '开关',
     type: JDUI.type.SwitchCell.switch, //JD、jd标准样式、 Ali、阿里标准样式
-    value: '0', //和正常一样，开1，关0
+    value: '1', //和正常一样，开1，关0
     hook: '.switch-cell2',
     map: {
         on: '1',

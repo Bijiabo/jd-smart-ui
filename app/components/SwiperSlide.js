@@ -311,7 +311,7 @@ class SwiperSlide extends UI {
 
     bindEvent_touchEnd() {
         $(document).on('touchend', this.handlePoint.selector, () => {
-            console.info('SwiperSlide touchend', $(this.options.hook), {value: this.value, label: this.viewValue});
+            console.info('SwiperSlide touchend', $(this.options.hook), { value: this.value, label: this.viewValue });
             this.onSliding = false;
             if (this.value === this.viewValue) { return; }
             this.viewValue = this.viewValue;
@@ -324,7 +324,7 @@ class SwiperSlide extends UI {
                     this.options.onChange(this.value);
                 }
             }
-        }
+        })
     }
 
     get handleButton() {
@@ -375,7 +375,6 @@ class SwiperSlide extends UI {
     percentageForHandlePoint(currentX) {
         // 根据传入的手指触摸点的 X 坐标，返回对应的控制点百分比
         const slideElement = $(this._hook + ' .inner');
-        // console.log(slideElement.width(), slideElement.offset().left);
         return (currentX - slideElement.offset().left) / slideElement.width();
     }
 
