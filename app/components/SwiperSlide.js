@@ -35,8 +35,9 @@ class SwiperSlide extends UI {
         this._showTip = this.options.showTip || false;
 
         this.insertHtml();
-
+        this.isReady = false;
         this.setDefaultValue();
+        this.isReady = true;
 
     }
 
@@ -102,6 +103,7 @@ class SwiperSlide extends UI {
         let pointsCount = this.options.type === SwiperSlide.type.withPoints ? this.options.map.length : 2;
 
         // 生成圆点
+
         const pointArray = Array.from({ length: pointsCount });
         const percentageForOnePart = 100 / (pointsCount - 1);
         const pointsHTML = pointArray.map((x, i) => {
@@ -207,7 +209,6 @@ class SwiperSlide extends UI {
 
     afterSetViewValue() {
         this.renderForValue(this.viewValue);
-
         if (this.onSliding) { return; }
 
         if (this.options.beforeUserChanged) {
@@ -289,7 +290,6 @@ class SwiperSlide extends UI {
                 }
             }
             // TODO: 判断手指与控件的垂直距离，若太远，则设定 self.onSliding = false;
-            console.log(`[${new Date()}] touchmoving...`);
 
             const handleElementPersentage = self.percentageForHandlePoint(event.originalEvent.touches[0].pageX);
 
@@ -311,9 +311,10 @@ class SwiperSlide extends UI {
 
     bindEvent_touchEnd() {
         $(document).on('touchend', this.handlePoint.selector, () => {
+            console.info('SwiperSlide touchend', $(this.options.hook), {value: this.value, label: this.viewValue});
             this.onSliding = false;
+            if (this.value === this.viewValue) { return; }
             this.viewValue = this.viewValue;
-
             if (this.options.onChange) {
                 if (this._type === 3) {
                     let targetIndex = this.options.map.valMap[this.value];
@@ -323,7 +324,7 @@ class SwiperSlide extends UI {
                     this.options.onChange(this.value);
                 }
             }
-        });
+        }
     }
 
     get handleButton() {
@@ -362,8 +363,11 @@ class SwiperSlide extends UI {
         var self = this;
         $(document).on('tap', this.handleButton.point.selector, function() {
             const targetPoint = $(this);
-            console.log(targetPoint.attr('value'));
             self.viewValue = targetPoint.attr('value');
+
+            if (self.value === self.viewValue) { return; }
+
+            self.userActionEnd();
         });
     }
 
@@ -371,7 +375,7 @@ class SwiperSlide extends UI {
     percentageForHandlePoint(currentX) {
         // 根据传入的手指触摸点的 X 坐标，返回对应的控制点百分比
         const slideElement = $(this._hook + ' .inner');
-        console.log(slideElement.width(), slideElement.offset().left);
+        // console.log(slideElement.width(), slideElement.offset().left);
         return (currentX - slideElement.offset().left) / slideElement.width();
     }
 
@@ -391,15 +395,15 @@ class SwiperSlide extends UI {
     disable() {
         super.disable();
         $(this._hook).addClass('disabled');
-        this.unbindEvent_touchFunction();
-        this.unbindEvent_tapFunction();
+        // this.unbindEvent_touchFunction();
+        // this.unbindEvent_tapFunction();
     }
 
     enable() {
         super.enable();
         $(this._hook).removeClass('disabled');
-        this.bindEvent_touchEvent_Group();
-        this.bindEvent_tapEvent_Group();
+        // this.bindEvent_touchEvent_Group();
+        // this.bindEvent_tapEvent_Group();
     }
 }
 

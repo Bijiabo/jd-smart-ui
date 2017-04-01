@@ -2825,8 +2825,9 @@ var SwiperSlide = function (_UI) {
             this._showTip = this.options.showTip || false;
 
             this.insertHtml();
-
+            this.isReady = false;
             this.setDefaultValue();
+            this.isReady = true;
         }
     }, {
         key: 'insertHtml',
@@ -2945,28 +2946,14 @@ var SwiperSlide = function (_UI) {
         value: function afterSetViewValue() {
             this.renderForValue(this.viewValue);
 
+            if (!this.isReady) {
+                return;
+            }
             if (this.onSliding) {
                 return;
             }
 
-            if (this.options.beforeUserChanged) {
-                if (this.options.beforeUserChanged(this.viewValue, this.value)) {
-                    this.syncValueFromViewValue();
-                    if (this.options.afterUserChanged) {
-                        var label = this.labelForValue(this.value);
-                        this.options.afterUserChanged(this.value, label);
-                    }
-                } else {
-                    this.syncViewValueFromValue();
-                    this.renderForValue(this.viewValue); // 恢复原数值
-                }
-            } else {
-                this.syncValueFromViewValue();
-
-                if (this.options.afterUserChanged) {
-                    this.options.afterUserChanged(this.value, this.labelForValue(this.value));
-                }
-            }
+            console.warn(this.onSliding);
         }
     }, {
         key: 'labelForValue',
@@ -3016,7 +3003,7 @@ var SwiperSlide = function (_UI) {
                     }
                 }
                 // TODO: 判断手指与控件的垂直距离，若太远，则设定 self.onSliding = false;
-                console.log('[' + new Date() + '] touchmoving...');
+                // console.log(`[${new Date()}] touchmoving...`);
 
                 var handleElementPersentage = self.percentageForHandlePoint(event.touches[0].pageX);
 
@@ -3040,9 +3027,31 @@ var SwiperSlide = function (_UI) {
         value: function bindEvent_touchEnd() {
             var _this3 = this;
 
+            console.debug(this.handlePoint.selector);
             $(document).on('touchend', this.handlePoint.selector, function () {
                 _this3.onSliding = false;
+                console.debug('touch end');
                 _this3.viewValue = _this3.viewValue;
+
+                if (_this3.options.beforeUserChanged) {
+                    if (_this3.options.beforeUserChanged(_this3.viewValue, _this3.value)) {
+                        _this3.syncValueFromViewValue();
+                        if (_this3.options.afterUserChanged) {
+                            var label = _this3.labelForValue(_this3.value);
+                            console.log('xxx');
+                            _this3.options.afterUserChanged(_this3.value, label);
+                        }
+                    } else {
+                        _this3.syncViewValueFromValue();
+                        _this3.renderForValue(_this3.viewValue); // 恢复原数值
+                    }
+                } else {
+                    _this3.syncValueFromViewValue();
+
+                    if (_this3.options.afterUserChanged) {
+                        _this3.options.afterUserChanged(_this3.value, _this3.labelForValue(_this3.value));
+                    }
+                }
 
                 if (_this3.options.onChange) {
                     if (_this3._type === 3) {
@@ -3094,7 +3103,7 @@ var SwiperSlide = function (_UI) {
         value: function percentageForHandlePoint(currentX) {
             // 根据传入的手指触摸点的 X 坐标，返回对应的控制点百分比
             var slideElement = $(this._hook + ' .inner');
-            console.log(slideElement.width(), slideElement.offset().left);
+            // console.log(slideElement.width(), slideElement.offset().left);
             return (currentX - slideElement.offset().left) / slideElement.width();
         }
     }, {
@@ -3116,16 +3125,16 @@ var SwiperSlide = function (_UI) {
         value: function disable() {
             _get(SwiperSlide.prototype.__proto__ || Object.getPrototypeOf(SwiperSlide.prototype), 'disable', this).call(this);
             $(this._hook).addClass('disabled');
-            this.unbindEvent_touchFunction();
-            this.unbindEvent_tapFunction();
+            // this.unbindEvent_touchFunction();
+            // this.unbindEvent_tapFunction();
         }
     }, {
         key: 'enable',
         value: function enable() {
             _get(SwiperSlide.prototype.__proto__ || Object.getPrototypeOf(SwiperSlide.prototype), 'enable', this).call(this);
             $(this._hook).removeClass('disabled');
-            this.bindEvent_touchEvent_Group();
-            this.bindEvent_tapEvent_Group();
+            // this.bindEvent_touchEvent_Group();
+            // this.bindEvent_tapEvent_Group();
         }
     }, {
         key: 'pointsHTML',
@@ -3136,7 +3145,11 @@ var SwiperSlide = function (_UI) {
             var pointsCount = this.options.type === SwiperSlide.type.withPoints ? this.options.map.length : 2;
 
             // 生成圆点
-            var pointArray = Array.from({ length: pointsCount });
+            var pointArray = [];
+            for (var i = 0; i < pointsCount; i++) {
+                pointArray.push('');
+            }
+            // const pointArray = Array.from({ length: pointsCount});
             var percentageForOnePart = 100 / (pointsCount - 1);
             var pointsHTML = pointArray.map(function (x, i) {
                 var mapItem = void 0;
