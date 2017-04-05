@@ -78,8 +78,8 @@ var listitem = new JDUI.instance.ListItem({
     beforeTap: function() {
 
     },
-    onTap: function(item, context) {
-        console.log(item, context);
+    onTap: function(index, item, context) {
+        console.log(index, item, context);
     },
     afterTap: function() {
 

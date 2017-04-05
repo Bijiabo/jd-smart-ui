@@ -86,10 +86,15 @@ dd {
     .theme-text {
         color: $disableThemeColor;
     }
-
-    .theme-border-in-after::after { border-color: $disableThemeColor;}
-    .theme-block-in-after::after { background-color: $disableThemeColor}
-    .theme-text-in-after::after { color: $disableThemeColor}
+    .theme-border-in-after::after {
+        border-color: $disableThemeColor;
+    }
+    .theme-block-in-after::after {
+        background-color: $disableThemeColor
+    }
+    .theme-text-in-after::after {
+        color: $disableThemeColor
+    }
 }
 
 .panel {
@@ -200,9 +205,10 @@ div[class~="unit-0"] .title .sub {
 }
 
 div[class~="unit-0"] .rightPart {
-    width: 25%;
+    width: 35%;
     font-size: 16px;
     line-height: 40px;
+    margin-right: 5px;
 }
 
 div[class~="unit-0"] .rightPart .rightarrow {
