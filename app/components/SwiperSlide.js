@@ -311,7 +311,6 @@ class SwiperSlide extends UI {
 
     bindEvent_touchEnd() {
         $(document).on('touchend', this.handlePoint.selector, () => {
-            console.info('SwiperSlide touchend', $(this.options.hook), { value: this.value, label: this.viewValue });
             this.onSliding = false;
             if (this.value === this.viewValue) { return; }
             this.viewValue = this.viewValue;

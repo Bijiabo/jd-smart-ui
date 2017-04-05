@@ -52,7 +52,7 @@ class ListItem extends UI {
 
     initEventFn() {
         let item = this.selector();
-        $(document).on('click', item, (e) => {
+        $(document).on('tap', item, (e) => {
             this.fn(e);
         });
         // 绑定触摸事件
@@ -77,7 +77,7 @@ class ListItem extends UI {
                 this.options.beforeTap();
             }
             if (this.options.onTap) {
-                this.options.onTap(selected, $this);
+                this.options.onTap(index,selected, $this);
             }
             if (this.options.afterTap) {
                 this.options.afterTap();
