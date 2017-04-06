@@ -40,7 +40,7 @@ class ListItem extends UI {
                         </div>
                     </div>`;
 
-            if (i + 1 < this.options.map.length) {
+            if (i < _map.length -1) {
                 html += splitLineHTML;
             }
         }
