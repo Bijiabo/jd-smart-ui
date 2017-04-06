@@ -210,25 +210,6 @@ class SwiperSlide extends UI {
     afterSetViewValue() {
         this.renderForValue(this.viewValue);
         if (this.onSliding) { return; }
-
-        if (this.options.beforeUserChanged) {
-            if (this.options.beforeUserChanged(this.viewValue, this.value)) {
-                this.syncValueFromViewValue();
-                if (this.options.afterUserChanged) {
-                    const label = this.labelForValue(this.value);
-                    this.options.afterUserChanged(this.value, label);
-                }
-            } else {
-                this.syncViewValueFromValue();
-                this.renderForValue(this.viewValue); // 恢复原数值
-            }
-        } else {
-            this.syncValueFromViewValue();
-
-            if (this.options.afterUserChanged) {
-                this.options.afterUserChanged(this.value, this.labelForValue(this.value));
-            }
-        }
     }
 
     labelForValue(targetValue) {
@@ -314,6 +295,24 @@ class SwiperSlide extends UI {
             this.onSliding = false;
             if (this.value === this.viewValue) { return; }
             this.viewValue = this.viewValue;
+            if (this.options.beforeUserChanged) {
+                if (this.options.beforeUserChanged(this.viewValue, this.value)) {
+                    this.syncValueFromViewValue();
+                    if (this.options.afterUserChanged) {
+                        const label = this.labelForValue(this.value);
+                        this.options.afterUserChanged(this.value, label);
+                    }
+                } else {
+                    this.syncViewValueFromValue();
+                    this.renderForValue(this.viewValue); // 恢复原数值
+                }
+            } else {
+                this.syncValueFromViewValue();
+
+                if (this.options.afterUserChanged) {
+                    this.options.afterUserChanged(this.value, this.labelForValue(this.value));
+                }
+            }
             if (this.options.onChange) {
                 if (this._type === 3) {
                     let targetIndex = this.options.map.valMap[this.value];
