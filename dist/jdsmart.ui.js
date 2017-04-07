@@ -3469,7 +3469,7 @@ var Toast = function (_UI) {
             var btnWrap = '';
 
             if (this._type === 'one') {
-                btnWrap = '<span class = "toast_confirmBtn">\u6211\u77E5\u9053\u4E86</span>';
+                btnWrap = '<span class = "toast_confirmBtn">\u77E5\u9053\u4E86</span>';
             } else if (this._type === 'two') {
                 btnWrap = '<span class = "toast_okBtn">\u786E\u5B9A</span>\n                        <span class = "toast_cancelbtn">\u53D6\u6D88</span>';
             }
@@ -3521,6 +3521,15 @@ var Toast = function (_UI) {
         value: function closeConfirm() {
             $(this.getBtnDom().dom).hide();
             document.body.classList.remove('bg_hover');
+        }
+    }, {
+        key: 'updateUI',
+        value: function updateUI(config) {
+            if (config) {
+                this._teplMap = config.teplMap;
+                $(this._hook).empty();
+                this.initDom();
+            }
         }
     }]);
 

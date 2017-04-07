@@ -302,6 +302,12 @@ var confirm2 = new JDUI.instance.Toast({
     }
 });
 
+confirm2.updateUI({
+    teplMap: {
+        title: 'new',
+        content: 'hello world'
+    }
+})
 
 let com_btn = document.getElementById('openCFM');
 com_btn.addEventListener('click', (e) => {
@@ -312,6 +318,7 @@ let com_btn2 = document.getElementById('oneCFM');
 com_btn2.addEventListener('click', (e) => {
     confirm2.openConfirm();
 }, false);
+
 
 // test disable()
 (function disableAllComponents() {
