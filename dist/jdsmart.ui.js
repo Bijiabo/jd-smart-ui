@@ -2100,7 +2100,7 @@ var GridItem = function (_UI) {
                 for (var i in _map) {
                     if (_map[i].value === val) {
                         this._value = val;
-                        this.selected(i);
+                        this.selected(Number(val));
                     }
                 }
             } else {
