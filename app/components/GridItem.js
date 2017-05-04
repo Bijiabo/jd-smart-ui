@@ -42,7 +42,7 @@ class GridItem extends UI {
         html += `<div class="panel-body ui_wrap flex-left">`;
         for (let i in _map) {
             html +=
-            `<div
+                `<div
              class="
              unit-1-${_gridNum} 
              site-box text-center grid-item 
@@ -56,7 +56,7 @@ class GridItem extends UI {
                 <span class="iconfont">${_map[i].icon}</span>
                 <span class="mode_name">${_map[i].text}</span>
             </div>`;
-            
+
 
         }
 
@@ -82,13 +82,13 @@ class GridItem extends UI {
         });
     }
 
-    fn(e){
+    fn(e) {
         let _this = $(e.currentTarget);
         let index = _this.data('mode-index');
         let item = this.options.map[Number(index)];
         let _map = this._unclickMap;
-        
-        if(_map.indexOf(index.toString())  === -1){
+
+        if (_map.indexOf(index.toString()) === -1) {
             this.selected(index, _this);
             //before
             if (this.options.beforeTap) {
@@ -134,7 +134,7 @@ class GridItem extends UI {
             for (let i in _map) {
                 if (_map[i].value === val) {
                     this._value = val;
-                    this.selected(i);
+                    this.selected(Number(val));
                 }
             }
         } else {
@@ -156,25 +156,25 @@ class GridItem extends UI {
         let _map = map.index;
         this._unclickMap = _map;
         let selector = this.selectorDom();
-        
-        for(let i of _map){
+
+        for (let i of _map) {
             let _item = `${selector}[value=${i}]`;
             $(_item).addClass("disabled");
         }
     }
 
-    disable(){
+    disable() {
         super.disable();
         $(this.options.hook).addClass("disabled");
         const selector = this.selectorDom();
-        $(document).off("click",selector);
+        $(document).off("click", selector);
     }
 
-    enable(){
+    enable() {
         super.enable();
         $(this.options.hook).removeClass("disabled");
         const selector = this.selectorDom();
-        $(document).on("click",selector,(e)=>{
+        $(document).on("click", selector, (e) => {
             this.fn(e);
         });
     }
