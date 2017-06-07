@@ -100,7 +100,7 @@ dd {
 .panel {
     position: relative;
     background-color: #ffffff;
-    margin: 8px;
+    margin: 4px;
     border-radius: 4px;
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.15);
     overflow: hidden;
@@ -685,4 +685,94 @@ label.switch-cell-label-switch.checked::after {
 
 .hovers {
     background: #eee;
+}
+
+
+/*---------------------方向盘----------------------*/
+
+.control_main {
+    height: 25rem;
+}
+
+.control_main .remote_control {
+    width: 22rem;
+    height: 22rem;
+    margin: 0 auto;
+    border-radius: 50%;
+    position: relative;
+    top: 18px;
+    transform: rotateZ(45deg);
+    -webkit-transform: rotateZ(45deg);
+}
+
+.control_main .remote_control .control_btn,
+.control_main .remote_control .centerBtn {
+    position: absolute;
+    width: 11rem;
+    height: 11rem;
+    border: 1px solid #19D2ED;
+    z-index: 1;
+    text-align: center;
+    line-height: 11rem;
+}
+
+.control_main .remote_control .control_btn span,
+.control_main .remote_control .centerBtn span {
+    display: block;
+    transform: rotateZ(-45deg);
+    -webkit-transform: rotateZ(-45deg);
+    font-size: 32px;
+    color: #19D2ED;
+}
+
+.control_main .remote_control .control_btn.taping,
+.control_main .remote_control .centerBtn.taping {
+    background: #eee !important;
+    transition: background 0.5s ease-out !important;
+}
+
+.topBtn {
+    -webkit-border-radius: 11rem 0 0 0;
+    -moz-border-radius: 11rem 0 0 0;
+    border-radius: 11rem 0 0 0;
+    top: 0;
+    left: 0;
+}
+
+.leftBtn {
+    -webkit-border-radius: 0 0 0 11rem;
+    -moz-border-radius: 0 0 0 11rem;
+    border-radius: 0 0 0 11rem;
+    left: 0;
+    bottom: 0;
+}
+
+.bottomBtn {
+    -webkit-border-radius: 0 0 11rem 0;
+    -moz-border-radius: 0 0 11rem 0;
+    border-radius: 0 0 11rem 0;
+    right: 0;
+    bottom: 0;
+}
+
+.rightBtn {
+    -webkit-border-radius: 0 11rem 0 0;
+    -moz-border-radius: 0 11rem 0 0;
+    border-radius: 0 11rem 0 0;
+    right: 0;
+    top: 0;
+}
+
+.control_main .remote_control .centerBtn {
+    width: 11rem;
+    height: 11rem;
+    border-radius: 50%;
+    background: #fff;
+    left: 5.5rem;
+    top: 5.5rem;
+    z-index: 2;
+}
+
+.control_main .remote_control .centerBtn span {
+    font-size: 40px;
 }
