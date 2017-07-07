@@ -365,7 +365,8 @@ class SwiperSlide extends UI {
 
             if (self.value === self.viewValue) { return; }
 
-            self.userActionEnd();
+            //self.userActionEnd();
+            self.options.afterUserChanged(self.viewValue, 'tap')
         });
     }
 
