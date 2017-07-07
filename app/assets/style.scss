@@ -490,8 +490,7 @@ $defineBorderRaduis: 5px;
 /* Switch Cell */
 
 .switch-control {
-    padding-left: 12px;
-    padding-right: 12px;
+    padding: 0 12px;
     margin: 10px 0;
 }
 
@@ -775,4 +774,56 @@ label.switch-cell-label-switch.checked::after {
 
 .control_main .remote_control .centerBtn span {
     font-size: 40px;
+}
+
+
+/*----------------Selector----------------*/
+
+#selectorWrap {
+    position: relative;
+    .title {
+        line-height: 50px;
+        padding-left: 10px;
+    }
+    .container_selector_wrap {
+        position: relative;
+        height: 250px;
+        text-align: center;
+        overflow: hidden;
+    }
+    .container_selector_line {
+        position: relative;
+        display: inline-block;
+        li {
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            display: block;
+        }
+    }
+    .container_selector_topShadow,
+    .container_selector_bottomShadow {
+        position: absolute;
+        width: 100%;
+        height: 75px;
+        opacity: 0.5;
+        z-index: 10;
+    }
+    .container_selector_topShadow {
+        top: 0;
+        background: linear-gradient( to bottom, #fff, #eee);
+    }
+    .container_selector_bottomShadow {
+        bottom: 0;
+    }
+    .container_selector_selectbox_selected {
+        position: absolute;
+        width: 100%;
+        height: 100px;
+        border: 1px solid #eee;
+        top: 75px;
+        border-left: none;
+        border-right: none;
+    }
 }
