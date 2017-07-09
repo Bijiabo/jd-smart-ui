@@ -133,6 +133,8 @@ var swiper2 = new JDUI.instance.SwiperSlide({
     }
 });
 
+swiper2.value = '40';
+
 var swiperStep = new JDUI.instance.SwiperSlide({
     title: '带刻度的滑动条',
     hook: '.swiper-step',
