@@ -10,10 +10,10 @@ class UI {
         const defaultOptions = {
             hook: false,
             defaultValue: 0,
-            afterEnabled: function () {},
-            afterDisabled: function () {},
-            afterShow: function () {},
-            afterHide: function () {}
+            afterEnabled: function() {},
+            afterDisabled: function() {},
+            afterShow: function() {},
+            afterHide: function() {}
         };
         const _options = $.extend(defaultOptions, options);
         this.options = _options;
@@ -27,14 +27,14 @@ class UI {
 
     // 初始化方法
     create() {
-        
+
     }
 
     // 监听交互方法
     initEventFn() {
 
-    }
-    //显示
+        }
+        //显示
     show() {
         $(this.options.hook).show();
         this._visibility = true;
@@ -46,25 +46,25 @@ class UI {
     };
     //可见性
     get visibility() {
-        return this._visibility;
-    }
-    //设置可用
+            return this._visibility;
+        }
+        //设置可用
     enable() {
         this._enabled = true;
         this.afterEnabled();
     };
     afterEnabled() {
-        this.options.afterEnabled();
-    }
-    //设置不可用
+            this.options.afterEnabled();
+        }
+        //设置不可用
     disable() {
         this._enabled = false;
         this.afterDisabled();
     };
     afterDisabled() {
-        this.options.afterDisabled();
-    }
-    //是否可用
+            this.options.afterDisabled();
+        }
+        //是否可用
     get isEnabled() {
         return this._enabled;
 
@@ -73,17 +73,17 @@ class UI {
     get isDisabled() {
         return !this._enabled;
     };
-    
-    get dom(){
+
+    get dom() {
         return $(this.options.hook);
     };
 
-    get getself(){
+    get getself() {
         return this;
     };
 
     // value
-    get value(){
+    get value() {
         return this._value;
     };
 
@@ -104,7 +104,7 @@ class UI {
     };
 
     // viewValue
-    get viewValue(){
+    get viewValue() {
         return this._viewValue;
     };
 
@@ -135,7 +135,7 @@ class UI {
     get el() {
         return $(this.options.hook);
     }
-   
+
     // 检测是否有对应的组件
     static hasComponent(name) {
         return !!global.JDUI.instance[name];
@@ -149,10 +149,10 @@ class UI {
     // 注册组件方法
     static registerComponent(componentName, componentClass) {
         /*
-        * componentName, // 组件名称，开发者使用时使用 new JDUI.instance.componentName() 即可使用
-        * componentClass, // 组件类
-        * types, // 组件内的类型注册，用于方便开发者传参使用
-        * */
+         * componentName, // 组件名称，开发者使用时使用 new JDUI.instance.componentName() 即可使用
+         * componentClass, // 组件类
+         * types, // 组件内的类型注册，用于方便开发者传参使用
+         * */
         const result = {
             success: false,
             error: 'unknow'

@@ -341,7 +341,7 @@ class SwiperSlide extends UI {
 
     bindEvent_tapPlusButton() {
         $(document).on('tap', this.handleButton.plus.selector, () => {
-            this.value += 1;
+            this.value = Number(this.value) + 1;
             if (this.options.onPlus) {
                 this.options.onPlus(this.value);
             }
@@ -350,7 +350,7 @@ class SwiperSlide extends UI {
 
     bindEvent_tapMinusButton() {
         $(document).on('tap', this.handleButton.minus.selector, () => {
-            this.value -= 1;
+            this.value = Number(this.value) - 1;
             if (this.options.onMinus) {
                 this.options.onMinus(this.value);
             }
