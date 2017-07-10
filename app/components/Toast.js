@@ -21,7 +21,7 @@ class Toast extends UI {
         let btnWrap = ``;
 
         if (this._type === 'one') {
-            btnWrap = `<span class = "toast_confirmBtn">我知道了</span>`;
+            btnWrap = `<span class = "toast_confirmBtn">知道了</span>`;
         } else if (this._type === 'two') {
             btnWrap = `<span class = "toast_okBtn">确定</span>
                         <span class = "toast_cancelbtn">取消</span>`;
@@ -80,6 +80,14 @@ class Toast extends UI {
     closeConfirm() {
         $(this.getBtnDom().dom).hide();
         document.body.classList.remove('bg_hover');
+    }
+
+    updateUI(config) {
+        if (config) {
+            this._teplMap = config.teplMap;
+            $(this._hook).empty();
+            this.initDom();
+        }
     }
 }
 UI.registerComponent('Toast', Toast);

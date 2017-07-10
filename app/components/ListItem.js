@@ -40,7 +40,7 @@ class ListItem extends UI {
                         </div>
                     </div>`;
 
-            if (i + 1 < this.options.map.length) {
+            if (i < _map.length -1) {
                 html += splitLineHTML;
             }
         }
@@ -52,7 +52,7 @@ class ListItem extends UI {
 
     initEventFn() {
         let item = this.selector();
-        $(document).on('click', item, (e) => {
+        $(document).on('tap', item, (e) => {
             this.fn(e);
         });
         // 绑定触摸事件
@@ -77,7 +77,7 @@ class ListItem extends UI {
                 this.options.beforeTap();
             }
             if (this.options.onTap) {
-                this.options.onTap(selected, $this);
+                this.options.onTap(index,selected, $this);
             }
             if (this.options.afterTap) {
                 this.options.afterTap();

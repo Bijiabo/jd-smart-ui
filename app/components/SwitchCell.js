@@ -39,8 +39,7 @@ class SwitchCell extends UI {
                 </div>`;
 
         $(this._hook).append(html);
-
-        this.value = '0';
+        this.value = this.options.value;
     }
 
     get title() {
@@ -92,8 +91,8 @@ class SwitchCell extends UI {
     }
 
     unbindSwitchActions() {
-        $(document).off('tap', this.tapElementSelector);
-        $(document).off('drag', this.tapElementSelector);
+        // $(document).off('tap', this.tapElementSelector);
+        // $(document).off('drag', this.tapElementSelector);
     }
 
     initEventFn() {
@@ -115,7 +114,7 @@ class SwitchCell extends UI {
             $(this.getCheckBox()).prop('checked', true);
             labelElement.addClass('checked')
             if (this.options.type === SwitchCell.type.power) {
-                labelElement.removeClass('active-block active-border');
+                labelElement.removeClass('active-block active-border').addClass('theme-text');
             } else {
                 labelElement.addClass('theme-block-in-after theme-border')
             }
@@ -124,7 +123,7 @@ class SwitchCell extends UI {
             $(this.getCheckBox()).prop('checked', false);
             labelElement.removeClass('checked');
             if (this.options.type === SwitchCell.type.power) {
-                labelElement.addClass('active-block active-border');
+                labelElement.addClass('active-block active-border').removeClass('theme-text');
             } else {
                 labelElement.removeClass('theme-block-in-after theme-border')
             }
@@ -143,14 +142,14 @@ class SwitchCell extends UI {
     disable() {
         super.disable();
         $(this._hook).addClass('disabled');
-        this.unbindSwitchActions();
+        // this.unbindSwitchActions();
         $(this.getCheckBox()).attr('disabled', 'disabled');
     }
 
     enable() {
         super.enable();
         $(this._hook).removeClass('disabled');
-        this.bindSwitchActions();
+        // this.bindSwitchActions();
         $(this.getCheckBox()).removeAttr('disabled');
     }
 }
