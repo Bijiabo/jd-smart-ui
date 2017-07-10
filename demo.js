@@ -119,7 +119,7 @@ var swiper2 = new JDUI.instance.SwiperSlide({
     showTip: true,
     min: 0,
     max: 100,
-    defaultValue: 20,
+    defaultValue: 50,
     step: 1,
     afterUserChanged: function(val, label) {
         console.log('afterUserChanged', val, label);
@@ -133,7 +133,7 @@ var swiper2 = new JDUI.instance.SwiperSlide({
     }
 });
 
-swiper2.value = '40';
+
 
 var swiperStep = new JDUI.instance.SwiperSlide({
     title: '带刻度的滑动条',
