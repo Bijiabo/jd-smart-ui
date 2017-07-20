@@ -105,6 +105,7 @@ var swiper = new JDUI.instance.SwiperSlide({
     min: 10,
     max: 39,
     step: 1,
+    showUnitValue: false,
     defaultValue: 30,
     unit: '℃',
     afterUserChanged: function(val, label) {
@@ -119,6 +120,7 @@ var swiper2 = new JDUI.instance.SwiperSlide({
     showTip: true,
     min: 0,
     max: 100,
+    showUnitValue: true,
     defaultValue: 50,
     step: 1,
     afterUserChanged: function(val, label) {
