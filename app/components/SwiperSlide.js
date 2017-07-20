@@ -19,6 +19,7 @@ class SwiperSlide extends UI {
             max: 100,
             step: 1,
             defaultValue: 0,
+            showUnitValue: true,
             unit: '',
             beforeUserChanged: function(newVal, oldVal) {
                 return true;
@@ -182,7 +183,9 @@ class SwiperSlide extends UI {
 
     renderForValue(targetRenderValue) {
         if (this.options.type === SwiperSlide.type.withBtn || this.options.type === SwiperSlide.type.default) {
-            $(this._hook + ' .panel-title .value').text(targetRenderValue + this.options.unit);
+            if (this.options.showUnitValue) {
+                $(this._hook + ' .panel-title .value').text(targetRenderValue + this.options.unit);
+            }
         }
 
         let targetLeftPersentage;
