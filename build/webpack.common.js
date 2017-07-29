@@ -4,7 +4,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 
 module.exports = {
-    entry: './app/main.js',
+    entry: ['babel-polyfill', './app/main.js'],
     externals: {
         jquery: 'window.$'
     },

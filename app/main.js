@@ -2,6 +2,8 @@
 import './assets/style';
 import './assets/DateSelector';
 
+import 'babel-polyfill';
+
 import UI from './core/UI';
 
 import JDUICache from './core/JDUICache';
