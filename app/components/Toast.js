@@ -43,7 +43,8 @@ class Toast extends UI {
 
     initEventFn() {
         let hovers = 'list-item-hover';
-        $(document).on('tap', this.getBtnDom().spanWrap, (e) => {
+        $(document).on('click', this.getBtnDom().spanWrap, (e) => {
+            e.stopPropagation()
             let $this = $(e.currentTarget);
             if (e.target.classList[0] === 'toast_okBtn') {
                 this.options.letBtnFn(e);
@@ -61,7 +62,6 @@ class Toast extends UI {
         $(document).on('touchend', this.getBtnDom().spanWrap, (e) => {
             let $this = $(e.currentTarget);
             $this.removeClass('hovers');
-
         });
     }
 
