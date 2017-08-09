@@ -3,7 +3,7 @@ import './assets/style';
 import './assets/DateSelector';
 
 import 'babel-polyfill';
-
+import '../tool/webviewcheck'
 import UI from './core/UI';
 
 import JDUICache from './core/JDUICache';

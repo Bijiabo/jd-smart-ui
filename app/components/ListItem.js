@@ -1,5 +1,6 @@
 import UI from './../core/UI';
 var $ = require('jquery');
+const phone_type = global.PhoneType
 
 /**
  * 
@@ -55,16 +56,18 @@ class ListItem extends UI {
         $(document).on('tap', item, (e) => {
             this.fn(e);
         });
-        // 绑定触摸事件
-        const hoverClass = 'list-item-hover';
-        $(document).on('touchstart', item, (e) => {
-            const $this = $(e.currentTarget);
-            $this.addClass(hoverClass);
-        });
-        $(document).on('touchend', item, (e) => {
-            const $this = $(e.currentTarget);
-            $this.removeClass(hoverClass);
-        });
+        if(phone_type === 'ios'){
+            // 绑定触摸事件
+            const hoverClass = 'list-item-hover';
+            $(document).on('touchstart', item, (e) => {
+                const $this = $(e.currentTarget);
+                $this.addClass(hoverClass);
+            });
+            $(document).on('touchend', item, (e) => {
+                const $this = $(e.currentTarget);
+                $this.removeClass(hoverClass);
+            });
+        }
     }
 
     fn(e) {
