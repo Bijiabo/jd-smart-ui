@@ -301,8 +301,7 @@ var confirm2 = new JDUI.instance.Toast({
         title: '温馨提示',
         content: 'Hello JimmyJimmy, My Name Is Mr.Prince.Hello JimmyJimmy, My Name Is Mr.Prince.'
     },
-    confirmBtn: function() {
-        console.log('haha');
+    confirmBtn: function(e) {
         confirm2.closeConfirm();
     }
 });

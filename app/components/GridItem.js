@@ -1,19 +1,19 @@
 import UI from './../core/UI';
 const $ = require("jquery");
-
-/**
- *  options中的参数
- *      title => 要显示的标题
- *      hook  => dom的钩子
- *      gridNum => 一行的数量
- *      map => 要添加的子元素
- *          {
- *              icon => iconfont编码，
- *              text => 子元素模块名称,
- *              val => 对应的下发的值
- *          }
- *     
- */
+const phone_type = global.PhoneType
+    /**
+     *  options中的参数
+     *      title => 要显示的标题
+     *      hook  => dom的钩子
+     *      gridNum => 一行的数量
+     *      map => 要添加的子元素
+     *          {
+     *              icon => iconfont编码，
+     *              text => 子元素模块名称,
+     *              val => 对应的下发的值
+     *          }
+     *     
+     */
 
 const activeClass = 'active-block active-border';
 
@@ -70,16 +70,18 @@ class GridItem extends UI {
         $(document).on('tap', selector, (e) => {
             this.fn(e);
         });
-        // 绑定触摸事件
-        const hoverClass = 'grid-item-hover';
-        $(document).on('touchstart', selector, (e) => {
-            const $this = $(e.currentTarget);
-            $this.addClass(hoverClass);
-        });
-        $(document).on('touchend', selector, (e) => {
-            const $this = $(e.currentTarget);
-            $this.removeClass(hoverClass);
-        });
+        if (phone_type === 'ios') {
+            // 绑定触摸事件
+            const hoverClass = 'grid-item-hover';
+            $(document).on('touchstart', selector, (e) => {
+                const $this = $(e.currentTarget);
+                $this.addClass(hoverClass);
+            });
+            $(document).on('touchend', selector, (e) => {
+                const $this = $(e.currentTarget);
+                $this.removeClass(hoverClass);
+            });
+        }
     }
 
     fn(e) {
