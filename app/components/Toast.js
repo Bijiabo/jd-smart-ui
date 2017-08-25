@@ -39,6 +39,10 @@ class Toast extends UI {
                     </div>
                 </div>`;
         $(this._hook).append(html);
+        $(this.getBtnDom().dom).css({
+            "opacity": '0',
+            "display": 'none'
+        })
     }
 
     initEventFn() {
@@ -73,12 +77,18 @@ class Toast extends UI {
     }
 
     openConfirm() {
-        $(this.getBtnDom().dom).show();
+        $(this.getBtnDom().dom).css({
+            "opacity": '1',
+            "display": 'block'
+        });
         document.body.classList.add('bg_hover');
     }
 
     closeConfirm() {
-        $(this.getBtnDom().dom).hide();
+        $(this.getBtnDom().dom).css({
+            "opacity": '0',
+            "display": 'none'
+        });
         document.body.classList.remove('bg_hover');
     }
 

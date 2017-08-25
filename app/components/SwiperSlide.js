@@ -75,6 +75,8 @@ class SwiperSlide extends UI {
                     <div class="contorlPanel flex-right">
                         <span class="plus-button" data-value ="plusBtn">+</span>
                         <span class="minus-button" data-value ="minusBtn">-</span>
+                        <span class="disabled_plus"></span>
+                        <span class="disabled_minus"></span>
                     </div>
                     `;
         }
@@ -246,6 +248,13 @@ class SwiperSlide extends UI {
         };
     }
 
+    get btnDisabled() {
+        return {
+            disabled_plus: $(this._hook + ' .disabled_plus'),
+            disabled_minus: $(this._hook + ' .disabled_minus')
+        }
+    }
+
     get onSliding() {
         return this._onSliding || false;
     }
@@ -325,6 +334,16 @@ class SwiperSlide extends UI {
                     this.options.onChange(this.value);
                 }
             }
+            if ((this.value < this.options.max) && (this.value > this.options.min)) {
+                this.btnDisabled.disabled_plus.hide()
+                this.btnDisabled.disabled_minus.hide()
+            } else if (this.value === this.options.max) {
+                this.btnDisabled.disabled_plus.show()
+                this.btnDisabled.disabled_minus.hide()
+            } else if (this.value === this.options.min) {
+                this.btnDisabled.disabled_minus.show()
+                this.btnDisabled.disabled_plus.hide()
+            }
         })
     }
 
@@ -345,6 +364,12 @@ class SwiperSlide extends UI {
     bindEvent_tapPlusButton() {
         $(document).on('tap', this.handleButton.plus.selector, () => {
             this.value = Number(this.value) + 1;
+            this.btnDisabled.disabled_minus.hide()
+            if (Number(this.value) === this.options.max) {
+                this.btnDisabled.disabled_plus.show()
+            } else {
+                this.btnDisabled.disabled_plus.hide()
+            }
             if (this.options.onPlus) {
                 this.options.onPlus(this.value);
             }
@@ -354,6 +379,12 @@ class SwiperSlide extends UI {
     bindEvent_tapMinusButton() {
         $(document).on('tap', this.handleButton.minus.selector, () => {
             this.value = Number(this.value) - 1;
+            this.btnDisabled.disabled_plus.hide()
+            if (Number(this.value) === this.options.min) {
+                this.btnDisabled.disabled_minus.show()
+            } else {
+                this.btnDisabled.disabled_minus.hide()
+            }
             if (this.options.onMinus) {
                 this.options.onMinus(this.value);
             }
