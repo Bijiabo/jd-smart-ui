@@ -484,6 +484,28 @@ $defineBorderRaduis: 5px;
         border-bottom-left-radius: 0;
         border-top-left-radius: 0;
     }
+    .disabled_plus {
+        background: #eee;
+        opacity: 0.5;
+        z-index: 9;
+        position: absolute;
+        left: 19px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        height: 33px;
+        display: none;
+    }
+    .disabled_minus {
+        background: #eee;
+        opacity: 0.5;
+        z-index: 9;
+        position: absolute;
+        left: 70px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        height: 33px;
+        display: none;
+    }
 }
 
 
@@ -632,12 +654,12 @@ label.switch-cell-label-switch.checked::after {
 
 .confirmHover {
     position: fixed;
-    width: 100%;
-    height: 100%;
     background: rgba(75, 75, 75, 0.65) !important;
     z-index: 998;
     top: 0;
     left: 0;
+    right: 0;
+    bottom: 0;
     display: none;
 }
 
