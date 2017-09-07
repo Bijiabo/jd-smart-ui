@@ -21,10 +21,10 @@ class Toast extends UI {
         let btnWrap = ``;
 
         if (this._type === 'one') {
-            btnWrap = `<span class = "toast_confirmBtn">知道了</span>`;
+            btnWrap = `<span class = "toast_confirmBtn">${this._teplMap.btnWord}</span>`;
         } else if (this._type === 'two') {
-            btnWrap = `<span class = "toast_okBtn">确定</span>
-                        <span class = "toast_cancelbtn">取消</span>`;
+            btnWrap = `<span class = "toast_okBtn">${this._teplMap.btnWord.left}</span>
+                        <span class = "toast_cancelbtn">${this._teplMap.btnWord.right}</span>`;
         }
 
         html += `<div class="confirmHover">
