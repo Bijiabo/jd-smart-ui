@@ -61,6 +61,13 @@ var gridItem = new JDUI.instance.GridItem({
     }
 });
 
+/**
+ * 设置不可用
+ */
+gridItem.setItemDisabled({
+    index:['0','1']
+})
+
 var listitem = new JDUI.instance.ListItem({
     title: "列表",
     hook: ".list-item-wrap",
@@ -281,7 +288,11 @@ var confirm1 = new JDUI.instance.Toast({
     type: 'two',
     teplMap: {
         title: '温馨提示',
-        content: 'Hello JimmyJimmy, My Name Is Mr.Prince.Hello JimmyJimmy, My Name Is Mr.Prince.'
+        content: 'Hello JimmyJimmy, My Name Is Mr.Prince.Hello JimmyJimmy, My Name Is Mr.Prince.',
+        btnWord:{
+            left:'确定',
+            right:'取消'
+        }
     },
     letBtnFn: function(e) {
         confirm1.closeConfirm();
@@ -299,7 +310,8 @@ var confirm2 = new JDUI.instance.Toast({
     type: 'one',
     teplMap: {
         title: '温馨提示',
-        content: 'Hello JimmyJimmy, My Name Is Mr.Prince.Hello JimmyJimmy, My Name Is Mr.Prince.'
+        content: 'Hello JimmyJimmy, My Name Is Mr.Prince.Hello JimmyJimmy, My Name Is Mr.Prince.',
+        btnWord:'知道了'
     },
     confirmBtn: function(e) {
         confirm2.closeConfirm();
@@ -309,7 +321,8 @@ var confirm2 = new JDUI.instance.Toast({
 confirm2.updateUI({
     teplMap: {
         title: 'new',
-        content: 'hello world'
+        content: 'hello world',
+        btnWord:'知道了'
     }
 })
 
