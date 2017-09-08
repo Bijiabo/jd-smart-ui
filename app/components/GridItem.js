@@ -89,8 +89,9 @@ class GridItem extends UI {
         let index = _this.data('mode-index');
         let item = this.options.map[Number(index)];
         let _map = this._unclickMap;
+        let _map2 = this._dismisclickMap;
 
-        if (_map.indexOf(index.toString()) === -1) {
+        if ((_map.indexOf(index.toString()) === -1) || (_map2.indexOf(index.toString()) !==  -1 )) {
             this.selected(index, _this);
             //before
             if (this.options.beforeTap) {
@@ -162,6 +163,17 @@ class GridItem extends UI {
         for (let i of _map) {
             let _item = `${selector}[value=${i}]`;
             $(_item).addClass("disabled");
+        }
+    }
+
+    setItemEnabled(map){
+        let _map = map.index;
+        this._dismisclickMap = _map;
+        let selector = this.selectorDom();
+        for(let i of _map){
+            let _item = `${selector}[value=${i}]`;
+            console.log(_item);
+            $(_item).removeClass("disabled 44");
         }
     }
 

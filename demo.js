@@ -5,7 +5,7 @@
 var gridItem = new JDUI.instance.GridItem({
     title: "模式选择",
     hook: ".grid-item-wrap",
-    gridNum: '4',
+    gridNum: '3',
     value: '0',
     map: [{
         icon: "&#xe681;",
@@ -62,11 +62,19 @@ var gridItem = new JDUI.instance.GridItem({
 });
 
 /**
- * 设置不可用
+ * 设置某项不可用
  */
 gridItem.setItemDisabled({
     index:['0','1']
 })
+
+/**
+ * 设置某项可用
+ */
+gridItem.setItemEnabled({
+    index:['0']
+})
+
 
 var listitem = new JDUI.instance.ListItem({
     title: "列表",
@@ -86,7 +94,7 @@ var listitem = new JDUI.instance.ListItem({
 
     },
     onTap: function(index, item, context) {
-        console.log(index, item, context);
+        window.location.href = './work/index.html'
     },
     afterTap: function() {
 
