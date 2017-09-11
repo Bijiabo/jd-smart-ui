@@ -88,8 +88,8 @@ class GridItem extends UI {
         let _this = $(e.currentTarget);
         let index = _this.data('mode-index');
         let item = this.options.map[Number(index)];
-        let _map = this._unclickMap;
-        let _map2 = this._dismisclickMap;
+        let _map = this._unclickMap || [];
+        let _map2 = this._dismisclickMap || [];
 
         if ((_map.indexOf(index.toString()) === -1) || (_map2.indexOf(index.toString()) !==  -1 )) {
             this.selected(index, _this);

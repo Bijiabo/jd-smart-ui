@@ -71,9 +71,9 @@ gridItem.setItemDisabled({
 /**
  * 设置某项可用
  */
-gridItem.setItemEnabled({
-    index:['0']
-})
+// gridItem.setItemEnabled({
+//     index:['0']
+// })
 
 
 var listitem = new JDUI.instance.ListItem({
