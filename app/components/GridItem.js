@@ -173,7 +173,7 @@ class GridItem extends UI {
         for(let i of _map){
             let _item = `${selector}[value=${i}]`;
             console.log(_item);
-            $(_item).removeClass("disabled 44");
+            $(_item).removeClass("disabled");
         }
     }
 
