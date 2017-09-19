@@ -65,15 +65,15 @@ var gridItem = new JDUI.instance.GridItem({
  * 设置某项不可用
  */
 gridItem.setItemDisabled({
-    index:['0','1']
+    index:['0','1','2']
 })
 
 /**
  * 设置某项可用
  */
-// gridItem.setItemEnabled({
-//     index:['0']
-// })
+gridItem.setItemEnabled({
+    index:['0']
+})
 
 
 var listitem = new JDUI.instance.ListItem({
