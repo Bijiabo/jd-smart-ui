@@ -9,7 +9,7 @@ module.exports = {
         jquery: 'window.$'
     },
     output: {
-        filename: 'sdk.js',
+        filename: 'jdsmartUI.js',
         path: path.resolve(__dirname, '../dist')
     },
     resolve: {
