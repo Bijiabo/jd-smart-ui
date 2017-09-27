@@ -11,5 +11,6 @@ import Selector from './components/Selector';
 import SwiperSlide from './components/SwiperSlide';
 import SwitchCell from './components/SwitchCell';
 import Toast from './components/Toast';
+import WorkStep from './components/WorkStep';
 
-export default {DateScroll, DateScroll_Slide, GridItem, ListItem, MultiScroll, RemoteControl, ScrollSelector, Selector, SwiperSlide, SwitchCell, Toast};
+export default {DateScroll, DateScroll_Slide, GridItem, ListItem, MultiScroll, RemoteControl, ScrollSelector, Selector, SwiperSlide, SwitchCell, Toast, WorkStep};

@@ -15,16 +15,23 @@ define(function(){
             });
         },
         getDeviceStatus:function(){
+            var _ = this;
             pJD.getDeviceStatus(function(res){
                 if(res){
                     console.log(res)
+                    _.render();
                 }
             })
         },
         bindPushData:function(){
+            var _ = this;
             pJD.bindPushData(function(res){
                 console.log(res)
+                _.render()
             })
+        },
+        render:function(){
+            // bla bla bla ....~~~~
         }
     }
     return APP;
