@@ -153,10 +153,12 @@ dd {
 }
 
 @font-face {
-    font-family: 'iconfont';
-    /* project id 87760 */
-    src: url('https://at.alicdn.com/t/font_svndvyyea8fo5hfr.eot');
-    src: url('https://at.alicdn.com/t/font_svndvyyea8fo5hfr.eot?#iefix') format('embedded-opentype'), url('https://at.alicdn.com/t/font_svndvyyea8fo5hfr.woff') format('woff'), url('https://at.alicdn.com/t/font_svndvyyea8fo5hfr.ttf') format('truetype'), url('https://at.alicdn.com/t/font_svndvyyea8fo5hfr.svg#iconfont') format('svg');
+    font-family: 'iconfont';  /* project id 87760 */
+    src: url('https://at.alicdn.com/t/font_87760_0iqpzyiw566o5hfr.eot');
+    src: url('https://at.alicdn.com/t/font_87760_0iqpzyiw566o5hfr.eot?#iefix') format('embedded-opentype'),
+    url('https://at.alicdn.com/t/font_87760_0iqpzyiw566o5hfr.woff') format('woff'),
+    url('https://at.alicdn.com/t/font_87760_0iqpzyiw566o5hfr.ttf') format('truetype'),
+    url('https://at.alicdn.com/t/font_87760_0iqpzyiw566o5hfr.svg#iconfont') format('svg');
 }
 
 .iconfont {
@@ -883,3 +885,50 @@ label.switch-cell-label-switch.checked::after {
     }
     
 }
+
+/*------workstep-----*/
+.work-step-content{
+    position: relative;
+    padding: 10px 10px;
+    box-sizing: border-box;
+  }
+  .work-step-content>ul>li{
+    position: relative;
+    height: 50px;
+  }
+  .work-step-content>ul>li>div{
+    display: inline-block;
+    font-size: 18px;
+    
+  }
+  .work-step-content>ul>li>div>span{
+    // color: rgb(50, 50, 50);
+  }
+  .work-step-content>ul>li>div>span:first-child{
+    font-size: 18px;
+  }
+  .work-step-content>ul>li>div>span:last-child{
+    padding-left: 15px;
+  }
+  
+  .work-step-content>ul>li::after{
+    content: '';
+    width: 1px;
+    height: 20px;
+    background: rgb(144, 144, 144);
+    position: absolute;
+    bottom: 2px;
+    left: 8px;
+  }
+  .work-step-content>ul>li:last-child::after{
+    display: none;
+  }
+  
+  .work-step-content>ul>li.onStep>div>span{
+    // color: rgb(31, 192, 139);
+  }
+
+
+  .work-step-content>ul>li.isWait>div>span{
+    color: rgb(144, 144, 144);
+  }

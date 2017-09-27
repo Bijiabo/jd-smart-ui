@@ -345,6 +345,19 @@ com_btn2.addEventListener('click', (e) => {
 }, false);
 
 
+// var WorkStep = new JDUI.instance.WorkStep({
+//     workstep:[{
+//         labelname:'step one',
+//         labelvalue:[]
+//     },{
+//         labelname:'step two',
+//         labelvalue:[]
+//     },{
+//         labelname:'step three',
+//         labelvalue:[]
+//     }]
+// })
+
 // test disable()
 (function disableAllComponents() {
     gridItem.disable();
