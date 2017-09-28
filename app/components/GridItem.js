@@ -181,7 +181,7 @@ class GridItem extends UI {
         super.disable();
         $(this.options.hook).addClass("disabled");
         const selector = this.selectorDom();
-        $(document).off("click", selector);
+        //$(document).off("click", selector);
     }
 
     enable() {

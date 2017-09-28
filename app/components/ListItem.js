@@ -138,17 +138,13 @@ class ListItem extends UI {
     disable(){
         super.disable();
         let selector = this.selector();
-        $(selector).addClass("disabled");
-        $(document).off("click",selector);
+        $(this.options.hook).addClass("disabled");
     }
 
     enable(){
         super.enable();
         let selector = this.selector();
-        $(selector).removeClass("disabled");
-        $(document).on("click",selector,(e)=>{
-            this.fn(e);
-        });
+        $(this.options.hook).removeClass("disabled");
     }
 }
 
