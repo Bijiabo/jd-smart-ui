@@ -75,7 +75,6 @@ gridItem.setItemEnabled({
     index:['0']
 })
 
-
 var listitem = new JDUI.instance.ListItem({
     title: "列表",
     hook: ".list-item-wrap",
@@ -94,7 +93,8 @@ var listitem = new JDUI.instance.ListItem({
 
     },
     onTap: function(index, item, context) {
-        window.location.href = './work/index.html'
+        // window.location.href = './work/index.html'
+        console.log(index);
     },
     afterTap: function() {
 
@@ -110,7 +110,6 @@ listitem.updateItem({
         rightTitle: ""
     }
 });
-
 
 
 var swiper = new JDUI.instance.SwiperSlide({
