@@ -17,7 +17,7 @@
     - [通用方法](#通用方法)
 - [现有组件](#现有组件)
 - [设定主题色](#设定主题色)
-
+- [pJD](#pJD)
 ## 本地开发
 
 安装依赖：
@@ -95,8 +95,8 @@ listItem.updateValue('2');
 - [ListItem](./documents/components/ListItem.md)
 - [SwiperSlide](./documents/components/SwiperSlide.md)
 - [SwitchCell](./documents/components/SwitchCell.md)
-
-
+- [Toast]()
+- [WorkStep]()
 ## 设定主题色
 
 原则上，不同项目对应不同的产品品类，所有组件应遵循该品类应有的主题色，符合标准的组件，可以随项目页面主题色切换不同的高亮着色显示效果，业务逻辑开发中，只需一行代码即可更新整个页面的颜色显示效果。
@@ -104,3 +104,60 @@ listItem.updateValue('2');
 ```JavaScript
 JDUI.style.themeColor = '#3E5266';
 ```
+
+## pJD
+为了方便开发， 以及结合阿里智能的api逻辑，封装了一层京东微联的sdk，从而统一接口开发，方便初级者。
+
+现有接口
+ > `ready`
+ 
+注册
+
+```JavaScript
+pJD.ready(function(){
+    //code      
+})
+```
+
+ >   `getDeviceStatus`
+
+初始化数据
+```JavaScript
+ //初始化
+ pJD.getDeviceStatus(function(data){
+    //data   
+ })
+```
+> `bindPushData`
+
+绑定推送的数据，js中绑定的定时函数，每2s轮询一次服务器查询数据，当有参数的数据发生变化时，则推送data，没有变化时，则不推送。
+```JavaScript
+pJD.bindPushData(function(data){
+    //data
+})
+```
+>  `setDeviceStatus`
+
+发送指令接口
+发送的对象结构
+```JSON
+{
+    "WorkMode":{
+        "value":"1"
+    },
+    "OnOff_Power":{
+        "value":"1"
+    }
+}
+```
+接口使用
+```JavaScript
+pJD.setDeviceStatus({
+    WorkMode:{
+        value:"1"
+    }
+});
+```
+>  其他接口
+
+待更新.....
