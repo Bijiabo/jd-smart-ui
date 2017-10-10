@@ -2,7 +2,7 @@
  * 为了方便开发，方便调用，同时为了减少代码中轮询，封装一层jdsmartsdk
  * 
  * 使用方法
- * 
+ * 注册            pJD.ready()
  * 获取初始化数据   pJD.getDeviceStatus()
  * 获取推送数据     pJD.bindPushData()
  * 下发命令         pJD.setDeviceStatus({

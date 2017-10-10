@@ -109,6 +109,16 @@ JDUI.style.themeColor = '#3E5266';
 为了方便开发， 以及结合阿里智能的api逻辑，封装了一层京东微联的sdk，从而统一接口开发，方便初级者。
 
 现有接口
+ > `ready`
+ 
+注册
+
+```JavaScript
+pJD.ready(function(){
+    //code      
+})
+```
+
  >   `getDeviceStatus`
 
 初始化数据
