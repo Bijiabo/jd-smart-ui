@@ -202,6 +202,8 @@ var swithCell = new JDUI.instance.SwitchCell({
     }
 });
 
+swithCell.value = '0'
+
 var swithCell2 = new JDUI.instance.SwitchCell({
     title: '开关',
     type: JDUI.type.SwitchCell.switch, //JD、jd标准样式、 Ali、阿里标准样式
