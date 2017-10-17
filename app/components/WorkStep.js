@@ -47,19 +47,19 @@ import UI from './../core/UI';
  * @class WorkStep
  */
 
-class WorkStep extends UI{
-  constructor(options){
-    super(options)
-    this.config = options
-    this.hook = this.config.hook
-    this.createDOM()
-  }
+class WorkStep extends UI {
+    constructor(options) {
+        super(options)
+        this.config = options
+        this.hook = this.config.hook
+        this.createDOM()
+    }
 
-  createDOM(){
-    let html = `<ul>`;
-    this.workStep = this.config.workstep
-    this.workStep.forEach((ele) => {
-      html += `
+    createDOM() {
+        let html = `<ul>`;
+        this.workStep = this.config.workstep
+        this.workStep.forEach((ele) => {
+            html += `
         <li class="isWait">
           <div>
             <span class="leftIcon iconfont">&#xe673;</span>
@@ -67,67 +67,74 @@ class WorkStep extends UI{
           </div>
         </li>
       `
-    });
-    html = `<div class="panel"><div class="work-step-content">${html}</div></div>`;
-    $(this.hook).append(html)
-  }
-
-  update(workstatus){
-    $(this.hook).empty();
-    if(!workstatus){
-      return;
+        });
+        html = `<div class="panel"><div class="work-step-content">${html}</div></div>`;
+        $(this.hook).append(html)
     }
-     //判断当前workstauts处于哪一阶段
-    let step = this.checkStatusStep(workstatus)
-    this.render(step)
-  }
 
-  checkStatusStep(workstatus){
-    let step = 0;
-    this.workStep.forEach((ele,index) => {
-      if(ele.labelvalue.includes(workstatus)){
-        step = index 
-        return
-      }
-    });
-    return step;
-  }
+    updateLabel(index, label) {
+        if (index < 0) {
+            return
+        }
+        $(this.hook).find('li').eq(index).find('.rightContent').html(label)
+    }
 
-  render(step){
-    let html = `<ul>`;
-    this.workStep.forEach((ele,index) => {
-      if(index < step){
-        html += `
-          <li class="hasDone">
-          <div>
-            <span class="leftIcon iconfont">&#xe65b;</span>
-            <span class="rightContent">${ele.labelname}</span>
-          </div>
-        </li>
-        `
-      }else if(index === step) {
-        html += `
-          <li class="onStep">
-          <div class="theme-text">
-            <span class="leftIcon iconfont theme-text">&#xe687;</span>
-            <span class="rightContent theme-text">${ele.labelname} ${this.config.onSteplabelAfter ? this.config.onSteplabelAfter : ''}</span>
-          </div>
-        </li>
-        `
-      }else if(index > step) {
-        html += `
-          <li class="isWait">
-          <div>
-            <span class="leftIcon iconfont">&#xe673;</span>
-            <span class="rightContent">${ele.labelname}</span>
-          </div>
-        </li>
-        `
-      }
-    })
-    html = `<div class="panel"><div class="work-step-content">${html}</div></div>`;
-    $(this.hook).append(html)
-  }
+    update(workstatus) {
+        $(this.hook).empty();
+        if (!workstatus) {
+            return;
+        }
+        //判断当前workstauts处于哪一阶段
+        let step = this.checkStatusStep(workstatus)
+        this.render(step)
+    }
+
+    checkStatusStep(workstatus) {
+        let step = 0;
+        this.workStep.forEach((ele, index) => {
+            if (ele.labelvalue.includes(workstatus)) {
+                step = index
+                return
+            }
+        });
+        return step;
+    }
+
+    render(step, newlabelname, index) {
+        let html = `<ul>`;
+        this.workStep.forEach((ele, index) => {
+            if (index < step) {
+                html += `
+                  <li class="hasDone" data-index=${index}>
+                    <div>
+                      <span class="leftIcon iconfont">&#xe65b;</span>
+                      <span class="rightContent">${ele.labelname}</span>
+                    </div>
+                  </li>
+                `
+            } else if (index === step) {
+                html += `
+                  <li class="onStep" data-index=${index}>
+                    <div class="theme-text">
+                      <span class="leftIcon iconfont theme-text">&#xe687;</span>
+                      <span class="rightContent theme-text">${ele.labelname} ${this.config.onSteplabelAfter ? this.config.onSteplabelAfter : ''}</span>
+                    </div>
+                  </li>
+                  `
+            } else if (index > step) {
+                html += `
+                  <li class="isWait" data-index=${index}>
+                    <div>
+                      <span class="leftIcon iconfont">&#xe673;</span>
+                      <span class="rightContent">${ele.labelname}</span>
+                    </div>
+                  </li>
+                  `
+            }
+        })
+        html = `<div class="panel"><div class="work-step-content">${html}</div></div>`;
+        $(this.hook).append(html)
+    }
 }
 
 UI.registerComponent('WorkStep', WorkStep);
