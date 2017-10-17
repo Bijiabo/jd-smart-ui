@@ -65,14 +65,14 @@ var gridItem = new JDUI.instance.GridItem({
  * 设置某项不可用
  */
 gridItem.setItemDisabled({
-    index:['0','1','2']
+    index: ['0', '1', '2']
 })
 
 /**
  * 设置某项可用
  */
 gridItem.setItemEnabled({
-    index:['0']
+    index: ['0']
 })
 
 var listitem = new JDUI.instance.ListItem({
@@ -229,6 +229,7 @@ var swithCell3 = new JDUI.instance.SwitchCell({
     type: JDUI.type.SwitchCell.switch, //JD、jd标准样式、 Ali、阿里标准样式
     value: '0', //和正常一样，开1，关0
     hook: '.switch-cell3',
+    icon: '&#xe6c5;',
     map: {
         on: '1',
         off: '0'
@@ -298,9 +299,9 @@ var confirm1 = new JDUI.instance.Toast({
     teplMap: {
         title: '温馨提示',
         content: 'Hello JimmyJimmy, My Name Is Mr.Prince.Hello JimmyJimmy, My Name Is Mr.Prince.',
-        btnWord:{
-            left:'确定',
-            right:'取消'
+        btnWord: {
+            left: '确定',
+            right: '取消'
         }
     },
     letBtnFn: function(e) {
@@ -320,7 +321,7 @@ var confirm2 = new JDUI.instance.Toast({
     teplMap: {
         title: '温馨提示',
         content: 'Hello JimmyJimmy, My Name Is Mr.Prince.Hello JimmyJimmy, My Name Is Mr.Prince.',
-        btnWord:'知道了'
+        btnWord: '知道了'
     },
     confirmBtn: function(e) {
         confirm2.closeConfirm();
@@ -331,7 +332,7 @@ confirm2.updateUI({
     teplMap: {
         title: 'new',
         content: 'hello world',
-        btnWord:'知道了'
+        btnWord: '知道了'
     }
 })
 

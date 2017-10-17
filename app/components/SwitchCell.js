@@ -9,6 +9,7 @@ class SwitchCell extends UI {
             type: 'JD', //JD、jd标准样式、 Ali、阿里标准样式
             value: '0', //和正常一样，开1，关0
             hook: false,
+            icon: '',
             map: {
                 on: '1',
                 off: '0'
@@ -26,6 +27,7 @@ class SwitchCell extends UI {
 
         const html = `<div class="panel ${this.options.type === SwitchCell.type.power ? 'no-margin no-border-radius' : ''}">
                     <div class="switch-control flex-left">
+                        <div class="switch-icon iconfont">${this.options.icon}</div>
                         <div class="switch-title">${this.title}</div>
                         <div class="switch-btn-main">
                             <input type="checkbox" class="switch-cell-checkbox-${this.options.type === SwitchCell.type.power ? 'power' : 'switch'}">
