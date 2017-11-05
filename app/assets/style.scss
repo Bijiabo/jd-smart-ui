@@ -12,6 +12,9 @@ body {
     tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+em{
+    font-style: normal;
+}
 ul,
 li,
 dl,
@@ -862,6 +865,7 @@ label.switch-cell-label-switch.checked::after {
     height: 200px;
     overflow: hidden;
     display: flex;
+    display: -webkit-flex;
     justify-content: center;
     .scrollLine {
         position: absolute;
@@ -939,4 +943,10 @@ label.switch-cell-label-switch.checked::after {
 
 .work-step-content>ul>li.isWait>div>span {
     color: rgb(144, 144, 144);
+}
+
+/*ios8 兼容问题*/
+.flex-left, .flex-center, .flex-right, .flex-top, .flex-middle, .flex-bottom, .flex-vertical{
+    display: flex;
+    display: -webkit-flex;
 }

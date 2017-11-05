@@ -51,13 +51,17 @@
                         _.feedID = suc.device.feed_id;
                         _.deviceName = suc.device.device_name;
                         _.deviceStatus = suc.device.status;
+                        oldData = _.dataFactory(suc.streams);
                         if (!_.listenDeviceStatus(_.deviceStatus)) {
                             callback({
+                                data:_.dataFactory(suc.streams),
                                 status: "off"
                             })
                         } else {
-                            oldData = _.dataFactory(suc.streams);
-                            callback(_.dataFactory(suc.streams));
+                            callback({
+                                data:_.dataFactory(suc.streams),
+                                status:"on"
+                            });
                         }
                     }
                 }
@@ -112,16 +116,20 @@
                     }
 
                     if (suc) {
+                        newData = _.dataFactory(suc.streams);
+                        hasChange = _.filterDataWithOldAndNew();
                         if (!_.listenDeviceStatus(suc.status)) {
                             callback({
-                                status: 'off'
+                                status: 'off',
+                                data: newData
                             })
                         } else {
-                            newData = _.dataFactory(suc.streams);
-                            hasChange = _.filterDataWithOldAndNew();
                             if (hasChange && callback && typeof callback === 'function') {
                                 oldData = newData
-                                callback(newData)
+                                callback({
+                                    data:newData,
+                                    status: "on"
+                                })
                             }
                         }
                     }
@@ -192,7 +200,8 @@
          * 监听设备状态的变化
          * 如果状态发送变化，并且变化为不在线，则getDeviceStatus和bindPushData返回的是一个对象
          * {
-         *    status:"off"
+         *    data:{},
+         *    status:"off" //on or off
          * }
          * 根据这个判断就行
          * 如果为在线，则返回正常的参数对象
