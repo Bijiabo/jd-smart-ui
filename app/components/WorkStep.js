@@ -76,7 +76,7 @@ class WorkStep extends UI {
         if (index < 0) {
             return
         }
-        $(this.hook).find('li').eq(index).find('.rightContent').html(label)
+        $(this.hook).find('li').eq(index).find('.rightContent').find('.labelname').html(label)
     }
 
     update(workstatus) {
@@ -108,7 +108,7 @@ class WorkStep extends UI {
                   <li class="hasDone" data-index=${index}>
                     <div>
                       <span class="leftIcon iconfont">&#xe65b;</span>
-                      <span class="rightContent">${ele.labelname}</span>
+                      <span class="rightContent"><em class="labelname">${ele.labelname}</em></span>
                     </div>
                   </li>
                 `
@@ -117,7 +117,7 @@ class WorkStep extends UI {
                   <li class="onStep" data-index=${index}>
                     <div class="theme-text">
                       <span class="leftIcon iconfont theme-text">&#xe687;</span>
-                      <span class="rightContent theme-text">${ele.labelname} ${this.config.onSteplabelAfter ? this.config.onSteplabelAfter : ''}</span>
+                      <span class="rightContent theme-text"><em class="labelname">${ele.labelname}</em>${this.config.onSteplabelAfter ? this.config.onSteplabelAfter : ''}</span>
                     </div>
                   </li>
                   `
@@ -126,7 +126,7 @@ class WorkStep extends UI {
                   <li class="isWait" data-index=${index}>
                     <div>
                       <span class="leftIcon iconfont">&#xe673;</span>
-                      <span class="rightContent">${ele.labelname}</span>
+                      <span class="rightContent"><em class="labelname">${ele.labelname}</em></span>
                     </div>
                   </li>
                   `

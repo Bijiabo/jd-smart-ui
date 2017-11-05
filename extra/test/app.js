@@ -45,20 +45,12 @@ require(['./maindelux.js'],function(main){
             text: "模式8",
             value: "9"
         }],
-
-        beforeTap: function() {
-            console.log("before");
-        },
         onTap: function(item, index, content) {
             pJD.setDeviceStatus({
-            'WorkMode':{
-                "value": index.toString()
-            }
+                'WorkMode':{
+                    "value": index.toString()
+                }
             })
-        },
-        afterTap: function() {
-            console.log("after");
-
         }
     });
 

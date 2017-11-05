@@ -4,6 +4,7 @@ define(function(){
         Feed_Id: null,
         Trans_Data: {},
         Device_Status: null,
+        totalCount:0,
         /**
          * 初始化
          */
@@ -17,6 +18,7 @@ define(function(){
         getDeviceStatus:function(){
             var _ = this;
             pJD.getDeviceStatus(function(res){
+                console.log("get state =======> ", res);
                 if(res){
                     console.log(res)
                     _.render();
@@ -26,7 +28,12 @@ define(function(){
         bindPushData:function(){
             var _ = this;
             pJD.bindPushData(function(res){
-                console.log(res)
+                console.log("get state =======> ", res);
+                if(res.status === 'on'){
+                    console.log('在线');
+                }else{
+                    console.log('不在线');
+                }
                 _.render()
             })
         },
