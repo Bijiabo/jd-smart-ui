@@ -21,7 +21,7 @@
 ;
 (function() {
     var oldData = {};
-
+    var newData = {};
     var pJD = {
         deviceID: null,
         feedID: null,
@@ -52,6 +52,7 @@
                         _.deviceName = suc.device.device_name;
                         _.deviceStatus = suc.device.status;
                         oldData = _.dataFactory(suc.streams);
+                        console.log('init data',suc);
                         if (!_.listenDeviceStatus(_.deviceStatus)) {
                             callback({
                                 data:_.dataFactory(suc.streams),
@@ -101,7 +102,6 @@
             var _ = this;
             setInterval(function() {
                 _.getSnapshotInfo(callback);
-
             }, 2000)
         },
         //获取快照
@@ -114,22 +114,24 @@
                     if (typeof suc === 'string') {
                         suc = JSON.parse(suc)
                     }
-
+                    console.log('loop data', suc);
                     if (suc) {
-                        newData = _.dataFactory(suc.streams);
-                        hasChange = _.filterDataWithOldAndNew();
                         if (!_.listenDeviceStatus(suc.status)) {
                             callback({
                                 status: 'off',
                                 data: newData
                             })
                         } else {
-                            if (hasChange && callback && typeof callback === 'function') {
-                                oldData = newData
-                                callback({
-                                    data:newData,
-                                    status: "on"
-                                })
+                            if(suc.streams){
+                                newData = _.dataFactory(suc.streams);
+                                hasChange = _.filterDataWithOldAndNew();
+                                if (hasChange && callback && typeof callback === 'function') {
+                                    oldData = newData
+                                    callback({
+                                        data:newData,
+                                        status: "on"
+                                    })
+                                }
                             }
                         }
                     }
