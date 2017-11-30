@@ -20,6 +20,8 @@ class SwiperSlide extends UI {
             step: 1,
             defaultValue: 0,
             showUnitValue: true,
+            showTipUnit: true,
+            openSelectedStyle: false,
             unit: '',
             beforeUserChanged: function(newVal, oldVal) {
                 return true;
@@ -207,9 +209,38 @@ class SwiperSlide extends UI {
                 break;
         }
 
-        this.handlePoint.element
-            .css('left', `${targetLeftPersentage * 100}%`)
-            .attr('data-content', this.viewValue);
+        if(this.options.type === SwiperSlide.type.withPoints){
+            if(this.options.openSelectedStyle) this.renderPointsValue();
+        }
+
+        if(this._showTip){
+            this.handlePoint.element
+                .css('left', `${targetLeftPersentage * 100}%`)
+                .attr('data-content', this.viewValue + `${this.options.showTipUnit ? this.options.unit : ''}`);
+        }else{
+            this.handlePoint.element
+                .css('left', `${targetLeftPersentage * 100}%`)
+        }
+    }
+
+    renderPointsValue(){
+        const getDomPoints = $(`${this.options.hook} .swiper-control .with-points .point-container`);
+        //const index_selected = this.options.map.indexOf(this.viewValue);
+        let index_selected;
+        this.options.map.forEach((ele, index) => {
+            if((_.isObject(ele) ? ele.value : ele) === this.viewValue){
+                index_selected = index;
+            }
+        })
+        const newgetDomPoints = Array.from(getDomPoints);
+        newgetDomPoints.forEach((ele, index) =>{
+            if(index === index_selected){
+                $(ele).addClass('selected')
+            }else{
+                $(ele).removeClass('selected')
+            }
+        })
+        
     }
 
     afterSetViewValue() {

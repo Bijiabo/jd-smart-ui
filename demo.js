@@ -120,6 +120,8 @@ var swiper = new JDUI.instance.SwiperSlide({
     max: 39,
     step: 1,
     showUnitValue: false,
+    showTipUnit: true,
+    showTip: true,
     defaultValue: 30,
     unit: '℃',
     afterUserChanged: function(val, label) {
@@ -135,6 +137,7 @@ var swiper2 = new JDUI.instance.SwiperSlide({
     min: 0,
     max: 100,
     showUnitValue: true,
+    showTipUnit: false,
     defaultValue: 50,
     step: 1,
     afterUserChanged: function(val, label) {
@@ -155,6 +158,7 @@ var swiperStep = new JDUI.instance.SwiperSlide({
     title: '带刻度的滑动条',
     hook: '.swiper-step',
     showTip: false,
+    openSelectedStyle: true,
     type: JDUI.type.SwiperSlide.withPoints,
     map: ['10', '20', '40', '50', '70', '80', '90', '100'],
     defaultValue: '40',
@@ -166,6 +170,7 @@ var swiperStep = new JDUI.instance.SwiperSlide({
 var swiper_tow_points = new JDUI.instance.SwiperSlide({
     title: '风速调节',
     hook: '.wind-speed-bar',
+    openSelectedStyle: true,
     type: JDUI.type.SwiperSlide.withPoints,
     map: [{
             value: '0',
